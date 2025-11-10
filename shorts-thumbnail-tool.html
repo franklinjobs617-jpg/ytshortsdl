@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShortsSync | Free YouTube Shorts Thumbnail Downloader</title>
+
+    <!-- Core Tech Stack -->
+    <script src="https://cdn-tailwindcss.vercel.app/"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Font Library -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script>
+        // Customizing Tailwind to enforce our Design System
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: { DEFAULT: '#EF4444', dark: '#DC2626', light: '#FEE2E2' },
+                        slate: { 50: '#F8FAFC', 100: '#F1F5F9', 200: '#E2E8F0', 300: '#CBD5E1', 400: '#94A3B8', 500: '#64748B', 600: '#475569', 700: '#334155', 800: '#1E293B', 900: '#0F172A', }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="antialiased bg-slate-50 text-slate-700">
+
+    <!-- Header (Reused from our established design system) -->
+    <header class="py-4 px-6 md:px-12 sticky top-0 bg-white/80 backdrop-blur-xl z-50 border-b border-slate-200/80">
+        <nav class="flex justify-between items-center max-w-7xl mx-auto">
+            <a href="/" class="text-2xl font-bold font-poppins flex-shrink-0">Shorts<span
+                    class="text-primary">Sync</span>.io</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="/"
+                    class="font-medium text-slate-600 hover:text-primary transition-colors duration-300">Download
+                    Shorts</a>
+                <a href="/shorts-to-mp3"
+                    class="font-medium text-slate-600 hover:text-primary transition-colors duration-300">MP3 Audio</a>
+                <div class="relative group">
+                    <button class="font-medium text-primary flex items-center gap-2"><span>AI Tools</span><i
+                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i></button>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
+                        <a href="/ai/watermark-remover"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Watermark
+                            Remover</a><a href="/ai/transcript-generator"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Transcript
+                            Generator</a><a href="/ai/title-generator"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">AI
+                            Title Generator</a></div>
+                </div>
+                <a href="/about"
+                    class="font-medium text-slate-600 hover:text-primary transition-colors duration-300">About/Contact</a>
+                <div class="relative group">
+                    <button
+                        class="font-medium text-slate-600 hover:text-primary transition-colors duration-300 flex items-center gap-2"><span>Legal</span><i
+                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i></button>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-48 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
+                        <a href="/privacy"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Privacy
+                            Policy</a><a href="/terms"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Terms
+                            of Service</a></div>
+                </div>
+                <a href="/pricing"
+                    class="bg-slate-800 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-900 transition-all duration-300 transform hover:-translate-y-0.5 shadow-sm">Pricing</a>
+            </div>
+            <button class="md:hidden text-2xl text-slate-600"><i class="fas fa-bars"></i></button>
+        </nav>
+    </header>
+
+    <!-- Main Content for the Thumbnail Page -->
+    <main class="container mx-auto px-6 py-16 sm:py-24 space-y-16">
+
+        <!-- Hero Section for Thumbnail Tool -->
+        <section id="tool" class="text-center">
+            <h1
+                class="text-3xl md:text-5xl lg:text-5xl font-extrabold font-poppins leading-tight tracking-tighter text-slate-900">
+                Free YouTube Shorts Thumbnail Downloader: <br class="hidden md:block">Snatch That Perfect Still!
+            </h1>
+            <div class="mt-12 max-w-2xl mx-auto bg-white p-6 sm:p-8 rounded-2xl shadow-2xl border border-slate-200/50">
+                <p class="text-lg text-slate-600 mb-6">Paste any YouTube Shorts URL to view and download all available
+                    thumbnail sizes instantly.</p>
+                <form id="shorts-thumbnail-form" class="flex flex-col md:flex-row gap-4">
+                    <input type="url" id="shorts-url" placeholder="Paste YouTube Shorts Link Here..." required
+                        class="flex-grow w-full text-lg p-4 bg-slate-100 border-2 border-slate-200 rounded-lg shadow-inner focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-light focus:border-primary transition-all duration-300">
+                    <button type="submit"
+                        class="px-8 py-4 bg-primary text-white font-bold text-lg rounded-lg shadow-lg hover:bg-primary-dark transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95">
+                        Get Thumbnails
+                    </button>
+                </form>
+            </div>
+
+            <!-- Thumbnail Output Grid (Initially Hidden) -->
+            <div id="thumbnail-output" class="hidden mt-12 max-w-5xl mx-auto">
+                <h2 class="text-2xl font-bold font-poppins text-slate-800 mb-6">Available Thumbnails:</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Example of a dynamically generated thumbnail card -->
+                    <div class="bg-white rounded-xl shadow-lg border border-slate-200/50 overflow-hidden group">
+                        <img src="https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Max resolution thumbnail"
+                            class="w-full h-auto aspect-video object-cover">
+                        <div class="p-4">
+                            <h3 class="font-bold text-slate-800">Max Resolution</h3>
+                            <p class="text-sm text-slate-500 mb-3">1280 x 720 px</p>
+                            <a href="#"
+                                class="w-full inline-block text-center px-4 py-2 bg-slate-100 text-slate-700 font-semibold rounded-lg group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                                <i class="fas fa-download mr-2"></i>Download
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Other thumbnail sizes would be populated here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Dedicated Tool Section -->
+        <section id="why-dedicated"
+            class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/50 text-center max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-5">Why Use a Dedicated Thumbnail Downloader?
+            </h2>
+            <p class="text-slate-600 text-lg leading-relaxed">Don't waste time taking blurry screenshots. A dedicated
+                tool accesses the official thumbnail files, giving you the highest possible quality asset for blog
+                posts, social media link cards, or archival purposes. Our tool renders all options in less than 0.5
+                seconds—no waiting, just instant assets.</p>
+        </section>
+
+        <!-- All Resolutions Section -->
+        <article id="resolutions" class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/50">
+            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-8 text-center">All Resolutions: Find the
+                Perfect Size</h2>
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                <!-- Advice/Text Column -->
+                <div>
+                    <p class="text-lg text-slate-600 leading-relaxed mb-6">[INSERT_DRAFT_TEXT_1_RESOLUTION_ADVICE_HERE]
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start"><i class="fas fa-check text-primary mt-1.5 mr-3"></i>
+                            <div><strong class="text-slate-800">Maxresdefault (1280x720):</strong> Best for desktop,
+                                blog posts.</div>
+                        </li>
+                        <li class="flex items-start"><i class="fas fa-check text-primary mt-1.5 mr-3"></i>
+                            <div><strong class="text-slate-800">hqdefault (480x360):</strong> Good for social media
+                                previews.</div>
+                        </li>
+                        <li class="flex items-start"><i class="fas fa-check text-primary mt-1.5 mr-3"></i>
+                            <div><strong class="text-slate-800">mqdefault (320x180):</strong> Ideal for smaller embeds
+                                or link cards.</div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Visual Column -->
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div
+                            class="bg-slate-200 h-24 rounded-lg flex items-center justify-center text-slate-400 text-sm">
+                            Maxres</div>
+                        <div
+                            class="bg-slate-200 h-24 rounded-lg flex items-center justify-center text-slate-400 text-sm">
+                            hqdefault</div>
+                        <div
+                            class="bg-slate-200 h-24 rounded-lg flex items-center justify-center text-slate-400 text-sm">
+                            mqdefault</div>
+                        <div
+                            class="bg-slate-200 h-24 rounded-lg flex items-center justify-center text-slate-400 text-sm">
+                            sddefault</div>
+                    </div>
+                    <figcaption class="text-sm text-slate-500 italic mt-4 text-center">Official YouTube thumbnail
+                        resolutions extracted instantly.</figcaption>
+                </div>
+            </div>
+        </article>
+
+        <!-- How-to Guide & FAQ Section (Combined) -->
+        <section id="guide-faq" class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/50">
+            <div class="grid md:grid-cols-2 gap-x-16 gap-y-12 items-start">
+                <div>
+                    <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-8">How to Get Your Thumbnail in Seconds
+                    </h2>
+                    <ol class="space-y-6">
+                        <li class="flex items-center text-lg"><span
+                                class="flex items-center justify-center w-8 h-8 mr-4 bg-primary text-white font-bold rounded-full flex-shrink-0">1</span>
+                            <div><strong class="text-slate-800">Copy the URL:</strong> Get the share link for the
+                                YouTube Short.</div>
+                        </li>
+                        <li class="flex items-center text-lg"><span
+                                class="flex items-center justify-center w-8 h-8 mr-4 bg-primary text-white font-bold rounded-full flex-shrink-0">2</span>
+                            <div><strong class="text-slate-800">Paste & Click:</strong> Paste the URL above and hit 'Get
+                                Thumbnails Now'.</div>
+                        </li>
+                        <li class="flex items-center text-lg"><span
+                                class="flex items-center justify-center w-8 h-8 mr-4 bg-primary text-white font-bold rounded-full flex-shrink-0">3</span>
+                            <div><strong class="text-slate-800">Download:</strong> Right-click on your desired
+                                resolution and save the image.</div>
+                        </li>
+                    </ol>
+                </div>
+                <div>
+                    <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-8">Thumbnail FAQ & Creator Tips</h2>
+                    <div class="space-y-4">
+                        <details class="group bg-slate-50 p-4 rounded-lg cursor-pointer" open>
+                            <summary class="font-semibold text-slate-800 list-none flex justify-between items-center">
+                                Can I download the thumbnail of a deleted Short?<i
+                                    class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                            </summary>
+                            <p class="mt-2 text-slate-600 text-sm">No, we rely on the live API feed from YouTube. If the
+                                Short is deleted, the asset links will expire.</p>
+                        </details>
+                        <details class="group bg-slate-50 p-4 rounded-lg cursor-pointer">
+                            <summary class="font-semibold text-slate-800 list-none flex justify-between items-center">
+                                Why is the thumbnail 16:9 for a vertical short?<i
+                                    class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                            </summary>
+                            <p class="mt-2 text-slate-600 text-sm">YouTube often stores the highest quality thumbnail in
+                                a standard 16:9 format. You will need to crop the image to the 9:16 aspect ratio (e.g.,
+                                720x1280px) manually.</p>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <article id="full-video-cta" class="text-center">
+            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-4">Beyond the Thumbnail: Get the Full Video
+            </h2>
+            <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                [INSERT_DRAFT_TEXT_3_FULL_VIDEO_CTA_HERE]</p>
+            <div class="mt-10 flex flex-wrap justify-center gap-4">
+                <a href="/"
+                    class="px-8 py-4 bg-primary text-white font-bold text-lg rounded-lg shadow-lg hover:bg-primary-dark transition-all duration-300 transform hover:-translate-y-1">
+                    Download the Full Video &rarr;
+                </a>
+                <a href="/no-watermark"
+                    class="px-8 py-4 bg-slate-800 text-white font-bold text-lg rounded-lg shadow-lg hover:bg-slate-900 transition-all duration-300 transform hover:-translate-y-1">
+                    Remove Watermark (AI) &rarr;
+                </a>
+            </div>
+            <figcaption class="text-sm text-slate-500 italic mt-6">Get the full Short video, MP3 audio, and use our AI
+                tools for cross-platform success.</figcaption>
+        </article>
+
+    </main>
+
+    <!-- Footer (Reused from our established design system) -->
+    <footer class="bg-slate-800 text-slate-300 mt-16">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-1"><a href="/" class="text-2xl font-bold font-poppins">Shorts<span
+                            class="text-primary">Sync</span>.io</a>
+                    <p class="mt-4 text-sm text-slate-400 leading-relaxed">The ultimate tool for creators to download,
+                        optimize, and repurpose their YouTube Shorts content.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-white mb-4">Core Tools</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/" class="hover:text-primary transition-colors">Download Shorts (MP4)</a></li>
+                        <li><a href="/shorts-to-mp3" class="hover:text-primary transition-colors">MP3 Audio
+                                Extractor</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-white mb-4">AI Tools</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/ai/watermark-remover" class="hover:text-primary transition-colors">Watermark
+                                Remover</a></li>
+                        <li><a href="/ai/transcript-generator" class="hover:text-primary transition-colors">Transcript
+                                Generator</a></li>
+                        <li><a href="/ai/title-generator" class="hover:text-primary transition-colors">AI Title
+                                Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-white mb-4">Company</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/about" class="hover:text-primary transition-colors">About & Contact</a></li>
+                        <li><a href="/pricing" class="hover:text-primary transition-colors">Pricing</a></li>
+                        <li><a href="/privacy" class="hover:text-primary transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms" class="hover:text-primary transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-700 flex flex-col sm:flex-row justify-between items-center">
+                <p class="text-sm text-slate-400">&copy; 2024 ShortsSync.io. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0"><a href="#"
+                        class="text-slate-400 hover:text-primary transition-colors"><i
+                            class="fab fa-twitter text-xl"></i></a><a href="#"
+                        class="text-slate-400 hover:text-primary transition-colors"><i
+                            class="fab fa-youtube text-xl"></i></a><a href="#"
+                        class="text-slate-400 hover:text-primary transition-colors"><i
+                            class="fab fa-github text-xl"></i></a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JS for the dynamic thumbnail output
+        const form = document.getElementById('shorts-thumbnail-form');
+        const output = document.getElementById('thumbnail-output');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            // Simulate API call and show results
+            output.classList.remove('hidden');
+            output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    </script>
+</body>
+
+</html>

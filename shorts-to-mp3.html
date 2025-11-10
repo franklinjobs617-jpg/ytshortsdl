@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShortsSync | Free YouTube Shorts to MP3 Downloader</title>
+
+    <!-- Core Tech Stack -->
+    <script src="https://cdn-tailwindcss.vercel.app/"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Font Library -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Modern Glow Effect for the Hero Section */
+        .glow-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .glow-effect::before,
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+        }
+
+        .glow-effect::before {
+            background: #ef4444;
+            width: 500px;
+            height: 500px;
+            top: -150px;
+            left: -150px;
+        }
+
+        .glow-effect::after {
+            background: #3b82f6;
+            width: 400px;
+            height: 400px;
+            bottom: -150px;
+            right: -100px;
+        }
+    </style>
+    <script>
+        // Customizing Tailwind to enforce our Design System
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: { DEFAULT: '#EF4444', dark: '#DC2626', light: '#FEE2E2' },
+                        slate: { 50: '#F8FAFC', 100: '#F1F5F9', 200: '#E2E8F0', 300: '#CBD5E1', 400: '#94A3B8', 500: '#64748B', 600: '#475569', 700: '#334155', 800: '#1E293B', 900: '#0F172A', }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="antialiased bg-slate-50 text-slate-700">
+
+    <!-- Header (Reused from our established design system) -->
+    <header class="py-4 px-6 md:px-12 sticky top-0 bg-white/80 backdrop-blur-xl z-50 border-b border-slate-200/80">
+        <nav class="flex justify-between items-center max-w-7xl mx-auto">
+            <a href="/" class="text-2xl font-bold font-poppins flex-shrink-0">Shorts<span
+                    class="text-primary">Sync</span>.io</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="/"
+                    class="font-medium text-slate-600 hover:text-primary transition-colors duration-300">Download
+                    Shorts</a>
+                <a href="/shorts-to-mp3" class="font-medium text-primary transition-colors duration-300">MP3 Audio</a>
+                <div class="relative group">
+                    <button
+                        class="font-medium text-slate-600 hover:text-primary transition-colors duration-300 flex items-center gap-2"><span>AI
+                            Tools</span><i
+                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i></button>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
+                        <a href="/ai/watermark-remover"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Watermark
+                            Remover</a><a href="/ai/transcript-generator"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Transcript
+                            Generator</a><a href="/ai/title-generator"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">AI
+                            Title Generator</a>
+                    </div>
+                </div>
+                <a href="/about"
+                    class="font-medium text-slate-600 hover:text-primary transition-colors duration-300">About/Contact</a>
+                <div class="relative group">
+                    <button
+                        class="font-medium text-slate-600 hover:text-primary transition-colors duration-300 flex items-center gap-2"><span>Legal</span><i
+                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i></button>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-48 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
+                        <a href="/privacy"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Privacy
+                            Policy</a><a href="/terms"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Terms
+                            of Service</a>
+                    </div>
+                </div>
+                <a href="/pricing"
+                    class="bg-slate-800 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-900 transition-all duration-300 transform hover:-translate-y-0.5 shadow-sm">Pricing</a>
+            </div>
+            <button class="md:hidden text-2xl text-slate-600"><i class="fas fa-bars"></i></button>
+        </nav>
+    </header>
+
+    <!-- Main Content for the MP3 Page -->
+    <main>
+
+        <!-- Hero Section for MP3 Tool - UNCHANGED AS REQUESTED -->
+        <section id="tool-interface" class="relative text-center py-24 ">
+            <div class="glow-effect -z-10"></div>
+            <h1
+                class="text-3xl md:text-5xl lg:text-5xl font-extrabold font-poppins leading-tight tracking-tighter text-slate-900">
+                Free YouTube Shorts MP3 Downloader: <br class="hidden md:block">for High-Quality Audio
+            </h1>
+            <div class="mt-12 max-w-5xl mx-auto bg-white p-6 sm:p-8 rounded-2xl shadow-2xl border border-slate-200/50">
+                <p class="text-lg text-slate-600 mb-6">Snag the audio from any Short: Paste the URL below.</p>
+                <form id="shorts-audio-form"
+                    class="flex flex-col md:flex-row items-center gap-3 p-2 rounded-xl ring-1 ring-slate-200 focus-within:ring-2 focus-within:ring-primary/50 transition-shadow duration-300">
+                    <div class="relative w-full">
+                        <i class="fas fa-link absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="url" id="shorts-url" placeholder="Paste YouTube Shorts Link Here..." required
+                            class="w-full h-12 pl-10 pr-4 text-lg bg-transparent focus:outline-none text-slate-800 placeholder:text-slate-500">
+                    </div>
+                    <!-- SELECT LIST OPTIMIZED -->
+                    <div class="relative w-full md:w-auto">
+                        <select id="audio-format-select" name="format"
+                            class="appearance-none w-full md:w-auto h-12 pl-4 pr-10 text-md bg-transparent text-slate-800 font-medium focus:outline-none border-y-2 md:border-y-0 md:border-x-2 border-slate-200">
+                            <option value="mp3-high">MP3 (Best)</option>
+                            <option value="m4a">M4A (Apple)</option>
+                        </select>
+                        <i
+                            class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+                    </div>
+                    <button type="submit"
+                        class="w-full md:w-auto mt-2 md:mt-0 bg-gradient-to-br from-red-500 to-red-600 text-white font-bold text-lg px-6 py-3 rounded-lg flex-shrink-0 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-red-500/30 flex items-center justify-center space-x-3">
+                        <i class="fas fa-cogs"></i><span>Extract Audio</span>
+                    </button>
+                </form>
+            </div>
+            <div id="result-section-mp3" class="mt-16 max-w-4xl mx-auto hidden"></div>
+        </section>
+        <!-- Why Dedicated Tool Section -->
+        <section id="why-dedicated-tool" class="py-16 sm:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/50">
+                    <div class="grid md:grid-cols-2 gap-x-16 gap-y-10 items-center">
+                        <div>
+                            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-5">Why Use a Dedicated MP3
+                                Downloader?</h2>
+                            <p class="text-slate-600 text-lg leading-relaxed">You’re not just downloading; you're
+                                extracting creative assets. A dedicated audio tool ensures you get clean sound without
+                                unnecessary video files, which is crucial for sound designers, remixers, and content
+                                creators.</p>
+                        </div>
+                        <div class="bg-slate-50 p-8 rounded-xl border border-slate-200">
+                            <h3 class="font-display text-xl font-bold text-slate-800 mb-6">Key Benefits:</h3>
+                            <ul class="space-y-5 text-lg">
+                                <li class="flex items-start"><i
+                                        class="fas fa-check-circle text-primary mt-1.5 mr-3 text-xl"></i>
+                                    <div><strong class="text-slate-800">Pure Audio Stream:</strong> We isolate the
+                                        highest-fidelity audio track available.</div>
+                                </li>
+                                <li class="flex items-start"><i
+                                        class="fas fa-check-circle text-primary mt-1.5 mr-3 text-xl"></i>
+                                    <div><strong class="text-slate-800">Instant Conversion:</strong> Fast, browser-based
+                                        conversion means zero waiting.</div>
+                                </li>
+                                <li class="flex items-start"><i
+                                        class="fas fa-check-circle text-primary mt-1.5 mr-3 text-xl"></i>
+                                    <div><strong class="text-slate-800">Zero Installation:</strong> Works on any device,
+                                        from iPhone to Android.</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Audio Quality Section -->
+        <section id="quality-showdown" class="py-16 sm:py-24">
+            <div class="container mx-auto px-6">
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/50">
+                    <div class="grid md:grid-cols-2 gap-x-16 gap-y-10 items-center">
+                        <div>
+                            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-5">Audio Quality Showdown: Why
+                                Bitrate Matters</h2>
+                            <p class="text-lg text-slate-600 leading-relaxed">Most generic converters grab a low-bitrate
+                                stream, leaving you with tinny sound at 128kbps. That won't cut it. We use the yt-dlp
+                                engine to target YouTube's highest available audio streams (up to 320kbps). This means
+                                cleaner bass, crisper highs, and no distortion in your projects. Stop settling for low
+                                quality.</p>
+                        </div>
+                        <div class="text-center bg-slate-50 p-8 rounded-xl border border-slate-200">
+                            <div class="text-7xl font-extrabold font-poppins text-primary">320<span
+                                    class="text-4xl text-slate-400 ml-2">kbps</span></div>
+                            <p class="mt-2 font-semibold text-slate-600">Maximum Quality Target</p>
+                            <div class="w-full bg-slate-200 h-2 rounded-full my-6">
+                                <div class="bg-primary h-2 rounded-full" style="width: 100%"></div>
+                            </div>
+                            <p class="text-sm text-slate-500 italic">We prioritize the highest available bitrate to
+                                maintain audio fidelity for professional use.</p>
+                        </div>
+                    </div>
+                    <div class="mt-12 p-4 bg-yellow-50 border-l-4 border-yellow-400 text-left rounded-r-lg">
+                        <h3 class="font-bold text-yellow-800">Fair Use and Copyright Notice</h3>
+                        <p class="text-yellow-700 text-sm mt-1">Please ensure any downloaded audio is used in accordance
+                            with YouTube's Terms of Service and applicable copyright laws (e.g., for personal remixing
+                            or transformative work).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Supported Formats Section -->
+        <section id="formats" class="py-16 sm:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/50">
+                    <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-8 text-center">Supported Audio Formats
+                    </h2>
+                    <div class="grid sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        <div
+                            class="bg-slate-50 p-8 rounded-xl border border-slate-200 transition-all duration-300 hover:shadow-lg hover:border-primary transform hover:-translate-y-1">
+                            <i class="fas fa-file-audio text-4xl text-primary mb-4"></i>
+                            <h3 class="font-display text-2xl font-bold text-slate-800 mb-2">MP3 (High Quality)</h3>
+                            <p class="leading-relaxed">The universal standard. We deliver up to 320kbps audio, perfect
+                                for DJs, podcasters, and music libraries.</p>
+                        </div>
+                        <div
+                            class="bg-slate-50 p-8 rounded-xl border border-slate-200 transition-all duration-300 hover:shadow-lg hover:border-primary transform hover:-translate-y-1">
+                            <i class="fab fa-apple text-4xl text-slate-500 mb-4"></i>
+                            <h3 class="font-display text-2xl font-bold text-slate-800 mb-2">M4A (Apple Optimized)</h3>
+                            <p class="leading-relaxed">A preferred format for the Apple ecosystem, offering excellent
+                                quality at smaller file sizes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How-to Guide & CTA Section -->
+        <section id="guide-cta" class="py-16 sm:py-24">
+            <div class="container mx-auto px-6">
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/50">
+                    <div class="grid md:grid-cols-2 gap-x-16 gap-y-12 items-center">
+                        <div>
+                            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-8">Simple 3-Step Guide</h2>
+                            <ol class="space-y-6">
+                                <li class="flex items-center text-lg"><span
+                                        class="flex items-center justify-center w-8 h-8 mr-4 bg-primary text-white font-bold rounded-full flex-shrink-0">1</span>
+                                    <div><strong class="text-slate-800">Copy the Link:</strong> Find the Short and tap
+                                        Share to copy the URL.</div>
+                                </li>
+                                <li class="flex items-center text-lg"><span
+                                        class="flex items-center justify-center w-8 h-8 mr-4 bg-primary text-white font-bold rounded-full flex-shrink-0">2</span>
+                                    <div><strong class="text-slate-800">Select MP3:</strong> Paste the URL and ensure
+                                        'MP3' is selected.</div>
+                                </li>
+                                <li class="flex items-center text-lg"><span
+                                        class="flex items-center justify-center w-8 h-8 mr-4 bg-primary text-white font-bold rounded-full flex-shrink-0">3</span>
+                                    <div><strong class="text-slate-800">Download:</strong> Hit the button. The audio is
+                                        saved instantly.</div>
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="bg-slate-800 text-white p-8 rounded-2xl text-center shadow-2xl">
+                            <h3 class="text-2xl font-bold font-poppins mb-4">Bonus: Need the Video?</h3>
+                            <p class="text-slate-300 leading-relaxed mb-6">Stop treating video and audio as separate
+                                problems. Use our free MP3 tool, then instantly get the perfect, clean video ready for
+                                cross-posting.</p>
+                            <a href="/"
+                                class="px-6 py-3 bg-primary font-bold text-lg rounded-lg shadow-lg hover:bg-primary-dark transition-all duration-300 transform hover:-translate-y-1">
+                                Try Our MP4 Downloader &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- Footer (Reused from our established design system) -->
+    <footer class="bg-slate-800 text-slate-300">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-1"><a href="/" class="text-2xl font-bold font-poppins">Shorts<span
+                            class="text-primary">Sync</span>.io</a>
+                    <p class="mt-4 text-sm text-slate-400 leading-relaxed">The ultimate tool for creators to download,
+                        optimize, and repurpose their YouTube Shorts content.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-white mb-4">Core Tools</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/" class="hover:text-primary transition-colors">Download Shorts (MP4)</a></li>
+                        <li><a href="/shorts-to-mp3" class="hover:text-primary transition-colors">MP3 Audio
+                                Extractor</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-white mb-4">AI Tools</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/ai/watermark-remover" class="hover:text-primary transition-colors">Watermark
+                                Remover</a></li>
+                        <li><a href="/ai/transcript-generator" class="hover:text-primary transition-colors">Transcript
+                                Generator</a></li>
+                        <li><a href="/ai/title-generator" class="hover:text-primary transition-colors">AI Title
+                                Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-white mb-4">Company</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/about" class="hover:text-primary transition-colors">About & Contact</a></li>
+                        <li><a href="/pricing" class="hover:text-primary transition-colors">Pricing</a></li>
+                        <li><a href="/privacy" class="hover:text-primary transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms" class="hover:text-primary transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-700 flex flex-col sm:flex-row justify-between items-center">
+                <p class="text-sm text-slate-400">&copy; 2024 ShortsSync.io. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0"><a href="#"
+                        class="text-slate-400 hover:text-primary transition-colors"><i
+                            class="fab fa-twitter text-xl"></i></a><a href="#"
+                        class="text-slate-400 hover:text-primary transition-colors"><i
+                            class="fab fa-youtube text-xl"></i></a><a href="#"
+                        class="text-slate-400 hover:text-primary transition-colors"><i
+                            class="fab fa-github text-xl"></i></a></div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

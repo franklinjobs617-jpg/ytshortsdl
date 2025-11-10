@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShortsSync | Pricing for Pro & AI Tools</title>
+
+    <!-- Core Tech Stack -->
+    <script src="https://cdn-tailwindcss.vercel.app/"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Font Library -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <script>
+        // Customizing Tailwind to enforce our Design System
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: { DEFAULT: '#EF4444', dark: '#DC2626', light: '#FEE2E2' },
+                        slate: { 50: '#F8FAFC', 100: '#F1F5F9', 200: '#E2E8F0', 300: '#CBD5E1', 400: '#94A3B8', 500: '#64748B', 600: '#475569', 700: '#334155', 800: '#1E293B', 900: '#0F172A', }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="antialiased bg-slate-50 text-slate-700">
+
+    <!-- Header (Reused from our established design system) -->
+    <header class="py-4 px-6 md:px-12 sticky top-0 bg-white/80 backdrop-blur-xl z-50 border-b border-slate-200/80">
+        <nav class="flex justify-between items-center max-w-7xl mx-auto">
+            <a href="/" class="text-2xl font-bold font-poppins flex-shrink-0">Shorts<span
+                    class="text-primary">Sync</span>.io</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="/"
+                    class="font-medium text-slate-600 hover:text-primary transition-colors duration-300">Download
+                    Shorts</a>
+                <a href="/shorts-to-mp3"
+                    class="font-medium text-slate-600 hover:text-primary transition-colors duration-300">MP3 Audio</a>
+                <div class="relative group">
+                    <button class="font-medium text-primary flex items-center gap-2"><span>AI Tools</span><i
+                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i></button>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
+                        <a href="/ai/watermark-remover"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Watermark
+                            Remover</a><a href="/ai/transcript-generator"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Transcript
+                            Generator</a><a href="/ai/title-generator"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">AI
+                            Title Generator</a>
+                    </div>
+                </div>
+                <a href="/about"
+                    class="font-medium text-slate-600 hover:text-primary transition-colors duration-300">About/Contact</a>
+                <div class="relative group">
+                    <button
+                        class="font-medium text-slate-600 hover:text-primary transition-colors duration-300 flex items-center gap-2"><span>Legal</span><i
+                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i></button>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-48 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
+                        <a href="/privacy"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Privacy
+                            Policy</a><a href="/terms"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Terms
+                            of Service</a>
+                    </div>
+                </div>
+                <a href="/pricing"
+                    class="bg-slate-800 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-900 transition-all duration-300 transform hover:-translate-y-0.5 shadow-sm">Pricing</a>
+            </div>
+            <button class="md:hidden text-2xl text-slate-600"><i class="fas fa-bars"></i></button>
+        </nav>
+    </header>
+
+    <!-- Main Content for the Pricing Page -->
+    <main class="container mx-auto px-6 py-16 sm:py-24 space-y-16">
+
+        <!-- Hero Section -->
+        <section class="text-center max-w-4xl mx-auto">
+            <h1
+                class="text-3xl md:text-5xl lg:text-5xl font-extrabold font-poppins leading-tight tracking-tighter text-slate-900">
+                AI Shorts Downloader Pricing: <br class="hidden md:block">Choose Your Pro Toolkit
+            </h1>
+            <p class="mt-4 text-lg text-slate-600 leading-relaxed">Unlock the highest quality downloads and our
+                proprietary AI Watermark Remover. Pay for what you need—subscriptions for volume, credits for single
+                tasks.</p>
+        </section>
+
+        <!-- Pricing Toggle & Plan Options -->
+        <section class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <!-- Option 1: Subscription -->
+            <div class="bg-white p-8 rounded-2xl shadow-2xl border-2 border-primary">
+                <h2 class="text-2xl font-bold font-poppins text-slate-900">Subscription Plans</h2>
+                <p class="text-slate-600 mt-2 mb-6">Best for high-volume creators, agencies, and professionals.</p>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i><strong
+                            class="text-slate-800">Unlimited</strong> 4K/8K Downloads</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i><strong
+                            class="text-slate-800">Generous Monthly</strong> AI Credits</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i>Priority Support
+                    </li>
+                </ul>
+                <a href="#subscriptions"
+                    class="w-full inline-block text-center px-6 py-3 bg-primary text-white font-bold rounded-lg shadow-lg hover:bg-primary-dark transition-all duration-300 transform hover:-translate-y-1">
+                    See Subscription Tiers
+                </a>
+            </div>
+            <!-- Option 2: Credits -->
+            <div class="bg-white p-8 rounded-2xl shadow-xl border-2 border-slate-200">
+                <h2 class="text-2xl font-bold font-poppins text-slate-900">Pay-As-You-Go Credits</h2>
+                <p class="text-slate-600 mt-2 mb-6">Ideal for occasional use of our AI Watermark Remover.</p>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-center"><i class="fas fa-check-circle text-slate-400 mr-3"></i>Pay Per Video
+                    </li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-slate-400 mr-3"></i>Credits Never
+                        Expire</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-slate-400 mr-3"></i>Perfect for
+                        Single Tasks</li>
+                </ul>
+                <a href="#credits"
+                    class="w-full inline-block text-center px-6 py-3 bg-slate-800 text-white font-bold rounded-lg shadow-lg hover:bg-slate-900 transition-all duration-300 transform hover:-translate-y-1">
+                    Buy Credit Packs
+                </a>
+            </div>
+        </section>
+
+        <!-- Feature Comparison Grid -->
+        <section class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/50">
+            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-8 text-center">Compare Plans & Features</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b-2 border-slate-200">
+                            <th class="p-4 font-semibold text-lg">Feature</th>
+                            <th class="p-4 font-semibold text-lg text-center">Free</th>
+                            <th class="p-4 font-semibold text-lg text-center">Credits</th>
+                            <th class="p-4 font-semibold text-lg text-center bg-primary-light rounded-t-lg">Subscription
+                                (Pro)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                        <tr>
+                            <td class="p-4 font-medium">Standard HD Downloads</td>
+                            <td class="p-4 text-center text-primary"><i class="fas fa-check-circle"></i></td>
+                            <td class="p-4 text-center text-primary"><i class="fas fa-check-circle"></i></td>
+                            <td class="p-4 text-center text-primary"><i class="fas fa-check-circle"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-medium">4K/8K Downloads</td>
+                            <td class="p-4 text-center text-slate-300"><i class="fas fa-times-circle"></i></td>
+                            <td class="p-4 text-center text-slate-300"><i class="fas fa-times-circle"></i></td>
+                            <td class="p-4 text-center text-primary font-bold">Unlimited</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-medium">AI Watermark Remover</td>
+                            <td class="p-4 text-center text-slate-300"><i class="fas fa-times-circle"></i></td>
+                            <td class="p-4 text-center text-primary">Pay per use</td>
+                            <td class="p-4 text-center text-primary font-bold">Monthly Credits</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-medium">AI Transcript Generator</td>
+                            <td class="p-4 text-center text-slate-300"><i class="fas fa-times-circle"></i></td>
+                            <td class="p-4 text-center text-primary">Pay per use</td>
+                            <td class="p-4 text-center text-primary font-bold">Monthly Credits</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Subscription Section -->
+        <section id="subscriptions" class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/50">
+            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-2 text-center">Subscription Plans</h2>
+            <p class="text-center text-slate-600 mb-8">Best for high-volume creators.</p>
+            <!-- Pricing Toggle would be implemented here with JS -->
+            <div class="text-center mb-10"><span class="font-semibold">Monthly</span> | <span
+                    class="text-primary font-bold">Annual (Save 20%)</span></div>
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Pro Plan -->
+                <div class="border-2 border-primary p-8 rounded-2xl shadow-2xl relative">
+                    <div
+                        class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-white text-sm font-bold rounded-full">
+                        MOST POPULAR</div>
+                    <h3 class="text-2xl font-bold font-poppins text-slate-900 mb-2">Pro Creator</h3>
+                    <p class="text-slate-600 mb-6">Everything you need.</p>
+                    <p class="text-5xl font-extrabold font-poppins text-slate-900 mb-2">$19<span
+                            class="text-lg font-medium text-slate-500">/mo</span></p>
+                    <a href="#"
+                        class="w-full inline-block text-center mt-6 px-6 py-3 bg-primary text-white font-bold rounded-lg shadow-lg hover:bg-primary-dark transition-all">Start
+                        Subscription</a>
+                </div>
+                <!-- Agency Plan -->
+                <div class="border-2 border-slate-200 p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold font-poppins text-slate-900 mb-2">Agency</h3>
+                    <p class="text-slate-600 mb-6">For teams and power users.</p>
+                    <p class="text-5xl font-extrabold font-poppins text-slate-900 mb-2">$49<span
+                            class="text-lg font-medium text-slate-500">/mo</span></p>
+                    <a href="#"
+                        class="w-full inline-block text-center mt-6 px-6 py-3 bg-slate-800 text-white font-bold rounded-lg shadow-lg hover:bg-slate-900 transition-all">Contact
+                        Sales</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Credits Section -->
+        <section id="credits" class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/50">
+            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-2 text-center">Pay-As-You-Go Credits</h2>
+            <p class="text-center text-slate-600 mb-8">Ideal for occasional use. Credits never expire.</p>
+            <div class="grid sm:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- 10 Credits -->
+                <div class="border border-slate-200 p-6 rounded-xl text-center hover:border-primary transition-colors">
+                    <h3 class="text-xl font-bold text-slate-800">10 Credits</h3>
+                    <p class="text-4xl font-extrabold text-slate-900 my-4">$10</p>
+                    <p class="text-slate-500 text-sm mb-4">($1.00 / video)</p><a href="#"
+                        class="w-full inline-block px-6 py-2 bg-slate-200 font-semibold rounded-lg hover:bg-primary hover:text-white transition-all">Buy
+                        Now</a>
+                </div>
+                <!-- 50 Credits -->
+                <div class="border-2 border-primary p-6 rounded-xl text-center relative">
+                    <div
+                        class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 px-3 py-1 bg-primary text-white text-xs font-bold rounded-full">
+                        BEST VALUE</div>
+                    <h3 class="text-xl font-bold text-slate-800">50 Credits</h3>
+                    <p class="text-4xl font-extrabold text-slate-900 my-4">$40</p>
+                    <p class="text-slate-500 text-sm mb-4">($0.80 / video)</p><a href="#"
+                        class="w-full inline-block px-6 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-all">Buy
+                        Now</a>
+                </div>
+                <!-- 100 Credits -->
+                <div class="border border-slate-200 p-6 rounded-xl text-center hover:border-primary transition-colors">
+                    <h3 class="text-xl font-bold text-slate-800">100 Credits</h3>
+                    <p class="text-4xl font-extrabold text-slate-900 my-4">$70</p>
+                    <p class="text-slate-500 text-sm mb-4">($0.70 / video)</p><a href="#"
+                        class="w-full inline-block px-6 py-2 bg-slate-200 font-semibold rounded-lg hover:bg-primary hover:text-white transition-all">Buy
+                        Now</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq-transparency" class="max-w-3xl mx-auto">
+            <h2 class="font-display text-3xl font-bold text-slate-900 mb-8 text-center">Pricing FAQs & Transparency</h2>
+            <div class="space-y-4">
+                <details class="group bg-white p-6 rounded-lg shadow-lg border border-slate-200/50 cursor-pointer">
+                    <summary class="flex items-center justify-between font-semibold text-lg text-slate-800 list-none">
+                        What is your refund/cancellation policy?<i
+                            class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                    </summary>
+
+                    <p class="mt-4 text-slate-600 leading-relaxed">Our policy is straightforward and depends on the
+                        purchase type: <strong>Subscriptions</strong> or
+                        <strong>Credits</strong>.
+                        <br><br>
+                        <strong>Subscriptions:</strong> You can cancel anytime; cancellation is effective at the end of
+                        your current cycle.
+                        <br><br>
+                        <strong>Credits:</strong> Credits are non-refundable upon purchase but never expire. If a
+                        technical error causes a credit deduction, contact support for a credit re-issue.
+                    </p>
+                </details>
+                <details class="group bg-white p-6 rounded-lg shadow-lg border border-slate-200/50 cursor-pointer">
+                    <summary class="flex items-center justify-between font-semibold text-lg text-slate-800 list-none">Do
+                        my credits ever expire?<i
+                            class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 leading-relaxed">No, your purchased credits never expire. They remain
+                        in your account until you choose to use them on one of our premium AI tools.</p>
+                </details>
+                <details class="group bg-white p-6 rounded-lg shadow-lg border border-slate-200/50 cursor-pointer">
+                    <summary class="flex items-center justify-between font-semibold text-lg text-slate-800 list-none">
+                        Does the subscription cover 4K and AI tools?<i
+                            class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 leading-relaxed">Yes, all Pro subscriptions grant you unlimited access
+                        to the 4K/8K downloader and include a generous monthly allocation of credits for the AI
+                        Watermark Remover.</p>
+                </details>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer (Reused from our established design system) -->
+    <footer class="bg-slate-800 text-slate-300 mt-16">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-1"><a href="/" class="text-2xl font-bold font-poppins">Shorts<span
+                            class="text-primary">Sync</span>.io</a>
+                    <p class="mt-4 text-sm text-slate-400 leading-relaxed">The ultimate tool for creators to download,
+                        optimize, and repurpose their YouTube Shorts content.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-white mb-4">Core Tools</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/" class="hover:text-primary transition-colors">Download Shorts (MP4)</a></li>
+                        <li><a href="/shorts-to-mp3" class="hover:text-primary transition-colors">MP3 Audio
+                                Extractor</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-white mb-4">AI Tools</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/ai/watermark-remover" class="hover:text-primary transition-colors">Watermark
+                                Remover</a></li>
+                        <li><a href="/ai/transcript-generator" class="hover:text-primary transition-colors">Transcript
+                                Generator</a></li>
+                        <li><a href="/ai/title-generator" class="hover:text-primary transition-colors">AI Title
+                                Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-white mb-4">Company</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/about" class="hover:text-primary transition-colors">About & Contact</a></li>
+                        <li><a href="/pricing" class="hover:text-primary transition-colors">Pricing</a></li>
+                        <li><a href="/privacy" class="hover:text-primary transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms" class="hover:text-primary transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-700 flex flex-col sm:flex-row justify-between items-center">
+                <p class="text-sm text-slate-400">&copy; 2024 ShortsSync.io. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0"><a href="#"
+                        class="text-slate-400 hover:text-primary transition-colors"><i
+                            class="fab fa-twitter text-xl"></i></a><a href="#"
+                        class="text-slate-400 hover:text-primary transition-colors"><i
+                            class="fab fa-youtube text-xl"></i></a><a href="#"
+                        class="text-slate-400 hover:text-primary transition-colors"><i
+                            class="fab fa-github text-xl"></i></a></div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

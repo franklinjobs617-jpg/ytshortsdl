@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShortsSync | 4K YouTube Shorts Downloader (Pro)</title>
+
+    <!-- Core Tech Stack -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Font Library -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Modern Glow Effect for the Hero Section */
+        .glow-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .glow-effect::before,
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+        }
+
+        .glow-effect::before {
+            background: #ef4444;
+            width: 500px;
+            height: 500px;
+            top: -150px;
+            left: -150px;
+        }
+
+        .glow-effect::after {
+            background: #3b82f6;
+            width: 400px;
+            height: 400px;
+            bottom: -150px;
+            right: -100px;
+        }
+    </style>
+
+    <script>
+        // Customizing Tailwind to enforce our Design System
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: { DEFAULT: '#EF4444', dark: '#DC2626', light: '#FEE2E2' },
+                        slate: { 50: '#F8FAFC', 100: '#F1F5F9', 200: '#E2E8F0', 300: '#CBD5E1', 400: '#94A3B8', 500: '#64748B', 600: '#475569', 700: '#334155', 800: '#1E293B', 900: '#0F172A', }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="antialiased bg-white text-slate-700">
+
+    <!-- Header (Reused from our established design system) -->
+    <header class="py-4 px-6 md:px-12 sticky top-0 bg-white/80 backdrop-blur-xl z-50 border-b border-slate-200/80">
+        <nav class="flex justify-between items-center max-w-7xl mx-auto">
+            <a href="/" class="text-2xl font-bold font-poppins flex-shrink-0">Shorts<span
+                    class="text-primary">Sync</span>.io</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="/"
+                    class="font-medium text-slate-600 hover:text-primary transition-colors duration-300">Download
+                    Shorts</a>
+                <a href="/shorts-to-mp3"
+                    class="font-medium text-slate-600 hover:text-primary transition-colors duration-300">MP3 Audio</a>
+                <div class="relative group">
+                    <button class="font-medium text-primary flex items-center gap-2"><span>AI Tools</span><i
+                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i></button>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white rounded-lg shadow-md ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
+                        <a href="/ai/watermark-remover"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Watermark
+                            Remover</a><a href="/ai/transcript-generator"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Transcript
+                            Generator</a><a href="/ai/title-generator"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">AI
+                            Title Generator</a>
+                    </div>
+                </div>
+                <a href="/about"
+                    class="font-medium text-slate-600 hover:text-primary transition-colors duration-300">About/Contact</a>
+                <div class="relative group">
+                    <button
+                        class="font-medium text-slate-600 hover:text-primary transition-colors duration-300 flex items-center gap-2"><span>Legal</span><i
+                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i></button>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-48 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
+                        <a href="/privacy"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Privacy
+                            Policy</a><a href="/terms"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Terms
+                            of Service</a>
+                    </div>
+                </div>
+                <a href="/pricing"
+                    class="bg-slate-800 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-900 transition-all duration-300 transform hover:-translate-y-0.5 shadow-sm">Pricing</a>
+            </div>
+            <button class="md:hidden text-2xl text-slate-600"><i class="fas fa-bars"></i></button>
+        </nav>
+    </header>
+
+    <!-- Main Content (No container class) -->
+    <main>
+
+        <!-- Hero Section for 4K Page - STYLED TO MATCH HOME PAGE HERO -->
+        <section class="relative py-24 md:py-30 text-center overflow-hidden">
+            <div class="glow-effect"></div>
+            <div class="container max-w-5xl mx-auto px-6 relative z-10">
+                <h1
+                    class="text-3xl md:text-6xl font-extrabold font-poppins leading-tight tracking-tighter text-slate-900">
+                    Unlock the Pro YouTube Shorts Downloader 4K
+                </h1>
+                <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">The highest quality shorts require a
+                    professional toolkit. Access true high-quality assets instantly.</p>
+
+                <div class="mt-12 max-w-2xl mx-auto">
+                    <!-- Locked Downloader Module -->
+                    <div class="relative bg-white p-2 rounded-xl ring-1 ring-slate-200 opacity-60 cursor-not-allowed">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <input type="url" placeholder="Paste Short Link Here..." disabled
+                                class="flex-grow w-full h-12 pl-4 pr-4 text-md bg-transparent focus:outline-none placeholder:text-slate-400">
+                            <select disabled
+                                class="appearance-none w-full md:w-auto h-12 pl-4 pr-10 text-md bg-transparent text-slate-800 font-medium focus:outline-none border-y-2 md:border-y-0 md:border-x-2 border-slate-200">
+                                <option>1080p (Free)</option>
+                                <option selected>4K UHD (PRO)</option>
+                            </select>
+                            <button disabled
+                                class="w-full md:w-auto mt-2 md:mt-0 bg-slate-300 text-slate-500 font-bold text-lg px-4 py-2 rounded-lg flex-shrink-0 flex items-center justify-center space-x-3">
+                                <i class="fas fa-lock"></i><span>Download 4K</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CTA Banner -->
+                    <div class="mt-8 text-center px-4">
+                        <div class="p-4 bg-primary-light text-red-800 rounded-lg font-semibold inline-block">
+                            <p>🔥 Get <strong class="text-primary-dark">4K Access</strong> PLUS the <strong
+                                    class="text-primary-dark">AI Watermark Remover</strong> in one subscription!</p>
+                        </div>
+                        <div class="mt-6">
+                            <a href="/pricing"
+                                class="px-8 py-3 bg-primary text-white font-bold text-lg rounded-lg shadow-lg hover:bg-primary-dark transition-all duration-300 transform hover:-translate-y-1">
+                                See Subscription Plans &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why 4K Matters Section -->
+        <section id="why-4k-matters" class="pt-8">
+            <div class="container mx-auto px-6">
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-md border border-slate-200/50 text-center">
+                    <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-5">Why 4K Quality is Non-Negotiable for
+                        Professional Creators</h2>
+                    <p class="text-slate-600 text-lg leading-relaxed">If you edit videos for clients or aim for
+                        cinematic quality, 1080p assets introduce artifacts, blurriness, and a lack of detail when you
+                        zoom, crop, or re-encode. 4K downloads preserve the raw source quality, ensuring your final edit
+                        looks flawless.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quality Comparison Section -->
+        <section id="quality-comparison" class="pt-16">
+            <div class="container mx-auto px-6">
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-md border border-slate-200/50">
+                    <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-8 text-center">4K vs. 1080p: The
+                        Difference is Clear</h2>
+                    <div
+                        class="max-w-3xl mx-auto text-center h-80 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-400 text-lg font-medium">
+                        <div class="flex items-center gap-4"><i class="fas fa-image text-4xl"></i> <span>Interactive 4K
+                                vs 1080p Comparison Slider</span></div>
+                    </div>
+                    <figcaption class="text-sm text-slate-500 italic mt-4 text-center">The quality difference is
+                        visible, especially on larger screens. Don't risk low-quality content.</figcaption>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Advantage Section -->
+        <section id="technical-advantage" class="pt-16">
+            <div class="container mx-auto px-6">
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-md border border-slate-200/50">
+                    <div class="grid md:grid-cols-2 gap-x-16 gap-y-10 items-center">
+                        <div>
+                            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-5">The Technical
+                                Advantage:<br>How We Achieve True 4K</h2>
+                            <p class="text-lg text-slate-600 leading-relaxed">[INSERT_DRAFT_TEXT_1_TECHNICAL_PROOF_HERE]
+                            </p>
+                            <blockquote class="mt-8 border-l-4 border-primary pl-6 italic">
+                                <p class="text-slate-600 text-lg">"[INSERT_DRAFT_TESTIMONIAL_QUOTE_HERE]"</p>
+                                <cite class="block mt-4 text-sm font-semibold text-slate-800">— [Pro Creator/Agency
+                                    Name], Verified Pro Subscriber</cite>
+                            </blockquote>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                            <div class="flex items-center gap-4">
+                                <div class="text-center p-4"><i class="fas fa-film text-3xl text-primary"></i>
+                                    <p class="text-xs font-bold mt-2">VP9/AV1</p>
+                                </div>
+                                <i class="fas fa-plus text-slate-300 text-xl"></i>
+                                <div class="text-center p-4"><i class="fas fa-music text-3xl text-primary"></i>
+                                    <p class="text-xs font-bold mt-2">Opus</p>
+                                </div>
+                                <i class="fas fa-equals text-slate-300 text-xl"></i>
+                                <div class="text-center p-4"><i class="fas fa-video text-5xl text-primary"></i>
+                                    <p class="text-sm font-bold mt-2">True 4K File</p>
+                                </div>
+                            </div>
+                            <figcaption class="text-sm text-slate-500 italic mt-4 text-center">We leverage lossless
+                                muxing of separate video and audio streams to preserve original quality.</figcaption>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Unlock & Final CTA Section (Combined) -->
+        <section id="unlock-guide" class="py-16">
+            <div class="container mx-auto px-6">
+                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-md border border-slate-200/50">
+                    <div class="grid md:grid-cols-2 gap-x-16 gap-y-12 items-center">
+                        <div>
+                            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-8">How to Unlock the 4K
+                                Downloader</h2>
+                            <ol class="space-y-6">
+                                <li class="flex items-center text-lg"><span
+                                        class="flex items-center justify-center w-8 h-8 mr-4 bg-primary text-white font-bold rounded-full flex-shrink-0">1</span>
+                                    <div><strong class="text-slate-800">Choose Your Plan:</strong> Select the Pro
+                                        Creator Subscription.</div>
+                                </li>
+                                <li class="flex items-center text-lg"><span
+                                        class="flex items-center justify-center w-8 h-8 mr-4 bg-primary text-white font-bold rounded-full flex-shrink-0">2</span>
+                                    <div><strong class="text-slate-800">Access the Pro Tool:</strong> Log in and this
+                                        page will be unlocked.</div>
+                                </li>
+                                <li class="flex items-center text-lg"><span
+                                        class="flex items-center justify-center w-8 h-8 mr-4 bg-primary text-white font-bold rounded-full flex-shrink-0">3</span>
+                                    <div><strong class="text-slate-800">Download in 4K:</strong> Paste your link and
+                                        select the 4K option.</div>
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="bg-slate-800 text-white p-8 rounded-2xl text-center shadow-2xl">
+                            <h3 class="text-2xl font-bold font-poppins mb-4">The 4K Tool is Part of the AI Creator Suite
+                            </h3>
+                            <p class="text-slate-300 leading-relaxed mb-6">[INSERT_DRAFT_TEXT_3_VALUE_PROPOSITION_HERE]
+                            </p>
+                            <a href="/pricing"
+                                class="px-6 py-3 bg-primary font-bold text-lg rounded-lg shadow-lg hover:bg-primary-dark transition-all duration-300 transform hover:-translate-y-1">
+                                Start Your Subscription Now &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer (Reused from our established design system) -->
+    <footer class="bg-slate-800 text-slate-300">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-1"><a href="/" class="text-2xl font-bold font-poppins">Shorts<span
+                            class="text-primary">Sync</span>.io</a>
+                    <p class="mt-4 text-sm text-slate-400 leading-relaxed">The ultimate tool for creators to download,
+                        optimize, and repurpose their YouTube Shorts content.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-white mb-4">Core Tools</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/" class="hover:text-primary transition-colors">Download Shorts (MP4)</a></li>
+                        <li><a href="/shorts-to-mp3" class="hover:text-primary transition-colors">MP3 Audio
+                                Extractor</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-white mb-4">AI Tools</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/ai/watermark-remover" class="hover:text-primary transition-colors">Watermark
+                                Remover</a></li>
+                        <li><a href="/ai/transcript-generator" class="hover:text-primary transition-colors">Transcript
+                                Generator</a></li>
+                        <li><a href="/ai/title-generator" class="hover:text-primary transition-colors">AI Title
+                                Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-white mb-4">Company</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/about" class="hover:text-primary transition-colors">About & Contact</a></li>
+                        <li><a href="/pricing" class="hover:text-primary transition-colors">Pricing</a></li>
+                        <li><a href="/privacy" class="hover:text-primary transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms" class="hover:text-primary transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-700 flex flex-col sm:flex-row justify-between items-center">
+                <p class="text-sm text-slate-400">&copy; 2024 ShortsSync.io. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0"><a href="#"
+                        class="text-slate-400 hover:text-primary transition-colors"><i
+                            class="fab fa-twitter text-xl"></i></a><a href="#"
+                        class="text-slate-400 hover:text-primary transition-colors"><i
+                            class="fab fa-youtube text-xl"></i></a><a href="#"
+                        class="text-slate-400 hover:text-primary transition-colors"><i
+                            class="fab fa-github text-xl"></i></a></div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

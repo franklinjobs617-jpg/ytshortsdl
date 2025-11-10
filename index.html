@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free YouTube Shorts Downloader | HD, MP4, MP3 & AI Tools</title>
+    <meta name="description"
+        content="Download YouTube Shorts videos and audio (MP4/MP3) instantly and for free. The fastest YT Shorts Downloader with no ads. Unlock AI video tools.">
+    <!-- Core Tech Stack -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        // Customizing Tailwind to enforce our Design System
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: { // Using a richer color palette object
+                            DEFAULT: '#EF4444', // red-500
+                            dark: '#DC2626', // red-600
+                            light: '#FEE2E2' // red-100
+                        },
+                        slate: {
+                            50: '#F8FAFC', 100: '#F1F5F9', 200: '#E2E8F0',
+                            300: '#CBD5E1', 400: '#94A3B8', 500: '#64748B',
+                            600: '#475569', 700: '#334155', 800: '#1E293B', 900: '#0F172A',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Library -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Defining the core design system for consistency */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8fafc;
+            /* Subtle Gray (slate-50) */
+            color: #1e293b;
+            /* Nearly Black (slate-800) */
+        }
+
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Modern Glow Effect for the Hero Section */
+        .glow-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .glow-effect::before,
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+        }
+
+        .glow-effect::before {
+            background: #ef4444;
+            /* red-500 */
+            width: 500px;
+            height: 500px;
+            top: -150px;
+            left: -150px;
+        }
+
+        .glow-effect::after {
+            background: #3b82f6;
+            /* blue-500 */
+            width: 400px;
+            height: 400px;
+            bottom: -150px;
+            right: -100px;
+        }
+
+        .custom-ring {
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+        }
+
+        /* Custom Ring for focused input */
+        .custom-focus-ring:focus-within {
+            box-shadow: 0 0 0 3px rgba(250, 1, 1, 0.3);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Header - REBUILT ACCORDING TO NAVIGATION DESIGN -->
+    <header class="py-4 px-6 md:px-12 sticky top-0 bg-white/80 backdrop-blur-xl z-50 border-b border-slate-200/80">
+        <nav class="flex justify-between items-center max-w-7xl mx-auto">
+            <!-- Logo -->
+            <a href="/" class="text-2xl font-bold font-poppins flex-shrink-0">
+                YTShorts<span class="text-red-500">dl</span>.net
+            </a>
+
+            <!-- Main Navigation Links -->
+            <div class="hidden md:flex items-center space-x-8">
+
+                <!-- Simple Links -->
+                <a href="/" class="font-medium  text-red-500 transition-colors duration-300">Download
+                    Shorts</a>
+                <a href="/shorts-to-mp3"
+                    class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">MP3 Audio</a>
+
+                <!-- AI Tools Dropdown -->
+                <div class="relative group">
+                    <button
+                        class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300 flex items-center gap-2">
+                        <span>AI Tools</span>
+                        <i
+                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
+                        <a href="/no-watermark.html"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Watermark
+                            Remover</a>
+                        <a href="/transcript-generator"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Transcript
+                            Generator</a>
+                        <a href="/title-generator"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">AI
+                            Title Generator</a>
+                    </div>
+                </div>
+
+                <a href="/pricing"
+                    class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">Pricing</a>
+
+                <!-- Legal Dropdown -->
+                <div class="relative group">
+                    <button
+                        class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300 flex items-center gap-2">
+                        <span>Legal</span>
+                        <i
+                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-48 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
+                        <a href="/privacy"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Privacy
+                            Policy</a>
+                        <a href="/terms"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Terms
+                            of Service</a>
+                    </div>
+                </div>
+                <!-- About/Contact Link -->
+                <a href="/about"
+                    class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">About</a>
+
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-2xl text-slate-600">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section (Core Tool) -->
+        <section class="relative py-24 md:py-30 text-center overflow-hidden">
+            <div class="glow-effect"></div>
+            <div class="container max-w-5xl mx-auto px-6 relative z-10 ">
+                <h1
+                    class="text-3xl md:text-6xl   font-extrabold font-poppins leading-tight tracking-tighter text-slate-900">
+                    Free YouTube Shorts Downloader : <br class="hidden md:block">The Ultimate Tool for Creators
+                </h1>
+                <div class="mt-12 max-w-2xl mx-auto">
+                    <div
+                        class="flex flex-col md:flex-row items-center bg-white p-2 rounded-xl custom-ring custom-focus-ring transition-shadow duration-300">
+                        <div class="relative w-full">
+                            <i class="fas fa-link absolute left-2 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                            <input type="text" placeholder="Paste your YouTube Shorts link here..."
+                                class="w-full h-12 pl-8 pr-4 bg-transparent focus:outline-none text-md text-slate-800 placeholder:text-slate-400">
+                        </div>
+                        <button
+                            class="w-full md:w-auto mt-2 md:mt-0 bg-gradient-to-br from-red-500 to-red-600 text-white font-bold text-lg px-4 py-2 rounded-lg flex-shrink-0 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-red-500/30 flex items-center justify-center space-x-3">
+                            <i class="fas fa-download"></i>
+                            <span>Download</span>
+                        </button>
+                    </div>
+
+                    <!-- Trust & Info Block -- MODIFIED AS REQUESTED -->
+
+                </div>
+                <div class=" text-center px-4">
+                    <div class="mt-6 p-3 bg-red-50 text-red-800 rounded-lg font-semibold inline-block">
+                        <p>🔥 Need to remove the watermark or download in 4K? <a href="/pricing"
+                                class="font-bold text-red-600 hover:underline">Unlock our AI Creator Suite!</a></p>
+                    </div>
+
+                </div>
+
+                <p class="text-sm text-slate-600 max-w-md mx-auto">
+                    Our clean, ad-free interface allows instant download. Stop using confusing apps.
+                </p>
+                <!-- A+ Plan: Result Section (Initially hidden) -->
+                <div id="result-section" class="mt-16 max-w-4xl mx-auto hidden">
+                    <!-- Dynamic result section appears here via JS -->
+                </div>
+            </div>
+        </section>
+        <!-- How-to Guide: Redesigned as a vertical timeline -->
+        <section class="py-24 bg-white border-y border-slate-200/80">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold font-poppins text-slate-900">Get Your Short in Seconds
+                    </h2>
+                    <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">Follow these simple steps to download and
+                        repurpose your content.</p>
+                </div>
+                <div class="relative">
+                    <!-- The connecting line -->
+                    <div class="absolute left-8 top-8 bottom-8 w-0.5 bg-slate-200 hidden md:block"></div>
+                    <div class="space-y-12">
+                        <!-- Step 1 -->
+                        <div class="relative flex items-start space-x-6">
+                            <div
+                                class="flex-shrink-0 w-16 h-16 flex items-center justify-center bg-primary-light text-primary text-2xl font-bold rounded-full ring-8 ring-white">
+                                1</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800 mb-1">Find Your Short</h3>
+                                <p class="text-slate-600">Locate the desired YouTube Shorts video and copy its URL.</p>
+                            </div>
+                        </div>
+                        <!-- Step 2-4 -->
+                        <div class="relative flex items-start space-x-6">
+                            <div
+                                class="flex-shrink-0 w-16 h-16 flex items-center justify-center bg-primary-light text-primary text-2xl font-bold rounded-full ring-8 ring-white">
+                                2</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800 mb-1">Paste the Link</h3>
+                                <p class="text-slate-600">Paste the link into the input field at the top of this page.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="relative flex items-start space-x-6">
+                            <div
+                                class="flex-shrink-0 w-16 h-16 flex items-center justify-center bg-primary-light text-primary text-2xl font-bold rounded-full ring-8 ring-white">
+                                3</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800 mb-1">Select Quality</h3>
+                                <p class="text-slate-600">Choose your desired resolution and format (MP4 or MP3).</p>
+                            </div>
+                        </div>
+                        <div class="relative flex items-start space-x-6">
+                            <div
+                                class="flex-shrink-0 w-16 h-16 flex items-center justify-center bg-primary-light text-primary text-2xl font-bold rounded-full ring-8 ring-white">
+                                4</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800 mb-1">Download Instantly</h3>
+                                <p class="text-slate-600">Click the download button. The file is saved directly to your
+                                    device.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Deep Dive -->
+        <section id="features" class="py-24">
+            <div class="container max-w-6xl mx-auto px-6 space-y-24">
+
+                <!-- Module: Speed Advantage - OPTIMIZED -->
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-5">BThe Fastest &
+                            Safest <br>Way to Download Shorts</h2>
+                        <h3 class="text-xl font-semibold text-slate-700 mb-8">Our Promise: Consistently Faster
+                            Downloads
+                            Than Rivals</h3>
+
+                        <!-- Key Statistic Highlight -->
+                        <div class="flex items-center gap-6 mb-8 p-6 bg-slate-100 rounded-xl border-l-4 border-primary">
+                            <strong class="text-3xl md:text-4xl font-extrabold font-poppins text-primary">23%</strong>
+                            <p class="text-slate-600 font-medium leading-tight">Average time-to-conversion reduction
+                                against top competitors like Savetube & Y2mate.</p>
+                        </div>
+
+                        <p class="text-slate-600 leading-relaxed mb-6">We built ShortsSync because other tools were
+                            slow
+                            or unreliable. Our custom protocol achieves this speed by:</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start"><i class="fas fa-bolt-lightning text-primary mt-1 mr-4"></i>
+                                <div><strong class="text-slate-800">Prioritizing Link Parsing:</strong> We process
+                                    your
+                                    link instantly, before anything else.</div>
+                            </li>
+                            <li class="flex items-start"><i class="fas fa-ban text-primary mt-1 mr-4"></i>
+                                <div><strong class="text-slate-800">Blocking Intrusive Ads:</strong> No heavy ad
+                                    scripts
+                                    to slow down your experience.</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Image Showcase -->
+                    <div class="relative group">
+                        <div
+                            class="absolute -inset-2 bg-gradient-to-br from-primary to-blue-500 rounded-2xl blur-lg opacity-25 group-hover:opacity-40 transition duration-500">
+                        </div>
+                        <div class="relative bg-white p-4 rounded-2xl shadow-2xl">
+                            <img src="./images/Promise.png" alt="A visual promise of speed and reliability"
+                                class="rounded-xl w-full transition-transform duration-500 group-hover:scale-105">
+                            <div
+                                class="absolute -bottom-5 -right-5 bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-xl">
+                                <figcaption class="text-sm text-slate-600 italic font-medium">Trust speed, not just
+                                    promises.</figcaption>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module: Formats & Quality -->
+                <!-- Module 5: Supported Formats & Quality - OPTIMIZED -->
+                <div class="grid md:grid-cols-1 gap-8 items-center">
+                    <div class="text-left">
+                        <h2 class="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-5">Supported Formats:
+                            <br>MP4, MP3, and HD Quality Explainedt
+                        </h2>
+                        <p class="text-slate-600 text-lg leading-relaxed mb-10">We don't just download; we ensure your
+                            videos are production-ready for any platform.</p>
+
+                        <!-- Featured Format Cards -->
+                        <div class="grid sm:grid-cols-2 gap-8">
+
+                            <!-- MP4 Card -->
+                            <div
+                                class="bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-transparent transition-all duration-300 transform hover:-translate-y-2 hover:shadow-primary/20 hover:border-primary/30">
+                                <div
+                                    class="w-16 h-16 mb-6 flex items-center justify-center bg-primary-light rounded-xl">
+                                    <i class="fas fa-file-video text-3xl text-primary"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-slate-800 mb-3">High-Quality MP4</h3>
+                                <p class="text-slate-600 leading-relaxed">Download in standard HD, Full HD, or choose
+                                    our <a href="#" class="text-primary font-semibold hover:underline">4K/8K Pro
+                                        option</a>.</p>
+                            </div>
+
+                            <!-- MP3 Card -->
+                            <div
+                                class="bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-transparent transition-all duration-300 transform hover:-translate-y-2 hover:shadow-primary/20 hover:border-primary/30">
+                                <div
+                                    class="w-16 h-16 mb-6 flex items-center justify-center bg-primary-light rounded-xl">
+                                    <i class="fas fa-file-audio text-3xl text-primary"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-slate-800 mb-3">MP3 Audio Extraction</h3>
+                                <p class="text-slate-600 leading-relaxed">Instantly strip the audio track for remixes or
+                                    sound design.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Module: Safety & Comparison - OPTIMIZED (Simpler, Tool-Focused Design) -->
+                <div class="grid md:grid-cols-2 gap-x-16 gap-y-10 items-center">
+
+                    <!-- Left Column: The "Why" -->
+                    <div class="text-left">
+                        <h2 class="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-5">Why Choose Us Over
+                            an Extension or App?</h2>
+                        <p class="text-slate-600 text-lg leading-relaxed">Safety, speed, and simplicity matter. Here’s
+                            why our online tool is the future of content repurposing:</p>
+                    </div>
+
+                    <!-- Right Column: The "What" -->
+                    <div class="bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-200/60">
+                        <ul class="space-y-6">
+
+                            <!-- Feature 1: Zero Installation -->
+                            <li class="flex items-start">
+                                <div
+                                    class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-primary-light rounded-lg mr-5">
+                                    <i class="fas fa-rocket text-xl text-primary"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-slate-800">Zero Installation</h3>
+                                    <p class="text-slate-600 leading-relaxed mt-1">No malicious files or browser
+                                        clutter. Just a clean, fast tool that works instantly.</p>
+                                </div>
+                            </li>
+
+                            <!-- Feature 2: Universal Compatibility -->
+                            <li class="flex items-start">
+                                <div
+                                    class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-primary-light rounded-lg mr-5">
+                                    <i class="fas fa-globe text-xl text-primary"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-slate-800">Universal Compatibility</h3>
+                                    <p class="text-slate-600 leading-relaxed mt-1">Works seamlessly on iOS, Android, PC,
+                                        and Mac. No app downloads required, ever.</p>
+                                </div>
+                            </li>
+
+                            <!-- Feature 3: Guaranteed Privacy -->
+                            <li class="flex items-start">
+                                <div
+                                    class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-primary-light rounded-lg mr-5">
+                                    <i class="fas fa-user-shield text-xl text-primary"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg text-slate-800">Guaranteed Privacy</h3>
+                                    <p class="text-slate-600 leading-relaxed mt-1">Browser-side processing means we
+                                        never touch, see, or store your files.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Features Section -->
+        <section class="py-24 bg-white border-y border-slate-200/80">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold font-poppins text-slate-900">Go Beyond Downloading with AI
+                    </h2>
+                    <p class="mt-4 text-lg text-slate-600 leading-relaxed">Unlock our Creator Suite to optimize and
+                        repurpose your content like never before.</p>
+                </div>
+
+                <!-- Unified Feature List Container -->
+                <div
+                    class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-200/60 divide-y divide-slate-200">
+
+                    <!-- Feature 1: Watermark Remover AI -->
+                    <div
+                        class="p-8 grid md:grid-cols-[auto,1fr,auto] items-center gap-6 hover:bg-slate-50 transition-colors duration-300">
+                        <!-- Icon -->
+                        <div
+                            class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-primary-light rounded-lg">
+                            <i class="fas fa-wand-magic-sparkles text-2xl text-primary"></i>
+                        </div>
+                        <!-- Text Content -->
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-1">Watermark Remover AI</h3>
+                            <p class="text-slate-600 leading-relaxed">Instantly remove watermarks for seamless
+                                cross-platform sharing.</p>
+                        </div>
+                        <!-- Action Button -->
+                        <a href="#"
+                            class="px-5 py-2 text-center font-semibold text-slate-700 bg-slate-200 rounded-lg hover:bg-primary hover:text-white transition-all duration-300 group">
+                            Learn More <i
+                                class="fas fa-arrow-right ml-1 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all"></i>
+                        </a>
+                    </div>
+
+                    <!-- Feature 2: Transcript Generator -->
+                    <div
+                        class="p-8 grid md:grid-cols-[auto,1fr,auto] items-center gap-6 hover:bg-slate-50 transition-colors duration-300">
+                        <!-- Icon -->
+                        <div
+                            class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-primary-light rounded-lg">
+                            <i class="fas fa-file-alt text-2xl text-primary"></i>
+                        </div>
+                        <!-- Text Content -->
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-800 mb-1">Transcript Generator</h3>
+                            <p class="text-slate-600 leading-relaxed">Get a full transcript of any Short to create blog
+                                posts or captions instantly.</p>
+                        </div>
+                        <!-- Action Button -->
+                        <a href="#"
+                            class="px-5 py-2 text-center font-semibold text-slate-700 bg-slate-200 rounded-lg hover:bg-primary hover:text-white transition-all duration-300 group">
+                            Get Transcripts <i
+                                class="fas fa-arrow-right ml-1 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section>
+            <div class="container mx-auto px-6 text-center">
+                <div
+                    class="bg-gradient-to-r from-slate-800 to-slate-900 text-white p-12 rounded-2xl shadow-2xl relative overflow-hidden">
+                    <div
+                        class="absolute -top-1/4 -right-1/4 w-80 h-80 bg-primary/20 rounded-full filter blur-3xl opacity-50">
+                    </div>
+                    <div class="relative z-10">
+                        <h2 class="text-3xl md:text-4xl font-bold font-poppins text-white">Automate Your Content
+                            Workflow</h2>
+                        <p class="mt-4 text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">With a suite of
+                            powerful tools, you can craft, preview, schedule, and analyze your social media content with
+                            ease.</p>
+                        <a href="#"
+                            class="mt-10 inline-block bg-primary text-white font-bold text-lg px-10 py-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/40">Get
+                            Started for Free</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ & Tools Section -->
+        <section id="faq" class="py-24 border-t border-slate-200/80 bg-white">
+            <div class="container max-w-5xl mx-auto px-6  ">
+                <h2 class="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-10">Frequently Asked
+                    Questions</h2>
+                <div class="space-y-4">
+                    <details
+                        class="bg-white p-6 rounded-lg group shadow-lg border border-slate-200/50 shadow-slate-200/50">
+                        <summary
+                            class="font-semibold text-lg text-slate-800 list-none flex justify-between items-center cursor-pointer">
+                            Is this YouTube Shorts Downloader free?<i
+                                class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-600 leading-relaxed">Yes, the core download functionality is
+                            completely free. We offer paid subscriptions for advanced features like 4K download and
+                            our AI watermark removal tool.</p>
+                    </details>
+                    <details
+                        class="bg-white p-6 rounded-lg group shadow-lg border border-slate-200/50 shadow-slate-200/50">
+                        <summary
+                            class="font-semibold text-lg text-slate-800 list-none flex justify-between items-center cursor-pointer">
+                            Can I download Shorts without the YouTube watermark?<i
+                                class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-600 leading-relaxed">Yes, we offer an advanced, paid AI feature
+                            specifically designed for this. <a href="#"
+                                class="text-primary font-semibold hover:underline">Click here to learn more.</a></p>
+                    </details>
+                    <details
+                        class="bg-white p-6 rounded-lg group shadow-lg border border-slate-200/50 shadow-slate-200/50">
+                        <summary
+                            class="font-semibold text-lg text-slate-800 list-none flex justify-between items-center cursor-pointer">
+                            Is it safe to use this tool?<i
+                                class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                        </summary>
+                        <p class="mt-4 text-slate-600 leading-relaxed">Absolutely. We use a secure, browser-side
+                            processing method. Your privacy is guaranteed.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer - REBUILT TO MATCH HEADER'S INFORMATION ARCHITECTURE -->
+    <footer class="bg-slate-800 text-slate-300">
+        <div class="container mx-auto px-6 py-16">
+
+            <!-- Main Footer Grid -->
+            <div class="grid md:grid-cols-4 gap-8">
+
+                <!-- Column 1: Brand & Mission -->
+                <div class="md:col-span-1">
+                    <a href="/" class="text-2xl font-bold font-poppins">
+                        Shorts<span class="text-red-500">Sync</span>.io
+                    </a>
+                    <p class="mt-4 text-sm text-slate-400 leading-relaxed">
+                        The ultimate tool for creators to download, optimize, and repurpose their YouTube Shorts
+                        content. Fast, free, and built with passion.
+                    </p>
+                </div>
+
+                <!-- Column 2: Core Tools -->
+                <div>
+                    <h3 class="font-semibold text-white mb-4">Core Tools</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/" class="hover:text-red-500 transition-colors">Download Shorts (MP4)</a></li>
+                        <li><a href="/shorts-to-mp3" class="hover:text-red-500 transition-colors">MP3 Audio
+                                Extractor</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: AI Creator Suite -->
+                <div>
+                    <h3 class="font-semibold text-white mb-4">AI Tools</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/ai/watermark-remover" class="hover:text-red-500 transition-colors">Watermark
+                                Remover</a></li>
+                        <li><a href="/ai/transcript-generator" class="hover:text-red-500 transition-colors">Transcript
+                                Generator</a></li>
+                        <li><a href="/ai/title-generator" class="hover:text-red-500 transition-colors">AI Title
+                                Generator</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Company & Legal -->
+                <div>
+                    <h3 class="font-semibold text-white mb-4">Company</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/about" class="hover:text-red-500 transition-colors">About & Contact</a></li>
+                        <li><a href="/pricing" class="hover:text-red-500 transition-colors">Pricing</a></li>
+                        <li><a href="/privacy" class="hover:text-red-500 transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms" class="hover:text-red-500 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Sub-Footer: Copyright & Socials -->
+            <div class="mt-12 pt-8 border-t border-slate-700 flex flex-col sm:flex-row justify-between items-center">
+                <p class="text-sm text-slate-400">&copy; 2024 Ythortsdl.net. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0">
+                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><i
+                            class="fab fa-twitter text-xl"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><i
+                            class="fab fa-youtube text-xl"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><i
+                            class="fab fa-github text-xl"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <script>
+        const input = document.querySelector('input[type="text"]');
+        const downloadButton = document.querySelector('.hero-section button');
+        const resultSection = document.getElementById('result-section');
+
+        downloadButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (input.value.includes('youtube.com/shorts/')) {
+                downloadButton.innerHTML = `<i class="fas fa-spinner fa-spin"></i><span>Processing...</span>`;
+                downloadButton.disabled = true;
+
+                setTimeout(() => {
+                    resultSection.innerHTML = `
+                    <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 p-8 text-left">
+                        <h3 class="text-2xl font-bold font-poppins text-slate-800 mb-6">Your Content, Ready to Go</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-slate-50 p-6 rounded-xl">
+                                <h4 class="font-semibold text-lg mb-4 text-slate-700">Standard Downloads (Free)</h4>
+                                <div class="space-y-3">
+                                    <a href="#" class="flex justify-between items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md hover:border-red-500 border border-transparent transition group">
+                                        <div><p class="font-semibold text-slate-800">MP4 (1080p)</p><p class="text-sm text-slate-500">Full HD Video</p></div><i class="fas fa-arrow-down text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"></i></a>
+                                    <a href="#" class="flex justify-between items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md hover:border-red-500 border border-transparent transition group">
+                                        <div><p class="font-semibold text-slate-800">MP4 (720p)</p><p class="text-sm text-slate-500">HD Video</p></div><i class="fas fa-arrow-down text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"></i></a>
+                                    <a href="#" class="flex justify-between items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md hover:border-red-500 border border-transparent transition group">
+                                        <div><p class="font-semibold text-slate-800">MP3 (Audio)</p><p class="text-sm text-slate-500">Audio Only</p></div><i class="fas fa-arrow-down text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"></i></a>
+                                </div>
+                            </div>
+                            <div class="bg-gradient-to-br from-red-50 to-blue-50 p-6 rounded-xl border-2 border-red-200">
+                                <h4 class="font-semibold text-lg mb-4 flex items-center text-slate-700"><i class="fas fa-wand-magic-sparkles text-red-500 mr-2"></i> Creator Suite <span class="ml-2 text-xs font-bold bg-red-500 text-white px-2 py-0.5 rounded-full">PRO</span></h4>
+                                <div class="space-y-3">
+                                    <a href="#" class="flex items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md hover:border-red-500 border border-transparent transition group">
+                                        <i class="fas fa-star text-yellow-400 mr-4"></i>
+                                        <div><p class="font-semibold text-slate-800">AI Watermark Removal</p><p class="text-sm text-slate-500">Perfect for TikTok & Reels</p></div></a>
+                                    <a href="#" class="flex items-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md hover:border-red-500 border border-transparent transition group">
+                                        <i class="fas fa-star text-yellow-400 mr-4"></i>
+                                        <div><p class="font-semibold text-slate-800">AI Transcript Generation</p><p class="text-sm text-slate-500">Boost your SEO & accessibility</p></div></a>
+                                    <a href="#" class="block text-center mt-4 bg-slate-800 text-white font-semibold py-3 rounded-lg hover:bg-slate-900 transition-all duration-300 transform hover:-translate-y-0.5">Unlock Pro Features</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                    resultSection.classList.remove('hidden');
+                    resultSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    downloadButton.innerHTML = `<i class="fas fa-download"></i><span>Download</span>`;
+                    downloadButton.disabled = false;
+                }, 1500);
+            } else {
+                alert('Please enter a valid YouTube Shorts link.');
+            }
+        });
+    </script>
+</body>
+
+</html>
