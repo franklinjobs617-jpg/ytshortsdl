@@ -8,16 +8,13 @@
 
     <!-- Core Tech Stack -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Font Library -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
-        rel="stylesheet">
-
     <script>
         // Customizing Tailwind to enforce our Design System
         tailwind.config = {
@@ -28,15 +25,45 @@
                         display: ['Poppins', 'sans-serif'],
                     },
                     colors: {
-                        primary: { DEFAULT: '#EF4444', dark: '#DC2626', light: '#FEE2E2' },
-                        slate: { 50: '#F8FAFC', 100: '#F1F5F9', 200: '#E2E8F0', 300: '#CBD5E1', 400: '#94A3B8', 500: '#64748B', 600: '#475569', 700: '#334155', 800: '#1E293B', 900: '#0F172A', }
+                        primary: { // Red for primary actions (Download, Buy)
+                            DEFAULT: '#EF4444', // red-500
+                            dark: '#DC2626', // red-600
+                            light: '#FEE2E2' // red-100
+                        },
+                        // MODIFICATION 1 (COLOR): Added Secondary Color for features/opportunities
+                        secondary: { // Blue for value, features, trust
+                            DEFAULT: '#3B82F6', // blue-500
+                            dark: '#2563EB', // blue-600
+                            light: '#DBEAFE' // blue-100
+                        },
+                        slate: {
+                            50: '#F8FAFC', 100: '#F1F5F9', 200: '#E2E8F0',
+                            300: '#CBD5E1', 400: '#94A3B8', 500: '#64748B',
+                            600: '#475569', 700: '#334155', 800: '#1E293B', 900: '#0F172A',
+                        }
                     }
                 }
             }
         }
     </script>
+    <!-- Font Library -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
     <style>
-        /* Modern Glow Effect for the Hero Section */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+
         .glow-effect {
             position: absolute;
             top: 0;
@@ -58,7 +85,6 @@
 
         .glow-effect::before {
             background: #ef4444;
-            /* red-500 */
             width: 500px;
             height: 500px;
             top: -150px;
@@ -67,64 +93,168 @@
 
         .glow-effect::after {
             background: #3b82f6;
-            /* blue-500 */
             width: 400px;
             height: 400px;
             bottom: -150px;
             right: -100px;
         }
+
+        .custom-ring {
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+        }
+
+        .custom-focus-ring:focus-within {
+            box-shadow: 0 0 0 3px rgba(250, 1, 1, 0.3);
+        }
+
+        .guide-details summary {
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+
+        .guide-details[open] summary {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        /* Skeleton loading for results */
+        .skeleton {
+            background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 37%, #e5e7eb 63%);
+            background-size: 400% 100%;
+            animation: skeleton-loading 1.4s ease infinite;
+        }
+
+        @keyframes skeleton-loading {
+            0% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0 50%;
+            }
+        }
+
+        /* Mobile drawer backdrop state helper */
+        .backdrop-hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .backdrop-show {
+            opacity: 1;
+            pointer-events: auto;
+        }
     </style>
 </head>
 
 <body class="antialiased bg-slate-50 text-slate-700">
-
-    <!-- Header (Reused from our established design system) -->
+    <!-- Header - REBUILT ACCORDING TO NAVIGATION DESIGN -->
     <header class="py-4 px-6 md:px-12 sticky top-0 bg-white/80 backdrop-blur-xl z-50 border-b border-slate-200/80">
         <nav class="flex justify-between items-center max-w-7xl mx-auto">
-            <a href="/" class="text-2xl font-bold font-poppins flex-shrink-0">Shorts<span
-                    class="text-primary">Sync</span>.io</a>
+            <a href="/" class="text-2xl font-bold font-poppins flex-shrink-0">
+                YTShorts<span class="text-red-500">dl</span>.net
+            </a>
+
             <div class="hidden md:flex items-center space-x-8">
-                <a href="/"
-                    class="font-medium text-slate-600 hover:text-primary transition-colors duration-300">Download
+
+                <a href="/index.html"
+                    class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">Download
                     Shorts</a>
-                <a href="/shorts-to-mp3"
-                    class="font-medium text-slate-600 hover:text-primary transition-colors duration-300">MP3 Audio</a>
+                <a href="/shorts-to-mp3.html"
+                    class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">MP3 Audio</a>
+
                 <div class="relative group">
-                    <button class="font-medium text-primary flex items-center gap-2"><span>AI Tools</span><i
-                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i></button>
+                    <button class="font-medium text-red-500 transition-colors duration-300 flex items-center gap-2">
+                        <span>AI Tools</span>
+                        <i
+                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                    </button>
                     <div
                         class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
-                        <a href="/ai/watermark-remover"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Watermark
-                            Remover</a><a href="/ai/transcript-generator"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Transcript
-                            Generator</a><a href="/ai/title-generator"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">AI
-                            Title Generator</a>
+                        <a href="/no-watermark.html"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 bg-slate-100 text-red-500">Watermark
+                            Remover</a>
+                        <a href="/4k-shorts-downloader.html"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">
+                            4K Shorts Downloader
+                        </a>
+                        <a href="/shorts-thumbnail-tool.html"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">
+                            Shorts Thumbnail Tool
+                        </a>
                     </div>
                 </div>
-                <a href="/about"
-                    class="font-medium text-slate-600 hover:text-primary transition-colors duration-300">About/Contact</a>
+
+                <a href="/pricing.html"
+                    class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">Pricing</a>
+
                 <div class="relative group">
                     <button
-                        class="font-medium text-slate-600 hover:text-primary transition-colors duration-300 flex items-center gap-2"><span>Legal</span><i
-                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i></button>
+                        class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300 flex items-center gap-2">
+                        <span>Legal</span>
+                        <i
+                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                    </button>
                     <div
                         class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-48 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
-                        <a href="/privacy"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Privacy
-                            Policy</a><a href="/terms"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-primary">Terms
+                        <a href="/privacy.html"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Privacy
+                            Policy</a>
+                        <a href="/terms.html"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Terms
                             of Service</a>
                     </div>
                 </div>
-                <a href="/pricing"
-                    class="bg-slate-800 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-slate-900 transition-all duration-300 transform hover:-translate-y-0.5 shadow-sm">Pricing</a>
+                <a href="/about.html"
+                    class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">About</a>
+
             </div>
-            <button class="md:hidden text-2xl text-slate-600"><i class="fas fa-bars"></i></button>
+
+            <button id="mobile-menu-button" class="md:hidden text-2xl text-slate-600" aria-label="Open menu"
+                aria-controls="mobile-drawer" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
         </nav>
     </header>
 
+    <!-- Mobile Drawer & Backdrop (MOVED OUT OF HEADER) -->
+    <div id="mobile-drawer-backdrop"
+        class="fixed inset-0 bg-black/40 transition-opacity backdrop-hidden z-50 md:hidden">
+    </div>
+    <aside id="mobile-drawer"
+        class="fixed top-0 right-0 h-full w-80 max-w-[80%] bg-white shadow-2xl translate-x-full transition-transform z-50 md:hidden"
+        aria-hidden="true">
+        <div class="p-4 border-b border-slate-200 flex items-center justify-between">
+            <span class="text-xl font-semibold">Menu</span>
+            <button id="mobile-menu-close" class="text-2xl text-slate-600" aria-label="Close menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="p-6 space-y-4 bg-white min-h-screen">
+            <a href="/index.html" class="block font-medium text-red-500">Download Shorts</a>
+            <a href="/shorts-to-mp3.html" class="block font-medium text-slate-600">MP3 Audio</a>
+            <div>
+                <div class="text-slate-400 text-xs uppercase tracking-wider mb-2">AI Tools</div>
+                <a href="/no-watermark.html"
+                    class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Watermark Remover</a>
+                <a href="/4k-shorts-downloader.html"
+                    class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">4K Shorts Downloader</a>
+                <a href="/shorts-thumbnail-tool.html"
+                    class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Shorts Thumbnail Tool</a>
+            </div>
+            <a href="/pricing.html" class="block font-medium text-slate-600">Pricing</a>
+            <div>
+                <div class="text-slate-400 text-xs uppercase tracking-wider mb-2">Legal</div>
+                <a href="/privacy.html" class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Privacy
+                    Policy</a>
+                <a href="/terms.html" class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Terms of
+                    Service</a>
+            </div>
+            <a href="/about.html" class="block font-medium text-slate-600">About</a>
+        </nav>
+    </aside>
     <!-- Main Content for the No-Watermark Page -->
     <main class="">
 
@@ -142,7 +272,7 @@
                     instantly cross-platform ready.</p>
 
                 <!-- Central Action Module -->
-                <div class="mt-6 max-w-5xl mx-auto ">
+                <div class="mt-6 w-full max-w-5xl mx-auto ">
 
                     <!-- Interactive Image Comparison -->
                     <div>
@@ -150,9 +280,9 @@
                         <link rel="stylesheet"
                             href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css" />
 
-                        <img-comparison-slider class="rounded-xl shadow-lg border border-slate-200">
-                            <img slot="first" src="./images/unnamed.jpg" class="max-w-2xl" />
-                            <img slot="second" src="./images/unnamed (1).jpg" class="max-w-2xl" />
+                        <img-comparison-slider class="rounded-xl shadow-lg border border-slate-200 w-full max-w-2xl">
+                            <img slot="first" src="./images/unnamed.jpg" />
+                            <img slot="second" src="./images/unnamed (1).jpg" />
                         </img-comparison-slider>
                         <figcaption class="text-sm text-slate-500 italic mt-4">Slide to see the difference! Zero
                             artifacts, perfect background restoration.</figcaption>
@@ -171,7 +301,7 @@
                                 </button>
                             </div>
                         </div>
-                        <a href="/pricing"
+                        <a href="/pricing.html"
                             class="mt-6 inline-block px-8 py-4 bg-primary text-white font-bold text-lg rounded-lg shadow-lg hover:bg-primary-dark transition-all duration-300 transform hover:-translate-y-1">
                             Buy Credits & Get Started &rarr;
                         </a>
@@ -300,7 +430,8 @@
             <!-- Module: Safety Comparison - OPTIMIZED for Visual Persuasion -->
             <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/50">
                 <div class="text-center">
-                    <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-4">Stop Using Shady Extensions: Safety
+                    <h2 class="text-2xl md:text-3xl font-bold font-poppins text-slate-900 mb-4">Stop Using Shady
+                        Extensions: Safety
                         &
                         Speed Matter</h2>
                     <p class="text-lg text-slate-600 max-w-3xl mx-auto">Choose a professional, browser-based solution
@@ -360,7 +491,8 @@
         </section>
         <!-- Final Pricing CTA Section -->
         <article id="pricing" class="text-center pt-16">
-            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-4">Pricing and Access: Get Your Clean Videos
+            <h2 class="text-2xl md:text-3xl font-bold font-poppins text-slate-900 mb-4">Pricing and Access: Get Your
+                Clean Videos
                 Instantly</h2>
             <p class="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">The AI Watermark Remover is a premium
                 service available via Credits or Subscription, priced based on the high computing power required for
@@ -372,67 +504,130 @@
 
 
             </div>
-            <figcaption class="text-sm text-slate-500 italic mb-8">The cost of one credit is less than the hourly wage
-                you save on manual editing.</figcaption>
-            <a href="/pricing"
-                class="px-8 py-4 bg-primary text-white font-bold text-lg rounded-lg shadow-lg hover:bg-primary-dark transition-all duration-300 transform hover:-translate-y-1">
+            <p class="text-sm text-slate-500 italic pb-8 block">The cost of one credit is less than the hourly
+                wage
+                you save on manual editing.</p>
+            <a href="/pricing.html"
+                class="block max-w-fit mx-4 md:mx-auto px-8 py-4 bg-primary text-white font-bold text-lg rounded-lg shadow-lg hover:bg-primary-dark transition-all duration-300 transform ">
                 Buy Credits & Start Removing Watermarks &rarr;
             </a>
         </article>
 
     </main>
 
-    <!-- Footer (Reused from our established design system) -->
-    <footer class="bg-slate-800 text-slate-300 mt-16">
+
+    <!-- Footer - REBUILT TO MATCH HEADER'S INFORMATION ARCHITECTURE -->
+    <footer class="bg-slate-800 text-slate-300 mt-12">
         <div class="container mx-auto px-6 py-16">
+
             <div class="grid md:grid-cols-4 gap-8">
-                <div class="md:col-span-1"><a href="/" class="text-2xl font-bold font-poppins">Shorts<span
-                            class="text-primary">Sync</span>.io</a>
-                    <p class="mt-4 text-sm text-slate-400 leading-relaxed">The ultimate tool for creators to download,
-                        optimize, and repurpose their YouTube Shorts content.</p>
+
+                <div class="md:col-span-1">
+                    <a href="/" class="text-2xl font-bold font-poppins">
+                        YTShorts<span class="text-red-500">dl</span>.net
+                    </a>
+                    <p class="mt-4 text-sm text-slate-400 leading-relaxed">
+                        The ultimate tool for creators to download, optimize, and repurpose their YouTube Shorts
+                        content. Fast, free, and built with passion.
+                    </p>
                 </div>
+
                 <div>
                     <h3 class="font-semibold text-white mb-4">Core Tools</h3>
                     <ul class="space-y-3">
-                        <li><a href="/" class="hover:text-primary transition-colors">Download Shorts (MP4)</a></li>
-                        <li><a href="/shorts-to-mp3" class="hover:text-primary transition-colors">MP3 Audio
-                                Extractor</a></li>
+                        <li><a href="/index.html" class="hover:text-red-500 transition-colors">Download Shorts</a>
+                        </li>
+                        <li><a href="/shorts-to-mp3.html" class="hover:text-red-500 transition-colors">MP3 Audio</a>
+                        </li>
                     </ul>
                 </div>
+
                 <div>
                     <h3 class="font-semibold text-white mb-4">AI Tools</h3>
                     <ul class="space-y-3">
-                        <li><a href="/ai/watermark-remover" class="hover:text-primary transition-colors">Watermark
-                                Remover</a></li>
-                        <li><a href="/ai/transcript-generator" class="hover:text-primary transition-colors">Transcript
-                                Generator</a></li>
-                        <li><a href="/ai/title-generator" class="hover:text-primary transition-colors">AI Title
-                                Generator</a></li>
+                        <li><a href="/no-watermark.html" class="hover:text-red-500 transition-colors">
+                                Watermark Remover</a></li>
+                        <li><a href="/4k-shorts-downloader.html" class="hover:text-red-500 transition-colors">
+                                4K Shorts Downloader
+                            </a></li>
+                        <li><a href="/shorts-thumbnail-tool.html" class="hover:text-red-500 transition-colors">
+                                Shorts Thumbnail Tool
+                            </a></li>
+
+
                     </ul>
                 </div>
+
                 <div>
                     <h3 class="font-semibold text-white mb-4">Company</h3>
                     <ul class="space-y-3">
-                        <li><a href="/about" class="hover:text-primary transition-colors">About & Contact</a></li>
-                        <li><a href="/pricing" class="hover:text-primary transition-colors">Pricing</a></li>
-                        <li><a href="/privacy" class="hover:text-primary transition-colors">Privacy Policy</a></li>
-                        <li><a href="/terms" class="hover:text-primary transition-colors">Terms of Service</a></li>
+                        <li><a href="/about.html" class="hover:text-red-500 transition-colors">About</a></li>
+                        <li><a href="/pricing.html" class="hover:text-red-500 transition-colors">Pricing</a></li>
+                        <li><a href="/privacy.html" class="hover:text-red-500 transition-colors">Privacy Policy</a></li>
+                        <li><a href="/terms.html" class="hover:text-red-500 transition-colors">Terms of Service</a></li>
                     </ul>
                 </div>
+
             </div>
+
             <div class="mt-12 pt-8 border-t border-slate-700 flex flex-col sm:flex-row justify-between items-center">
-                <p class="text-sm text-slate-400">&copy; 2024 ShortsSync.io. All rights reserved.</p>
-                <div class="flex space-x-4 mt-4 sm:mt-0"><a href="#"
-                        class="text-slate-400 hover:text-primary transition-colors"><i
-                            class="fab fa-twitter text-xl"></i></a><a href="#"
-                        class="text-slate-400 hover:text-primary transition-colors"><i
-                            class="fab fa-youtube text-xl"></i></a><a href="#"
-                        class="text-slate-400 hover:text-primary transition-colors"><i
-                            class="fab fa-github text-xl"></i></a></div>
+                <p class="text-sm text-slate-400">&copy; 2025 YTShortsdl.net. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0">
+                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><i
+                            class="fab fa-twitter text-xl"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><i
+                            class="fab fa-youtube text-xl"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><i
+                            class="fab fa-github text-xl"></i></a>
+                </div>
             </div>
+
         </div>
     </footer>
 
+    <script>
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileDrawer = document.getElementById('mobile-drawer');
+        const mobileBackdrop = document.getElementById('mobile-drawer-backdrop');
+
+
+
+        // Mobile drawer
+        function openDrawer() {
+            mobileDrawer.classList.remove('translate-x-full');
+            mobileBackdrop.classList.remove('backdrop-hidden');
+            mobileBackdrop.classList.add('backdrop-show');
+            mobileMenuBtn.setAttribute('aria-expanded', 'true');
+            mobileDrawer.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('overflow-hidden'); // lock scroll on body
+        }
+        function closeDrawer() {
+            mobileDrawer.classList.add('translate-x-full');
+            mobileBackdrop.classList.add('backdrop-hidden');
+            mobileBackdrop.classList.remove('backdrop-show');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            mobileDrawer.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('overflow-hidden'); // unlock scroll on body
+        }
+        mobileMenuBtn.addEventListener('click', openDrawer);
+        mobileMenuClose.addEventListener('click', closeDrawer);
+        mobileBackdrop.addEventListener('click', closeDrawer);
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeDrawer();
+        });
+        // Ensure drawer is closed when resizing to desktop breakpoint
+        const mq = window.matchMedia('(min-width: 768px)');
+        function handleBpChange(e) {
+            if (e.matches) closeDrawer();
+        }
+        if (mq.addEventListener) {
+            mq.addEventListener('change', handleBpChange);
+        } else if (mq.addListener) {
+            mq.addListener(handleBpChange);
+        }
+    </script>
 </body>
 
 </html>
