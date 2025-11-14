@@ -20,6 +20,13 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
         rel="stylesheet">
 
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "u5xi8vjmmq");
+    </script>
 </head>
 
 <body class="antialiased bg-slate-50 text-slate-700">
@@ -503,6 +510,43 @@
         } else if (mq.addListener) {
             mq.addListener(handleBpChange);
         }
+    </script>
+    <script>
+        // 标志，确保脚本只加载一次
+        let thirdPartyScriptsLoaded = false;
+
+        // 创建一个函数来加载所有第三方脚本
+        function loadThirdPartyScripts() {
+            if (thirdPartyScriptsLoaded) {
+                return;
+            }
+            thirdPartyScriptsLoaded = true;
+            console.log("User interaction detected, loading third-party scripts...");
+
+            // 1. 加载 Google Tag Manager (GTAG)
+            const gtagScript = document.createElement('script');
+            gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-Z6TQTL70L0';
+            gtagScript.async = true;
+            // GTAG 脚本加载完成后，再执行初始化代码
+            gtagScript.onload = function () {
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-Z6TQTL70L0');
+            };
+            document.head.appendChild(gtagScript);
+
+        }
+
+        const userInteractionEvents = [
+            "mousemove", "scroll", "keydown", "touchstart", "click"
+        ];
+
+        userInteractionEvents.forEach(function (event) {
+            window.addEventListener(event, loadThirdPartyScripts, { once: true, passive: true });
+        });
+
+        setTimeout(loadThirdPartyScripts, 5000);
     </script>
 </body>
 
