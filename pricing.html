@@ -28,6 +28,7 @@
 
 <body class="antialiased bg-slate-50 text-slate-700">
 
+        <!-- Header - REBUILT ACCORDING TO NAVIGATION DESIGN -->
     <header class="py-4 px-6 md:px-12 sticky top-0 bg-white/80 backdrop-blur-xl z-50 border-b border-slate-200/80">
         <nav class="flex justify-between items-center max-w-7xl mx-auto">
             <a href="/" class="text-2xl font-bold font-poppins flex-shrink-0 flex items-center gap-2">
@@ -55,20 +56,34 @@
                     <div
                         class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
                         <a href="/no-watermark.html"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Watermark
-                            Remover</a>
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Watermark Remover</a>
                         <a href="/4k-shorts-downloader.html"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">
-                            4K Shorts Downloader
-                        </a>
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">4K Shorts Downloader</a>
                         <a href="/shorts-thumbnail-tool.html"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">
-                            Shorts Thumbnail Tool
-                        </a>
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Shorts Thumbnail Tool</a>
                     </div>
                 </div>
 
-                <a href="/pricing.html" class="font-medium text-red-500 transition-colors duration-300">Pricing</a>
+                <div class="relative group">
+                    <button
+                        class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300 flex items-center gap-2">
+                        <span>Guide</span>
+                        <i
+                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                    </button>
+                    <div
+                        class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
+                        <a href="/guide/chrome-extension.html"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Chrome Extension</a>
+                        <a href="/guide/iphone-downloader.html"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">iPhone Downloader</a>
+                        <a href="/guide/latest-shorts-tool.html"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Latest Shorts Tool</a>
+                    </div>
+                </div>
+
+                <a href="/pricing.html"
+                    class="font-medium text-red-500 transition-colors duration-300">Pricing</a>
 
                 <div class="relative group">
                     <button
@@ -80,11 +95,9 @@
                     <div
                         class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-48 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
                         <a href="/privacy.html"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Privacy
-                            Policy</a>
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Privacy Policy</a>
                         <a href="/terms.html"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Terms
-                            of Service</a>
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Terms of Service</a>
                     </div>
                 </div>
                 <a href="/about.html"
@@ -99,7 +112,8 @@
         </nav>
     </header>
 
-    <!-- Mobile Drawer & Backdrop (MOVED OUT OF HEADER) -->
+
+        <!-- Mobile Drawer & Backdrop (MOVED OUT OF HEADER) -->
     <div id="mobile-drawer-backdrop"
         class="fixed inset-0 bg-black/40 transition-opacity backdrop-hidden z-50 md:hidden">
     </div>
@@ -109,11 +123,11 @@
         <div class="p-4 border-b border-slate-200 flex items-center justify-between">
             <span class="text-xl font-semibold">Menu</span>
             <button id="mobile-menu-close" class="text-2xl text-slate-600" aria-label="Close menu">
-                <i class="fas fa-times"></i>
+                <i class="fas a-times"></i>
             </button>
         </div>
         <nav class="p-6 space-y-4 bg-white min-h-screen">
-            <a href="/index.html" class="block font-medium text-red-500">Download Shorts</a>
+            <a href="/index.html" class="block font-medium text-slate-600">Download Shorts</a>
             <a href="/shorts-to-mp3.html" class="block font-medium text-slate-600">MP3 Audio</a>
             <div>
                 <div class="text-slate-400 text-xs uppercase tracking-wider mb-2">AI Tools</div>
@@ -124,17 +138,29 @@
                 <a href="/shorts-thumbnail-tool.html"
                     class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Shorts Thumbnail Tool</a>
             </div>
-            <a href="/pricing.html" class="block font-medium text-slate-600">Pricing</a>
+
+            <div>
+                <div class="text-slate-400 text-xs uppercase tracking-wider mb-2">Guide</div>
+                <a href="/guide/chrome-extension.html"
+                    class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Chrome Extension</a>
+                <a href="/guide/iphone-downloader.html"
+                    class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">iPhone Downloader</a>
+                <a href="/guide/latest-shorts-tool.html"
+                    class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Latest Shorts Tool</a>
+            </div>
+
+            <a href="/pricing.html" class="block font-medium text-red-500">Pricing</a>
             <div>
                 <div class="text-slate-400 text-xs uppercase tracking-wider mb-2">Legal</div>
-                <a href="/privacy.html" class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Privacy
-                    Policy</a>
-                <a href="/terms.html" class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Terms of
-                    Service</a>
+                <a href="/privacy.html"
+                    class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Privacy Policy</a>
+                <a href="/terms.html"
+                    class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Terms of Service</a>
             </div>
             <a href="/about.html" class="block font-medium text-slate-600">About</a>
         </nav>
     </aside>
+
     <!-- Main Content for the Pricing Page -->
     <main class="container mx-auto px-4 py-16 sm:py-24 space-y-16">
 
@@ -344,10 +370,11 @@
 
 
     <!-- Footer - REBUILT TO MATCH HEADER'S INFORMATION ARCHITECTURE -->
+        <!-- Footer - REBUILT TO MATCH HEADER'S INFORMATION ARCHITECTURE -->
     <footer class="bg-slate-800 text-slate-300">
         <div class="container mx-auto px-6 py-16">
 
-            <div class="grid md:grid-cols-4 gap-8">
+            <div class="grid md:grid-cols-5 gap-8">
 
                 <div class="md:col-span-1">
                     <a href="/" class="text-2xl font-bold font-poppins">
@@ -362,34 +389,32 @@
                 <div>
                     <h3 class="font-semibold text-white mb-4">Core Tools</h3>
                     <ul class="space-y-3">
-                        <li><a href="/index.html" class="hover:text-red-500 transition-colors">Download Shorts</a>
-                        </li>
-                        <li><a href="/shorts-to-mp3.html" class="hover:text-red-500 transition-colors">MP3 Audio</a>
-                        </li>
+                        <li><a href="/index.html" class="hover:text-red-500 transition-colors">Download Shorts</a></li>
+                        <li><a href="/shorts-to-mp3.html" class="hover:text-red-500 transition-colors">MP3 Audio</a></li>
                     </ul>
                 </div>
-
+                <div>
+                    <h3 class="font-semibold text-white mb-4">Guide</h3>
+                    <ul class="space-y-3">
+                        <li><a href="/guide/chrome-extension.html" class="hover:text-red-500 transition-colors">Chrome Extension</a></li>
+                        <li><a href="/guide/shorts-to-mp3.html" class="hover:text-red-500 transition-colors">MP3 Audio</a></li>
+                        <li><a href="/guide/no-watermark.html" class="hover:text-red-500 transition-colors">Watermark Removal</a></li>
+                    </ul>
+                </div>
                 <div>
                     <h3 class="font-semibold text-white mb-4">AI Tools</h3>
                     <ul class="space-y-3">
-                        <li><a href="/no-watermark.html" class="hover:text-red-500 transition-colors">
-                                Watermark Remover</a></li>
-                        <li><a href="/4k-shorts-downloader.html" class="hover:text-red-500 transition-colors">
-                                4K Shorts Downloader
-                            </a></li>
-                        <li><a href="/shorts-thumbnail-tool.html" class="hover:text-red-500 transition-colors">
-                                Shorts Thumbnail Tool
-                            </a></li>
-
-
+                        <li><a href="/no-watermark.html" class="hover:text-red-500 transition-colors">Watermark Remover</a></li>
+                        <li><a href="/4k-shorts-downloader.html" class="hover:text-red-500 transition-colors">4K Shorts Downloader</a></li>
+                        <li><a href="/shorts-thumbnail-tool.html" class="hover:text-red-500 transition-colors">Shorts Thumbnail Tool</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h3 class="font-semibold text-white mb-4">Company</h3>
                     <ul class="space-y-3">
-                        <li><a href="/about.html" class="hover:text-red-500 transition-colors">About</a></li>
-                        <li><a href="/pricing.html" class="hover:text-red-500 transition-colors">Pricing</a></li>
+                        <li><a href="/about.html" class="hover:text-red-500 transition-colors">About & Contact</a></li>
+                        <li><a href="/pricing.html" class="hover:text-red-500 transition-colors text-red-500">Pricing</a></li>
                         <li><a href="/privacy.html" class="hover:text-red-500 transition-colors">Privacy Policy</a></li>
                         <li><a href="/terms.html" class="hover:text-red-500 transition-colors">Terms of Service</a></li>
                     </ul>
@@ -411,6 +436,7 @@
 
         </div>
     </footer>
+
 
 
     <script>
