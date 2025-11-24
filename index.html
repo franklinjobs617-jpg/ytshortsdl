@@ -1003,7 +1003,7 @@
         async function handleBatchAnalyze() {
             const links = extractAndValidateLinks(batchInput.value);
             if (links.length === 0) { showError('No valid YouTube links found.'); return; }
-
+            if (links.length > 5) { showError('You can only analyze up to 5 links at a time.'); return; }
             setLoading(true, 'batch', `Analyzing ${links.length} links...`);
             inputSection.classList.add('hidden');
             resultSection.innerHTML = renderSkeleton();

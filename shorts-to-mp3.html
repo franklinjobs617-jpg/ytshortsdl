@@ -30,15 +30,39 @@
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3383070348689557"
         crossorigin="anonymous"></script>
+
+    <!-- Added simple spinner style -->
+    <style>
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid #ffffff;
+            width: 20px;
+            height: 20px;
+            -webkit-animation: spin 1s linear infinite;
+            /* Safari */
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body class="antialiased bg-slate-50 text-slate-700">
 
-        <!-- Header - REBUILT ACCORDING TO NAVIGATION DESIGN -->
+    <!-- Header -->
     <header class="py-4 px-6 md:px-12 sticky top-0 bg-white/80 backdrop-blur-xl z-50 border-b border-slate-200/80">
         <nav class="flex justify-between items-center max-w-7xl mx-auto">
             <a href="/" class="text-2xl font-bold font-poppins flex-shrink-0 flex items-center gap-2">
-                <img src="./favicon.ico" alt="" class="w-12 h-12">
+                <img src="/favicon.ico" alt="" class="w-12 h-12">
                 <span>
                     YTShorts<span class="text-red-500">dl</span>.net
                 </span>
@@ -49,8 +73,8 @@
                 <a href="/index.html"
                     class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">Download
                     Shorts</a>
-                <a href="/shorts-to-mp3.html"
-                    class="font-medium text-red-500 transition-colors duration-300">MP3 Audio</a>
+                <a href="/shorts-to-mp3.html" class="font-medium text-red-500 transition-colors duration-300">MP3
+                    Audio</a>
 
                 <div class="relative group">
                     <button
@@ -62,11 +86,14 @@
                     <div
                         class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
                         <a href="/no-watermark.html"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Watermark Remover</a>
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Watermark
+                            Remover</a>
                         <a href="/4k-shorts-downloader.html"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">4K Shorts Downloader</a>
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">4K
+                            Shorts Downloader</a>
                         <a href="/shorts-thumbnail-tool.html"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Shorts Thumbnail Tool</a>
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Shorts
+                            Thumbnail Tool</a>
                     </div>
                 </div>
 
@@ -80,11 +107,14 @@
                     <div
                         class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
                         <a href="/guide/chrome-extension.html"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Chrome Extension</a>
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Chrome
+                            Extension</a>
                         <a href="/guide/iphone-downloader.html"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">iPhone Downloader</a>
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">iPhone
+                            Downloader</a>
                         <a href="/guide/latest-shorts-tool.html"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Latest Shorts Tool</a>
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Latest
+                            Shorts Tool</a>
                     </div>
                 </div>
 
@@ -101,9 +131,11 @@
                     <div
                         class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-48 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
                         <a href="/privacy.html"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Privacy Policy</a>
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Privacy
+                            Policy</a>
                         <a href="/terms.html"
-                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Terms of Service</a>
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Terms
+                            of Service</a>
                     </div>
                 </div>
                 <a href="/about.html"
@@ -119,7 +151,7 @@
     </header>
 
 
-        <!-- Mobile Drawer & Backdrop (MOVED OUT OF HEADER) -->
+    <!-- Mobile Drawer & Backdrop -->
     <div id="mobile-drawer-backdrop"
         class="fixed inset-0 bg-black/40 transition-opacity backdrop-hidden z-50 md:hidden">
     </div>
@@ -158,10 +190,10 @@
             <a href="/pricing.html" class="block font-medium text-slate-600">Pricing</a>
             <div>
                 <div class="text-slate-400 text-xs uppercase tracking-wider mb-2">Legal</div>
-                <a href="/privacy.html"
-                    class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Privacy Policy</a>
-                <a href="/terms.html"
-                    class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Terms of Service</a>
+                <a href="/privacy.html" class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Privacy
+                    Policy</a>
+                <a href="/terms.html" class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Terms of
+                    Service</a>
             </div>
             <a href="/about.html" class="block font-medium text-slate-600">About</a>
         </nav>
@@ -170,7 +202,7 @@
     <!-- Main Content for the MP3 Page -->
     <main>
 
-        <!-- Hero Section for MP3 Tool - UNCHANGED AS REQUESTED -->
+        <!-- Hero Section for MP3 Tool -->
         <section id="tool-interface" class="relative text-center py-24 ">
             <div class="glow-effect -z-10"></div>
             <h1
@@ -189,22 +221,27 @@
                     </div>
                     <!-- SELECT LIST OPTIMIZED -->
                     <div class="relative w-full md:w-auto">
-                        <select id="audio-format-select" name="format"
-                            class="appearance-none w-full md:w-auto h-12 pl-4 pr-10 text-md bg-transparent text-slate-800 font-medium focus:outline-none border-y-2 md:border-y-0 md:border-x-2 border-slate-200">
+                        <div id="audio-format-select"
+                            class="w-full md:w-auto px-4 text-md bg-transparent text-slate-800 font-medium border-y-2 md:border-y-0 md:border-x-2 border-slate-200">
                             <option value="mp3-high">MP3 (Best)</option>
-                            <option value="m4a">M4A (Apple)</option>
-                        </select>
-                        <i
-                            class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+
+                        </div>
+
                     </div>
-                    <button type="submit"
+                    <button type="submit" id="submit-btn"
                         class="w-full md:w-auto mt-2 md:mt-0 bg-gradient-to-br from-red-500 to-red-600 text-white font-bold text-lg px-6 py-3 rounded-lg flex-shrink-0 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-red-500/30 flex items-center justify-center space-x-3">
-                        <i class="fas fa-cogs"></i><span>Extract Audio</span>
+                        <i id="btn-icon" class="fas fa-cogs"></i>
+                        <span id="btn-text">Extract Audio</span>
+                        <div id="btn-loader" class="spinner hidden"></div>
                     </button>
                 </form>
             </div>
-            <div id="result-section-mp3" class="mt-16 max-w-4xl mx-auto hidden"></div>
+            <!-- Results Container -->
+            <div id="result-section-mp3" class="mt-12 max-w-4xl mx-auto hidden transition-all duration-500 ease-in-out">
+                <!-- Content will be injected here via JS -->
+            </div>
         </section>
+
         <!-- Why Dedicated Tool Section -->
         <section id="why-dedicated-tool" class="py-16 sm:py-20 bg-white">
             <div class="container mx-auto px-6">
@@ -278,78 +315,10 @@
             </div>
         </section>
 
-        <!-- Supported Formats Section -->
-        <section id="formats" class="py-16 sm:py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/50">
-                    <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-8 text-center">Supported Audio Formats
-                    </h2>
-                    <div class="grid sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                        <div
-                            class="bg-slate-50 p-8 rounded-xl border border-slate-200 transition-all duration-300 hover:shadow-lg hover:border-primary transform hover:-translate-y-1">
-                            <i class="fas fa-file-audio text-4xl text-primary mb-4"></i>
-                            <h3 class="font-display text-2xl font-bold text-slate-800 mb-2">MP3 (High Quality)</h3>
-                            <p class="leading-relaxed">The universal standard. We deliver up to 320kbps audio, perfect
-                                for DJs, podcasters, and music libraries.</p>
-                        </div>
-                        <div
-                            class="bg-slate-50 p-8 rounded-xl border border-slate-200 transition-all duration-300 hover:shadow-lg hover:border-primary transform hover:-translate-y-1">
-                            <i class="fab fa-apple text-4xl text-slate-500 mb-4"></i>
-                            <h3 class="font-display text-2xl font-bold text-slate-800 mb-2">M4A (Apple Optimized)</h3>
-                            <p class="leading-relaxed">A preferred format for the Apple ecosystem, offering excellent
-                                quality at smaller file sizes.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- How-to Guide & CTA Section -->
-        <section id="guide-cta" class="py-16 sm:py-20">
-            <div class="container mx-auto px-6">
-                <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/50">
-                    <div class="grid md:grid-cols-2 gap-x-16 gap-y-12 items-center">
-                        <div>
-                            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-8">Simple 3-Step Guide</h2>
-                            <ol class="space-y-6">
-                                <li class="flex items-center text-lg"><span
-                                        class="flex items-center justify-center w-8 h-8 mr-4 bg-primary text-white font-bold rounded-full flex-shrink-0">1</span>
-                                    <div><strong class="text-slate-800">Copy the Link:</strong> Find the Short and tap
-                                        Share to copy the URL.</div>
-                                </li>
-                                <li class="flex items-center text-lg"><span
-                                        class="flex items-center justify-center w-8 h-8 mr-4 bg-primary text-white font-bold rounded-full flex-shrink-0">2</span>
-                                    <div><strong class="text-slate-800">Select MP3:</strong> Paste the URL and ensure
-                                        'MP3' is selected.</div>
-                                </li>
-                                <li class="flex items-center text-lg"><span
-                                        class="flex items-center justify-center w-8 h-8 mr-4 bg-primary text-white font-bold rounded-full flex-shrink-0">3</span>
-                                    <div><strong class="text-slate-800">Download:</strong> Hit the button. The audio is
-                                        saved instantly.</div>
-                                </li>
-                            </ol>
-                        </div>
-                        <div class="bg-slate-800 text-white p-8 rounded-2xl text-center shadow-2xl">
-                            <h3 class="text-2xl font-bold font-poppins mb-4">Bonus: Need the Video?</h3>
-                            <p class="text-slate-300 leading-relaxed mb-6">Stop treating video and audio as separate
-                                problems. Use our free MP3 tool, then instantly get the perfect, clean video ready for
-                                cross-posting.</p>
-                            <a href="/"
-                                class="px-6 py-3 bg-primary font-bold text-lg rounded-lg shadow-lg hover:bg-primary-dark transition-all duration-300 transform hover:-translate-y-1">
-                                Try Our MP4 Downloader &rarr;
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
     </main>
 
 
-    <!-- Footer - REBUILT TO MATCH HEADER'S INFORMATION ARCHITECTURE -->
-        <!-- Footer - REBUILT TO MATCH HEADER'S INFORMATION ARCHITECTURE -->
+    <!-- Footer -->
     <footer class="bg-slate-800 text-slate-300">
         <div class="container mx-auto px-6 py-16">
 
@@ -369,23 +338,30 @@
                     <h3 class="font-semibold text-white mb-4">Core Tools</h3>
                     <ul class="space-y-3">
                         <li><a href="/index.html" class="hover:text-red-500 transition-colors">Download Shorts</a></li>
-                        <li><a href="/shorts-to-mp3.html" class="hover:text-red-500 transition-colors text-red-500">MP3 Audio</a></li>
+                        <li><a href="/shorts-to-mp3.html" class="hover:text-red-500 transition-colors text-red-500">MP3
+                                Audio</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="font-semibold text-white mb-4">Guide</h3>
                     <ul class="space-y-3">
-                        <li><a href="/guide/chrome-extension.html" class="hover:text-red-500 transition-colors">Chrome Extension</a></li>
-                        <li><a href="/guide/shorts-to-mp3.html" class="hover:text-red-500 transition-colors">MP3 Audio</a></li>
-                        <li><a href="/guide/no-watermark.html" class="hover:text-red-500 transition-colors">Watermark Removal</a></li>
+                        <li><a href="/guide/chrome-extension.html" class="hover:text-red-500 transition-colors">Chrome
+                                Extension</a></li>
+                        <li><a href="/guide/shorts-to-mp3.html" class="hover:text-red-500 transition-colors">MP3
+                                Audio</a></li>
+                        <li><a href="/guide/no-watermark.html" class="hover:text-red-500 transition-colors">Watermark
+                                Removal</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="font-semibold text-white mb-4">AI Tools</h3>
                     <ul class="space-y-3">
-                        <li><a href="/no-watermark.html" class="hover:text-red-500 transition-colors">Watermark Remover</a></li>
-                        <li><a href="/4k-shorts-downloader.html" class="hover:text-red-500 transition-colors">4K Shorts Downloader</a></li>
-                        <li><a href="/shorts-thumbnail-tool.html" class="hover:text-red-500 transition-colors">Shorts Thumbnail Tool</a></li>
+                        <li><a href="/no-watermark.html" class="hover:text-red-500 transition-colors">Watermark
+                                Remover</a></li>
+                        <li><a href="/4k-shorts-downloader.html" class="hover:text-red-500 transition-colors">4K Shorts
+                                Downloader</a></li>
+                        <li><a href="/shorts-thumbnail-tool.html" class="hover:text-red-500 transition-colors">Shorts
+                                Thumbnail Tool</a></li>
                     </ul>
                 </div>
 
@@ -415,6 +391,196 @@
 
         </div>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('shorts-audio-form');
+            const resultSection = document.getElementById('result-section-mp3');
+            const inputUrl = document.getElementById('shorts-url');
+            const formatSelect = document.getElementById('audio-format-select');
+
+            const submitBtn = document.getElementById('submit-btn');
+            const btnIcon = document.getElementById('btn-icon');
+            const btnText = document.getElementById('btn-text');
+            const btnLoader = document.getElementById('btn-loader');
+
+            const setExtractLoading = (isLoading) => {
+                if (isLoading) {
+                    submitBtn.disabled = true;
+                    btnIcon.classList.add('hidden');
+                    btnText.textContent = 'Processing...';
+                    btnLoader.classList.remove('hidden');
+                    submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+                } else {
+                    submitBtn.disabled = false;
+                    btnIcon.classList.remove('hidden');
+                    btnText.textContent = 'Extract Audio';
+                    btnLoader.classList.add('hidden');
+                    submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+                }
+            };
+
+            const formatDuration = (seconds) => {
+                if (!seconds) return 'N/A';
+                const min = Math.floor(seconds / 60);
+                const sec = Math.floor(seconds % 60);
+                return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+            };
+
+            // Main Form Submit
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const url = inputUrl.value.trim();
+
+                if (!url) return;
+
+                setExtractLoading(true);
+                resultSection.classList.add('hidden');
+                resultSection.innerHTML = '';
+
+                try {
+                    // 1. Get Video Info
+                    // 使用你的实际 API 域名
+                    const apiUrl = `https://ytdlp.vistaflyer.com/api/info?url=${encodeURIComponent(url)}`;
+                    const infoResponse = await fetch(apiUrl);
+                    const json = await infoResponse.json();
+
+                    if (json.code !== 0 || !json.data) {
+                        throw new Error("Unable to fetch video information. Please check the URL.");
+                    }
+
+                    const data = json.data;
+                    const preferredFormat = formatSelect.value;
+
+                    // Determine parameters
+                    let qualityParam = 'audio';
+                    let formatLabel = 'MP3 Audio';
+                    let fileExt = 'mp3';
+
+                    if (preferredFormat === 'm4a') {
+                        formatLabel = 'M4A Audio';
+                        fileExt = 'm4a';
+                        // If specific format ID needed for m4a, logic goes here.
+                        // For now assuming 'audio' gets best, or backend handles conversion based on header requests
+                    }
+
+                    // Create sanitized filename for download
+                    const safeTitle = (data.title || 'audio').replace(/[^a-z0-9]/gi, '_').toLowerCase();
+                    const fileName = `${safeTitle}.${fileExt}`;
+                    const downloadApiUrl = `https://ytdlp.vistaflyer.com/api/download?url=${encodeURIComponent(url)}&quality=${qualityParam}`;
+
+                    // 2. Render Result Card with Dynamic Download Button
+                    // Note: Instead of onclick="location.href=...", we use a custom function
+                    const html = `
+                        <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+                            <!-- Thumbnail -->
+                            <div class="md:w-1/3 relative group">
+                                <img src="${data.thumbnail}" alt="${data.title}" class="w-full h-full object-cover min-h-[200px] max-h-[300px]">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                                <div class="absolute bottom-3 right-3 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                                    ${formatDuration(data.duration)}
+                                </div>
+                            </div>
+                            
+                            <!-- Content -->
+                            <div class="p-6 md:w-2/3 flex flex-col justify-center text-left">
+                                <h3 class="text-xl font-bold text-slate-800 line-clamp-2 mb-2" title="${data.title}">
+                                    ${data.title}
+                                </h3>
+                                <div class="flex items-center text-sm text-slate-500 mb-6 space-x-4">
+                                    <span><i class="fas fa-user mr-1"></i> ${data.uploader || 'Unknown'}</span>
+                                    <span><i class="fas fa-eye mr-1"></i> ${data.view_count ? data.view_count.toLocaleString() : 'N/A'}</span>
+                                </div>
+
+                                <div class="flex flex-col sm:flex-row gap-3">
+                                    <button 
+                                        id="download-action-btn"
+                                        onclick="downloadAudio('${downloadApiUrl}', '${fileName}', this)" 
+                                        class="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-lg shadow-red-500/20">
+                                        <i class="fas fa-download icon-normal"></i>
+                                        <div class="btn-spinner hidden"></div> <!-- Loading Spinner inside button -->
+                                        <span class="btn-text">Download ${formatLabel}</span>
+                                    </button>
+                                    
+                                    <a href="/" class="flex-none px-4 py-3 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-red-500 transition-colors text-center">
+                                        Convert Another
+                                    </a>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-4 text-center sm:text-left">
+                                    <i class="fas fa-shield-alt mr-1"></i> High Quality ${formatLabel} (320kbps target)
+                                </p>
+                            </div>
+                        </div>
+                    `;
+
+                    resultSection.innerHTML = html;
+                    resultSection.classList.remove('hidden');
+
+                } catch (error) {
+                    console.error(error);
+                    resultSection.innerHTML = `
+                        <div class="p-6 bg-red-50 border border-red-200 rounded-xl text-center">
+                            <i class="fas fa-exclamation-circle text-red-500 text-3xl mb-3"></i>
+                            <p class="text-red-700 font-medium">${error.message}</p>
+                        </div>
+                    `;
+                    resultSection.classList.remove('hidden');
+                } finally {
+                    setExtractLoading(false);
+                }
+            });
+        });
+
+        // Global Function to Handle File Download with Spinner
+        async function downloadAudio(url, filename, btnElement) {
+            const icon = btnElement.querySelector('.icon-normal');
+            const spinner = btnElement.querySelector('.btn-spinner');
+            const textSpan = btnElement.querySelector('.btn-text');
+            const originalText = textSpan.textContent;
+
+            // 1. UI: Set Loading State
+            btnElement.disabled = true;
+            btnElement.classList.add('opacity-75', 'cursor-wait');
+            icon.classList.add('hidden');
+            spinner.classList.remove('hidden');
+            textSpan.textContent = 'Generating...';
+
+            try {
+                // 2. Fetch the file as a Blob (Binary Large Object)
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error('Download failed from server');
+                }
+
+                const blob = await response.blob();
+
+                // 3. Create an invisible link to trigger the browser's save dialog
+                const downloadLink = document.createElement('a');
+                const objectUrl = window.URL.createObjectURL(blob);
+
+                downloadLink.href = objectUrl;
+                downloadLink.download = filename; // Suggest the filename
+
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+
+                // Cleanup
+                document.body.removeChild(downloadLink);
+                window.URL.revokeObjectURL(objectUrl);
+
+            } catch (error) {
+                alert('Download failed: ' + error.message);
+            } finally {
+                // 4. UI: Reset State (Download started or failed)
+                btnElement.disabled = false;
+                btnElement.classList.remove('opacity-75', 'cursor-wait');
+                icon.classList.remove('hidden');
+                spinner.classList.add('hidden');
+                textSpan.textContent = originalText;
+            }
+        }
+
+    </script>
 
 
     <script>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>yt-dlp 视频格式查询与下载</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind CSS 配置 (用于颜色和字体)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#3b82f6',
+                        'primary-dark': '#2563eb',
+                        'success': '#10b981',
+                        'error': '#ef4444',
+                        'warning': '#f59e0b',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 使表格区域的滚动条更美观 */
+        .format-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .format-list::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+
+        .format-list::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+    </style>
+    <meta name="google-adsense-account" content="ca-pub-3383070348689557">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3383070348689557"
+        crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-gray-50 p-4 sm:p-8 font-sans">
+
+    <div class="container max-w-4xl mx-auto bg-white p-6 sm:p-10 shadow-xl rounded-xl">
+        <h2 class="text-3xl font-bold text-primary mb-6 border-b-2 border-primary pb-3">
+            🚀 视频格式查询与下载工具
+        </h2>
+        <p class="text-gray-600 mb-6">
+            请输入视频链接，查询可用格式后选择下载到服务器进行处理。
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 mb-8">
+            <input type="text" id="videoUrl" placeholder="输入视频链接，例如：https://www.youtube.com/watch?v=..."
+                class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
+            <button onclick="fetchVideoInfo()"
+                class="bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-6 rounded-lg transition duration-150 shadow-md hover:shadow-lg disabled:opacity-50"
+                id="queryButton">
+                查询格式信息
+            </button>
+        </div>
+
+        <div id="statusMessage"
+            class="p-4 rounded-lg font-medium text-white bg-success mb-6 transition-all duration-300">
+            等待输入...
+        </div>
+
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">可用格式列表</h3>
+
+        <div class="format-list max-h-96 overflow-y-auto border border-gray-200 rounded-lg shadow-inner">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50 sticky top-0">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            分辨率/音频
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            格式 ID
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            编码 (视频/音频)
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            文件大小
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            操作
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="formatsBody" class="bg-white divide-y divide-gray-200">
+                    <tr>
+                        <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500">请先查询视频信息...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // 确保这里的 IP 地址和端口与您的 Flask 后端完全一致！
+        const API_BASE_URL = 'http://127.0.0.1:5000';
+        const API_FORMATS_ENDPOINT = `${API_BASE_URL}/api/video-formats`;
+        const API_DOWNLOAD_ENDPOINT = `${API_BASE_URL}/api/download`;
+
+        let currentVideoUrl = '';
+
+        /**
+         * 更新状态栏消息
+         */
+        function updateStatus(message, type = 'success') {
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.className = `p-4 rounded-lg font-medium text-white mb-6 transition-all duration-300 bg-${type}`;
+            statusMessage.textContent = message;
+        }
+
+        /**
+         * 将字节数转换为易读格式 (KB, MB, GB)
+         */
+        function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0 || bytes === null || bytes === undefined) return '未知';
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            if (i < 0) return '未知';
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+
+        /**
+         * 1. 调用后端 API 获取视频信息
+         */
+        async function fetchVideoInfo() {
+            const urlInput = document.getElementById('videoUrl');
+            const formatsBody = document.getElementById('formatsBody');
+            const queryButton = document.getElementById('queryButton');
+            currentVideoUrl = urlInput.value.trim();
+
+            if (!currentVideoUrl) {
+                updateStatus('错误：请输入一个有效的视频链接。', 'error');
+                return;
+            }
+
+            queryButton.disabled = true;
+            updateStatus('正在查询格式信息，请稍候...', 'warning');
+            formatsBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-sm text-warning">正在请求后端...</td></tr>';
+
+            try {
+                const response = await fetch(API_FORMATS_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: currentVideoUrl })
+                });
+
+                const data = await response.json();
+                queryButton.disabled = false;
+
+                if (response.ok) {
+                    updateStatus(`查询成功！视频标题: ${data.title}`, 'success');
+                    renderFormatsTable(data.formats);
+                } else {
+                    updateStatus(`查询失败 (${response.status}): ${data.error || '未知错误'}`, 'error');
+                    formatsBody.innerHTML = `<tr><td colspan="5" class="px-6 py-4 text-center text-sm text-error">${data.error || '无法加载格式'}</td></tr>`;
+                }
+
+            } catch (error) {
+                queryButton.disabled = false;
+                updateStatus('网络请求失败，请检查后端服务是否已运行并监听正确的 IP/端口。', 'error');
+                formatsBody.innerHTML = `<tr><td colspan="5" class="px-6 py-4 text-center text-sm text-error">请求失败: ${error.message}</td></tr>`;
+            }
+        }
+
+        /**
+         * 2. 渲染格式表格
+         */
+        function renderFormatsTable(formats) {
+            const formatsBody = document.getElementById('formatsBody');
+            formatsBody.innerHTML = ''; // 清空表格内容
+
+            if (formats.length === 0) {
+                formatsBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-sm text-warning">未找到可用的视频格式。</td></tr>';
+                return;
+            }
+
+            formats.forEach(format => {
+                const row = formatsBody.insertRow();
+                row.className = 'hover:bg-gray-50';
+
+                // 分辨率/音频
+                row.insertCell().textContent = `${format.resolution || 'N/A'} (${format.ext})`;
+
+                // 格式 ID
+                row.insertCell().textContent = format.format_id;
+
+                // 编码
+                row.insertCell().textContent = `${format.vcodec !== 'none' ? format.vcodec : '无视频'} / ${format.acodec !== 'none' ? format.acodec : '无音频'}`;
+
+                // 文件大小
+                row.insertCell().textContent = formatBytes(format.filesize);
+
+                // 操作 (下载按钮)
+                const actionCell = row.insertCell();
+                actionCell.className = 'px-6 py-4 whitespace-nowrap text-sm font-medium';
+                const button = document.createElement('button');
+                button.textContent = '下载到本地';
+                button.type = 'button';
+                button.onclick = () => downloadVideo(format.format_id, button);
+                button.className = 'download-btn bg-success hover:bg-green-600 text-white py-2 px-4 rounded-lg text-xs font-semibold transition duration-150 shadow-md';
+                actionCell.appendChild(button);
+            });
+        }
+
+        /**
+         * 3. 调用后端 API 触发下载
+         */
+        async function downloadVideo(formatId, button) {
+            // 禁用所有下载按钮
+            document.querySelectorAll('.download-btn').forEach(btn => btn.disabled = true);
+            const originalText = button.textContent;
+
+            // 临时改变按钮样式和文本，表示正在处理
+            button.textContent = '处理中...';
+            button.classList.remove('bg-success');
+            button.classList.add('bg-gray-400');
+
+            updateStatus(`正在请求后端处理格式 ID: ${formatId}，请耐心等待文件合并...`, 'warning');
+
+            try {
+                // 第一步：请求后端在服务器上下载并合并文件
+                const response = await fetch(API_DOWNLOAD_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        url: currentVideoUrl,
+                        format_id: formatId
+                    })
+                });
+
+                const data = await response.json();
+                function triggerDownload(downloadUrl) {
+                    // 1. 创建一个隐藏的 <a> 标签
+                    const link = document.createElement('a');
+                    link.href = API_BASE_URL + downloadUrl;
+
+                    // 2. 设置 download 属性，确保浏览器弹出保存对话框
+                    // 注意: download 属性的值会被用作默认文件名 (现代浏览器中)
+                    link.setAttribute('download', 'video_download');
+
+                    // 3. 将链接添加到DOM，并模拟点击
+                    document.body.appendChild(link);
+                    link.click();
+
+                    // 4. 清理DOM
+                    document.body.removeChild(link);
+                }
+                // 恢复按钮状态
+                document.querySelectorAll('.download-btn').forEach(btn => btn.disabled = false);
+                button.textContent = originalText;
+                button.classList.remove('bg-gray-400');
+                button.classList.add('bg-success');
+
+                if (response.ok) {
+                    updateStatus(`服务器处理成功！文件已准备好。正在自动触发您的浏览器下载...`, 'success');
+                    console.log(data);
+                    // 触发浏览器下载
+                    triggerDownload(data.download_url);
+
+                } else {
+                    updateStatus(`下载处理失败 (${response.status}): ${data.error || '未知错误'}`, 'error');
+                }
+
+            } catch (error) {
+                // 恢复按钮状态（即使请求失败）
+                document.querySelectorAll('.download-btn').forEach(btn => btn.disabled = false);
+                button.textContent = originalText;
+                button.classList.remove('bg-gray-400');
+                button.classList.add('bg-success');
+                updateStatus('下载请求失败，请检查网络和后端状态。', 'error');
+            }
+        }
+    </script>
+
+</body>
+
+</html>
