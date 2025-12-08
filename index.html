@@ -19,9 +19,7 @@
     <meta name="twitter:description" content="Download YouTube Shorts (MP4/MP3) instantly. No ads. With AI tools.">
     <meta name="twitter:image" content="https://ytshortsdl.net/images/1.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
     <link rel="canonical" href="https://ytshortsdl.net/">
-
     <link rel="stylesheet" href="./dist/output.css">
 
     <style>
@@ -65,7 +63,8 @@
 
             <div class="hidden md:flex items-center space-x-8">
 
-                <a href="/index.html" class="font-medium text-red-500 transition-colors duration-300">Download
+                <a href="/index.html" class="font-medium text-red-500 transition-colors duration-300"
+                    data-i18n="title">Download
                     Shorts</a>
                 <a href="/shorts-to-mp3.html"
                     class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">MP3 Audio</a>
@@ -132,6 +131,10 @@
                             of Service</a>
                     </div>
                 </div>
+
+
+                <a href="/addon.html"
+                    class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">Add-On</a>
                 <a href="/about.html"
                     class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">About</a>
 
@@ -188,6 +191,7 @@
                 <a href="/terms.html" class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Terms of
                     Service</a>
             </div>
+            <a href="/addon.html" class="block font-medium text-slate-600">Add-On</a>
             <a href="/about.html" class="block font-medium text-slate-600">About</a>
         </nav>
     </aside>
@@ -644,6 +648,8 @@
                 <div>
                     <h3 class="font-semibold text-white mb-4">Company</h3>
                     <ul class="space-y-3">
+
+                        <li><a href="/addon.html" class="hover:text-red-500 transition-colors">Add-on</a></li>
                         <li><a href="/about.html" class="hover:text-red-500 transition-colors">About & Contact</a></li>
                         <li><a href="/pricing.html" class="hover:text-red-500 transition-colors">Pricing</a></li>
                         <li><a href="/privacy.html" class="hover:text-red-500 transition-colors">Privacy Policy</a></li>
@@ -1122,7 +1128,7 @@
                 const response = await fetch(`${API_BASE_URL}/api/info?url=${encodeURIComponent(url)}`);
                 const resJson = await response.json();
 
-                if (resJson.code !== 0) throw new Error(resJson.error || "Could not fetch video info");
+                if (resJson.code !== 0) throw new Error(resJson.error || resJson.message || "Could not fetch video info");
 
                 renderSingleResults(resJson.data);
             } catch (error) {
