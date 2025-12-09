@@ -818,10 +818,12 @@
             const duration = data.duration || 0;
             const url = data.url;
             const formats = data.formats || [];
+            // NEW: Extract subtitles from backend response
+            const subtitles = data.subtitles.filter((item) => item.is_auto === false) || [];
 
             // 2. 分类格式
-            const videoFormats = formats.filter(f => f.resolution && f.resolution !== 'Audio Only (MP3)');
-            const audioFormats = formats.filter(f => !f.resolution || f.resolution === 'Audio Only (MP3)');
+            const videoFormats = formats.filter(f => f.resolution && f.resolution !== 'Audio Only (MP3)' && f.resolution !== 'MP3');
+            const audioFormats = formats.filter(f => !f.resolution || f.resolution === 'Audio Only (MP3)' || f.resolution === 'MP3');
 
             // 3. 辅助函数：生成列表项 HTML
             const renderFormats = (fmtList, type) => {
@@ -843,7 +845,7 @@
                             <div class="font-medium text-slate-700 text-sm truncate">${labelText}</div>
                         </div>
                         <div class="flex items-center gap-3 flex-shrink-0">
-                            <span class="text-xs text-slate-400 w-16 text-right font-mono hidden sm:block">${fileSizeText}</span>
+                            
                             <button class="download-link-btn bg-red-500 text-white font-semibold px-4 py-1.5 rounded-md text-xs hover:bg-red-600 transition-colors shadow-sm" 
                                 data-url="${url}" 
                                 data-title="${title}"
@@ -855,7 +857,105 @@
                 }).join('');
             };
 
-            // 4. 渲染主布局
+            // NEW: Render Subtitles List with Split Button (SRT | TXT)
+            const renderSubtitlesList = (subs) => {
+                if (!subs || subs.length === 0) {
+                    return `<div class="p-4 text-sm text-slate-500 text-center italic bg-slate-50 rounded-lg">No subtitles found.</div>`;
+                }
+                return subs.map(s => {
+                    const labelText = `${s.name} (${s.lang_code.toUpperCase()})`;
+                    // Split button design: Left for SRT (Main), Right for Toggle Menu (TXT)
+                    // Simplified for Vanilla JS: Just a toggle menu that shows TXT option
+                    return `
+                    <div class="flex items-center justify-between p-2 mb-2 bg-white rounded border border-slate-100 text-sm hover:bg-slate-50 transition-colors">
+                        <div class="flex items-center gap-2">
+                             <i class="fas fa-closed-captioning text-slate-400"></i>
+                             <span class="text-slate-700 font-medium">${labelText}</span>
+                             ${s.is_auto ? '<span class="text-[10px] bg-slate-100 text-slate-500 px-1 rounded">Auto</span>' : ''}
+                        </div>
+                        
+                        <div class="relative flex items-center group-dropdown">
+                            <!-- Main Action: Download SRT -->
+                            <button class="download-link-btn flex items-center bg-white border border-slate-300 text-slate-700 hover:text-red-500 hover:border-red-400 text-xs font-semibold px-3 py-1.5 rounded-l-md transition-colors" 
+                                    title="Download .srt"
+                                    data-url="${url}" 
+                                    data-title="${title}_${s.lang_code}"
+                                    data-format-id="sub_srt_${s.lang_code}">
+                                <i class="fas fa-download mr-1"></i> .SRT
+                            </button>
+                            
+                            <!-- Toggle Action: Show Menu for TXT -->
+                             <button class="menu-toggle-btn flex items-center bg-slate-50 border-t border-b border-r border-slate-300 text-slate-600 hover:text-red-500 hover:bg-white text-xs font-semibold px-2 py-1.5 rounded-r-md transition-colors"
+                                     onclick="this.nextElementSibling.classList.toggle('hidden')">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+
+                            <!-- Dropdown Menu -->
+                            <div class="absolute right-0 top-full mt-1 w-40 bg-white border border-slate-200 shadow-lg rounded-md z-10 hidden" onmouseleave="this.classList.add('hidden')">
+                                <button class="download-link-btn block w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-slate-50 hover:text-red-500"
+                                        data-url="${url}" 
+                                        data-title="${title}_${s.lang_code}"
+                                        data-format-id="sub_txt_${s.lang_code}">
+                                    <i class="fas fa-file-alt mr-2"></i> Plain Text (.txt)
+                                </button>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
+            };
+
+            // NEW: Render AI Summary Tab UI
+            const renderSummaryTab = (subs) => {
+                if (!subs || subs.length === 0) {
+                    return `<div class="p-4 text-sm text-slate-500 text-center italic bg-slate-50 rounded-lg">No subtitles found for this video. Cannot generate summary.</div>`;
+                }
+
+                // Smart Default Language Selection
+                const userLang = navigator.language.split('-')[0]; // e.g. 'en' from 'en-US'
+                let defaultSub = subs.find(s => s.lang_code === userLang);
+                if (!defaultSub) defaultSub = subs.find(s => s.lang_code.startsWith('en'));
+                if (!defaultSub) defaultSub = subs[0];
+
+                const optionsHtml = subs.map(s => {
+                    const isSelected = (defaultSub && s.lang_code === defaultSub.lang_code) ? 'selected' : '';
+                    const label = `${s.name} (${s.lang_code.toUpperCase()}) ${s.is_auto ? '[Auto]' : ''}`;
+                    return `<option value="${s.lang_code}" ${isSelected}>${label}</option>`;
+                }).join('');
+
+                return `
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mb-6">
+                    <h4 class="font-bold text-blue-800 mb-3 flex items-center">
+                        <i class="fas fa-robot mr-2"></i> AI Video Summary
+                    </h4>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <select id="summary-lang-select" class="flex-1 p-2.5 rounded-lg border border-blue-200 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                            ${optionsHtml}
+                        </select>
+                        <button id="btn-generate-summary" data-url="${url}" class="bg-blue-600 text-white font-bold px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors shadow-sm flex items-center justify-center gap-2">
+                            <i class="fas fa-magic"></i> Generate Summary
+                        </button>
+                    </div>
+                    <div id="summary-container" class="mt-4 hidden">
+                         <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-inner min-h-[120px] max-h-[400px] overflow-y-auto">
+                            <p id="summary-text-output" class="text-slate-700 text-sm leading-relaxed whitespace-pre-wrap font-sans"></p>
+                            <span id="summary-cursor" class="inline-block w-1.5 h-4 bg-blue-500 ml-1 animate-pulse align-middle"></span>
+                         </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <h5 class="font-semibold text-slate-700 text-sm mb-2 px-1 flex justify-between items-center">
+                        <span>Subtitle Downloads</span>
+                        <span class="text-xs font-normal text-slate-500 bg-slate-100 px-2 py-0.5 rounded">SRT & TXT Supported</span>
+                    </h5>
+                    <div class="max-h-60 overflow-y-auto custom-scrollbar border border-slate-100 rounded-lg p-2 bg-slate-50">
+                        ${renderSubtitlesList(subs)}
+                    </div>
+                </div>
+                `;
+            };
+
+            // 4. 渲染主布局 (Updated with AI Summary Tab)
             resultSection.innerHTML = `
             <div class="bg-white p-4 text-left rounded-2xl">
                 <!-- 顶部: 视频信息 -->
@@ -873,13 +973,16 @@
                     <!-- 左列: 下载格式选项 (占 2/3) -->
                     <div class="md:col-span-2">
                         <div class="md:bg-slate-50 md:p-4 md:rounded-xl border border-transparent md:border-slate-200 h-full">
-                            <!-- Tabs -->
-                            <div class="flex space-x-2 border-b border-slate-300 mb-4" role="tablist">
+                            <!-- Tabs (Updated with Summary Tab) -->
+                            <div class="flex flex-wrap gap-2 border-b border-slate-300 mb-4 pb-1" role="tablist">
                                 <button data-tab="video" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-red-500 text-red-600 transition-colors focus:outline-none">
                                     <i class="fas fa-video mr-1"></i> Video (${videoFormats.length})
                                 </button>
                                 <button data-tab="audio" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-transparent text-slate-600 hover:text-red-500 transition-colors focus:outline-none">
                                     <i class="fas fa-music mr-1"></i> Audio (${audioFormats.length})
+                                </button>
+                                <button data-tab="summary" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-transparent text-slate-600 hover:text-blue-500 transition-colors focus:outline-none">
+                                    <i class="fas fa-wand-magic-sparkles mr-1"></i> AI Summary (${subtitles.length})
                                 </button>
                             </div>
                             
@@ -891,6 +994,11 @@
                             <!-- Audio Content -->
                             <div data-content="audio" class="tab-content space-y-2 hidden">
                                 ${renderFormats(audioFormats, 'audio')}
+                            </div>
+
+                            <!-- NEW: Summary/Subtitle Content -->
+                            <div data-content="summary" class="tab-content space-y-2 hidden">
+                                ${renderSummaryTab(subtitles)}
                             </div>
                         </div>
                     </div>
@@ -1139,6 +1247,80 @@
             }
         }
 
+        // --- NEW: Handle AI Summary Generation ---
+        async function handleGenerateSummary(url) {
+            const langSelect = document.getElementById('summary-lang-select');
+            const lang = langSelect.value;
+            const container = document.getElementById('summary-container');
+            const output = document.getElementById('summary-text-output');
+            const btn = document.getElementById('btn-generate-summary');
+            const cursor = document.getElementById('summary-cursor');
+
+            // UI Reset
+            container.classList.remove('hidden');
+            output.textContent = '';
+            cursor.classList.remove('hidden');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/summarize?url=${encodeURIComponent(url)}&lang=${lang}`);
+
+                if (!response.ok) {
+                    // Handle HTTP errors (e.g., 501 or 500)
+                    const errData = await response.json().catch(() => ({}));
+                    throw new Error(errData.message || `Server error: ${response.status}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let queue = [];
+                let readerClosed = false;
+
+                // Typewriter effect processor: prints characters from queue
+                const processQueue = () => {
+                    if (queue.length > 0) {
+                        const char = queue.shift();
+                        output.textContent += char;
+                        // Auto-scroll to bottom of summary
+                        output.parentElement.scrollTop = output.parentElement.scrollHeight;
+                        setTimeout(processQueue, 15); // Speed of typing (ms)
+                    } else {
+                        if (readerClosed) {
+                            cursor.classList.add('hidden');
+                            btn.disabled = false;
+                            btn.innerHTML = '<i class="fas fa-magic"></i> Generate Summary';
+                        } else {
+                            // Queue empty but stream open, wait for more data
+                            setTimeout(processQueue, 50);
+                        }
+                    }
+                };
+
+                processQueue(); // Start the loop
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) {
+                        readerClosed = true;
+                        break;
+                    }
+                    const chunk = decoder.decode(value, { stream: true });
+                    // Push chars to queue
+                    for (let char of chunk) {
+                        queue.push(char);
+                    }
+                }
+
+            } catch (e) {
+                output.innerHTML = `<span class="text-red-500 font-bold"><i class="fas fa-exclamation-triangle"></i> Error: ${e.message}</span>`;
+                cursor.classList.add('hidden');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-magic"></i> Retry Summary';
+            }
+        }
+
+
         // --- EVENT LISTENERS ---
         downloadButton.addEventListener('click', (e) => {
             e.preventDefault(); clearError();
@@ -1157,6 +1339,16 @@
             // FIX: Single Video Download Logic - Uses fetch + Blob
             // ==========================================================
             const downloadBtn = e.target.closest('.download-link-btn');
+            const summaryBtn = e.target.closest('#btn-generate-summary');
+
+            // Handle Summary Button Click
+            if (summaryBtn) {
+                e.preventDefault();
+                const url = summaryBtn.getAttribute('data-url');
+                if (url) handleGenerateSummary(url);
+                return;
+            }
+
             if (downloadBtn) {
                 e.preventDefault();
 
@@ -1170,13 +1362,35 @@
                 }
                 // 2. Visual Feedback
                 const originalText = downloadBtn.innerHTML;
+                const originalIcon = downloadBtn.querySelector('i');
+                const originalIconClass = originalIcon ? originalIcon.className : '';
+
                 // Update text to indicate we are waiting for the server/download
-                downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+                // If it's a small icon button inside the list, we just spin the icon
+                if (downloadBtn.classList.contains('text-slate-700')) {
+                    if (originalIcon) originalIcon.className = 'fas fa-spinner fa-spin mr-1';
+                } else {
+                    downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+                }
+
                 downloadBtn.disabled = true;
 
                 try {
                     // 3. Construct GET URL
-                    const downloadApiUrl = `${API_BASE_URL}/api/download?url=${encodeURIComponent(targetUrl)}&quality=${encodeURIComponent(targetQuality)}`;
+                    let downloadApiUrl = '';
+
+                    // CHECK IF SUBTITLE (starts with sub_)
+                    if (targetQuality.startsWith('sub_')) {
+                        // format is sub_srt_lang or sub_txt_lang
+                        const parts = targetQuality.split('_');
+                        const fmt = parts[1]; // srt or txt
+                        const lang = parts.slice(2).join('_'); // lang code
+                        downloadApiUrl = `${API_BASE_URL}/api/subtitle?url=${encodeURIComponent(targetUrl)}&lang=${lang}&format=${fmt}`;
+                    } else {
+                        // Standard Video/Audio
+                        // downloadApiUrl = `${API_BASE_URL}/api/download?url=${encodeURIComponent(targetUrl)}&quality=${encodeURIComponent(targetQuality)}`;
+                        downloadApiUrl = `${API_BASE_URL}/api/get-raw-url?url=${encodeURIComponent(targetUrl)}&quality=${encodeURIComponent(targetQuality)}`;
+                    }
 
                     // 4. Perform the Request (Wait for the server to return the file)
                     const response = await fetch(downloadApiUrl);
@@ -1184,7 +1398,6 @@
                     if (!response.ok) {
                         throw new Error(`Server error: ${response.status}`);
                     }
-
                     // 5. Convert response to Blob (File object in memory)
                     const blob = await response.blob();
 
@@ -1197,6 +1410,11 @@
                     // Attempt to extract filename from headers, fallback to default
                     const disposition = response.headers.get('Content-Disposition');
                     let fileName = downloadBtn.getAttribute('data-title').replace(/[^\w\s-]/g, '') + '.mp4';
+
+                    // Adjust extension for subtitles if needed fallback
+                    if (targetQuality.startsWith('sub_txt')) fileName = fileName.replace('.mp4', '.txt');
+                    else if (targetQuality.startsWith('sub_srt')) fileName = fileName.replace('.mp4', '.srt');
+
                     if (disposition && disposition.includes('filename=')) {
                         const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
                         const matches = filenameRegex.exec(disposition);
@@ -1218,7 +1436,11 @@
                     showToast('Download failed. Please check your connection and try again.', 'error');
                 } finally {
                     // 7. Reset button state ONLY after request is finished (Success or Fail)
-                    downloadBtn.innerHTML = originalText;
+                    if (downloadBtn.classList.contains('text-slate-700')) {
+                        if (originalIcon) originalIcon.className = originalIconClass;
+                    } else {
+                        downloadBtn.innerHTML = originalText;
+                    }
                     downloadBtn.disabled = false;
                 }
             }
@@ -1231,13 +1453,19 @@
 
                 // 2. 重置所有按钮为 "未选中" 状态 (灰色文字，透明边框)
                 allTabs.forEach(btn => {
-                    btn.classList.remove('border-red-500', 'text-red-600'); // 移除选中样式
+                    const isSummary = btn.dataset.tab === 'summary';
+                    btn.classList.remove('border-red-500', 'text-red-600', 'border-blue-500', 'text-blue-500'); // 移除选中样式
                     btn.classList.add('border-transparent', 'text-slate-600'); // 添加未选中样式
                 });
 
-                // 3. 设置当前点击的按钮为 "选中" 状态 (红色文字，红色下划线)
+                // 3. 设置当前点击的按钮为 "选中" 状态
                 tabBtn.classList.remove('border-transparent', 'text-slate-600'); // 移除未选中样式
-                tabBtn.classList.add('border-red-500', 'text-red-600'); // 添加选中样式
+
+                if (tabBtn.dataset.tab === 'summary') {
+                    tabBtn.classList.add('border-blue-500', 'text-blue-500');
+                } else {
+                    tabBtn.classList.add('border-red-500', 'text-red-600');
+                }
 
                 // 4. 切换下方显示的内容区域
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
