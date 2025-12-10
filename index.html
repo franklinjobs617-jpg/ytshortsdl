@@ -20,7 +20,8 @@
     <meta name="twitter:image" content="https://ytshortsdl.net/images/1.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="canonical" href="https://ytshortsdl.net/">
-    <link rel="stylesheet" href="./dist/output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
         /* Custom scrollbar for new batch UI elements */
@@ -32,6 +33,77 @@
             background: #d1d5db;
             /* gray-300 */
             border-radius: 10px;
+        }
+
+        /* Custom Ring for focus states */
+        .custom-focus-ring:focus-within {
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
+        }
+
+        .glow-effect {
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(239, 68, 68, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Markdown Styles for Summary Output */
+        #summary-text-output ul {
+            list-style-type: disc;
+            padding-left: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        #summary-text-output ol {
+            list-style-type: decimal;
+            padding-left: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        #summary-text-output li {
+            margin-bottom: 0.25em;
+        }
+
+        #summary-text-output strong {
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        #summary-text-output h1 {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+
+        #summary-text-output h2 {
+            font-size: 1.25em;
+            font-weight: 700;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+
+        #summary-text-output h3 {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+
+        #summary-text-output p {
+            margin-bottom: 0.75em;
+        }
+
+        #summary-text-output blockquote {
+            border-left: 4px solid #e2e8f0;
+            padding-left: 1em;
+            color: #64748b;
+            font-style: italic;
         }
     </style>
     <script type="text/javascript">
@@ -48,9 +120,8 @@
         crossorigin="anonymous"></script>
 </head>
 
-<body class="antialiased">
+<body class="antialiased font-sans text-slate-800">
 
-    <!-- Header, Drawer, etc. (No changes here) -->
     <!-- Header - REBUILT ACCORDING TO NAVIGATION DESIGN -->
     <header class="py-4 px-6 md:px-12 sticky top-0 bg-white/80 backdrop-blur-xl z-50 border-b border-slate-200/80">
         <nav class="flex justify-between items-center max-w-7xl mx-auto">
@@ -350,8 +421,8 @@
                             Most<br>Secure Shorts Download Experience</h2>
                         <h3 class="text-xl font-semibold text-slate-700 mb-8">Our promise: Always faster and more
                             reliable than the competition.</h3>
-                        <div class="flex items-center gap-6 mb-8 p-6 bg-white rounded-xl border-l-4 border-primary">
-                            <strong class="text-3xl md:text-4xl font-extrabold font-poppins text-primary">23%</strong>
+                        <div class="flex items-center gap-6 mb-8 p-6 bg-white rounded-xl border-l-4 border-red-500">
+                            <strong class="text-3xl md:text-4xl font-extrabold font-poppins text-red-500">23%</strong>
                             <p class="text-slate-600 font-medium leading-tight">Faster average conversion time than top
                                 competitors (e.g., Savetube & Y2mate).</p>
                         </div>
@@ -359,11 +430,11 @@
                             the market were too slow or unreliable. Our custom protocol ensures maximum speed through:
                         </p>
                         <ul class="space-y-4">
-                            <li class="flex items-start"><i class="fas fa-bolt-lightning text-primary mt-1 mr-4"></i>
+                            <li class="flex items-start"><i class="fas fa-bolt-lightning text-red-500 mt-1 mr-4"></i>
                                 <div><strong class="text-slate-800">Priority Link Parsing:</strong> We process your link
                                     instantly, with no waiting time.</div>
                             </li>
-                            <li class="flex items-start"><i class="fas fa-ban text-primary mt-1 mr-4"></i>
+                            <li class="flex items-start"><i class="fas fa-ban text-red-500 mt-1 mr-4"></i>
                                 <div><strong class="text-slate-800">Invasive Ad Blocking:</strong> No heavy ad scripts
                                     means a smoother experience for you.</div>
                             </li>
@@ -371,7 +442,7 @@
                     </div>
                     <div class="relative group">
                         <div
-                            class="absolute -inset-2 bg-gradient-to-br from-primary to-secondary rounded-2xl blur-lg opacity-25 group-hover:opacity-40 transition duration-500">
+                            class="absolute -inset-2 bg-gradient-to-br from-red-500 to-orange-500 rounded-2xl blur-lg opacity-25 group-hover:opacity-40 transition duration-500">
                         </div>
                         <div class="relative bg-white p-4 rounded-2xl shadow-2xl">
                             <img src="./images/Promise.webp" alt="A visual promise of speed and reliability"
@@ -397,21 +468,19 @@
                             videos meet all content repurposing requirements.</p>
                         <div class="grid sm:grid-cols-2 gap-8">
                             <div
-                                class="bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-transparent transition-all duration-300 transform hover:-translate-y-2 hover:shadow-primary/20 hover:border-primary/30">
-                                <div
-                                    class="w-16 h-16 mb-6 flex items-center justify-center bg-primary-light rounded-xl">
-                                    <i class="fas fa-file-video text-3xl text-primary"></i>
+                                class="bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-transparent transition-all duration-300 transform hover:-translate-y-2 hover:shadow-red-500/20 hover:border-red-500/30">
+                                <div class="w-16 h-16 mb-6 flex items-center justify-center bg-red-100 rounded-xl">
+                                    <i class="fas fa-file-video text-3xl text-red-500"></i>
                                 </div>
                                 <h3 class="text-2xl font-bold text-slate-800 mb-3">High-Quality MP4</h3>
                                 <p class="text-slate-600 leading-relaxed">Download in Standard HD or Full HD. For higher
                                     quality, check our <a href="/4k-shorts-downloader.html"
-                                        class="text-primary font-semibold hover:underline">4K/8K Pro Options</a>.</p>
+                                        class="text-red-500 font-semibold hover:underline">4K/8K Pro Options</a>.</p>
                             </div>
                             <div
-                                class="bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-transparent transition-all duration-300 transform hover:-translate-y-2 hover:shadow-primary/20 hover:border-primary/30">
-                                <div
-                                    class="w-16 h-16 mb-6 flex items-center justify-center bg-primary-light rounded-xl">
-                                    <i class="fas fa-file-audio text-3xl text-primary"></i>
+                                class="bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-transparent transition-all duration-300 transform hover:-translate-y-2 hover:shadow-red-500/20 hover:border-red-500/30">
+                                <div class="w-16 h-16 mb-6 flex items-center justify-center bg-red-100 rounded-xl">
+                                    <i class="fas fa-file-audio text-3xl text-red-500"></i>
                                 </div>
                                 <h3 class="text-2xl font-bold text-slate-800 mb-3">MP3 Audio Extraction</h3>
                                 <p class="text-slate-600 leading-relaxed">Instantly separate the audio track for remixes
@@ -431,8 +500,8 @@
                         <ul class="space-y-6">
                             <li class="flex items-start">
                                 <div
-                                    class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-secondary-light rounded-lg mr-5">
-                                    <i class="fas fa-rocket text-xl text-secondary"></i>
+                                    class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-orange-100 rounded-lg mr-5">
+                                    <i class="fas fa-rocket text-xl text-orange-500"></i>
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-lg text-slate-800">Zero Installation, Instant Start</h3>
@@ -442,8 +511,8 @@
                             </li>
                             <li class="flex items-start">
                                 <div
-                                    class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-secondary-light rounded-lg mr-5">
-                                    <i class="fas fa-globe text-xl text-secondary"></i>
+                                    class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-orange-100 rounded-lg mr-5">
+                                    <i class="fas fa-globe text-xl text-orange-500"></i>
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-lg text-slate-800">Universal Compatibility</h3>
@@ -453,8 +522,8 @@
                             </li>
                             <li class="flex items-start">
                                 <div
-                                    class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-secondary-light rounded-lg mr-5">
-                                    <i class="fas fa-user-shield text-xl text-secondary"></i>
+                                    class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-orange-100 rounded-lg mr-5">
+                                    <i class="fas fa-user-shield text-xl text-orange-500"></i>
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-lg text-slate-800">Guaranteed Privacy</h3>
@@ -481,9 +550,8 @@
                     class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-200/60 divide-y divide-slate-200">
                     <div
                         class="p-8 grid md:grid-cols-[auto,1fr,auto] items-center gap-6 hover:bg-slate-50 transition-colors duration-300">
-                        <div
-                            class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-primary-light rounded-lg">
-                            <i class="fas fa-wand-magic-sparkles text-2xl text-primary"></i>
+                        <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-red-100 rounded-lg">
+                            <i class="fas fa-wand-magic-sparkles text-2xl text-red-500"></i>
                         </div>
                         <div>
                             <h3 class="text-xl font-bold text-slate-800 mb-1">AI Watermark Remover</h3>
@@ -491,15 +559,14 @@
                                 cross-platform sharing.</p>
                         </div>
                         <a href="/no-watermark.html"
-                            class="px-5 py-2 text-center font-semibold text-slate-700 bg-slate-200 rounded-lg hover:bg-primary hover:text-white transition-all duration-300 group">Learn
+                            class="px-5 py-2 text-center font-semibold text-slate-700 bg-slate-200 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-300 group">Learn
                             More <i
                                 class="fas fa-arrow-right ml-1 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all"></i></a>
                     </div>
                     <div
                         class="p-8 grid md:grid-cols-[auto,1fr,auto] items-center gap-6 hover:bg-slate-50 transition-colors duration-300">
-                        <div
-                            class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-primary-light rounded-lg">
-                            <i class="fas fa-file-alt text-2xl text-primary"></i>
+                        <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-red-100 rounded-lg">
+                            <i class="fas fa-file-alt text-2xl text-red-500"></i>
                         </div>
                         <div>
                             <h3 class="text-xl font-bold text-slate-800 mb-1">Transcript Generator</h3>
@@ -507,7 +574,7 @@
                                 posts or captions.</p>
                         </div>
                         <a href="/pricing.html"
-                            class="px-5 py-2 text-center font-semibold text-slate-700 bg-slate-200 rounded-lg hover:bg-primary hover:text-white transition-all duration-300 group">Get
+                            class="px-5 py-2 text-center font-semibold text-slate-700 bg-slate-200 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-300 group">Get
                             Transcript <i
                                 class="fas fa-arrow-right ml-1 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all"></i></a>
                     </div>
@@ -537,7 +604,7 @@
                 <div
                     class="bg-gradient-to-r from-slate-800 to-slate-900 text-white p-12 rounded-2xl shadow-2xl relative overflow-hidden">
                     <div
-                        class="absolute -top-1/4 -right-1/4 w-80 h-80 bg-primary/20 rounded-full filter blur-3xl opacity-50">
+                        class="absolute -top-1/4 -right-1/4 w-80 h-80 bg-red-500/20 rounded-full filter blur-3xl opacity-50">
                     </div>
                     <div class="relative z-10">
                         <h2 class="text-3xl md:text-4xl font-bold font-poppins text-white">Stop Just Downloading. Start
@@ -546,7 +613,7 @@
                             potential of your content. Go from a simple video to a multi-platform asset with our
                             AI-powered Creator Suite.</p>
                         <a href="/pricing.html"
-                            class="mt-10 inline-block bg-primary text-white font-bold text-lg px-10 py-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/40">Explore
+                            class="mt-10 inline-block bg-red-500 text-white font-bold text-lg px-10 py-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-red-500/40">Explore
                             the AI Suite</a>
                     </div>
                 </div>
@@ -580,7 +647,7 @@
                         <p class="mt-4 text-slate-600 leading-relaxed">The free download retains the watermark. We offer
                             a premium, paid AI feature specifically designed to remove watermarks for seamless
                             cross-platform sharing. <a href="/no-watermark.html"
-                                class="text-primary font-semibold hover:underline">Learn more here.</a></p>
+                                class="text-red-500 font-semibold hover:underline">Learn more here.</a></p>
                     </details>
                     <details
                         class="bg-white p-6 rounded-lg group shadow-lg border border-slate-200/50 shadow-slate-200/50">
@@ -681,6 +748,7 @@
         // ====================================================================
 
         // API Configuration
+        // FIX: Pointing to Localhost because you are running the Python backend locally.
         const API_BASE_URL = 'https://ytdlp.vistaflyer.com';
 
         // Element References
@@ -819,7 +887,7 @@
             const url = data.url;
             const formats = data.formats || [];
             // NEW: Extract subtitles from backend response
-            const subtitles = data.subtitles.filter((item) => item.is_auto === false) || [];
+            const subtitles = data.subtitles || [];
 
             // 2. 分类格式
             const videoFormats = formats.filter(f => f.resolution && f.resolution !== 'Audio Only (MP3)' && f.resolution !== 'MP3');
@@ -845,7 +913,7 @@
                             <div class="font-medium text-slate-700 text-sm truncate">${labelText}</div>
                         </div>
                         <div class="flex items-center gap-3 flex-shrink-0">
-                            
+                            <span class="text-xs text-slate-400 w-16 text-right font-mono hidden sm:block">${fileSizeText}</span>
                             <button class="download-link-btn bg-red-500 text-white font-semibold px-4 py-1.5 rounded-md text-xs hover:bg-red-600 transition-colors shadow-sm" 
                                 data-url="${url}" 
                                 data-title="${title}"
@@ -923,22 +991,23 @@
                 }).join('');
 
                 return `
-                <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mb-6">
-                    <h4 class="font-bold text-blue-800 mb-3 flex items-center">
+                <div class="bg-red-50 p-4 rounded-lg border border-red-100 mb-6">
+                    <h4 class="font-bold text-slate-600 mb-3 flex items-center">
                         <i class="fas fa-robot mr-2"></i> AI Video Summary
                     </h4>
                     <div class="flex flex-col sm:flex-row gap-3">
-                        <select id="summary-lang-select" class="flex-1 p-2.5 rounded-lg border border-blue-200 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                        <select id="summary-lang-select" class="flex-1 p-2.5 rounded-lg border border-red-200 text-sm focus:ring-2 focus:ring-red-500 outline-none">
                             ${optionsHtml}
                         </select>
-                        <button id="btn-generate-summary" data-url="${url}" class="bg-blue-600 text-white font-bold px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors shadow-sm flex items-center justify-center gap-2">
+                        <button id="btn-generate-summary" data-url="${url}" class="bg-red-500 text-white font-bold px-6 py-2.5 rounded-lg hover:bg-red-700 transition-colors shadow-sm flex items-center justify-center gap-2">
                             <i class="fas fa-magic"></i> Generate Summary
                         </button>
                     </div>
                     <div id="summary-container" class="mt-4 hidden">
                          <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-inner min-h-[120px] max-h-[400px] overflow-y-auto">
-                            <p id="summary-text-output" class="text-slate-700 text-sm leading-relaxed whitespace-pre-wrap font-sans"></p>
-                            <span id="summary-cursor" class="inline-block w-1.5 h-4 bg-blue-500 ml-1 animate-pulse align-middle"></span>
+                            <!-- Changed to DIV to support Markdown rendering -->
+                            <div id="summary-text-output" class="text-slate-700 text-sm leading-relaxed font-sans"></div>
+                            <span id="summary-cursor" class="inline-block w-1.5 h-4 bg-red-500 ml-1 animate-pulse align-middle"></span>
                          </div>
                     </div>
                 </div>
@@ -981,7 +1050,7 @@
                                 <button data-tab="audio" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-transparent text-slate-600 hover:text-red-500 transition-colors focus:outline-none">
                                     <i class="fas fa-music mr-1"></i> Audio (${audioFormats.length})
                                 </button>
-                                <button data-tab="summary" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-transparent text-slate-600 hover:text-blue-500 transition-colors focus:outline-none">
+                                <button data-tab="summary" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-transparent text-slate-600 hover:text-slate-600 transition-colors focus:outline-none">
                                     <i class="fas fa-wand-magic-sparkles mr-1"></i> AI Summary (${subtitles.length})
                                 </button>
                             </div>
@@ -1258,65 +1327,67 @@
 
             // UI Reset
             container.classList.remove('hidden');
-            output.textContent = '';
+            output.innerHTML = '';
             cursor.classList.remove('hidden');
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+
+            let fullMarkdown = '';
 
             try {
                 const response = await fetch(`${API_BASE_URL}/api/summarize?url=${encodeURIComponent(url)}&lang=${lang}`);
 
                 if (!response.ok) {
                     // Handle HTTP errors (e.g., 501 or 500)
-                    const errData = await response.json().catch(() => ({}));
-                    throw new Error(errData.message || `Server error: ${response.status}`);
+                    let errorMessage = `Server error: ${response.status}`;
+                    try {
+                        const errData = await response.json();
+                        if (errData.message) errorMessage = errData.message;
+                    } catch (e) {
+                        // If response is not JSON (e.g. standard Flask 500 HTML), treat as text
+                        const text = await response.text();
+                        if (text) errorMessage = `Server error: ${text.substring(0, 100)}...`;
+                    }
+                    throw new Error(errorMessage);
                 }
 
                 const reader = response.body.getReader();
+                console.log(reader);
+                console.log(response.body);
                 const decoder = new TextDecoder();
-                let queue = [];
-                let readerClosed = false;
-
-                // Typewriter effect processor: prints characters from queue
-                const processQueue = () => {
-                    if (queue.length > 0) {
-                        const char = queue.shift();
-                        output.textContent += char;
-                        // Auto-scroll to bottom of summary
-                        output.parentElement.scrollTop = output.parentElement.scrollHeight;
-                        setTimeout(processQueue, 15); // Speed of typing (ms)
-                    } else {
-                        if (readerClosed) {
-                            cursor.classList.add('hidden');
-                            btn.disabled = false;
-                            btn.innerHTML = '<i class="fas fa-magic"></i> Generate Summary';
-                        } else {
-                            // Queue empty but stream open, wait for more data
-                            setTimeout(processQueue, 50);
-                        }
-                    }
-                };
-
-                processQueue(); // Start the loop
 
                 while (true) {
                     const { done, value } = await reader.read();
-                    if (done) {
-                        readerClosed = true;
-                        break;
-                    }
+                    if (done) break;
+
                     const chunk = decoder.decode(value, { stream: true });
-                    // Push chars to queue
-                    for (let char of chunk) {
-                        queue.push(char);
+
+                    // Check for backend error sent as text stream
+                    if (fullMarkdown === '' && chunk.startsWith('[ERROR]')) {
+                        throw new Error(chunk.replace('[ERROR]', '').trim());
                     }
+
+                    fullMarkdown += chunk;
+
+                    // Render Markdown
+                    if (typeof marked !== 'undefined') {
+                        output.innerHTML = marked.parse(fullMarkdown);
+                    } else {
+                        // Fallback if marked is failed to load
+                        output.textContent = fullMarkdown;
+                    }
+
+                    // Auto-scroll
+                    output.parentElement.scrollTop = output.parentElement.scrollHeight;
                 }
 
             } catch (e) {
                 output.innerHTML = `<span class="text-red-500 font-bold"><i class="fas fa-exclamation-triangle"></i> Error: ${e.message}</span>`;
+                btn.innerHTML = '<i class="fas fa-magic"></i> Retry Summary';
+            } finally {
                 cursor.classList.add('hidden');
                 btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-magic"></i> Retry Summary';
+                btn.innerHTML = '<i class="fas fa-magic"></i> Generate Summary';
             }
         }
 
@@ -1388,8 +1459,7 @@
                         downloadApiUrl = `${API_BASE_URL}/api/subtitle?url=${encodeURIComponent(targetUrl)}&lang=${lang}&format=${fmt}`;
                     } else {
                         // Standard Video/Audio
-                        // downloadApiUrl = `${API_BASE_URL}/api/download?url=${encodeURIComponent(targetUrl)}&quality=${encodeURIComponent(targetQuality)}`;
-                        downloadApiUrl = `${API_BASE_URL}/api/get-raw-url?url=${encodeURIComponent(targetUrl)}&quality=${encodeURIComponent(targetQuality)}`;
+                        downloadApiUrl = `${API_BASE_URL}/api/download?url=${encodeURIComponent(targetUrl)}&quality=${encodeURIComponent(targetQuality)}`;
                     }
 
                     // 4. Perform the Request (Wait for the server to return the file)
@@ -1398,6 +1468,7 @@
                     if (!response.ok) {
                         throw new Error(`Server error: ${response.status}`);
                     }
+
                     // 5. Convert response to Blob (File object in memory)
                     const blob = await response.blob();
 
@@ -1454,7 +1525,7 @@
                 // 2. 重置所有按钮为 "未选中" 状态 (灰色文字，透明边框)
                 allTabs.forEach(btn => {
                     const isSummary = btn.dataset.tab === 'summary';
-                    btn.classList.remove('border-red-500', 'text-red-600', 'border-blue-500', 'text-blue-500'); // 移除选中样式
+                    btn.classList.remove('border-red-500', 'text-red-600', 'border-red-500', 'text-slate-600'); // 移除选中样式
                     btn.classList.add('border-transparent', 'text-slate-600'); // 添加未选中样式
                 });
 
@@ -1462,7 +1533,7 @@
                 tabBtn.classList.remove('border-transparent', 'text-slate-600'); // 移除未选中样式
 
                 if (tabBtn.dataset.tab === 'summary') {
-                    tabBtn.classList.add('border-blue-500', 'text-blue-500');
+                    tabBtn.classList.add('border-red-500', 'text-red-600');
                 } else {
                     tabBtn.classList.add('border-red-500', 'text-red-600');
                 }
