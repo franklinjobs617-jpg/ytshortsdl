@@ -914,10 +914,10 @@
                         </div>
                         <div class="flex items-center gap-3 flex-shrink-0">
                             <span class="text-xs text-slate-400 w-16 text-right font-mono hidden sm:block">${fileSizeText}</span>
-                            <button class="download-link-btn bg-red-500 text-white font-semibold px-4 py-1.5 rounded-md text-xs hover:bg-red-600 transition-colors shadow-sm" 
+                            <button class="download-link-btn bg-gray-500 text-white font-semibold px-4 py-1.5 rounded-md text-xs hover:bg-gray-600 transition-colors shadow-sm " 
                                 data-url="${url}" 
                                 data-title="${title}"
-                                data-format-id="${f.format_id}">
+                                data-format-id="${f.format_id}" disabled>
                                 Download
                             </button>
                         </div>
@@ -1146,7 +1146,7 @@
                         <option value="720p">720p SD (MP4)</option>
                         <option value="audio">Best Audio Only (MP3)</option>
                     </select>
-                    <button id="batchStartBtn" class="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-50 transition-colors">Start Download</button>
+                    <button id="batchStartBtn" class="w-full sm:w-auto bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-50 transition-colors">Start Download</button>
                 </div>
             </div>`;
             resultSection.classList.remove('hidden');
@@ -1215,6 +1215,7 @@
 
         // BATCH STEP 2: Start Download Task
         async function handleBatchStartDownload() {
+            return;
             const selectedInputs = Array.from(document.querySelectorAll('#videoPreviewList input:checked'));
             if (selectedInputs.length === 0) {
                 showToast('Please select at least one video to download.', 'error');
@@ -1458,6 +1459,7 @@
                         const lang = parts.slice(2).join('_'); // lang code
                         downloadApiUrl = `${API_BASE_URL}/api/subtitle?url=${encodeURIComponent(targetUrl)}&lang=${lang}&format=${fmt}`;
                     } else {
+                        return
                         // Standard Video/Audio
                         downloadApiUrl = `${API_BASE_URL}/api/download?url=${encodeURIComponent(targetUrl)}&quality=${encodeURIComponent(targetQuality)}`;
                     }
