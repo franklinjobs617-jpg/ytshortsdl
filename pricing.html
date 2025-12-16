@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShortsSync | Pricing for Pro & AI Tools</title>
+    <title>ShortsSync | Pro & AI Tools Coming Soon</title>
 
     <link href="./dist/output.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -28,6 +28,7 @@
 
 <body class="antialiased bg-slate-50 text-slate-700">
 
+
     <!-- Header - REBUILT ACCORDING TO NAVIGATION DESIGN -->
     <header class="py-4 px-6 md:px-12 sticky top-0 bg-white/80 backdrop-blur-xl z-50 border-b border-slate-200/80">
         <nav class="flex justify-between items-center max-w-7xl mx-auto">
@@ -40,8 +41,8 @@
 
             <div class="hidden md:flex items-center space-x-8">
 
-                <a href="/index.html"
-                    class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">Download
+                <a href="/index.html" class="font-medium text-slate-600 transition-colors duration-300"
+                    data-i18n="title">Download
                     Shorts</a>
                 <a href="/shorts-to-mp3.html"
                     class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">MP3 Audio</a>
@@ -97,10 +98,13 @@
                         <a href="/shorts-creators-reddit-insights.html"
                             class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Shorts
                             Creators Reddit Insights</a>
+
+
                     </div>
                 </div>
 
-                <a href="/pricing.html" class="font-medium text-red-500 transition-colors duration-300">Pricing</a>
+                <a href="/pricing.html"
+                    class="font-medium text-red-600 hover:text-red-500 transition-colors duration-300">Pricing</a>
 
                 <div class="relative group">
                     <button
@@ -122,6 +126,8 @@
                             Reuse Guide</a>
                     </div>
                 </div>
+
+
                 <a href="/addon.html"
                     class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">Add-On</a>
                 <a href="/about.html"
@@ -135,7 +141,6 @@
             </button>
         </nav>
     </header>
-
 
     <!-- Mobile Drawer & Backdrop (MOVED OUT OF HEADER) -->
     <div id="mobile-drawer-backdrop"
@@ -200,216 +205,158 @@
         </nav>
     </aside>
 
-    <!-- Main Content for the Pricing Page -->
-    <main class="container mx-auto px-4 py-16 sm:py-24 space-y-16">
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-16 sm:py-24 space-y-20">
 
         <!-- Hero Section -->
         <section class="text-center max-w-4xl mx-auto">
+            <div
+                class="inline-block px-4 py-1.5 mb-6 text-sm font-semibold tracking-wide text-red-600 uppercase bg-red-100 rounded-full">
+                Early Access
+            </div>
             <h1
-                class="text-3xl md:text-5xl lg:text-5xl font-extrabold font-poppins leading-tight tracking-tighter text-slate-900">
-                AI Shorts Downloader Pricing: <br class="hidden md:block">Choose Your Pro Toolkit
+                class="text-4xl md:text-6xl font-extrabold font-poppins leading-tight tracking-tighter text-slate-900 mb-6">
+                AI Creator Suite is <br><span class="text-red-500">Coming Soon</span>
             </h1>
-            <p class="mt-4 text-lg text-slate-600 leading-relaxed">Unlock the highest quality downloads and our
-                proprietary AI Watermark Remover. Pay for what you need—subscriptions for volume, credits for single
-                tasks.</p>
+            <p class="text-xl text-slate-600 leading-relaxed mb-10 max-w-2xl mx-auto">
+                We are building the ultimate toolkit for YouTube Shorts creators. Get ready for 4K downloads, AI
+                watermark removal, and auto-transcription.
+            </p>
+
+            <!-- Waitlist Form -->
+            <div
+                class="max-w-md mx-auto bg-white p-2 rounded-xl shadow-lg border border-slate-200 flex flex-col sm:flex-row gap-2">
+                <input type="email" placeholder="Enter your email address"
+                    class="flex-grow px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 text-slate-700"
+                    required>
+                <button
+                    class="bg-red-500 text-white font-bold px-6 py-3 rounded-lg hover:bg-red-600 transition-colors shadow-md whitespace-nowrap">
+                    Notify Me
+                </button>
+            </div>
+            <p class="mt-4 text-sm text-slate-500"><i class="fas fa-lock mr-1"></i> No spam. Unsubscribe anytime.</p>
         </section>
 
-        <!-- Pricing Toggle & Plan Options -->
-        <section class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <!-- Option 1: Subscription -->
-            <div class="bg-white p-8 rounded-2xl shadow-2xl border-2 border-primary">
-                <h2 class="text-2xl font-bold font-poppins text-slate-900">Subscription Plans</h2>
-                <p class="text-slate-600 mt-2 mb-6">Best for high-volume creators, agencies, and professionals.</p>
-                <ul class="space-y-3 mb-8">
-                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i><strong
-                            class="text-slate-800">Unlimited</strong> 4K/8K Downloads</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i><strong
-                            class="text-slate-800">Generous Monthly</strong> AI Credits</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i>Priority Support
-                    </li>
-                </ul>
-                <a href="#subscriptions"
-                    class="w-full inline-block text-center px-6 py-3 bg-primary text-white font-bold rounded-lg shadow-lg hover:bg-primary-dark transition-all duration-300 transform hover:-translate-y-1">
-                    See Subscription Tiers
-                </a>
-            </div>
-            <!-- Option 2: Credits -->
-            <div class="bg-white p-8 rounded-2xl shadow-xl border-2 border-slate-200">
-                <h2 class="text-2xl font-bold font-poppins text-slate-900">Pay-As-You-Go Credits</h2>
-                <p class="text-slate-600 mt-2 mb-6">Ideal for occasional use of our AI Watermark Remover.</p>
-                <ul class="space-y-3 mb-8">
-                    <li class="flex items-center"><i class="fas fa-check-circle text-slate-400 mr-3"></i>Pay Per Video
-                    </li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-slate-400 mr-3"></i>Credits Never
-                        Expire</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle text-slate-400 mr-3"></i>Perfect for
-                        Single Tasks</li>
-                </ul>
-                <a href="#credits"
-                    class="w-full inline-block text-center px-6 py-3 bg-slate-800 text-white font-bold rounded-lg shadow-lg hover:bg-slate-900 transition-all duration-300 transform hover:-translate-y-1">
-                    Buy Credit Packs
-                </a>
-            </div>
-        </section>
-
-        <!-- Feature Comparison Grid -->
-        <section class="bg-white p-4 md:p-12 rounded-2xl shadow-xl border border-slate-200/50">
-            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-8 text-center">Compare Plans & Features</h2>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left">
-                    <thead>
-                        <tr class="border-b-2 border-slate-200">
-                            <th class="p-4 font-semibold text-lg">Feature</th>
-                            <th class="p-4 font-semibold text-lg text-center">Free</th>
-                            <th class="p-4 font-semibold text-lg text-center">Credits</th>
-                            <th class="p-4 font-semibold text-lg text-center bg-primary-light rounded-t-lg">Subscription
-                                (Pro)</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-200">
-                        <tr>
-                            <td class="p-4 font-medium">Standard HD Downloads</td>
-                            <td class="p-4 text-center text-primary"><i class="fas fa-check-circle"></i></td>
-                            <td class="p-4 text-center text-primary"><i class="fas fa-check-circle"></i></td>
-                            <td class="p-4 text-center text-primary"><i class="fas fa-check-circle"></i></td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-medium">Short Thumbnail Download</td>
-                            <td class="p-4 text-center text-primary"><i class="fas fa-check-circle"></i></td>
-                            <td class="p-4 text-center text-primary"><i class="fas fa-check-circle"></i></td>
-                            <td class="p-4 text-center text-primary"><i class="fas fa-check-circle"></i></td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-medium">4K/8K Downloads</td>
-                            <td class="p-4 text-center text-slate-300"><i class="fas fa-times-circle"></i></td>
-                            <td class="p-4 text-center text-slate-300"><i class="fas fa-times-circle"></i></td>
-                            <td class="p-4 text-center text-primary font-bold">Unlimited</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-medium">AI Watermark Remover</td>
-                            <td class="p-4 text-center text-slate-300"><i class="fas fa-times-circle"></i></td>
-                            <td class="p-4 text-center text-primary">Pay per use</td>
-                            <td class="p-4 text-center text-primary font-bold">Unlimited</td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 font-medium">AI Transcript Generator</td>
-                            <td class="p-4 text-center text-slate-300"><i class="fas fa-times-circle"></i></td>
-                            <td class="p-4 text-center text-primary">Pay per use</td>
-                            <td class="p-4 text-center text-primary font-bold">Unlimited</td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Subscription Section -->
-        <section id="subscriptions" class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/50">
-            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-2 text-center">Subscription Plans</h2>
-            <p class="text-center text-slate-600 mb-8">Best for high-volume creators.</p>
-            <!-- Pricing Toggle would be implemented here with JS -->
-            <div class="text-center mb-10"><span class="font-semibold">Monthly</span> | <span
-                    class="text-primary font-bold">Annual (Save 20%)</span></div>
-            <div class="max-w-5xl mx-auto">
-                <!-- Pro Plan -->
+        <!-- Feature Preview Grid -->
+        <section class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <!-- Feature 1 -->
+            <div
+                class="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 hover:-translate-y-1 transition-transform duration-300">
                 <div
-                    class="border-2 border-primary p-8 rounded-2xl relative flex flex-col justify-center items-center mb-8">
-                    <div
-                        class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-white text-sm font-bold rounded-full">
-                        MOST POPULAR</div>
-                    <h3 class="text-2xl font-bold font-poppins text-slate-900 mb-2">Pro Creator</h3>
-                    <p class="text-slate-600 mb-6">Everything you need.</p>
-                    <p class="text-5xl font-extrabold font-poppins text-slate-900 mb-2">$19<span
-                            class="text-lg font-medium text-slate-500">/mo</span></p>
-                    <a href="#"
-                        class="w-full inline-block text-center mt-6 px-6 py-3 bg-primary text-white font-bold rounded-lg shadow-lg hover:bg-primary-dark transition-all">Start
-                        Subscription</a>
+                    class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6 text-blue-600 text-2xl">
+                    <i class="fas fa-video"></i>
                 </div>
+                <h3 class="text-xl font-bold text-slate-900 mb-3">4K & 8K Downloads</h3>
+                <p class="text-slate-600">Download source-quality video files without compression. Perfect for
+                    professional editing and archiving.</p>
+            </div>
 
+            <!-- Feature 2 -->
+            <div
+                class="bg-white p-8 rounded-2xl shadow-xl border border-red-100 hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                    Flagship</div>
+                <div
+                    class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center mb-6 text-red-600 text-2xl">
+                    <i class="fas fa-eraser"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 mb-3">AI Watermark Remover</h3>
+                <p class="text-slate-600">Our proprietary AI intelligently fills in watermarked areas, giving you clean
+                    video for TikTok & Reels.</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div
+                class="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 hover:-translate-y-1 transition-transform duration-300">
+                <div
+                    class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-6 text-purple-600 text-2xl">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 mb-3">Auto-Transcript</h3>
+                <p class="text-slate-600">Instantly generate accurate text transcripts from audio. Great for repurposing
+                    content into blog posts.</p>
             </div>
         </section>
 
-        <!-- Credits Section -->
-        <section id="credits" class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/50">
-            <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-2 text-center">Pay-As-You-Go Credits</h2>
-            <p class="text-center text-slate-600 mb-8">Ideal for occasional use. Credits never expire.</p>
-            <div class="grid sm:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                <!-- 10 Credits -->
-                <div class="border border-slate-200 p-6 rounded-xl text-center hover:border-primary transition-colors">
-                    <h3 class="text-xl font-bold text-slate-800">10 Credits</h3>
-                    <p class="text-4xl font-extrabold text-slate-900 my-4">$10</p>
-                    <p class="text-slate-500 text-sm mb-4">($1.00 / video)</p><a href="#"
-                        class="w-full inline-block px-6 py-2 bg-slate-200 font-semibold rounded-lg hover:bg-primary hover:text-white transition-all">Buy
-                        Now</a>
-                </div>
-                <!-- 50 Credits -->
-                <div class="border-2 border-primary p-6 rounded-xl text-center relative">
-                    <div
-                        class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 px-3 py-1 bg-primary text-white text-xs font-bold rounded-full">
-                        BEST VALUE</div>
-                    <h3 class="text-xl font-bold text-slate-800">50 Credits</h3>
-                    <p class="text-4xl font-extrabold text-slate-900 my-4">$40</p>
-                    <p class="text-slate-500 text-sm mb-4">($0.80 / video)</p><a href="#"
-                        class="w-full inline-block px-6 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-all">Buy
-                        Now</a>
-                </div>
-                <!-- 100 Credits -->
-                <div class="border border-slate-200 p-6 rounded-xl text-center hover:border-primary transition-colors">
-                    <h3 class="text-xl font-bold text-slate-800">100 Credits</h3>
-                    <p class="text-4xl font-extrabold text-slate-900 my-4">$70</p>
-                    <p class="text-slate-500 text-sm mb-4">($0.70 / video)</p><a href="#"
-                        class="w-full inline-block px-6 py-2 bg-slate-200 font-semibold rounded-lg hover:bg-primary hover:text-white transition-all">Buy
-                        Now</a>
+        <!-- Waitlist Benefits -->
+        <section
+            class="bg-slate-900 text-white rounded-3xl p-8 md:p-16 max-w-5xl mx-auto text-center relative overflow-hidden">
+            <div
+                class="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-20">
+            </div>
+
+            <div class="relative z-10">
+                <h2 class="text-3xl md:text-4xl font-bold font-poppins mb-6">Why Join the Waitlist?</h2>
+                <div class="grid md:grid-cols-3 gap-8 text-left mt-12">
+                    <div class="flex items-start">
+                        <i class="fas fa-gift text-red-500 text-2xl mt-1 mr-4"></i>
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">Free Early Access</h4>
+                            <p class="text-slate-400 text-sm">Be the first to test our tools before the public launch.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-percent text-red-500 text-2xl mt-1 mr-4"></i>
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">Exclusive Discount</h4>
+                            <p class="text-slate-400 text-sm">Get a lifetime discount code when we officially launch.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-star text-red-500 text-2xl mt-1 mr-4"></i>
+                        <div>
+                            <h4 class="font-bold text-lg mb-2">Shape the Product</h4>
+                            <p class="text-slate-400 text-sm">Your feedback will directly influence which features we
+                                build next.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- FAQ Section -->
-        <section id="faq-transparency" class="max-w-3xl mx-auto">
-            <h2 class="font-display text-3xl font-bold text-slate-900 mb-8 text-center">Pricing FAQs & Transparency</h2>
+        <section id="faq" class="max-w-3xl mx-auto">
+            <h2 class="font-display text-2xl font-bold text-slate-900 mb-8 text-center">Frequently Asked Questions</h2>
             <div class="space-y-4">
-                <details class="group bg-white p-6 rounded-lg shadow-lg border border-slate-200/50 cursor-pointer">
+                <details class="group bg-white p-6 rounded-lg shadow-sm border border-slate-200 cursor-pointer">
                     <summary class="flex items-center justify-between font-semibold text-lg text-slate-800 list-none">
-                        What is your refund/cancellation policy?<i
+                        When will the Pro tools launch?<i
                             class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
                     </summary>
-
-                    <p class="mt-4 text-slate-600 leading-relaxed">Our policy is straightforward and depends on the
-                        purchase type: <strong>Subscriptions</strong> or
-                        <strong>Credits</strong>.
-                        <br><br>
-                        <strong>Subscriptions:</strong> You can cancel anytime; cancellation is effective at the end of
-                        your current cycle.
-                        <br><br>
-                        <strong>Credits:</strong> Credits are non-refundable upon purchase but never expire. If a
-                        technical error causes a credit deduction, contact support for a credit re-issue.
+                    <p class="mt-4 text-slate-600 leading-relaxed">
+                        We are currently in the final stages of development. We expect to open the beta to waitlist
+                        members within the next few weeks.
                     </p>
                 </details>
-                <details class="group bg-white p-6 rounded-lg shadow-lg border border-slate-200/50 cursor-pointer">
-                    <summary class="flex items-center justify-between font-semibold text-lg text-slate-800 list-none">Do
-                        my credits ever expire?<i
-                            class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
-                    </summary>
-                    <p class="mt-4 text-slate-600 leading-relaxed">No, your purchased credits never expire. They remain
-                        in your account until you choose to use them on one of our premium AI tools.</p>
-                </details>
-                <details class="group bg-white p-6 rounded-lg shadow-lg border border-slate-200/50 cursor-pointer">
+                <details class="group bg-white p-6 rounded-lg shadow-sm border border-slate-200 cursor-pointer">
                     <summary class="flex items-center justify-between font-semibold text-lg text-slate-800 list-none">
-                        Does the subscription cover 4K and AI tools?<i
+                        Will the basic downloader remain free?<i
                             class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
                     </summary>
-                    <p class="mt-4 text-slate-600 leading-relaxed">Yes, all Pro subscriptions grant you unlimited access
-                        to the 4K/8K downloader and include a generous monthly allocation of credits for the AI
-                        Watermark Remover.</p>
+                    <p class="mt-4 text-slate-600 leading-relaxed">
+                        Absolutely. The core YouTube Shorts downloader (up to 1080p) will always be free and unlimited
+                        for everyone.
+                    </p>
+                </details>
+                <details class="group bg-white p-6 rounded-lg shadow-sm border border-slate-200 cursor-pointer">
+                    <summary class="flex items-center justify-between font-semibold text-lg text-slate-800 list-none">
+                        How does the AI Watermark Remover work?<i
+                            class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                    </summary>
+                    <p class="mt-4 text-slate-600 leading-relaxed">
+                        Our tool uses advanced computer vision to identify static overlays and fills them in using
+                        surrounding pixel data, creating a clean video that looks like the original source file.
+                    </p>
                 </details>
             </div>
         </section>
 
     </main>
 
-
-    <!-- Footer - REBUILT TO MATCH HEADER'S INFORMATION ARCHITECTURE -->
-    <!-- Footer - REBUILT TO MATCH HEADER'S INFORMATION ARCHITECTURE -->
+    <!-- Footer -->
     <footer class="bg-slate-800 text-slate-300">
         <div class="container mx-auto px-6 py-16">
 
@@ -471,10 +418,10 @@
                 <div>
                     <h3 class="font-semibold text-white mb-4">Company</h3>
                     <ul class="space-y-3">
+
                         <li><a href="/addon.html" class="hover:text-red-500 transition-colors">Add-on</a></li>
                         <li><a href="/about.html" class="hover:text-red-500 transition-colors">About & Contact</a></li>
-                        <li><a href="/pricing.html"
-                                class="hover:text-red-500 transition-colors text-red-500">Pricing</a></li>
+                        <li><a href="/pricing.html" class="hover:text-red-500 transition-colors">Pricing</a></li>
                         <li><a href="/privacy.html" class="hover:text-red-500 transition-colors">Privacy Policy</a></li>
                         <li><a href="/terms.html" class="hover:text-red-500 transition-colors">Terms of Service</a></li>
                         <li><a href="/shorts-reuse-guide.html" class="hover:text-red-500 transition-colors">Shorts Reuse
@@ -499,25 +446,20 @@
         </div>
     </footer>
 
-
-
+    <!-- Scripts -->
     <script>
-
         const mobileMenuBtn = document.getElementById('mobile-menu-button');
         const mobileMenuClose = document.getElementById('mobile-menu-close');
         const mobileDrawer = document.getElementById('mobile-drawer');
         const mobileBackdrop = document.getElementById('mobile-drawer-backdrop');
 
-
-
-        // Mobile drawer
         function openDrawer() {
             mobileDrawer.classList.remove('translate-x-full');
             mobileBackdrop.classList.remove('backdrop-hidden');
             mobileBackdrop.classList.add('backdrop-show');
             mobileMenuBtn.setAttribute('aria-expanded', 'true');
             mobileDrawer.setAttribute('aria-hidden', 'false');
-            document.body.classList.add('overflow-hidden'); // lock scroll on body
+            document.body.classList.add('overflow-hidden');
         }
         function closeDrawer() {
             mobileDrawer.classList.add('translate-x-full');
@@ -525,7 +467,7 @@
             mobileBackdrop.classList.remove('backdrop-show');
             mobileMenuBtn.setAttribute('aria-expanded', 'false');
             mobileDrawer.setAttribute('aria-hidden', 'true');
-            document.body.classList.remove('overflow-hidden'); // unlock scroll on body
+            document.body.classList.remove('overflow-hidden');
         }
         mobileMenuBtn.addEventListener('click', openDrawer);
         mobileMenuClose.addEventListener('click', closeDrawer);
@@ -533,34 +475,31 @@
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeDrawer();
         });
-        // Ensure drawer is closed when resizing to desktop breakpoint
-        const mq = window.matchMedia('(min-width: 768px)');
-        function handleBpChange(e) {
-            if (e.matches) closeDrawer();
-        }
-        if (mq.addEventListener) {
-            mq.addEventListener('change', handleBpChange);
-        } else if (mq.addListener) {
-            mq.addListener(handleBpChange);
-        }
-    </script>
-    <script>
-        // 标志，确保脚本只加载一次
-        let thirdPartyScriptsLoaded = false;
 
-        // 创建一个函数来加载所有第三方脚本
-        function loadThirdPartyScripts() {
-            if (thirdPartyScriptsLoaded) {
-                return;
+        // Simple Form Handler (Prevents default submission for demo)
+        const notifyBtns = document.querySelectorAll('button');
+        notifyBtns.forEach(btn => {
+            if (btn.textContent.trim() === 'Notify Me') {
+                btn.addEventListener('click', (e) => {
+                    const input = btn.previousElementSibling;
+                    if (input && input.value.includes('@')) {
+                        e.preventDefault();
+                        btn.textContent = 'You are on the list!';
+                        btn.classList.remove('bg-red-500', 'hover:bg-red-600');
+                        btn.classList.add('bg-green-500', 'cursor-default');
+                        input.disabled = true;
+                    }
+                });
             }
-            thirdPartyScriptsLoaded = true;
-            console.log("User interaction detected, loading third-party scripts...");
+        });
 
-            // 1. 加载 Google Tag Manager (GTAG)
+        let thirdPartyScriptsLoaded = false;
+        function loadThirdPartyScripts() {
+            if (thirdPartyScriptsLoaded) return;
+            thirdPartyScriptsLoaded = true;
             const gtagScript = document.createElement('script');
             gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-Z6TQTL70L0';
             gtagScript.async = true;
-            // GTAG 脚本加载完成后，再执行初始化代码
             gtagScript.onload = function () {
                 window.dataLayer = window.dataLayer || [];
                 function gtag() { dataLayer.push(arguments); }
@@ -568,17 +507,11 @@
                 gtag('config', 'G-Z6TQTL70L0');
             };
             document.head.appendChild(gtagScript);
-
         }
-
-        const userInteractionEvents = [
-            "mousemove", "scroll", "keydown", "touchstart", "click"
-        ];
-
+        const userInteractionEvents = ["mousemove", "scroll", "keydown", "touchstart", "click"];
         userInteractionEvents.forEach(function (event) {
             window.addEventListener(event, loadThirdPartyScripts, { once: true, passive: true });
         });
-
         setTimeout(loadThirdPartyScripts, 5000);
     </script>
 </body>
