@@ -699,6 +699,8 @@
         </section>
 
     </main>
+
+
     <!-- Footer -->
     <footer class="bg-slate-800 text-slate-300">
         <div class="container mx-auto px-6 py-16">
@@ -789,15 +791,28 @@
         </div>
     </footer>
 
-
     <script>
         // ====================================================================
         // START: JAVASCRIPT FOR DYNAMIC FUNCTIONALITY
         // ====================================================================
 
         // API Configuration
-        // FIX: Pointing to Localhost because you are running the Python backend locally.
         const API_BASE_URL = 'https://ytdlp.vistaflyer.com';
+
+        // --- NEW: LIMIT CONFIGURATION ---
+        const MAX_DOWNLOAD_LIMIT = 3; // 最大下载数量限制
+        const STORAGE_KEY = 'yt_user_download_count'; // 本地存储Key
+
+        // 获取当前下载次数
+        function getDownloadCount() {
+            return parseInt(localStorage.getItem(STORAGE_KEY) || '0');
+        }
+
+        // 增加下载次数
+        function incrementDownloadCount() {
+            let count = getDownloadCount();
+            localStorage.setItem(STORAGE_KEY, count + 1);
+        }
 
         // Element References
         const singleInput = document.getElementById('single-input'),
@@ -825,12 +840,12 @@
         const showError = (message) => { inputError.textContent = message; inputError.classList.remove('hidden'); };
         const clearError = () => inputError.classList.add('hidden');
         const extractAndValidateLinks = (text) => { const lines = text.trim().replace(/,/g, '\n').split('\n'); const validLinks = new Set(); lines.forEach(line => { const trimmed = line.trim(); if (trimmed && isValidYouTubeUrl(trimmed)) { validLinks.add(trimmed); } }); return Array.from(validLinks); };
-        // --- Toast Notification Helper (Replaces alert) ---
+
+        // --- Toast Notification Helper ---
         function showToast(message, type = 'error') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
 
-            // 根据类型设置颜色 (error=红色, success=绿色)
             const bgClass = type === 'error' ? 'bg-red-600' : 'bg-green-600';
             const iconClass = type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle';
 
@@ -842,17 +857,16 @@
 
             container.appendChild(toast);
 
-            // 动画显示
             requestAnimationFrame(() => {
                 toast.classList.remove('translate-y-[-20px]', 'opacity-0');
             });
 
-            // 3秒后自动消失
             setTimeout(() => {
                 toast.classList.add('opacity-0', '-translate-y-2');
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
+
         // --- UI & Mode Switching ---
         function setLoading(state, mode, text = '') {
             if (state) {
@@ -885,7 +899,12 @@
             const isSingle = mode === 'single';
             singleWrapper.classList.toggle('hidden', !isSingle);
             batchWrapper.classList.toggle('hidden', isSingle);
-            inputHelp.textContent = isSingle ? "Supports links like: https://www.youtube.com/shorts/XXXXXXXXXXX" : "Enter one link per line or separate by commas.";
+
+            // Fixed String Concatenation syntax error here
+            inputHelp.textContent = isSingle
+                ? "Supports links like: https://www.youtube.com/shorts/XXXXXXXXXXX"
+                : `Enter one link per line (Max ${MAX_DOWNLOAD_LIMIT} links).`;
+
             downloadButton.style.height = isSingle ? '48px' : '120px';
             (isSingle ? singleInput : batchInput).focus();
             setLoading(false, mode);
@@ -896,7 +915,6 @@
         function renderSkeleton() {
             return `
             <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 text-left animate-pulse">
-                
                 <div class="flex flex-col md:flex-row gap-6 mb-8">
                     <div class="w-full md:w-48 h-28 bg-slate-200 rounded-lg"></div>
                     <div class="flex-1 space-y-3 py-2">
@@ -905,7 +923,6 @@
                         <div class="h-4 w-1/4 bg-slate-200 rounded mt-2"></div>
                     </div>
                 </div>
- 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8"> 
                     <div class="md:col-span-2 space-y-4">
                         <div class="flex gap-4 mb-6 border-b border-slate-200 pb-2">
@@ -917,8 +934,6 @@
                         <div class="h-12 w-full bg-slate-200 rounded-lg"></div>
                         <div class="h-12 w-full bg-slate-200 rounded-lg"></div>
                     </div>
-
-                    <!-- 右侧 (占1列): PRO 工具推广位 -->
                     <div class="md:col-span-1 hidden md:block">
                         <div class="h-64 w-full bg-slate-100 rounded-xl border border-slate-200"></div>
                     </div>
@@ -927,29 +942,39 @@
         }
 
         function renderSingleResults(data) {
-            // 1. 解构数据
             const title = data.title || 'Unknown Title';
             const thumbnail = data.thumbnail || '';
             const uploader = data.uploader || 'Unknown Author';
-            const duration = data.duration || 0;
             const url = data.url;
             const formats = data.formats || [];
-            // NEW: Extract subtitles from backend response
             const subtitles = data.subtitles || [];
 
-            // 2. 分类格式
-            const videoFormats = formats.filter(f => f.resolution && f.resolution !== 'Audio Only (MP3)' && f.resolution !== 'MP3');
-            const audioFormats = formats.filter(f => !f.resolution || f.resolution === 'Audio Only (MP3)' || f.resolution === 'MP3');
+            // Updated Filter Logic based on Backend 'is_audio' flag
+            // If is_audio is available, use it. Otherwise fallback to resolution string check.
+            const videoFormats = formats.filter(f => {
+                if (typeof f.is_audio !== 'undefined') return !f.is_audio;
+                return f.resolution && !f.resolution.includes('Audio Only');
+            });
 
-            // 3. 辅助函数：生成列表项 HTML
+            const audioFormats = formats.filter(f => {
+                if (typeof f.is_audio !== 'undefined') return f.is_audio;
+                return !f.resolution || f.resolution.includes('Audio Only') || f.resolution === 'MP3';
+            });
+
+            // --- Updated Render Function to include Remaining Limit ---
             const renderFormats = (fmtList, type) => {
                 if (!fmtList || fmtList.length === 0) {
                     return `<div class="p-4 text-sm text-slate-500 text-center italic bg-slate-50 rounded-lg">No ${type} formats available.</div>`;
                 }
-                return fmtList.map(f => {
+                // Show Remaining Downloads
+                const remaining = MAX_DOWNLOAD_LIMIT - getDownloadCount();
+                const limitHtml = `<div class="mb-3 text-xs font-semibold text-slate-500 text-right">Daily Limit: <span class="${remaining > 0 ? 'text-green-600' : 'text-red-600'}">${remaining} / ${MAX_DOWNLOAD_LIMIT}</span> remaining</div>`;
+
+                return limitHtml + fmtList.map(f => {
                     const isAudio = type === 'audio';
                     const iconClass = isAudio ? 'fa-music' : 'fa-video';
-                    const labelText = f.resolution || 'High Quality Audio';
+                    // Backend now provides clean string e.g. "1080p HD (MP4)"
+                    const labelText = f.resolution || 'High Quality';
                     const fileSizeText = f.filesize ? `${(f.filesize / 1024 / 1024).toFixed(2)} MB` : 'N/A';
 
                     return `
@@ -962,10 +987,10 @@
                         </div>
                         <div class="flex items-center gap-3 flex-shrink-0">
                             <span class="text-xs text-slate-400 w-16 text-right font-mono hidden sm:block">${fileSizeText}</span>
-                            <button class="download-link-btn bg-gray-500 text-white font-semibold px-4 py-1.5 rounded-md text-xs hover:bg-gray-600 transition-colors shadow-sm " 
+                            <button class="download-link-btn bg-red-500 text-white font-semibold px-4 py-1.5 rounded-md text-xs hover:bg-gray-600 transition-colors shadow-sm " 
                                 data-url="${url}" 
                                 data-title="${title}"
-                                data-format-id="${f.format_id}" disabled>
+                                data-format-id="${f.format_id}">
                                 Download
                             </button>
                         </div>
@@ -973,15 +998,12 @@
                 }).join('');
             };
 
-            // NEW: Render Subtitles List with Split Button (SRT | TXT)
             const renderSubtitlesList = (subs) => {
                 if (!subs || subs.length === 0) {
                     return `<div class="p-4 text-sm text-slate-500 text-center italic bg-slate-50 rounded-lg">No subtitles found.</div>`;
                 }
                 return subs.map(s => {
                     const labelText = `${s.name} (${s.lang_code.toUpperCase()})`;
-                    // Split button design: Left for SRT (Main), Right for Toggle Menu (TXT)
-                    // Simplified for Vanilla JS: Just a toggle menu that shows TXT option
                     return `
                     <div class="flex items-center justify-between p-2 mb-2 bg-white rounded border border-slate-100 text-sm hover:bg-slate-50 transition-colors">
                         <div class="flex items-center gap-2">
@@ -991,7 +1013,6 @@
                         </div>
                         
                         <div class="relative flex items-center group-dropdown">
-                            <!-- Main Action: Download SRT -->
                             <button class="download-link-btn flex items-center bg-white border border-slate-300 text-slate-700 hover:text-red-500 hover:border-red-400 text-xs font-semibold px-3 py-1.5 rounded-l-md transition-colors" 
                                     title="Download .srt"
                                     data-url="${url}" 
@@ -999,14 +1020,10 @@
                                     data-format-id="sub_srt_${s.lang_code}">
                                 <i class="fas fa-download mr-1"></i> .SRT
                             </button>
-                            
-                            <!-- Toggle Action: Show Menu for TXT -->
                              <button class="menu-toggle-btn flex items-center bg-slate-50 border-t border-b border-r border-slate-300 text-slate-600 hover:text-red-500 hover:bg-white text-xs font-semibold px-2 py-1.5 rounded-r-md transition-colors"
                                      onclick="this.nextElementSibling.classList.toggle('hidden')">
                                 <i class="fas fa-chevron-down"></i>
                             </button>
-
-                            <!-- Dropdown Menu -->
                             <div class="absolute right-0 top-full mt-1 w-40 bg-white border border-slate-200 shadow-lg rounded-md z-10 hidden" onmouseleave="this.classList.add('hidden')">
                                 <button class="download-link-btn block w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-slate-50 hover:text-red-500"
                                         data-url="${url}" 
@@ -1020,14 +1037,11 @@
                 }).join('');
             };
 
-            // NEW: Render AI Summary Tab UI
             const renderSummaryTab = (subs) => {
                 if (!subs || subs.length === 0) {
-                    return `<div class="p-4 text-sm text-slate-500 text-center italic bg-slate-50 rounded-lg">No subtitles found for this video. Cannot generate summary.</div>`;
+                    return `<div class="p-4 text-sm text-slate-500 text-center italic bg-slate-50 rounded-lg">No subtitles found.</div>`;
                 }
-
-                // Smart Default Language Selection
-                const userLang = navigator.language.split('-')[0]; // e.g. 'en' from 'en-US'
+                const userLang = navigator.language.split('-')[0];
                 let defaultSub = subs.find(s => s.lang_code === userLang);
                 if (!defaultSub) defaultSub = subs.find(s => s.lang_code.startsWith('en'));
                 if (!defaultSub) defaultSub = subs[0];
@@ -1053,13 +1067,11 @@
                     </div>
                     <div id="summary-container" class="mt-4 hidden">
                          <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-inner min-h-[120px] max-h-[400px] overflow-y-auto">
-                            <!-- Changed to DIV to support Markdown rendering -->
                             <div id="summary-text-output" class="text-slate-700 text-sm leading-relaxed font-sans"></div>
                             <span id="summary-cursor" class="inline-block w-1.5 h-4 bg-red-500 ml-1 animate-pulse align-middle"></span>
                          </div>
                     </div>
                 </div>
-                
                 <div class="mt-4">
                     <h5 class="font-semibold text-slate-700 text-sm mb-2 px-1 flex justify-between items-center">
                         <span>Subtitle Downloads</span>
@@ -1068,29 +1080,20 @@
                     <div class="max-h-60 overflow-y-auto custom-scrollbar border border-slate-100 rounded-lg p-2 bg-slate-50">
                         ${renderSubtitlesList(subs)}
                     </div>
-                </div>
-                `;
+                </div>`;
             };
 
-            // 4. 渲染主布局 (Updated with AI Summary Tab)
             resultSection.innerHTML = `
             <div class="bg-white p-4 text-left rounded-2xl">
-                <!-- 顶部: 视频信息 -->
                 <div class="flex flex-col md:flex-row gap-6 items-start border-b border-slate-100 pb-8">
                     <img src="${thumbnail}" alt="${title}" class="w-full md:w-48 h-auto rounded-lg object-cover shadow-lg border bg-slate-100">
                     <div class="flex-1 overflow-hidden">
                         <h3 class="text-2xl font-bold font-poppins text-slate-800 leading-tight">${title}</h3>
-                       
                     </div>
                 </div>
-
-                <!-- 底部: Grid 布局 (左侧下载列表，右侧 Creator Suite) -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    
-                    <!-- 左列: 下载格式选项 (占 2/3) -->
                     <div class="md:col-span-2">
                         <div class="md:bg-slate-50 md:p-4 md:rounded-xl border border-transparent md:border-slate-200 h-full">
-                            <!-- Tabs (Updated with Summary Tab) -->
                             <div class="flex flex-wrap gap-2 border-b border-slate-300 mb-4 pb-1" role="tablist">
                                 <button data-tab="video" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-red-500 text-red-600 transition-colors focus:outline-none">
                                     <i class="fas fa-video mr-1"></i> Video (${videoFormats.length})
@@ -1103,24 +1106,18 @@
                                 </button>
                             </div>
                             
-                            <!-- Video Content -->
                             <div data-content="video" class="tab-content space-y-2">
                                 ${renderFormats(videoFormats, 'video')}
                             </div>
-                            
-                            <!-- Audio Content -->
                             <div data-content="audio" class="tab-content space-y-2 hidden">
                                 ${renderFormats(audioFormats, 'audio')}
                             </div>
-
-                            <!-- NEW: Summary/Subtitle Content -->
                             <div data-content="summary" class="tab-content space-y-2 hidden">
                                 ${renderSummaryTab(subtitles)}
                             </div>
                         </div>
                     </div>
 
-                    <!-- 右列: Creator Suite PRO (占 1/3) -->
                     <div class="md:col-span-1">
                         <div class="bg-gradient-to-br from-red-50 to-blue-50 p-6 rounded-xl border border-red-100 h-fit shadow-sm sticky top-24">
                             <h4 class="font-semibold text-lg mb-4 flex items-center text-slate-700">
@@ -1150,13 +1147,12 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>`;
 
             resultSection.classList.remove('hidden');
         }
-        // BATCH STEP 2: Render the video preview and confirmation screen
+
         function renderBatchPreview(resultsArray) {
             const listHtml = resultsArray.map((itemArray, index) => {
                 if (Array.isArray(itemArray) && itemArray.length > 0 && itemArray[0]) {
@@ -1194,36 +1190,7 @@
                         <option value="720p">720p SD (MP4)</option>
                         <option value="audio">Best Audio Only (MP3)</option>
                     </select>
-                    <button id="batchStartBtn" class="w-full sm:w-auto bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-50 transition-colors">Start Download</button>
-                </div>
-            </div>`;
-            resultSection.classList.remove('hidden');
-        }
-
-        // BATCH STEP 3: Render the progress screen
-        function renderBatchProgressUI(total) {
-            resultSection.innerHTML = `
-            <div class="bg-white rounded-2xl shadow-2xl p-8 text-left">
-                <div id="progressContainer" class="mb-4 space-y-2">
-                    <div class="flex justify-between font-medium text-slate-700"><span id="progressText">Initializing...</span> <span>Target: ${total} Videos</span></div>
-                    <div class="w-full bg-slate-200 rounded-full h-4"><div id="progressBar" class="bg-red-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div></div>
-                </div>
-                <h3 class="text-lg font-semibold text-slate-800 mt-6 mb-2">Live Status</h3>
-                <div id="logArea" class="h-32 bg-slate-900 text-slate-300 font-mono text-sm p-4 rounded-lg overflow-y-auto custom-scrollbar flex items-center justify-center">
-                    <span class="animate-pulse">Waiting for server...</span>
-                </div>
-                
-                <div id="completionArea" class="hidden mt-8 text-center p-6 bg-green-50 rounded-xl border border-green-200">
-                     <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
-                     <h3 class="text-xl font-bold text-green-800 mb-2">Batch Processing Complete!</h3>
-                     <p class="text-green-700 mb-6">Your videos have been zipped and are ready for download.</p>
-                     <a id="zipDownloadBtn" href="#" class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-transform transform hover:-translate-y-1">
-                        <i class="fas fa-file-archive mr-2"></i> Download All (ZIP)
-                     </a>
-                </div>
-
-                <div class="text-center mt-6">
-                    <button id="batchResetBtn" class="text-slate-500 hover:text-slate-700 underline text-sm">Start New Batch</button>
+                    <button id="batchStartBtn" class="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-50 transition-colors">Start Download</button>
                 </div>
             </div>`;
             resultSection.classList.remove('hidden');
@@ -1234,14 +1201,19 @@
         async function handleBatchAnalyze() {
             const links = extractAndValidateLinks(batchInput.value);
             if (links.length === 0) { showError('No valid YouTube links found.'); return; }
-            if (links.length > 5) { showError('You can only analyze up to 5 links at a time.'); return; }
+
+            // --- NEW: Limit Batch Input Size to 3 ---
+            if (links.length > MAX_DOWNLOAD_LIMIT) {
+                showError(`You can only analyze up to ${MAX_DOWNLOAD_LIMIT} links at a time.`);
+                return;
+            }
+
             setLoading(true, 'batch', `Analyzing ${links.length} links...`);
             inputSection.classList.add('hidden');
             resultSection.innerHTML = renderSkeleton();
             resultSection.classList.remove('hidden');
 
             try {
-                // API 2.1: Batch Get Info
                 const response = await fetch(`${API_BASE_URL}/api/batch-info`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1261,7 +1233,7 @@
             }
         }
 
-        // BATCH STEP 2: Start Download Task
+        // BATCH STEP 2: Start Download Task (Placeholder logic as per request)
         async function handleBatchStartDownload() {
             return;
             const selectedInputs = Array.from(document.querySelectorAll('#videoPreviewList input:checked'));
@@ -1300,48 +1272,6 @@
             }
         }
 
-        // BATCH STEP 3: Poll and Update UI
-        async function pollTaskStatus(taskId) {
-            try {
-                // API 2.3: Task Status Polling
-                const response = await fetch(`${API_BASE_URL}/api/task-status?task_id=${taskId}`);
-                const resJson = await response.json();
-
-                if (resJson.code !== 0) throw new Error("Polling error");
-
-                const task = resJson.data; // { status, current, total }
-
-                // Update Progress Bar
-                const percentage = task.total > 0 ? (task.current / task.total) * 100 : 0;
-                document.getElementById('progressBar').style.width = `${percentage}%`;
-                document.getElementById('progressText').textContent = `${task.current} / ${task.total}`;
-
-                // Update Status Text
-                const logArea = document.getElementById('logArea');
-                logArea.innerHTML = `<div class="text-center font-bold text-lg">${task.status}</div>`;
-
-                // Check Completion
-                if (task.status === 'completed' || (task.current === task.total && task.total > 0)) {
-                    clearInterval(batchPollingInterval);
-                    document.getElementById('progressBar').classList.add('bg-green-500');
-                    document.getElementById('logArea').classList.add('hidden');
-
-                    // Show ZIP Download UI
-                    const completionArea = document.getElementById('completionArea');
-                    const zipBtn = document.getElementById('zipDownloadBtn');
-
-                    completionArea.classList.remove('hidden');
-
-                    // API 2.4: Download ZIP Link
-                    zipBtn.href = `${API_BASE_URL}/api/download-zip?task_id=${taskId}`;
-                }
-
-            } catch (error) {
-                clearInterval(batchPollingInterval);
-                document.getElementById('logArea').innerHTML = `<div class="text-red-400 font-bold">Connection Lost. Please try again.</div>`;
-            }
-        }
-
         // --- SINGLE DOWNLOAD WORKFLOW ---
         async function handleSingleGetInfo(url) {
             setLoading(true, 'single');
@@ -1350,7 +1280,6 @@
             resultSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
             try {
-                // API 1.1: Get Video Info (GET)
                 const response = await fetch(`${API_BASE_URL}/api/info?url=${encodeURIComponent(url)}`);
                 const resJson = await response.json();
 
@@ -1374,7 +1303,6 @@
             const btn = document.getElementById('btn-generate-summary');
             const cursor = document.getElementById('summary-cursor');
 
-            // UI Reset
             container.classList.remove('hidden');
             output.innerHTML = '';
             cursor.classList.remove('hidden');
@@ -1385,51 +1313,21 @@
 
             try {
                 const response = await fetch(`${API_BASE_URL}/api/summarize?url=${encodeURIComponent(url)}&lang=${lang}`);
-
-                if (!response.ok) {
-                    // Handle HTTP errors (e.g., 501 or 500)
-                    let errorMessage = `Server error: ${response.status}`;
-                    try {
-                        const errData = await response.json();
-                        if (errData.message) errorMessage = errData.message;
-                    } catch (e) {
-                        // If response is not JSON (e.g. standard Flask 500 HTML), treat as text
-                        const text = await response.text();
-                        if (text) errorMessage = `Server error: ${text.substring(0, 100)}...`;
-                    }
-                    throw new Error(errorMessage);
-                }
+                if (!response.ok) throw new Error(`Server error: ${response.status}`);
 
                 const reader = response.body.getReader();
-                console.log(reader);
-                console.log(response.body);
                 const decoder = new TextDecoder();
 
                 while (true) {
                     const { done, value } = await reader.read();
                     if (done) break;
-
                     const chunk = decoder.decode(value, { stream: true });
-
-                    // Check for backend error sent as text stream
-                    if (fullMarkdown === '' && chunk.startsWith('[ERROR]')) {
-                        throw new Error(chunk.replace('[ERROR]', '').trim());
-                    }
-
+                    if (fullMarkdown === '' && chunk.startsWith('[ERROR]')) throw new Error(chunk.replace('[ERROR]', '').trim());
                     fullMarkdown += chunk;
-
-                    // Render Markdown
-                    if (typeof marked !== 'undefined') {
-                        output.innerHTML = marked.parse(fullMarkdown);
-                    } else {
-                        // Fallback if marked is failed to load
-                        output.textContent = fullMarkdown;
-                    }
-
-                    // Auto-scroll
+                    if (typeof marked !== 'undefined') output.innerHTML = marked.parse(fullMarkdown);
+                    else output.textContent = fullMarkdown;
                     output.parentElement.scrollTop = output.parentElement.scrollHeight;
                 }
-
             } catch (e) {
                 output.innerHTML = `<span class="text-red-500 font-bold"><i class="fas fa-exclamation-triangle"></i> Error: ${e.message}</span>`;
                 btn.innerHTML = '<i class="fas fa-magic"></i> Retry Summary';
@@ -1439,7 +1337,6 @@
                 btn.innerHTML = '<i class="fas fa-magic"></i> Generate Summary';
             }
         }
-
 
         // --- EVENT LISTENERS ---
         downloadButton.addEventListener('click', (e) => {
@@ -1455,13 +1352,9 @@
         });
 
         resultSection.addEventListener('click', async (e) => {
-            // ==========================================================
-            // FIX: Single Video Download Logic - Uses fetch + Blob
-            // ==========================================================
             const downloadBtn = e.target.closest('.download-link-btn');
             const summaryBtn = e.target.closest('#btn-generate-summary');
 
-            // Handle Summary Button Click
             if (summaryBtn) {
                 e.preventDefault();
                 const url = summaryBtn.getAttribute('data-url');
@@ -1472,7 +1365,12 @@
             if (downloadBtn) {
                 e.preventDefault();
 
-                // 1. Get parameters securely from DOM
+                // --- NEW: CHECK DOWNLOAD LIMIT BEFORE REQUEST ---
+                if (getDownloadCount() >= MAX_DOWNLOAD_LIMIT) {
+                    showToast(`Limit Reached! You have used your ${MAX_DOWNLOAD_LIMIT} free downloads.`, 'error');
+                    return;
+                }
+
                 const targetUrl = downloadBtn.getAttribute('data-url');
                 const targetQuality = downloadBtn.getAttribute('data-format-id');
 
@@ -1480,59 +1378,56 @@
                     showToast('Error: Missing download parameters. Please refresh.', 'error');
                     return;
                 }
-                // 2. Visual Feedback
+
                 const originalText = downloadBtn.innerHTML;
                 const originalIcon = downloadBtn.querySelector('i');
                 const originalIconClass = originalIcon ? originalIcon.className : '';
 
-                // Update text to indicate we are waiting for the server/download
-                // If it's a small icon button inside the list, we just spin the icon
                 if (downloadBtn.classList.contains('text-slate-700')) {
                     if (originalIcon) originalIcon.className = 'fas fa-spinner fa-spin mr-1';
                 } else {
                     downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
                 }
-
                 downloadBtn.disabled = true;
 
                 try {
-                    // 3. Construct GET URL
                     let downloadApiUrl = '';
-
-                    // CHECK IF SUBTITLE (starts with sub_)
                     if (targetQuality.startsWith('sub_')) {
-                        // format is sub_srt_lang or sub_txt_lang
                         const parts = targetQuality.split('_');
-                        const fmt = parts[1]; // srt or txt
-                        const lang = parts.slice(2).join('_'); // lang code
+                        const fmt = parts[1];
+                        const lang = parts.slice(2).join('_');
                         downloadApiUrl = `${API_BASE_URL}/api/subtitle?url=${encodeURIComponent(targetUrl)}&lang=${lang}&format=${fmt}`;
                     } else {
-                        return
-                        // Standard Video/Audio
                         downloadApiUrl = `${API_BASE_URL}/api/download?url=${encodeURIComponent(targetUrl)}&quality=${encodeURIComponent(targetQuality)}`;
                     }
 
-                    // 4. Perform the Request (Wait for the server to return the file)
                     const response = await fetch(downloadApiUrl);
 
                     if (!response.ok) {
                         throw new Error(`Server error: ${response.status}`);
                     }
 
-                    // 5. Convert response to Blob (File object in memory)
-                    const blob = await response.blob();
+                    // --- NEW: INCREMENT COUNT ON SUCCESSFUL RESPONSE ---
+                    incrementDownloadCount();
+                    showToast(`Download started! (${getDownloadCount()}/${MAX_DOWNLOAD_LIMIT} used)`, 'success');
 
-                    // 6. Create a temporary link to trigger the "Save As" dialog
+                    // Update UI to reflect new remaining count immediately
+                    const remainingDisplay = document.querySelector('.text-right .font-semibold span');
+                    if (remainingDisplay) {
+                        const newRemaining = MAX_DOWNLOAD_LIMIT - getDownloadCount();
+                        remainingDisplay.textContent = `${newRemaining} / ${MAX_DOWNLOAD_LIMIT}`;
+                        if (newRemaining <= 0) remainingDisplay.className = 'text-red-600';
+                    }
+
+                    const blob = await response.blob();
                     const url = window.URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.style.display = 'none';
                     a.href = url;
 
-                    // Attempt to extract filename from headers, fallback to default
                     const disposition = response.headers.get('Content-Disposition');
                     let fileName = downloadBtn.getAttribute('data-title').replace(/[^\w\s-]/g, '') + '.mp4';
 
-                    // Adjust extension for subtitles if needed fallback
                     if (targetQuality.startsWith('sub_txt')) fileName = fileName.replace('.mp4', '.txt');
                     else if (targetQuality.startsWith('sub_srt')) fileName = fileName.replace('.mp4', '.srt');
 
@@ -1544,11 +1439,8 @@
                         }
                     }
                     a.download = fileName;
-
                     document.body.appendChild(a);
-                    a.click(); // Trigger download
-
-                    // Cleanup memory
+                    a.click();
                     window.URL.revokeObjectURL(url);
                     document.body.removeChild(a);
 
@@ -1556,7 +1448,6 @@
                     console.error('Download failed:', error);
                     showToast('Download failed. Please check your connection and try again.', 'error');
                 } finally {
-                    // 7. Reset button state ONLY after request is finished (Success or Fail)
                     if (downloadBtn.classList.contains('text-slate-700')) {
                         if (originalIcon) originalIcon.className = originalIconClass;
                     } else {
@@ -1566,29 +1457,17 @@
                 }
             }
 
-            // Tabs Logic
             const tabBtn = e.target.closest('.tab-button');
             if (tabBtn) {
-                // 1. 获取所有 Tab 按钮
                 const allTabs = document.querySelectorAll('.tab-button');
-
-                // 2. 重置所有按钮为 "未选中" 状态 (灰色文字，透明边框)
                 allTabs.forEach(btn => {
-                    const isSummary = btn.dataset.tab === 'summary';
-                    btn.classList.remove('border-red-500', 'text-red-600', 'border-red-500', 'text-slate-600'); // 移除选中样式
-                    btn.classList.add('border-transparent', 'text-slate-600'); // 添加未选中样式
+                    btn.classList.remove('border-red-500', 'text-red-600');
+                    btn.classList.add('border-transparent', 'text-slate-600');
                 });
 
-                // 3. 设置当前点击的按钮为 "选中" 状态
-                tabBtn.classList.remove('border-transparent', 'text-slate-600'); // 移除未选中样式
+                tabBtn.classList.remove('border-transparent', 'text-slate-600');
+                tabBtn.classList.add('border-red-500', 'text-red-600');
 
-                if (tabBtn.dataset.tab === 'summary') {
-                    tabBtn.classList.add('border-red-500', 'text-red-600');
-                } else {
-                    tabBtn.classList.add('border-red-500', 'text-red-600');
-                }
-
-                // 4. 切换下方显示的内容区域
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
                 const targetContent = resultSection.querySelector(`[data-content="${tabBtn.dataset.tab}"]`);
                 if (targetContent) {
@@ -1596,10 +1475,10 @@
                 }
             }
 
-
             if (e.target.id === 'batchStartBtn') handleBatchStartDownload();
             if (e.target.id === 'batchResetBtn') switchMode('batch');
         });
+
         const setupInput = (input, clearBtn) => {
             input.addEventListener('input', () => clearBtn.classList.toggle('hidden', !input.value));
             clearBtn.addEventListener('click', () => { input.value = ''; clearBtn.classList.add('hidden'); input.focus(); });
