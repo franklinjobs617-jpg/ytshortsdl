@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 
 <head>
-    <meta charset="UTF-8">
+     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free YouTube Shorts Downloader | HD, MP4, MP3 & Batch Tools</title>
     <meta name="description"
@@ -17,15 +17,16 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Free YouTube Shorts Downloader | HD, MP4, MP3 & AI Tools">
     <meta name="twitter:description" content="Download YouTube Shorts (MP4/MP3) instantly. No ads. With AI tools.">
-    <meta name="twitter:image" content="https://ytshortsdl.net/images/1.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="canonical" href="https://ytshortsdl.net/">
-    <link rel="stylesheet" href="/dist/output.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
-        rel="stylesheet">
+    <meta name="twitter:image" content="https://ytshortsdl.net/images/1.png"> 
+    
+    <!-- 1. 预连接 CDN，加速建立握手 -->  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+    
+    <link rel="canonical" href="https://ytshortsdl.net/">
+    <link rel="stylesheet" href="./dist/output.css">
+     
+  
     <style>
         /* Custom scrollbar for new batch UI elements */
         .custom-scrollbar::-webkit-scrollbar {
@@ -44,17 +45,8 @@
             box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
         }
 
-        .glow-effect {
-            position: absolute;
-            top: -50%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(239, 68, 68, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
+      
+        
 
         /* Markdown Styles for Summary Output */
         #summary-text-output ul {
@@ -151,13 +143,13 @@
 </script>
 </head>
 
-<body class="antialiased font-sans text-slate-800">
+<body class="font-sans text-slate-800">
 
     <!-- Header -->
     <header class="py-4 px-6 md:px-12 sticky top-0 bg-white/80 backdrop-blur-xl z-50 border-b border-slate-200/80">
         <nav class="flex justify-between items-center max-w-7xl mx-auto">
             <a href="/" class="text-2xl font-bold font-poppins flex-shrink-0 flex items-center gap-2">
-                <img src="/favicon.ico" alt="" class="w-12 h-12">
+                <img src="/ytshortsdl-logo.webp" alt="ytshortsdl logo" class="w-12 h-12" width="48" height="48">
                 <span>
                     YTShorts<span class="text-red-500">dl</span>.net
                 </span>
