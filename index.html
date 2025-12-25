@@ -21,10 +21,13 @@
     
     <!-- 1. 预连接 CDN，加速建立握手 -->  
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <!-- cloudflare icon链接 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     
 
-    
     <link rel="canonical" href="https://ytshortsdl.net/">
-    <link rel="stylesheet" href="./dist/output.css">
+    <link rel="stylesheet" href="/dist/output.css">
      
   
     <style>
@@ -122,24 +125,26 @@
     <meta name="google-adsense-account" content="ca-pub-3383070348689557">
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3383070348689557"
-        crossorigin="anonymous"></script> <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "YTShortsDL",
-  "operatingSystem": "Windows, macOS, Android, iOS",
-  "applicationCategory": "MultimediaApplication",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "ratingCount": "1250"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0.00",
-    "priceCurrency": "USD"
-  }
-}
+        crossorigin="anonymous">
+    </script> 
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "YTShortsDL",
+        "operatingSystem": "Windows, macOS, Android, iOS",
+        "applicationCategory": "MultimediaApplication",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "1250"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0.00",
+            "priceCurrency": "USD"
+        }
+        }
 </script>
 </head>
 
@@ -268,7 +273,7 @@
         <div class="p-4 border-b border-slate-200 flex items-center justify-between">
             <span class="text-xl font-semibold">Menu</span>
             <button id="mobile-menu-close" class="text-2xl text-slate-600" aria-label="Close menu">
-                <i class="fas a-times"></i>
+                <i class="fas fa-times"></i>
             </button>
         </div>
         <nav class="p-6 space-y-4 bg-white min-h-screen">
@@ -342,7 +347,10 @@
                     <button id="mode-single" data-mode="single"
                         class="mode-switch-btn flex-1 py-2 font-bold text-sm rounded-lg bg-white text-red-600 shadow-md transition-all"
                         role="tab" aria-selected="true">
-                        <i class="fas fa-link mr-2"></i> Single Download
+                        <i class="fas fa-link mr-2"></i> 
+                        
+                        
+                        Single Download
                     </button>
                     <button id="mode-batch" data-mode="batch"
                         class="mode-switch-btn flex-1 py-2 font-bold text-sm rounded-lg text-slate-600 hover:text-red-600 transition-all"
@@ -1808,7 +1816,40 @@
         });
 
         // --- Mobile Drawer & Third Party Scripts ---
-        function openDrawer() { mobileDrawer.classList.remove("translate-x-full"), mobileBackdrop.classList.remove("backdrop-hidden"), mobileBackdrop.classList.add("backdrop-show"), document.body.classList.add("overflow-hidden") } function closeDrawer() { mobileDrawer.classList.add("translate-x-full"), mobileBackdrop.classList.add("backdrop-hidden"), mobileBackdrop.classList.remove("backdrop-show"), document.body.classList.remove("overflow-hidden") } mobileMenuBtn.addEventListener("click", openDrawer), mobileMenuClose.addEventListener("click", closeDrawer), mobileBackdrop.addEventListener("click", closeDrawer); let thirdPartyScriptsLoaded = !1; function loadThirdPartyScripts() { if (thirdPartyScriptsLoaded) return; thirdPartyScriptsLoaded = !0; const e = document.createElement("script"); e.src = "https://www.googletagmanager.com/gtag/js?id=G-Z6TQTL70L0", e.async = !0, e.onload = function () { window.dataLayer = window.dataLayer || [], window.gtag = function () { dataLayer.push(arguments) }, gtag("js", new Date), gtag("config", "G-Z6TQTL70L0") }, document.head.appendChild(e) } ["mousemove", "scroll", "keydown", "touchstart", "click"].forEach(function (e) { window.addEventListener(e, loadThirdPartyScripts, { once: !0, passive: !0 }) }), setTimeout(loadThirdPartyScripts, 5e3);
+        function openDrawer() { 
+            mobileDrawer.classList.remove("translate-x-full"), 
+            mobileBackdrop.classList.remove("backdrop-hidden"),
+             mobileBackdrop.classList.add("backdrop-show"), 
+             document.body.classList.add("overflow-hidden") } 
+             function closeDrawer() { 
+                mobileDrawer.classList.add("translate-x-full"),
+                 mobileBackdrop.classList.add("backdrop-hidden"),
+                  mobileBackdrop.classList.remove("backdrop-show"), 
+                  document.body.classList.remove("overflow-hidden") } 
+                  mobileMenuBtn.addEventListener("click", openDrawer), mobileMenuClose.addEventListener("click", closeDrawer), mobileBackdrop.addEventListener("click", closeDrawer);
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  let thirdPartyScriptsLoaded = !1; 
+                  function loadThirdPartyScripts() { 
+                    if (thirdPartyScriptsLoaded) return;
+                    thirdPartyScriptsLoaded = !0; 
+                    const e = document.createElement("script"); 
+                    e.src = "https://www.googletagmanager.com/gtag/js?id=G-Z6TQTL70L0", 
+                    e.async = !0, e.onload = function () { 
+                        window.dataLayer = window.dataLayer || [], window.gtag = function () { 
+                            dataLayer.push(arguments) }, gtag("js", new Date), gtag("config", "G-Z6TQTL70L0") }, 
+                            document.head.appendChild(e) } ["mousemove", "scroll", "keydown", "touchstart", "click"].forEach(function (e) {
+                                 window.addEventListener(e, loadThirdPartyScripts, { once: !0, passive: !0 }) }), setTimeout(loadThirdPartyScripts, 5e3
+
+                                 );
     </script>
 </body>
 
