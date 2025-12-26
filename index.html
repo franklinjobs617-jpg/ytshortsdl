@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 
 <head>
-     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free YouTube Shorts Downloader | HD, MP4, MP3 & Batch Tools</title>
     <meta name="description"
@@ -13,23 +13,22 @@
     <meta name="theme-color" content="#EF4444">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ytshortsdl.net/">
-    <meta property="og:image" content="https://ytshortsdl.net/images/1.png">
+    <meta property="og:image" content="https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Free YouTube Shorts Downloader | HD, MP4, MP3 & AI Tools">
     <meta name="twitter:description" content="Download YouTube Shorts (MP4/MP3) instantly. No ads. With AI tools.">
-    <meta name="twitter:image" content="https://ytshortsdl.net/images/1.png"> 
-    
-    <!-- 1. 预连接 CDN，加速建立握手 -->  
+    <meta name="twitter:image" content="https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png">
+
+    <!-- 1. 预连接 CDN，加速建立握手 -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <!-- cloudflare icon链接 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-     
+
+    <!-- 已移除 Font Awesome CDN 链接，全部使用内联 SVG -->
 
     <link rel="canonical" href="https://ytshortsdl.net/">
     <link rel="stylesheet" href="/dist/output.css">
-     
-  
+
+
     <style>
         /* Custom scrollbar for new batch UI elements */
         .custom-scrollbar::-webkit-scrollbar {
@@ -43,13 +42,10 @@
         }
 
         /* Custom Ring for focus states */
-        
+
         .custom-focus-ring:focus-within {
             box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
         }
-
-      
-        
 
         /* Markdown Styles for Summary Output */
         #summary-text-output ul {
@@ -104,14 +100,24 @@
             color: #64748b;
             font-style: italic;
         }
-        
+
         /* History Card Hover Effect */
         .history-card .play-overlay {
             opacity: 0;
             transition: opacity 0.3s ease;
         }
+
         .history-card:hover .play-overlay {
             opacity: 1;
+        }
+
+        /* Utility for SVG Icons to behave like Font Awesome icons */
+        svg {
+            display: inline-block;
+            height: 1em;
+            /* SVG高度跟随字体大小 */
+            overflow: visible;
+            vertical-align: -0.125em;
         }
     </style>
     <script type="text/javascript">
@@ -126,25 +132,53 @@
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3383070348689557"
         crossorigin="anonymous">
-    </script> 
+        </script>
     <script type="application/ld+json">
         {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "YTShortsDL",
+            "operatingSystem": "Windows, macOS, Android, iOS",
+            "applicationCategory": "MultimediaApplication",
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "ratingCount": "1250"
+            },
+            "offers": {
+                "@type": "Offer",
+                "price": "0.00",
+                "priceCurrency": "USD"
+            }
+        } 
+    </script>
+    <script type="application/ld+json">
+    {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "YTShortsDL",
-        "operatingSystem": "Windows, macOS, Android, iOS",
-        "applicationCategory": "MultimediaApplication",
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "ratingCount": "1250"
-        },
-        "offers": {
-            "@type": "Offer",
-            "price": "0.00",
-            "priceCurrency": "USD"
-        }
-        }
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": "Is this YouTube Shorts Downloader completely free?",
+            "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, the core download functionality (up to 1080P HD) is 100% free. We offer a paid subscription for premium features like 4K downloads and our AI Watermark Remover tool."
+            }
+        }, {
+            "@type": "Question",
+            "name": "Will the YouTube watermark be preserved when I download?",
+            "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The free download retains the watermark. We offer a premium, paid AI feature specifically designed to remove watermarks for seamless cross-platform sharing."
+            }
+        }, {
+            "@type": "Question",
+            "name": "Is this tool safe to use?",
+            "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. We use secure, server-side processing methods. Your privacy is fully guaranteed, and we do not store your files or personal data."
+            }
+        }]
+    }
 </script>
 </head>
 
@@ -156,7 +190,7 @@
             <a href="/" class="text-2xl font-bold font-poppins flex-shrink-0 flex items-center gap-2">
                 <img src="/ytshortsdl-logo.webp" alt="ytshortsdl logo" class="w-12 h-12" width="48" height="48">
                 <span>
-                    YTShorts<span class="text-red-500">dl</span>.net
+                    YTShorts<span class="text-red-600">dl</span>.net
                 </span>
             </a>
 
@@ -172,8 +206,13 @@
                     <button
                         class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300 flex items-center gap-2">
                         <span>AI Tools</span>
-                        <i
-                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
+                            class="h-4 w-4 transition-transform duration-300 group-hover:rotate-180"
+                            fill="currentColor">
+                            <path
+                                d="M297.4 470.6C309.9 483.1 330.2 483.1 342.7 470.6L534.7 278.6C547.2 266.1 547.2 245.8 534.7 233.3C522.2 220.8 501.9 220.8 489.4 233.3L320 402.7L150.6 233.4C138.1 220.9 117.8 220.9 105.3 233.4C92.8 245.9 92.8 266.2 105.3 278.7L297.3 470.7z" />
+                        </svg>
+
                     </button>
                     <div
                         class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
@@ -193,8 +232,12 @@
                     <button
                         class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300 flex items-center gap-2">
                         <span>Guide</span>
-                        <i
-                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                            class="h-4 w-4 transition-transform duration-300 group-hover:rotate-180"
+                            fill="currentColor">
+                            <path
+                                d="M201.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 338.7 54.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                        </svg>
                     </button>
                     <div
                         class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
@@ -231,8 +274,12 @@
                     <button
                         class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300 flex items-center gap-2">
                         <span>Legal</span>
-                        <i
-                            class="fas fa-chevron-down text-xs transition-transform duration-300 group-hover:rotate-180"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                            class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180"
+                            fill="currentColor">
+                            <path
+                                d="M201.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 338.7 54.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                        </svg>
                     </button>
                     <div
                         class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-48 bg-white rounded-lg shadow-xl ring-1 ring-slate-900/5 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 -translate-y-2">
@@ -245,20 +292,24 @@
                         <a href="/shorts-reuse-guide.html"
                             class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Shorts
                             Reuse Guide</a>
+
+                        <a href="/about.html"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">About</a>
                     </div>
                 </div>
 
 
                 <a href="/addon.html"
                     class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">Add-On</a>
-                <a href="/about.html"
-                    class="font-medium text-slate-600 hover:text-red-500 transition-colors duration-300">About</a>
 
             </div>
 
             <button id="mobile-menu-button" class="md:hidden text-2xl text-slate-600" aria-label="Open menu"
                 aria-controls="mobile-drawer" aria-expanded="false">
-                <i class="fas fa-bars"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-6 h-6" fill="currentColor">
+                    <path
+                        d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
+                </svg>
             </button>
         </nav>
     </header>
@@ -268,19 +319,22 @@
         class="fixed inset-0 bg-black/40 transition-opacity backdrop-hidden z-50 md:hidden">
     </div>
     <aside id="mobile-drawer"
-        class="fixed top-0 right-0 h-full w-80 max-w-[80%] bg-white shadow-2xl translate-x-full transition-transform z-50 md:hidden overflow-scroll"
+        class="fixed top-0 right-0 h-full w-80 max-w-[80%] bg-white shadow-2xl translate-x-full transition-transform z-50 md:hidden overflow-scroll invisible"
         aria-hidden="true">
         <div class="p-4 border-b border-slate-200 flex items-center justify-between">
             <span class="text-xl font-semibold">Menu</span>
             <button id="mobile-menu-close" class="text-2xl text-slate-600" aria-label="Close menu">
-                <i class="fas fa-times"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-4 h-4" fill="currentColor">
+                    <path
+                        d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z" />
+                </svg>
             </button>
         </div>
         <nav class="p-6 space-y-4 bg-white min-h-screen">
             <a href="/index.html" class="block font-medium text-red-500">Download Shorts</a>
             <a href="/shorts-to-mp3.html" class="block font-medium text-slate-600">MP3 Audio</a>
             <div>
-                <div class="text-slate-400 text-xs uppercase tracking-wider mb-2">AI Tools</div>
+                <div class="text-slate-500 text-xs uppercase tracking-wider mb-2">AI Tools</div>
                 <a href="/no-watermark.html"
                     class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Watermark Remover</a>
                 <a href="/4k-shorts-downloader.html"
@@ -290,7 +344,7 @@
             </div>
 
             <div>
-                <div class="text-slate-400 text-xs uppercase tracking-wider mb-2">Guide</div>
+                <div class="text-slate-500 text-xs uppercase tracking-wider mb-2">Guide</div>
                 <a href="/guide/chrome-extension.html"
                     class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Chrome Extension</a>
                 <a href="/guide/iphone-downloader.html"
@@ -313,16 +367,17 @@
 
             <a href="/pricing.html" class="block font-medium text-slate-600">Pricing</a>
             <div>
-                <div class="text-slate-400 text-xs uppercase tracking-wider mb-2">Legal</div>
+                <div class="text-slate-500 text-xs uppercase tracking-wider mb-2">Legal</div>
                 <a href="/privacy.html" class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Privacy
                     Policy</a>
                 <a href="/terms.html" class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Terms of
                     Service</a>
                 <a href="/shorts-reuse-guide.html"
                     class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">Shorts Reuse Guide</a>
+                <a href="/about.html" class="block px-2 py-2 rounded-md text-slate-700 hover:bg-slate-100">About</a>
+
             </div>
             <a href="/addon.html" class="block font-medium text-slate-600">Add-On</a>
-            <a href="/about.html" class="block font-medium text-slate-600">About</a>
         </nav>
     </aside>
 
@@ -345,17 +400,23 @@
                 <!-- Mode Switch Tab -->
                 <div class="mt-8 max-w-xs mx-auto flex bg-slate-100 p-1 rounded-xl shadow-inner" role="tablist">
                     <button id="mode-single" data-mode="single"
-                        class="mode-switch-btn flex-1 py-2 font-bold text-sm rounded-lg bg-white text-red-600 shadow-md transition-all"
+                        class="mode-switch-btn flex-1 py-2 font-bold text-sm rounded-lg bg-white text-red-600 shadow-md transition-all flex items-center justify-center"
                         role="tab" aria-selected="true">
-                        <i class="fas fa-link mr-2"></i> 
-                        
-                        
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-4 h-4 mr-2"
+                            fill="currentColor">
+                            <path
+                                d="M419.5 96c-16.6 0-32.7 4.5-46.8 12.7-15.8-16-34.2-29.4-54.5-39.5 28.2-24 64.1-37.2 101.3-37.2 86.4 0 156.5 70 156.5 156.5 0 41.5-16.5 81.3-45.8 110.6l-71.1 71.1c-29.3 29.3-69.1 45.8-110.6 45.8-86.4 0-156.5-70-156.5-156.5 0-1.5 0-3 .1-4.5 .5-17.7 15.2-31.6 32.9-31.1s31.6 15.2 31.1 32.9c0 .9 0 1.8 0 2.6 0 51.1 41.4 92.5 92.5 92.5 24.5 0 48-9.7 65.4-27.1l71.1-71.1c17.3-17.3 27.1-40.9 27.1-65.4 0-51.1-41.4-92.5-92.5-92.5zM275.2 173.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5 0-48 9.7-65.4 27.1L91.1 258.2c-17.3 17.3-27.1 40.9-27.1 65.4 0 51.1 41.4 92.5 92.5 92.5 16.5 0 32.6-4.4 46.7-12.6 15.8 16 34.2 29.4 54.6 39.5-28.2 23.9-64 37.2-101.3 37.2-86.4 0-156.5-70-156.5-156.5 0-41.5 16.5-81.3 45.8-110.6l71.1-71.1c29.3-29.3 69.1-45.8 110.6-45.8 86.6 0 156.5 70.6 156.5 156.9 0 1.3 0 2.6 0 3.9-.4 17.7-15.1 31.6-32.8 31.2s-31.6-15.1-31.2-32.8c0-.8 0-1.5 0-2.3 0-33.7-18-63.3-44.8-79.6z" />
+                        </svg>
                         Single Download
                     </button>
                     <button id="mode-batch" data-mode="batch"
-                        class="mode-switch-btn flex-1 py-2 font-bold text-sm rounded-lg text-slate-600 hover:text-red-600 transition-all"
+                        class="mode-switch-btn flex-1 py-2 font-bold text-sm rounded-lg text-slate-600 hover:text-red-600 transition-all flex items-center justify-center"
                         role="tab" aria-selected="false">
-                        <i class="fas fa-cubes mr-2"></i> Batch Download
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4 mr-2"
+                            fill="currentColor">
+                            <path
+                                d="M224.3-2.5c19.8-11.4 44.2-11.4 64 0L464.2 99c19.8 11.4 32 32.6 32 55.4l0 203c0 22.9-12.2 44-32 55.4L288.3 514.5c-19.8 11.4-44.2 11.4-64 0L48.5 413c-19.8-11.4-32-32.6-32-55.4l0-203c0-22.9 12.2-44 32-55.4L224.3-2.5zm207.8 360l0-166.1-143.8 83 0 166.1 143.8-83z" />
+                        </svg> Batch Download
                     </button>
                 </div>
 
@@ -366,25 +427,42 @@
                         <div id="input-container" class="relative w-full">
                             <!-- Single Input -->
                             <div id="single-input-wrapper" class="w-full">
-                                <i class="fas fa-link absolute left-2 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
+                                    class="w-4 h-4 absolute left-2 top-1/2 -translate-y-1/2 text-slate-400"
+                                    fill="currentColor">
+                                    <path
+                                        d="M419.5 96c-16.6 0-32.7 4.5-46.8 12.7-15.8-16-34.2-29.4-54.5-39.5 28.2-24 64.1-37.2 101.3-37.2 86.4 0 156.5 70 156.5 156.5 0 41.5-16.5 81.3-45.8 110.6l-71.1 71.1c-29.3 29.3-69.1 45.8-110.6 45.8-86.4 0-156.5-70-156.5-156.5 0-1.5 0-3 .1-4.5 .5-17.7 15.2-31.6 32.9-31.1s31.6 15.2 31.1 32.9c0 .9 0 1.8 0 2.6 0 51.1 41.4 92.5 92.5 92.5 24.5 0 48-9.7 65.4-27.1l71.1-71.1c17.3-17.3 27.1-40.9 27.1-65.4 0-51.1-41.4-92.5-92.5-92.5zM275.2 173.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5 0-48 9.7-65.4 27.1L91.1 258.2c-17.3 17.3-27.1 40.9-27.1 65.4 0 51.1 41.4 92.5 92.5 92.5 16.5 0 32.6-4.4 46.7-12.6 15.8 16 34.2 29.4 54.6 39.5-28.2 23.9-64 37.2-101.3 37.2-86.4 0-156.5-70-156.5-156.5 0-41.5 16.5-81.3 45.8-110.6l71.1-71.1c29.3-29.3 69.1-45.8 110.6-45.8 86.6 0 156.5 70.6 156.5 156.9 0 1.3 0 2.6 0 3.9-.4 17.7-15.1 31.6-32.8 31.2s-31.6-15.1-31.2-32.8c0-.8 0-1.5 0-2.3 0-33.7-18-63.3-44.8-79.6z" />
+                                </svg>
                                 <input id="single-input" type="url" placeholder="Paste your YouTube Shorts link here..."
                                     class="w-full h-12 pl-8 pr-10 bg-transparent focus:outline-none text-md text-slate-800 placeholder:text-slate-400"
                                     style="height: 48px;">
                                 <button id="clear-single-input"
                                     class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 hidden">
-                                    <i class="fas fa-times-circle"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="4 h-6"
+                                        fill="currentColor">
+                                        <path
+                                            d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zM167 167c9.4-9.4 24.6-9.4 33.9 0l55 55 55-55c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-55 55 55 55c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-55-55-55 55c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l55-55-55-55c-9.4-9.4-9.4-24.6 0-33.9z" />
+                                    </svg>
                                 </button>
                             </div>
                             <!-- Batch Input -->
                             <div id="batch-input-wrapper" class="w-full hidden">
-                                <i class="fas fa-list-ol absolute left-2 top-4 text-slate-400"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                    class="w-4 h-4 absolute left-2 top-4 text-slate-400" fill="currentColor">
+                                    <path
+                                        d="M0 72C0 58.8 10.7 48 24 48l48 0c13.3 0 24 10.7 24 24l0 104 24 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-96 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l24 0 0-80-24 0C10.7 96 0 85.3 0 72zM30.4 301.2C41.8 292.6 55.7 288 70 288l4.9 0c33.7 0 61.1 27.4 61.1 61.1 0 19.6-9.4 37.9-25.2 49.4l-24 17.5 33.2 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-90.7 0C13.1 464 0 450.9 0 434.7 0 425.3 4.5 416.5 12.1 411l70.5-51.3c3.4-2.5 5.4-6.4 5.4-10.6 0-7.2-5.9-13.1-13.1-13.1L70 336c-3.9 0-7.7 1.3-10.8 3.6L38.4 355.2c-10.6 8-25.6 5.8-33.6-4.8S-1 324.8 9.6 316.8l20.8-15.6zM224 64l256 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 160l256 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 160l256 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z" />
+                                </svg>
                                 <textarea id="batch-input" rows="5"
                                     placeholder="Paste multiple Shorts links here, separated by new lines or commas..."
                                     class="w-full pl-8 pr-10 pt-3 pb-3 bg-transparent focus:outline-none text-md text-slate-800 placeholder:text-slate-400 resize-none"
                                     style="height: 120px;"></textarea>
                                 <button id="clear-batch-input"
                                     class="absolute right-2 top-4 text-slate-400 hover:text-slate-600 hidden">
-                                    <i class="fas fa-times-circle"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-6 h-6"
+                                        fill="currentColor">
+                                        <path
+                                            d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zM167 167c9.4-9.4 24.6-9.4 33.9 0l55 55 55-55c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-55 55 55 55c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-55-55-55 55c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l55-55-55-55c-9.4-9.4-9.4-24.6 0-33.9z" />
+                                    </svg>
                                 </button>
                             </div>
                         </div>
@@ -393,30 +471,34 @@
                             bg-red-500 text-white font-bold text-lg px-6 py-3 rounded-lg flex-shrink-0 
                             transition-all duration-300 transform hover:-translate-y-0.5 
                             hover:shadow-lg flex items-center justify-center space-x-3" style="height: 48px;">
-                            <i class="fas fa-download"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-6 h-6"
+                                fill="currentColor">
+                                <path
+                                    d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 210.7-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7 256 32zM64 320c-35.3 0-64 28.7-64 64l0 32c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-32c0-35.3-28.7-64-64-64l-46.9 0-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320 64 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z" />
+                            </svg>
                             <span id="download-btn-text">Convert & Download</span>
                         </button>
                     </div>
                     <p id="input-help" class="mt-2 text-sm text-slate-500">Supports links like:
-                        
+
                     <p id="input-error" class="mt-2 text-sm text-red-600 hidden">Please enter a valid YouTube Shorts
                         link.</p>
                 </div>
 
                 <!-- Intent Chips -->
-                    <div class="mt-8 flex flex-wrap justify-center gap-3">
-                        <span class="text-slate-400 text-[11px] font-black uppercase tracking-widest w-full mb-1">What
-                            do you need?</span>
-                        <button onclick="document.getElementById('single-input').focus()"
-                            class="px-5 py-2.5 bg-white border border-slate-200 rounded-full font-bold hover:border-red-500 transition-all shadow-sm">🎬
-                            Download Video</button>
-                        <a href="/shorts-to-mp3.html"
-                            class="px-5 py-2.5 bg-white border border-slate-200 rounded-full font-bold hover:border-red-500 transition-all shadow-sm">🎵
-                            Extract Audio</a>
-                        <a href="/shorts-thumbnail-tool.html"
-                            class="px-5 py-2.5 bg-white border border-slate-200 rounded-full font-bold hover:border-red-500 transition-all shadow-sm">🖼️
-                            Get Cover</a>
-                    </div>
+                <div class="mt-8 flex flex-wrap justify-center gap-3">
+                    <span class="text-slate-400 text-[11px] font-black uppercase tracking-widest w-full mb-1">What
+                        do you need?</span>
+                    <button onclick="document.getElementById('single-input').focus()"
+                        class="px-5 py-2.5 bg-white border border-slate-200 rounded-full font-bold hover:border-red-500 transition-all shadow-sm">🎬
+                        Download Video</button>
+                    <a href="/shorts-to-mp3.html"
+                        class="px-5 py-2.5 bg-white border border-slate-200 rounded-full font-bold hover:border-red-500 transition-all shadow-sm">🎵
+                        Extract Audio</a>
+                    <a href="/shorts-thumbnail-tool.html"
+                        class="px-5 py-2.5 bg-white border border-slate-200 rounded-full font-bold hover:border-red-500 transition-all shadow-sm">🖼️
+                        Get Cover</a>
+                </div>
 
                 <!-- Result Section (for both single and batch) -->
                 <div id="result-section" class="mt-12 max-w-4xl mx-auto hidden" aria-live="polite" aria-busy="false">
@@ -425,15 +507,25 @@
         </section>
 
         <!-- NEW: HISTORY SECTION (Now Outside Hero) -->
-        <section id="history-section" class="py-12 bg-slate-50 border-b border-slate-200 hidden transition-all duration-500">
+        <section id="history-section"
+            class="py-12 bg-slate-50 border-b border-slate-200 hidden transition-all duration-500">
             <div class="container max-w-6xl mx-auto px-6">
                 <div class="flex justify-between items-center mb-8">
-                     <h2 class="text-2xl font-bold font-poppins text-slate-800 flex items-center">
-                        <i class="fas fa-history text-red-500 mr-3"></i> Recent Record
+                    <h2 class="text-2xl font-bold font-poppins text-slate-800 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-6 h-6 text-red-500 mr-3"
+                            fill="currentColor">
+                            <path
+                                d="M288 64a32 32 0 1 0 0 64 32 32 0 1 0 0-64zM192 96c0-53 43-96 96-96s96 43 96 96c0 41.8-26.7 77.4-64 90.5l0 257.9c62.9-14.3 110.2-69.7 111.9-136.5l-16.1 14.1c-10 8.7-25.1 7.7-33.9-2.3s-7.7-25.1 2.3-33.9l64-56c9-7.9 22.6-7.9 31.6 0l64 56c10 8.7 11 23.9 2.3 33.9s-23.9 11-33.9 2.3L496 307.9C493.9 421 401.6 512 288 512S82.1 421 80 307.9L63.8 322.1c-10 8.7-25.1 7.7-33.9-2.3s-7.7-25.1 2.3-33.9l64-56c9-7.9 22.6-7.9 31.6 0l64 56c10 8.7 11 23.9 2.3 33.9s-23.9 11-33.9 2.3l-16.1-14.1c1.8 66.8 49.1 122.2 111.9 136.5l0-257.9c-37.3-13.2-64-48.7-64-90.5z" />
+                        </svg> Recent Record
                     </h2>
-                    <button id="clear-history-btn" class="text-sm font-medium text-slate-500 hover:text-red-500 transition-colors flex items-center gap-2 group">
+                    <button id="clear-history-btn"
+                        class="text-sm font-medium text-slate-500 hover:text-red-500 transition-colors flex items-center gap-2 group">
                         <span class="group-hover:underline">Clear History</span>
-                        <i class="fas fa-trash-alt"></i> 
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-6 h-6"
+                            fill="currentColor">
+                            <path
+                                d="M136.7 5.9C141.1-7.2 153.3-16 167.1-16l113.9 0c13.8 0 26 8.8 30.4 21.9L320 32 416 32c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 8.7-26.1zM32 144l384 0 0 304c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-304zm88 64c-13.3 0-24 10.7-24 24l0 192c0 13.3 10.7 24 24 24s24-10.7 24-24l0-192c0-13.3-10.7-24-24-24zm104 0c-13.3 0-24 10.7-24 24l0 192c0 13.3 10.7 24 24 24s24-10.7 24-24l0-192c0-13.3-10.7-24-24-24zm104 0c-13.3 0-24 10.7-24 24l0 192c0 13.3 10.7 24 24 24s24-10.7 24-24l0-192c0-13.3-10.7-24-24-24z" />
+                        </svg>
                     </button>
                 </div>
                 <div id="history-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -445,11 +537,9 @@
         <section class="py-8 bg-white border-y border-slate-200/80">
             <div class="container mx-auto px-6 max-w-4xl">
 
-                <p
-                    class="font-semibold text-xl text-slate-800 list-none flex justify-between items-center cursor-pointer hover:text-primary transition-colors duration-300">
+                <h2 class="font-bold text-2xl text-slate-800 mb-8 text-center md:text-left">
                     Simple 3-Step Guide to Convert Shorts to MP3
-
-                </p>
+                </h2>
                 <div class="pt-8">
                     <div class="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 relative">
 
@@ -465,7 +555,11 @@
                         </div>
 
                         <div class="hidden md:flex items-center justify-center">
-                            <i class="fas fa-chevron-right text-3xl text-slate-300" aria-hidden="true"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"
+                                class="text-3xl text-slate-300" width="24" height="24" fill="currentColor">
+                                <path
+                                    d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                            </svg>
                         </div>
 
                         <div
@@ -480,7 +574,11 @@
                         </div>
 
                         <div class="hidden md:flex items-center justify-center">
-                            <i class="fas fa-chevron-right text-3xl text-slate-300" aria-hidden="true"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"
+                                class="text-3xl text-slate-300" width="24" height="24" fill="currentColor">
+                                <path
+                                    d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
+                            </svg>
                         </div>
 
                         <div
@@ -518,11 +616,21 @@
                             the market were too slow or unreliable. Our custom protocol ensures maximum speed through:
                         </p>
                         <ul class="space-y-4">
-                            <li class="flex items-start"><i class="fas fa-bolt-lightning text-red-500 mt-1 mr-4"></i>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
+                                    class="text-red-500 mt-1 mr-4" width="16" height="16" fill="currentColor">
+                                    <path
+                                        d="M256 0c17.7 0 32 14.3 32 32l0 128 64 0c15.8 0 28.5 11.2 31.4 26.6s-9.9 29.8-25.4 34.6l-224 80c-15.6 5.6-33.1 .5-42.5-12.4s-10.2-29.9-1.8-44.1l64-106.7L96 160c-15.8 0-28.5-11.2-31.4-26.6s9.9-29.8 25.4-34.6l224-80c15.6-5.6 33.1-.5 42.5 12.4s10.2 29.9 1.8 44.1L256 160 256 0z" />
+                                </svg>
                                 <div><strong class="text-slate-800">Priority Link Parsing:</strong> We process your link
                                     instantly, with no waiting time.</div>
                             </li>
-                            <li class="flex items-start"><i class="fas fa-ban text-red-500 mt-1 mr-4"></i>
+                            <li class="flex items-start">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                    class="text-red-500 mt-1 mr-4" width="16" height="16" fill="currentColor">
+                                    <path
+                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
+                                </svg>
                                 <div><strong class="text-slate-800">Invasive Ad Blocking:</strong> No heavy ad scripts
                                     means a smoother experience for you.</div>
                             </li>
@@ -558,7 +666,11 @@
                             <div
                                 class="bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-transparent transition-all duration-300 transform hover:-translate-y-2 hover:shadow-red-500/20 hover:border-red-500/30">
                                 <div class="w-16 h-16 mb-6 flex items-center justify-center bg-red-100 rounded-xl">
-                                    <i class="fas fa-file-video text-3xl text-red-500"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
+                                        class="text-3xl text-red-500" width="30" height="30" fill="currentColor">
+                                        <path
+                                            d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 288c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128z" />
+                                    </svg>
                                 </div>
                                 <h3 class="text-2xl font-bold text-slate-800 mb-3">High-Quality MP4</h3>
                                 <p class="text-slate-600 leading-relaxed">Download in Standard HD or Full HD. For higher
@@ -568,7 +680,12 @@
                             <div
                                 class="bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-transparent transition-all duration-300 transform hover:-translate-y-2 hover:shadow-red-500/20 hover:border-red-500/30">
                                 <div class="w-16 h-16 mb-6 flex items-center justify-center bg-red-100 rounded-xl">
-                                    <i class="fas fa-file-audio text-3xl text-red-500"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"
+                                        class="text-3xl text-red-500" width="30" height="30" fill="currentColor">
+                                        <path
+                                            d="M0 256a256 256 0 1 1 512 0 256 256 0 1 1 -512 0zM188.3 147.1c-7.6 4.2-12.3 12.3-12.3 20.9l0 176c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z" />
+                                    </svg>
+
                                 </div>
                                 <h3 class="text-2xl font-bold text-slate-800 mb-3">MP3 Audio Extraction</h3>
                                 <p class="text-slate-600 leading-relaxed">Instantly separate the audio track for remixes
@@ -589,7 +706,11 @@
                             <li class="flex items-start">
                                 <div
                                     class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-orange-100 rounded-lg mr-5">
-                                    <i class="fas fa-rocket text-xl text-orange-500"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                        class="text-xl text-orange-500" width="20" height="20" fill="currentColor">
+                                        <path
+                                            d="M128 320L24.5 320c-24.9 0-40.2-27.1-27.4-48.5L50 183.3C58.7 168.8 74.3 160 91.2 160l95 0c76.1-128.9 189.6-135.4 265.5-124.3 12.8 1.9 22.8 11.9 24.6 24.6 11.1 75.9 4.6 189.4-124.3 265.5l0 95c0 16.9-8.8 32.5-23.3 41.2l-88.2 52.9c-21.3 12.8-48.5-2.6-48.5-27.4L192 384c0-35.3-28.7-64-64-64l-.1 0zM400 160a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z" />
+                                    </svg>
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-lg text-slate-800">Zero Installation, Instant Start</h3>
@@ -600,7 +721,11 @@
                             <li class="flex items-start">
                                 <div
                                     class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-orange-100 rounded-lg mr-5">
-                                    <i class="fas fa-globe text-xl text-orange-500"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                        class="text-xl text-orange-500" width="20" height="20" fill="currentColor">
+                                        <path
+                                            d="M352 256c0 22.2-1.2 43.6-3.3 64H163.3c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64H348.7c2.2 20.4 3.3 41.8 3.3 64zm28.8-64H503.9c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64H380.8c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32H376.7c-10-63.9-29.8-117.4-55.3-151.6c78.3 20.7 142 77.5 171.9 151.6zm-149.1 0H167.7c6.1-36.4 15.5-68.6 27-94.7c10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.7 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5c11.6 26 20.9 58.2 27 94.7zm-209 0H18.6C48.6 85.9 112.2 29.1 190.6 8.4C165.1 42.6 145.3 96.1 135.3 160zM8.1 192H131.2c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64H8.1C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zM194.7 446.6c-11.6-26-20.9-58.2-27-94.6H344.3c-6.1 36.4-15.5 68.6-27 94.6c-10.5 23.6-22.2 40.7-33.5 51.5C272.6 508.8 263.3 512 256 512s-16.6-3.2-27.8-13.8c-11.3-10.8-23-27.9-33.5-51.5zM135.3 352c10 63.9 29.8 117.4 55.3 151.6C112.2 482.9 48.6 426.1 18.6 352H135.3zm358.1 0c-30 74.1-93.6 130.9-171.9 151.6c25.5-34.2 45.2-87.7 55.3-151.6H493.4z" />
+                                    </svg>
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-lg text-slate-800">Universal Compatibility</h3>
@@ -611,18 +736,25 @@
                             <li class="flex items-start">
                                 <div
                                     class="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-orange-100 rounded-lg mr-5">
-                                    <i class="fas fa-user-shield text-xl text-orange-500"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
+                                        class="text-xl text-orange-500" width="20" height="20" fill="currentColor">
+                                        <path
+                                            d="M224 248a120 120 0 1 0 0-240 120 120 0 1 0 0 240zm-29.7 56C95.8 304 16 383.8 16 482.3 16 498.7 29.3 512 45.7 512l251.5 0C261 469.4 240 414.5 240 356.4l0-31.1c0-7.3 1-14.5 2.9-21.3l-48.6 0zm251 184.5l-13.3 6.3 0-188.1 96 32 0 19.6c0 55.8-32.2 106.5-82.7 130.3zM421.9 259.5l-112 37.3c-13.1 4.4-21.9 16.6-21.9 30.4l0 31.1c0 74.4 43 142.1 110.2 173.7l18.5 8.7c4.8 2.2 10 3.4 15.2 3.4s10.5-1.2 15.2-3.4l18.5-8.7C533 500.3 576 432.6 576 358.2l0-31.1c0-13.8-8.8-26-21.9-30.4l-112-37.3c-6.6-2.2-13.7-2.2-20.2 0z" />
+                                    </svg>
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-lg text-slate-800">Guaranteed Privacy</h3>
-                                    <p class="text-slate-600 leading-relaxed mt-1">Server-side processing means we
-                                        <strong>never
-                                    </p>strong> touch, view, or store your files.</p>
+                                    <p class="text-slate-600 leading-relaxed mt-1">
+                                        Server-side processing means we <strong>never</strong> touch, view, or store
+                                        your files.
+                                    </p>
                                 </div>
                             </li>
-                        </ul>
                     </div>
+                    </li>
+                    </ul>
                 </div>
+            </div>
             </div>
         </section>
 
@@ -639,7 +771,11 @@
                     <div
                         class="p-8 grid md:grid-cols-[auto,1fr,auto] items-center gap-6 hover:bg-slate-50 transition-colors duration-300">
                         <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-red-100 rounded-lg">
-                            <i class="fas fa-wand-magic-sparkles text-2xl text-red-500"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="text-2xl text-red-500"
+                                width="24" height="24" fill="currentColor">
+                                <path
+                                    d="M263.4-27L278.2 9.8 315 24.6c3 1.2 5 4.2 5 7.4s-2 6.2-5 7.4L278.2 54.2 263.4 91c-1.2 3-4.2 5-7.4 5s-6.2-2-7.4-5L233.8 54.2 197 39.4c-3-1.2-5-4.2-5-7.4s2-6.2 5-7.4L233.8 9.8 248.6-27c1.2-3 4.2-5 7.4-5s6.2 2 7.4 5zM110.7 41.7l21.5 50.1 50.1 21.5c5.9 2.5 9.7 8.3 9.7 14.7s-3.8 12.2-9.7 14.7l-50.1 21.5-21.5 50.1c-2.5 5.9-8.3 9.7-14.7 9.7s-12.2-3.8-14.7-9.7L59.8 164.2 9.7 142.7C3.8 140.2 0 134.4 0 128s3.8-12.2 9.7-14.7L59.8 91.8 81.3 41.7C83.8 35.8 89.6 32 96 32s12.2 3.8 14.7 9.7zM464 304c6.4 0 12.2 3.8 14.7 9.7l21.5 50.1 50.1 21.5c5.9 2.5 9.7 8.3 9.7 14.7s-3.8 12.2-9.7 14.7l-50.1 21.5-21.5 50.1c-2.5 5.9-8.3 9.7-14.7 9.7s-12.2-3.8-14.7-9.7l-21.5-50.1-50.1-21.5c-5.9-2.5-9.7-8.3-9.7-14.7s3.8-12.2 9.7-14.7l50.1-21.5 21.5-50.1c2.5-5.9 8.3-9.7 14.7-9.7zM460 0c11 0 21.6 4.4 29.5 12.2l42.3 42.3C539.6 62.4 544 73 544 84s-4.4 21.6-12.2 29.5l-88.2 88.2-101.3-101.3 88.2-88.2C438.4 4.4 449 0 460 0zM44.2 398.5L308.4 134.3 409.7 235.6 145.5 499.8C137.6 507.6 127 512 116 512s-21.6-4.4-29.5-12.2L44.2 457.5C36.4 449.6 32 439 32 428s4.4-21.6 12.2-29.5z" />
+                            </svg>
                         </div>
                         <div>
                             <h3 class="text-xl font-bold text-slate-800 mb-1">AI Watermark Remover</h3>
@@ -647,14 +783,22 @@
                                 cross-platform sharing.</p>
                         </div>
                         <a href="/no-watermark.html"
-                            class="px-5 py-2 text-center font-semibold text-slate-700 bg-slate-200 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-300 group">Learn
-                            More <i
-                                class="fas fa-arrow-right ml-1 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all"></i></a>
+                            class="px-5 py-2 text-center font-semibold text-slate-700 bg-slate-200 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-300 group flex items-center">Learn
+                            More <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                class="ml-1 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all"
+                                width="14" height="14" fill="currentColor">
+                                <path
+                                    d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+                            </svg></a>
                     </div>
                     <div
                         class="p-8 grid md:grid-cols-[auto,1fr,auto] items-center gap-6 hover:bg-slate-50 transition-colors duration-300">
                         <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-red-100 rounded-lg">
-                            <i class="fas fa-file-alt text-2xl text-red-500"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="text-2xl text-red-500"
+                                width="24" height="24" fill="currentColor">
+                                <path
+                                    d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-128 0c-17.7 0-32-14.3-32-32L224 0 64 0zM256 0l0 128 128 0L256 0zM112 256l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64l160 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-160 0c-8.8 0-16-7.2-16-16s7.2-16 16-16z" />
+                            </svg>
                         </div>
                         <div>
                             <h3 class="text-xl font-bold text-slate-800 mb-1">Transcript Generator</h3>
@@ -662,9 +806,13 @@
                                 posts or captions.</p>
                         </div>
                         <a href="/pricing.html"
-                            class="px-5 py-2 text-center font-semibold text-slate-700 bg-slate-200 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-300 group">Get
-                            Transcript <i
-                                class="fas fa-arrow-right ml-1 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all"></i></a>
+                            class="px-5 py-2 text-center font-semibold text-slate-700 bg-slate-200 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-300 group flex items-center">Get
+                            Transcript <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                class="ml-1 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all"
+                                width="14" height="14" fill="currentColor">
+                                <path
+                                    d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+                            </svg></a>
                     </div>
                 </div>
             </div>
@@ -672,7 +820,11 @@
         <!-- MODIFICATION 3 (TEXT): NEW Social Proof (Testimonial) section added to build trust and relatability -->
         <section class="py-24 bg-slate-50 border-y border-slate-200/80">
             <div class="container max-w-4xl mx-auto px-6 text-center">
-                <i class="fas fa-quote-left text-5xl text-slate-300"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                    class="text-5xl text-slate-300 inline-block" width="48" height="48" fill="currentColor">
+                    <path
+                        d="M0 216C0 149.7 53.7 96 120 96l8 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-8 0c-30.9 0-56 25.1-56 56l0 8 64 0c35.3 0 64 28.7 64 64l0 64c0 35.3-28.7 64-64 64l-64 0c-35.3 0-64-28.7-64-64l0-32 0-32 0-72zm256 0c0-66.3 53.7-120 120-120l8 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-8 0c-30.9 0-56 25.1-56 56l0 8 64 0c35.3 0 64 28.7 64 64l0 64c0 35.3-28.7 64-64 64l-64 0c-35.3 0-64-28.7-64-64l0-32 0-32 0-72z" />
+                </svg>
                 <blockquote class="mt-6">
                     <p class="text-xl md:text-2xl font-medium text-slate-800 italic leading-relaxed">
                         "YTShortsDL is a lifesaver. The AI watermark remover saves me at least 2 hours every week. It's
@@ -717,8 +869,12 @@
                         class="bg-white p-6 rounded-lg group shadow-lg border border-slate-200/50 shadow-slate-200/50">
                         <summary
                             class="font-semibold text-lg text-slate-800 list-none flex justify-between items-center cursor-pointer">
-                            Is this YouTube Shorts Downloader completely free?<i
-                                class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                            Is this YouTube Shorts Downloader completely free?<svg xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 512 512" class="transition-transform duration-300 group-open:rotate-180"
+                                width="16" height="16" fill="currentColor">
+                                <path
+                                    d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                            </svg>
                         </summary>
                         <p class="mt-4 text-slate-600 leading-relaxed">Yes, the core download functionality (up to 1080P
                             HD) is <strong>100% free </strong>. We offer a paid subscription for premium features like
@@ -729,8 +885,13 @@
                         class="bg-white p-6 rounded-lg group shadow-lg border border-slate-200/50 shadow-slate-200/50">
                         <summary
                             class="font-semibold text-lg text-slate-800 list-none flex justify-between items-center cursor-pointer">
-                            Will the YouTube watermark be preserved when I download?<i
-                                class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                            Will the YouTube watermark be preserved when I download?<svg
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                class="transition-transform duration-300 group-open:rotate-180" width="16" height="16"
+                                fill="currentColor">
+                                <path
+                                    d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                            </svg>
                         </summary>
                         <p class="mt-4 text-slate-600 leading-relaxed">The free download retains the watermark. We offer
                             a premium, paid AI feature specifically designed to remove watermarks for seamless
@@ -741,8 +902,12 @@
                         class="bg-white p-6 rounded-lg group shadow-lg border border-slate-200/50 shadow-slate-200/50">
                         <summary
                             class="font-semibold text-lg text-slate-800 list-none flex justify-between items-center cursor-pointer">
-                            Is this tool safe to use?<i
-                                class="fas fa-chevron-down transition-transform duration-300 group-open:rotate-180"></i>
+                            Is this tool safe to use?<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                class="transition-transform duration-300 group-open:rotate-180" width="16" height="16"
+                                fill="currentColor">
+                                <path
+                                    d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                            </svg>
                         </summary>
                         <p class="mt-4 text-slate-600 leading-relaxed">Absolutely. We use secure, server-side processing
                             methods. Your privacy is fully guaranteed, and we do not store your files or personal data.
@@ -765,7 +930,7 @@
                     <a href="/" class="text-2xl font-bold font-poppins">
                         YTShorts<span class="text-red-500">dl</span>.net
                     </a>
-                    <p class="mt-4 text-sm text-slate-400 leading-relaxed">
+                    <p class="mt-4 text-sm text-slate-500 leading-relaxed">
                         The ultimate tool for creators to download, optimize, and repurpose their YouTube Shorts
                         content. Fast, free, and built with passion.
                     </p>
@@ -831,105 +996,118 @@
             </div>
 
             <div class="mt-12 pt-8 border-t border-slate-700 flex flex-col sm:flex-row justify-between items-center">
-                <p class="text-sm text-slate-400">&copy; 2025 YTShortsdl.net. All rights reserved.</p>
+                <p class="text-sm text-slate-500">&copy; 2025 YTShortsdl.net. All rights reserved.</p>
                 <div class="flex space-x-4 mt-4 sm:mt-0">
-                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><i
-                            class="fab fa-twitter text-xl"></i></a>
-                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><i
-                            class="fab fa-youtube text-xl"></i></a>
-                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><i
-                            class="fab fa-github text-xl"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><svg
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="text-xl" width="20"
+                            height="20" fill="currentColor">
+                            <path
+                                d="M459.4 151.7c.3 4.5 .3 9.1 .3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.5 24.8 1.5 49.5 0 94.9-16.8 131.2-44.8-46.2-.9-85.3-31.2-98.7-72.9 6.5 1.2 13 1.7 19.9 1.7 9.5 0 18.9-1.3 27.8-3.7-48.3-9.7-84.7-52.5-84.7-103 0-1.1 .5-2.2 .8-3.2 14.4 7.8 30.6 12.8 47.9 13.2-28.5-18.8-47.1-51.5-47.1-88 0-19.4 5.3-37.4 14.5-53.1 52.3 63.8 130.4 105.6 218.4 110-1.8-8.1-2.7-16.5-2.7-25 0-57.9 47.1-105 105.3-105 30.3 0 57.6 12.7 76.6 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.3-24.4 45.3-46.1 58.2 21.2-2.3 41.6-8.1 60.5-16.2-14.2 20.8-32.1 39.4-52.6 54.3z" />
+                        </svg></a>
+                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><svg
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="text-xl" width="20"
+                            height="20" fill="currentColor">
+                            <path
+                                d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 42.3 48.3 48.6C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.9 48.3-48.6 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5l0-175.2l152.7 87.6l-152.7 87.6z" />
+                        </svg></a>
+                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><svg
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="text-xl" width="20"
+                            height="20" fill="currentColor">
+                            <path
+                                d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3 .3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5 .3-6.2 2.3zm44.2-1.7c-2.9 .7-4.9 2.6-4.6 4.9 .3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-24.4 8.7-44.5 23-60.2-2.3-5.7-10-28.5 2.2-59.3 0 0 18.8-6.1 61.6 23.2 17.9-5.3 37.1-7.9 56.1-7.9 19 0 38.2 2.6 56.1 7.9 42.8-29.3 61.5-23.2 61.5-23.2 12.2 30.8 4.5 53.6 2.2 59.3 14.3 15.7 23 35.8 23 60.2 0 96.6-56.6 104.4-112.7 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 65.4-.3 74.2 0 6.6 4.4 14.4 17.4 12.1C426.3 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3 .7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3 .3 2.9 2.3 3.9 1.6 1 3.6 .7 4.3-.7 .7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3 .7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3 .7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
+                        </svg></a>
                 </div>
             </div>
 
         </div>
     </footer>
-  <button id="feedback-toggle-button"
-    class="fixed bottom-6 right-6  bg-primary  text-white font-semibold flex items-center justify-center rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out z-[10000] p-4 md:w-auto md:px-5 md:py-3"
-    aria-label="Open Feedback Form">
+    <button id="feedback-toggle-button"
+        class="fixed bottom-6 right-6  bg-primary  text-white font-semibold flex items-center justify-center rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out z-[10000] p-4 md:w-auto md:px-5 md:py-3"
+        aria-label="Open Feedback Form">
 
 
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
-      </path>
-    </svg>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+            </path>
+        </svg>
 
 
-    <span class="hidden md:inline ml-2">Feedback</span>
-  </button>
+        <span class="hidden md:inline ml-2">Feedback</span>
+    </button>
 
-  <div id="feedback-modal"
-    class="fixed inset-0 bg-black bg-opacity-70 z-[10001] p-0 md:p-4 hidden flex justify-center items-center">
+    <div id="feedback-modal"
+        class="fixed inset-0 bg-black bg-opacity-70 z-[10001] p-0 md:p-4 hidden flex justify-center items-center">
 
 
-    <div id="feedback-panel" class="bg-white w-full border-t md:border border-gray-700 shadow-2xl flex flex-col text-gray-800 
+        <div id="feedback-panel" class="bg-white w-full border-t md:border border-gray-700 shadow-2xl flex flex-col text-gray-800 
     fixed bottom-0 left-0 right-0 rounded-t-2xl max-h-[85vh] p-4 transform translate-y-full transition-transform
     duration-300 ease-in-out
     md:relative md:max-w-xl md:rounded-2xl md:p-6 md:transform-none">
 
 
-      <header class="flex-shrink-0 text-center relative pb-4">
+            <header class="flex-shrink-0 text-center relative pb-4">
 
-        <div class="w-12 h-1.5 bg-gray-600 rounded-full mx-auto mb-4 md:hidden" id="cursor-pointer"></div>
+                <div class="w-12 h-1.5 bg-gray-600 rounded-full mx-auto mb-4 md:hidden" id="cursor-pointer"></div>
 
-        <h2 class="text-xl lg:text-2xl font-bold text-gray-800">Community Feedback</h2>
-        <button id="close-button"
-          class="absolute -top-1 right-0 text-gray-600 hover:text-gray-800 text-3xl leading-none transition duration-150"
-          aria-label="Close">
-          &times;
-        </button>
-      </header>
+                <h2 class="text-xl lg:text-2xl font-bold text-gray-800">Community Feedback</h2>
+                <button id="close-button"
+                    class="absolute -top-1 right-0 text-gray-600 hover:text-gray-800 text-3xl leading-none transition duration-150"
+                    aria-label="Close">
+                    &times;
+                </button>
+            </header>
 
-      <div class="overflow-y-auto">
-        <div id="cusdis_thread" data-host="https://cusdis.com" data-app-id="4535a28e-08e9-411e-9c74-0f118e22c1af"
-          data-page-id="ytshots" data-page-url="https://www.ambigramgenerator.me/"
-          data-page-title="ytshots" data-theme="light"></div>
-      </div>
+            <div class="overflow-y-auto">
+                <div id="cusdis_thread" data-host="https://cusdis.com"
+                    data-app-id="4535a28e-08e9-411e-9c74-0f118e22c1af" data-page-id="ytshots"
+                    data-page-url="https://www.ambigramgenerator.me/" data-page-title="ytshots" data-theme="light">
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <script async defer src="/cusdis/cusdis.es.js"></script>
+    <script async defer src="/cusdis/cusdis.es.js"></script>
 
-  <script>
-    const modal = document.getElementById('feedback-modal');
-    const panel = document.getElementById('feedback-panel');
-    const toggleButton = document.getElementById('feedback-toggle-button');
-    const closeButton = document.getElementById('close-button');
+    <script>
+        const modal = document.getElementById('feedback-modal');
+        const panel = document.getElementById('feedback-panel');
+        const toggleButton = document.getElementById('feedback-toggle-button');
+        const closeButton = document.getElementById('close-button');
 
-    const openModal = () => {
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
+        const openModal = () => {
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
 
-      setTimeout(() => {
-        panel.classList.remove('translate-y-full');
-      }, 10);
-    };
+            setTimeout(() => {
+                panel.classList.remove('translate-y-full');
+            }, 10);
+        };
 
-    const closeModal = () => {
-      panel.classList.add('translate-y-full');
-      document.body.style.overflow = '';
+        const closeModal = () => {
+            panel.classList.add('translate-y-full');
+            document.body.style.overflow = '';
 
-      setTimeout(() => {
-        modal.classList.add('hidden');
-      }, 300);
-    };
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        };
 
-    toggleButton.addEventListener('click', openModal);
-    closeButton.addEventListener('click', closeModal);
+        toggleButton.addEventListener('click', openModal);
+        closeButton.addEventListener('click', closeModal);
 
-    modal.addEventListener('click', (event) => {
-      if (event.target === modal) {
-        closeModal();
-      }
-    });
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
 
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
-        closeModal();
-      }
-    });
-  </script>
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    </script>
     <script>
         // ====================================================================
         // START: JAVASCRIPT FOR DYNAMIC FUNCTIONALITY
@@ -997,11 +1175,15 @@
             const toast = document.createElement('div');
 
             const bgClass = type === 'error' ? 'bg-red-600' : 'bg-green-600';
-            const iconClass = type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle';
+
+            // Replaced icon classes with SVGs
+            const iconSvg = type === 'error'
+                ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="text-lg w-5 h-5" fill="currentColor"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>`
+                : `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="text-lg w-5 h-5" fill="currentColor"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>`;
 
             toast.className = `${bgClass} text-white px-6 py-4 rounded-lg shadow-xl flex items-center gap-3 transition-all duration-300 transform translate-y-[-20px] opacity-0 pointer-events-auto min-w-[300px] max-w-[90vw]`;
             toast.innerHTML = `
-        <i class="fas ${iconClass} text-lg"></i>
+        ${iconSvg}
         <span class="font-medium text-sm md:text-base">${message}</span>
     `;
 
@@ -1020,12 +1202,13 @@
         // --- UI & Mode Switching ---
         function setLoading(state, mode, text = '') {
             if (state) {
-                downloadButton.innerHTML = `<i class="fas fa-spinner fa-spin"></i><span>${text || (mode === 'batch' ? 'Processing...' : 'Processing...')}</span>`;
+                // Replaced fa-spinner with SVG animate-spin
+                downloadButton.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>${text || (mode === 'batch' ? 'Processing...' : 'Processing...')}</span>`;
                 downloadButton.disabled = true;
             } else {
                 downloadButton.innerHTML = mode === 'batch'
-                    ? `<i class="fas fa-search"></i><span>Analyze Links</span>`
-                    : `<i class="fas fa-download"></i><span>Convert & Download</span>`;
+                    ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4 mr-2" fill="currentColor"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg><span>Analyze Links</span>`
+                    : `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-6 h-6" fill="currentColor"> <path d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 210.7-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7 256 32zM64 320c-35.3 0-64 28.7-64 64l0 32c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-32c0-35.3-28.7-64-64-64l-46.9 0-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320 64 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg><span>Convert & Download</span>`;
                 downloadButton.disabled = false;
             }
         }
@@ -1052,7 +1235,7 @@
 
             // Fixed String Concatenation syntax error here
             inputHelp.textContent = isSingle
-                ? "Supports links like: https://youtube.com/shorts/..."
+                ? "Supports links like: https://www.youtube.com/shorts/ipdvBJGgx9k"
                 : `Enter one link per line (Max ${MAX_DOWNLOAD_LIMIT} links).`;
 
             downloadButton.style.height = isSingle ? '48px' : '120px';
@@ -1064,10 +1247,10 @@
         function updateHistory(videoData) {
             try {
                 let history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
-                
+
                 // Remove existing entry with same URL to push it to top (updates timestamp/details)
                 history = history.filter(item => item.url !== videoData.url);
-                
+
                 // Add new item to beginning
                 history.unshift({
                     title: videoData.title,
@@ -1076,12 +1259,12 @@
                     uploader: videoData.uploader,
                     timestamp: new Date().getTime()
                 });
-                
+
                 // Trim to max length
                 if (history.length > MAX_HISTORY) {
                     history = history.slice(0, MAX_HISTORY);
                 }
-                
+
                 localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
                 renderHistory();
             } catch (e) {
@@ -1092,12 +1275,12 @@
         function renderHistory() {
             try {
                 const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
-                
+
                 if (history.length === 0) {
                     historySection.classList.add('hidden');
                     return;
                 }
-                
+
                 historySection.classList.remove('hidden');
                 historyList.innerHTML = history.map(item => `
                     <div class="history-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden cursor-pointer hover:shadow-lg hover:border-red-200 transition-all duration-300 group" onclick="loadHistoryItem('${item.url}')">
@@ -1105,27 +1288,27 @@
                              <img src="${item.thumbnail}" alt="thumb" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                              <div class="play-overlay absolute inset-0 bg-black/40 flex items-center justify-center backdrop-blur-[2px]">
                                 <div class="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center text-white shadow-lg transform scale-90 group-hover:scale-100 transition-transform">
-                                    <i class="fas fa-play ml-1 text-sm"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="ml-1 text-sm w-3 h-3" fill="currentColor"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
                                 </div>
                              </div>
                         </div>
                         <div class="p-3">
                             <h4 class="text-sm font-bold text-slate-800 truncate leading-tight mb-1" title="${attrEscape(item.title)}">${item.title || 'Untitled Video'}</h4>
                             <p class="text-xs text-slate-500 flex items-center">
-                                <i class="fab fa-youtube text-red-500 mr-1.5"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="text-red-500 mr-1.5 w-3 h-3" fill="currentColor"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 42.3 48.3 48.6C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.9 48.3-48.6 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5l0-175.2l152.7 87.6l-152.7 87.6z"/></svg>
                                 <span class="truncate">${item.uploader || 'YouTube Shorts'}</span>
                             </p>
                         </div>
                     </div>
                 `).join('');
-                
+
             } catch (e) {
                 console.error("Failed to render history", e);
             }
         }
 
         function clearHistory() {
-            if(confirm('Are you sure you want to clear your download history?')) {
+            if (confirm('Are you sure you want to clear your download history?')) {
                 localStorage.removeItem(HISTORY_KEY);
                 renderHistory();
             }
@@ -1176,7 +1359,7 @@
             const uploader = data.uploader || 'Unknown Author';
             const url = data.url;
             const formats = data.formats || [];
-            const subtitles = data.subtitles || [];  
+            const subtitles = data.subtitles || [];
 
             // Add to history if successful
             updateHistory({
@@ -1185,9 +1368,9 @@
                 thumbnail: thumbnail,
                 uploader: uploader
             });
-            
+
             // Combine title + description to improve detection
-            const combinedForTags = (title + '\n' ).trim();
+            const combinedForTags = (title + '\n').trim();
             let hashtagsArr = [];
             try {
                 hashtagsArr = combinedForTags.match(/#[\p{L}\p{N}_]+/gu) || [];
@@ -1220,7 +1403,10 @@
 
                 return limitHtml + fmtList.map(f => {
                     const isAudio = type === 'audio';
-                    const iconClass = isAudio ? 'fa-music' : 'fa-video';
+                    // Replaced icon logic
+                    const iconSvg = isAudio
+                        ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" class="w-4 h-4"><path d="M499.1 6.3c8.1 6 12.9 15.6 12.9 25.7v72V368c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V147L192 223.8V432c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V112V32c0-10.1 4.8-19.2 12.9-25.2S161.4-4.2 173.2-.2l288 96c13 4.3 22.2 15.4 24.2 28.5z"/></svg>`
+                        : `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor" class="w-4 h-4"><path d="M0 128C0 92.7 28.7 64 64 64H320c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zM559.1 99.8c10.4 5.6 16.9 16.4 16.9 28.2V384c0 11.9-6.5 22.6-16.9 28.2s-23 5-32.9-1.6l-96-64L448 128l-17.8 11.9 96-64c9.9-6.6 22.5-7.2 32.9-1.6z"/></svg>`;
                     // Backend now provides clean string e.g. "1080p HD (MP4)"
                     const labelText = f.resolution || 'High Quality';
                     const fileSizeText = f.filesize ? `${(f.filesize / 1024 / 1024).toFixed(2)} MB` : 'N/A';
@@ -1229,7 +1415,7 @@
                     <div class="flex items-center justify-between p-3 mb-2 bg-white rounded-lg shadow-sm border border-slate-100 hover:bg-slate-50 transition-colors">
                         <div class="flex items-center gap-3 overflow-hidden">
                             <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-red-500">
-                                <i class="fas ${iconClass}"></i>
+                                ${iconSvg}
                             </div>
                             <div class="font-medium text-slate-700 text-sm truncate">${labelText}</div>
                         </div>
@@ -1255,7 +1441,7 @@
                     return `
                     <div class="flex items-center justify-between p-2 mb-2 bg-white rounded border border-slate-100 text-sm hover:bg-slate-50 transition-colors">
                         <div class="flex items-center gap-2">
-                             <i class="fas fa-closed-captioning text-slate-400"></i>
+                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="text-slate-400 w-4 h-4" fill="currentColor"><path d="M448 64c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128c0-35.3 28.7-64 64-64H448zM256 192H128c-17.7 0-32 14.3-32 32V352c0 17.7 14.3 32 32 32H256c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zm128 0H352c-17.7 0-32 14.3-32 32V352c0 17.7 14.3 32 32 32h32c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32z"/></svg>
                              <span class="text-slate-700 font-medium">${labelText}</span>
                              ${s.is_auto ? '<span class="text-[10px] bg-slate-100 text-slate-500 px-1 rounded">Auto</span>' : ''}
                         </div>
@@ -1266,18 +1452,18 @@
                                     data-url="${url}" 
                                     data-title="${title}_${s.lang_code}"
                                     data-format-id="sub_srt_${s.lang_code}">
-                                <i class="fas fa-download mr-1"></i> .SRT
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="mr-1 w-3 h-3" fill="currentColor"><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zM432 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/></svg> .SRT
                             </button>
                              <button class="menu-toggle-btn flex items-center bg-slate-50 border-t border-b border-r border-slate-300 text-slate-600 hover:text-red-500 hover:bg-white text-xs font-semibold px-2 py-1.5 rounded-r-md transition-colors"
                                      onclick="this.nextElementSibling.classList.toggle('hidden')">
-                                <i class="fas fa-chevron-down"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-3 h-3" fill="currentColor"><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
                             </button>
                             <div class="absolute right-0 top-full mt-1 w-40 bg-white border border-slate-200 shadow-lg rounded-md z-10 hidden" onmouseleave="this.classList.add('hidden')">
                                 <button class="download-link-btn block w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-slate-50 hover:text-red-500"
                                         data-url="${url}" 
                                         data-title="${title}_${s.lang_code}"
                                         data-format-id="sub_txt_${s.lang_code}">
-                                    <i class="fas fa-file-alt mr-2"></i> Plain Text (.txt)
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="mr-2 inline w-3 h-3" fill="currentColor"><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V128c0-17.7-14.3-32-32-32H208V64c0-17.7-14.3-32-32-32H64zM240 128V32.9L351.1 144H240zM64 416c0-8.8 7.2-16 16-16H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H80c-8.8 0-16-7.2-16-16zm0-96c0-8.8 7.2-16 16-16H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H80c-8.8 0-16-7.2-16-16zm0-96c0-8.8 7.2-16 16-16H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H80c-8.8 0-16-7.2-16-16z"/></svg> Plain Text (.txt)
                                 </button>
                             </div>
                         </div>
@@ -1303,14 +1489,14 @@
                 return `
                 <div class="bg-red-50 p-4 rounded-lg border border-red-100 mb-6">
                     <h4 class="font-bold text-slate-600 mb-3 flex items-center">
-                        <i class="fas fa-robot mr-2"></i> AI Video Summary
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="mr-2 w-4 h-4" fill="currentColor"><path d="M320 0c17.7 0 32 14.3 32 32V96H472c39.8 0 72 32.2 72 72V440c0 39.8-32.2 72-72 72H168c-39.8 0-72-32.2-72-72V168c0-39.8 32.2-72 72-72H288V32c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H208zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H304zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H400zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224H64V416H48c-26.5 0-48-21.5-48-48V272c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H576V224h16z"/></svg> AI Video Summary
                     </h4>
                     <div class="flex flex-col sm:flex-row gap-3">
                         <select id="summary-lang-select" class="flex-1 p-2.5 rounded-lg border border-red-200 text-sm focus:ring-2 focus:ring-red-500 outline-none">
                             ${optionsHtml}
                         </select>
                         <button id="btn-generate-summary" data-url="${url}" class="bg-red-500 text-white font-bold px-6 py-2.5 rounded-lg hover:bg-red-700 transition-colors shadow-sm flex items-center justify-center gap-2">
-                            <i class="fas fa-magic"></i> Generate Summary
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4" fill="currentColor"><path d="M448 256c0-106-86-192-192-192V444.1l115.6-70.1c54.7-33.1 76.4-96.1 76.4-118zM224 444.1V64C118 64 32 150 32 256c0 62.4 29.5 119.5 76.4 154.9L224 444.1zM256 0c141.4 0 256 114.6 256 256s-114.6 256-256 256S0 397.4 0 256S114.6 0 256 0z"/></svg> Generate Summary
                         </button>
                     </div>
                     <div id="summary-container" class="mt-4 hidden">
@@ -1339,17 +1525,17 @@
                             <h3 class="text-2xl font-bold font-poppins text-slate-800 leading-tight">${title}</h3>
                             <div class="mt-3 flex flex-wrap items-center gap-3">
                                 <button class="copy-caption-btn inline-flex items-center gap-2 px-3 py-1.5 bg-slate-100 text-sm rounded-md hover:bg-slate-200" data-caption="${attrEscape(title)}">
-                                    <i class="fas fa-copy"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-3 h-3" fill="currentColor"><path d="M384 336H192c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16l140.1 0L400 115.9V320c0 8.8-7.2 16-16 16zM192 384H384c35.3 0 64-28.7 64-64V115.9c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1H192c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H256c35.3 0 64-28.7 64-64V416H272v32c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16H96V128H64z"/></svg>
                                     <span>Copy Caption</span>
                                 </button>
 
                                 <button class="copy-hashtag-btn inline-flex items-center gap-2 px-3 py-1.5 bg-slate-100 text-sm rounded-md hover:bg-slate-200" data-hashtags="${attrEscape(hashtags)}">
-                                    <i class="fas fa-hashtag"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-3 h-3" fill="currentColor"><path d="M181.3 32.4c17.4 2.9 29.2 19.4 26.3 36.8L197.8 128h95.1l11.5-69.3c2.9-17.4 19.4-29.2 36.8-26.3s29.2 19.4 26.3 36.8L357.8 128H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H347.1L325.8 320H384c17.7 0 32 14.3 32 32s-14.3 32-32 32H315.1l-11.5 69.3c-2.9 17.4-19.4 29.2-36.8 26.3s-29.2-19.4-26.3-36.8l9.8-58.7H155.1l-11.5 69.3c-2.9 17.4-19.4 29.2-36.8 26.3s-29.2-19.4-26.3-36.8L90.2 384H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h68.9l21.3-128H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h68.9l11.5-69.3c2.9-17.4 19.4-29.2 36.8-26.3zM155.1 320h95.1l21.3-128H176.4l-21.3 128z"/></svg>
                                     <span>Copy Hashtags</span>
                                 </button>
 
                                 <button class="download-thumb-btn inline-flex items-center gap-2 px-3 py-1.5 bg-slate-100 text-sm rounded-md hover:bg-slate-200" data-thumb-url="${attrEscape(thumbnail)}" data-title="${attrEscape(title)}">
-                                    <i class="fas fa-image"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-3 h-3" fill="currentColor"><path d="M448 80c8.8 0 16 7.2 16 16V415.8l-5-6.5-136-176c-4.5-5.9-11.6-9.3-19-9.3s-14.4 3.4-19 9.3L202 340.7l-30.5-42.7C167 291.7 159.8 288 152 288s-15 3.7-19.5 10.1l-80 112L48 416.3l0-.3V96c0-8.8 7.2-16 16-16H448zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM336 264a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"/></svg>
                                     <span>Download Thumbnail</span>
                                 </button>
                             </div>
@@ -1359,14 +1545,14 @@
                     <div class="md:col-span-2">
                         <div class="md:bg-slate-50 md:p-4 md:rounded-xl border border-transparent md:border-slate-200 h-full">
                             <div class="flex flex-wrap gap-2 border-b border-slate-300 mb-4 pb-1" role="tablist">
-                                <button data-tab="video" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-red-500 text-red-600 transition-colors focus:outline-none">
-                                    <i class="fas fa-video mr-1"></i> Video (${videoFormats.length})
+                                <button data-tab="video" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-red-500 text-red-600 transition-colors focus:outline-none flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="mr-1 w-4 h-4" fill="currentColor"><path d="M0 128C0 92.7 28.7 64 64 64H320c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zM559.1 99.8c10.4 5.6 16.9 16.4 16.9 28.2V384c0 11.9-6.5 22.6-16.9 28.2s-23 5-32.9-1.6l-96-64L448 128l-17.8 11.9 96-64c9.9-6.6 22.5-7.2 32.9-1.6z"/></svg> Video (${videoFormats.length})
                                 </button>
-                                <button data-tab="audio" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-transparent text-slate-600 hover:text-red-500 transition-colors focus:outline-none">
-                                    <i class="fas fa-music mr-1"></i> Audio (${audioFormats.length})
+                                <button data-tab="audio" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-transparent text-slate-600 hover:text-red-500 transition-colors focus:outline-none flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="mr-1 w-4 h-4" fill="currentColor"><path d="M499.1 6.3c8.1 6 12.9 15.6 12.9 25.7v72V368c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V147L192 223.8V432c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V112V32c0-10.1 4.8-19.2 12.9-25.2S161.4-4.2 173.2-.2l288 96c13 4.3 22.2 15.4 24.2 28.5z"/></svg> Audio (${audioFormats.length})
                                 </button>
-                                <button data-tab="summary" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-transparent text-slate-600 hover:text-slate-600 transition-colors focus:outline-none">
-                                    <i class="fas fa-wand-magic-sparkles mr-1"></i> AI Summary (${subtitles.length})
+                                <button data-tab="summary" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-transparent text-slate-600 hover:text-slate-600 transition-colors focus:outline-none flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="mr-1 w-4 h-4" fill="currentColor"><path d="M234.7 42.7L197 56.8c-3 1.1-5 4-5 7.2s2 6.1 5 7.2l37.7 14.1L248.8 123c1.1 3 4 5 7.2 5s6.1-2 7.2-5l14.1-37.7L315 71.2c3-1.1 5-4 5-7.2s-2-6.1-5-7.2L277.3 42.7 263.2 5c-1.1-3-4-5-7.2-5s-6.1 2-7.2 5L234.7 42.7zM46.1 395.4c-18.7 18.7-18.7 49.1 0 67.9l34.6 34.6c18.7 18.7 49.1 18.7 67.9 0L529.9 116.5c18.7-18.7 18.7-49.1 0-67.9L495.3 14.1c-18.7-18.7-49.1-18.7-67.9 0L46.1 395.4zM484.6 82.6l34.6 34.6c6.3 6.3 6.3 16.4 0 22.6l-22.6 22.6L461.2 127L435.6 101.4l-22.6 22.6L387.4 98.4l22.6-22.6L384.6 50.3l22.6-22.6c6.3-6.3 16.4-6.3 22.6 0l34.6 34.6c6.3 6.3 16.4 6.3 22.6 0L484.6 59.9c6.3 6.3 6.3 16.4 0 22.6zM288 139.2l-22.6 22.6 25.6 25.6-22.6 22.6-25.6-25.6L217.2 210l25.6 25.6-22.6 22.6-25.6-25.6L169 258.2l-22.6-22.6 25.6-25.6-22.6-22.6-25.6 25.6L98.2 187.4l22.6-22.6 25.6 25.6 22.6-22.6 25.6-25.6L146.4 116.6l-22.6-22.6L149.4 68.4l22.6 22.6 25.6-25.6-22.6-22.6-25.6 25.6L123.8 43.2l22.6-22.6 25.6 25.6 22.6-22.6 25.6-25.6L194.6 23.4l22.6 22.6 25.6-25.6 22.6 22.6 25.6 25.6L265.4 43.2l22.6-22.6L288 20.6l-22.6-22.6-25.6 25.6-22.6-22.6-25.6 25.6L169 2.2l-22.6-22.6L120.8 2.2 98.2-20.4 72.6 5.2 98.2 30.8 75.6 53.4 50 27.8 72.6 5.2 46.1 31.7c-6.3 6.3-6.3 16.4 0 22.6l34.6 34.6c6.3 6.3 16.4 6.3 22.6 0L128.8 63.3 288 222.5l25.6-25.6c6.3-6.3 6.3-16.4 0-22.6L288 139.2z"/></svg> AI Summary (${subtitles.length})
                                 </button>
                             </div>
                             
@@ -1385,13 +1571,13 @@
                     <div class="md:col-span-1">
                         <div class="bg-gradient-to-br from-red-50 to-blue-50 p-6 rounded-xl border border-red-100 h-fit shadow-sm sticky top-24">
                             <h4 class="font-semibold text-lg mb-4 flex items-center text-slate-700">
-                                <i class="fas fa-wand-magic-sparkles text-red-500 mr-2"></i> Creator Suite 
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="text-red-500 mr-2 w-4 h-4" fill="currentColor"><path d="M234.7 42.7L197 56.8c-3 1.1-5 4-5 7.2s2 6.1 5 7.2l37.7 14.1L248.8 123c1.1 3 4 5 7.2 5s6.1-2 7.2-5l14.1-37.7L315 71.2c3-1.1 5-4 5-7.2s-2-6.1-5-7.2L277.3 42.7 263.2 5c-1.1-3-4-5-7.2-5s-6.1 2-7.2 5L234.7 42.7zM46.1 395.4c-18.7 18.7-18.7 49.1 0 67.9l34.6 34.6c18.7 18.7 49.1 18.7 67.9 0L529.9 116.5c18.7-18.7 18.7-49.1 0-67.9L495.3 14.1c-18.7-18.7-49.1-18.7-67.9 0L46.1 395.4zM484.6 82.6l34.6 34.6c6.3 6.3 6.3 16.4 0 22.6l-22.6 22.6L461.2 127L435.6 101.4l-22.6 22.6L387.4 98.4l22.6-22.6L384.6 50.3l22.6-22.6c6.3-6.3 16.4-6.3 22.6 0l34.6 34.6c6.3 6.3 16.4 6.3 22.6 0L484.6 59.9c6.3 6.3 6.3 16.4 0 22.6zM288 139.2l-22.6 22.6 25.6 25.6-22.6 22.6-25.6-25.6L217.2 210l25.6 25.6-22.6 22.6-25.6-25.6L169 258.2l-22.6-22.6 25.6-25.6-22.6-22.6-25.6 25.6L98.2 187.4l22.6-22.6 25.6 25.6 22.6-22.6 25.6-25.6L146.4 116.6l-22.6-22.6L149.4 68.4l22.6 22.6 25.6-25.6-22.6-22.6-25.6 25.6L123.8 43.2l22.6-22.6 25.6 25.6 22.6-22.6 25.6-25.6L194.6 23.4l22.6 22.6 25.6-25.6 22.6 22.6 25.6 25.6L265.4 43.2l22.6-22.6L288 20.6l-22.6-22.6-25.6 25.6-22.6-22.6-25.6 25.6L169 2.2l-22.6-22.6L120.8 2.2 98.2-20.4 72.6 5.2 98.2 30.8 75.6 53.4 50 27.8 72.6 5.2 46.1 31.7c-6.3 6.3-6.3 16.4 0 22.6l34.6 34.6c6.3 6.3 16.4 6.3 22.6 0L128.8 63.3 288 222.5l25.6-25.6c6.3-6.3 6.3-16.4 0-22.6L288 139.2z"/></svg> Creator Suite 
                                 <span class="ml-2 text-[10px] font-bold bg-red-500 text-white px-2 py-0.5 rounded-full tracking-wider">PRO</span>
                             </h4>
                             <div class="space-y-3">
                                 <a href="/shorts-to-mp3.html?url=${encodeURIComponent(url)}" class="flex items-center p-3 bg-white rounded-lg shadow-sm hover:shadow-md hover:border-red-500 border border-transparent transition group">
                                     <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
-                                        <i class="fas fa-eraser text-yellow-600 text-sm"></i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="text-yellow-600 text-sm w-3 h-3" fill="currentColor"><path d="M290.7 57.4L57.4 290.7c-25 25-25 65.5 0 90.5l80 80c12 12 28.3 18.7 45.3 18.7H288h9.4H512c17.7 0 32-14.3 32-32s-14.3-32-32-32H387.9L518.6 98.3c25-25 25-65.5 0-90.5l-80-80c-25-25-65.5-25-90.5 0l-57.4 57.4zM102.6 336l96-96L272 313.4l-96 96L102.6 336zM317.3 268.1L240 190.9l96-96L413.4 172l-96.1 96.1z"/></svg>
                                     </div>
                                     <div>
                                         <p class="font-semibold text-sm text-slate-800">Convert to MP3</p>
@@ -1399,7 +1585,7 @@
                                 </a>
                                 <a href="/shorts-thumbnail-tool.html?url=${encodeURIComponent(url)}" class="flex items-center p-3 bg-white rounded-lg shadow-sm hover:shadow-md hover:border-red-500 border border-transparent transition group">
                                     <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
-                                        <i class="fas fa-closed-captioning text-blue-600 text-sm"></i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="text-blue-600 text-sm w-3 h-3" fill="currentColor"><path d="M384 32H64C28.6 32 0 60.6 0 96v320c0 35.4 28.6 64 64 64h320c35.4 0 64-28.6 64-64V96c0-35.4-28.6-64-64-64zM160 144c0-8.8 7.2-16 16-16h96c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-96c-8.8 0-16-7.2-16-16v-32zm0 128c0-8.8 7.2-16 16-16h96c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-96c-8.8 0-16-7.2-16-16v-32zm160 128c-8.8 0-16-7.2-16-16v-32c0-8.8 7.2-16 16-16h-96c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h96z"/></svg>
                                     </div>
                                     <div>
                                         <p class="font-semibold text-sm text-slate-800">Grab HD Cover</p>
@@ -1431,7 +1617,7 @@
                     return `
                     <div class="flex items-center bg-red-50 p-3 rounded-lg border border-red-200 opacity-80">
                         <input type="checkbox" class="h-5 w-5 mr-4" disabled>
-                        <div class="w-24 h-14 bg-red-100 rounded-md mr-4 flex items-center justify-center"><i class="fas fa-exclamation-triangle text-red-400"></i></div>
+                        <div class="w-24 h-14 bg-red-100 rounded-md mr-4 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="text-red-400 w-6 h-6" fill="currentColor"><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg></div>
                         <div class="flex-grow overflow-hidden">
                             <p class="font-semibold text-red-700">Analysis Failed</p>
                             <p class="text-sm text-red-500 truncate">Invalid Link or Private Video</p>
@@ -1537,7 +1723,7 @@
         async function handleSingleGetInfo(url) {
             setLoading(true, 'single');
             resultSection.innerHTML = renderSkeleton();
-            resultSection.classList.remove('hidden'); 
+            resultSection.classList.remove('hidden');
 
             try {
                 const response = await fetch(`${API_BASE_URL}/api/info?url=${encodeURIComponent(url)}`);
@@ -1567,7 +1753,8 @@
             output.innerHTML = '';
             cursor.classList.remove('hidden');
             btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            // Replaced fa-spinner
+            btn.innerHTML = '<svg class="animate-spin h-4 w-4 mr-2 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Generating...';
 
             let fullMarkdown = '';
 
@@ -1589,12 +1776,13 @@
                     output.parentElement.scrollTop = output.parentElement.scrollHeight;
                 }
             } catch (e) {
-                output.innerHTML = `<span class="text-red-500 font-bold"><i class="fas fa-exclamation-triangle"></i> Error: ${e.message}</span>`;
-                btn.innerHTML = '<i class="fas fa-magic"></i> Retry Summary';
+                // Replaced fa-exclamation-triangle and fa-magic
+                output.innerHTML = `<span class="text-red-500 font-bold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="inline w-4 h-4 mr-1" fill="currentColor"><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg> Error: ${e.message}</span>`;
+                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4 mr-2 inline-block" fill="currentColor"><path d="M448 256c0-106-86-192-192-192V444.1l115.6-70.1c54.7-33.1 76.4-96.1 76.4-118zM224 444.1V64C118 64 32 150 32 256c0 62.4 29.5 119.5 76.4 154.9L224 444.1zM256 0c141.4 0 256 114.6 256 256s-114.6 256-256 256S0 397.4 0 256S114.6 0 256 0z"/></svg> Retry Summary';
             } finally {
                 cursor.classList.add('hidden');
                 btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-magic"></i> Generate Summary';
+                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4 mr-2 inline-block" fill="currentColor"><path d="M448 256c0-106-86-192-192-192V444.1l115.6-70.1c54.7-33.1 76.4-96.1 76.4-118zM224 444.1V64C118 64 32 150 32 256c0 62.4 29.5 119.5 76.4 154.9L224 444.1zM256 0c141.4 0 256 114.6 256 256s-114.6 256-256 256S0 397.4 0 256S114.6 0 256 0z"/></svg> Generate Summary';
             }
         }
 
@@ -1701,13 +1889,15 @@
                 }
 
                 const originalText = downloadBtn.innerHTML;
-                const originalIcon = downloadBtn.querySelector('i');
-                const originalIconClass = originalIcon ? originalIcon.className : '';
+                const originalIcon = downloadBtn.querySelector('svg');
+                // Store original icon HTML
+                const originalIconHtml = originalIcon ? originalIcon.outerHTML : '';
 
                 if (downloadBtn.classList.contains('text-slate-700')) {
-                    if (originalIcon) originalIcon.className = 'fas fa-spinner fa-spin mr-1';
+                    // Replaced fa-spinner
+                    if (originalIcon) originalIcon.outerHTML = '<svg class="animate-spin mr-1 w-4 h-4 text-slate-700 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
                 } else {
-                    downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
+                    downloadBtn.innerHTML = '<svg class="animate-spin w-4 h-4 mr-2 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Downloading...';
                 }
                 downloadBtn.disabled = true;
 
@@ -1770,7 +1960,9 @@
                     showToast('Download failed. Please check your connection and try again.', 'error');
                 } finally {
                     if (downloadBtn.classList.contains('text-slate-700')) {
-                        if (originalIcon) originalIcon.className = originalIconClass;
+                        // Restore icon if it existed, otherwise just reset content
+                        const currentIcon = downloadBtn.querySelector('svg');
+                        if (currentIcon && originalIconHtml) currentIcon.outerHTML = originalIconHtml;
                     } else {
                         downloadBtn.innerHTML = originalText;
                     }
@@ -1808,7 +2000,7 @@
         setupInput(batchInput, clearBatchBtn);
 
         modeSwitchBtns.forEach(btn => btn.addEventListener('click', () => switchMode(btn.dataset.mode)));
-        
+
         // Init
         window.addEventListener('DOMContentLoaded', () => {
             switchMode('single');
@@ -1816,40 +2008,52 @@
         });
 
         // --- Mobile Drawer & Third Party Scripts ---
-        function openDrawer() { 
-            mobileDrawer.classList.remove("translate-x-full"), 
-            mobileBackdrop.classList.remove("backdrop-hidden"),
-             mobileBackdrop.classList.add("backdrop-show"), 
-             document.body.classList.add("overflow-hidden") } 
-             function closeDrawer() { 
-                mobileDrawer.classList.add("translate-x-full"),
-                 mobileBackdrop.classList.add("backdrop-hidden"),
-                  mobileBackdrop.classList.remove("backdrop-show"), 
-                  document.body.classList.remove("overflow-hidden") } 
-                  mobileMenuBtn.addEventListener("click", openDrawer), mobileMenuClose.addEventListener("click", closeDrawer), mobileBackdrop.addEventListener("click", closeDrawer);
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-                  let thirdPartyScriptsLoaded = !1; 
-                  function loadThirdPartyScripts() { 
-                    if (thirdPartyScriptsLoaded) return;
-                    thirdPartyScriptsLoaded = !0; 
-                    const e = document.createElement("script"); 
-                    e.src = "https://www.googletagmanager.com/gtag/js?id=G-Z6TQTL70L0", 
-                    e.async = !0, e.onload = function () { 
-                        window.dataLayer = window.dataLayer || [], window.gtag = function () { 
-                            dataLayer.push(arguments) }, gtag("js", new Date), gtag("config", "G-Z6TQTL70L0") }, 
-                            document.head.appendChild(e) } ["mousemove", "scroll", "keydown", "touchstart", "click"].forEach(function (e) {
-                                 window.addEventListener(e, loadThirdPartyScripts, { once: !0, passive: !0 }) }), setTimeout(loadThirdPartyScripts, 5e3
+        function openDrawer() {
+            mobileDrawer.classList.remove("translate-x-full");
+            mobileDrawer.classList.remove("invisible"); // 移除隐形
+            mobileDrawer.setAttribute("aria-hidden", "false"); // 设为可见
+            mobileBackdrop.classList.remove("backdrop-hidden");
+            mobileBackdrop.classList.add("backdrop-show");
+            document.body.classList.add("overflow-hidden");
+        }
 
-                                 );
+        function closeDrawer() {
+            mobileDrawer.classList.add("translate-x-full");
+            mobileDrawer.classList.add("invisible"); // 恢复隐形
+            mobileDrawer.setAttribute("aria-hidden", "true"); // 设为隐藏
+            mobileBackdrop.classList.add("backdrop-hidden");
+            mobileBackdrop.classList.remove("backdrop-show");
+            document.body.classList.remove("overflow-hidden");
+        }
+        mobileMenuBtn.addEventListener("click", openDrawer), mobileMenuClose.addEventListener("click", closeDrawer), mobileBackdrop.addEventListener("click", closeDrawer);
+
+
+
+
+
+
+
+
+
+
+
+        let thirdPartyScriptsLoaded = !1;
+        function loadThirdPartyScripts() {
+            if (thirdPartyScriptsLoaded) return;
+            thirdPartyScriptsLoaded = !0;
+            const e = document.createElement("script");
+            e.src = "https://www.googletagmanager.com/gtag/js?id=G-Z6TQTL70L0",
+                e.async = !0, e.onload = function () {
+                    window.dataLayer = window.dataLayer || [], window.gtag = function () {
+                        dataLayer.push(arguments)
+                    }, gtag("js", new Date), gtag("config", "G-Z6TQTL70L0")
+                },
+                document.head.appendChild(e)
+        } ["mousemove", "scroll", "keydown", "touchstart", "click"].forEach(function (e) {
+            window.addEventListener(e, loadThirdPartyScripts, { once: !0, passive: !0 })
+        }), setTimeout(loadThirdPartyScripts, 5e3
+
+        );
     </script>
 </body>
 
