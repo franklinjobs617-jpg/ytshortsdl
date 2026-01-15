@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>YouTube 零流量下载器</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 700px;
+            margin: 50px auto;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            width: 80%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 25px;
+            cursor: pointer;
+            background: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #cc0000;
+        }
+
+        #result {
+            margin-top: 30px;
+            display: none;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        #loading {
+            display: none;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>YouTube 视频解析下载</h2>
+        <input type="text" id="videoUrl" placeholder="在此粘贴 YouTube 视频链接...">
+        <br>
+        <button onclick="parseVideo()">解析视频</button>
+        <div id="loading">正在全力解析中，请稍候...</div>
+
+        <div id="result">
+            <h3 id="title"></h3>
+            <img id="thumb" src="" alt="封面">
+            <br>
+            <!-- 下载按钮 -->
+            <button id="downloadBtn" style="background: #28a745;">立即下载视频 (走边缘流量)</button>
+            <p style="font-size: 12px; color: #999; margin-top: 10px;">如果点击没反应，请确保 Python 后端已运行且安装了 Node.js</p>
+        </div>
+    </div>
+
+    <script>
+        // --- ⚠️ 请在此处修改你的配置 ---
+        const API_URL = 'https://ytdlp.vistaflyer.com/parse';
+        const WORKER_URL = 'https://patient-shadow-6e5c.franke-4b7.workers.dev/';
+
+        async function parseVideo() {
+            const urlInput = document.getElementById('videoUrl').value;
+            const resultDiv = document.getElementById('result');
+            const loadingDiv = document.getElementById('loading');
+
+            if (!urlInput) return alert('请输入链接！');
+
+            // 显示加载状态
+            resultDiv.style.display = 'none';
+            loadingDiv.style.display = 'block';
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: urlInput })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                // 填充解析后的内容
+                document.getElementById('title').innerText = data.title;
+                document.getElementById('thumb').src = data.thumbnail;
+
+                // 关键：构造安全的 Worker 下载链接
+                // 使用 encodeURIComponent 确保 YouTube 那串复杂的 URL 整体作为一个参数传给 Worker
+                document.getElementById('downloadBtn').onclick = function () {
+                    const finalDownloadUrl = `${WORKER_URL}?title=${encodeURIComponent(data.title)}.mp4&url=${encodeURIComponent(data.url)}`;
+                    console.log("正在跳转下载地址:", finalDownloadUrl);
+                    window.location.href = finalDownloadUrl;
+                };
+
+                // 显示结果
+                resultDiv.style.display = 'block';
+
+            } catch (err) {
+                console.error(err);
+                alert('解析失败，请检查：\n1. Python 后端是否启动\n2. 终端是否报错\n3. 是否安装了 Node.js\n\n错误信息：' + err.message);
+            } finally {
+                loadingDiv.style.display = 'none';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
