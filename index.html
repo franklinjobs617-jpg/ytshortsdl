@@ -1034,9 +1034,23 @@
     </script>
     <!-- JavaScript Logic (按照参考代码重新实现) -->
     <script>
+
+        // --- GA4 埋点辅助函数 (新增) ---
+        const trackEvent = (eventName, params = {}) => {
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', eventName, params);
+            }
+        };
         // API Configuration (配置)
         const API_URL = 'https://ytdlp.vistaflyer.com/api/parse';
-        const WORKER_URL = 'https://quiet-lab-5ef6.franke-4b7.workers.dev';
+        const WORKER_URLS = [
+            'https://quiet-lab-5ef6.franke-4b7.workers.dev',
+            'https://floral-queen-1592.franke-4b7.workers.dev',
+            'https://cold-wood-3350.franke-4b7.workers.dev',
+            'https://fancy-disk-b43e.franke-4b7.workers.dev',
+            'https://fragrant-butterfly-8f1f.franke-4b7.workers.dev',
+            'https://broken-frost-aa82.franke-4b7.workers.dev'
+        ];
 
         // Notification Helper (弹窗提示)
         function showToast(message, type = 'error') {
@@ -1091,11 +1105,42 @@
 
                 // Step 3: Configure Download Button (配置下载按钮，跳转Worker)
                 document.getElementById('downloadBtn').onclick = async function () {
-                    const finalDownloadUrl = `${WORKER_URL}?title=${encodeURIComponent(data.title)}.mp4&url=${encodeURIComponent(data.url)}&ua=${encodeURIComponent(data.ua)}`;
+                    const currentWorker = WORKER_URLS[Math.floor(Math.random() * WORKER_URLS.length)];
+                    const finalDownloadUrl = `${currentWorker}?title=${encodeURIComponent(data.title)}.mp4&url=${encodeURIComponent(data.url)}&ua=${encodeURIComponent(data.ua)}`;
                     showToast('Starting secure download...', 'success');
 
-                    // 新打开窗口下载（防止被浏览器拦截）
-                    window.open(finalDownloadUrl, '_blank');
+                    try {
+                        // 使用 fetch 检查状态
+                        const response = await fetch(finalDownloadUrl, {
+                            method: 'HEAD',
+                            // 如果你的 Worker 允许跨域，这里能拿到 status
+                        });
+
+                        if (response.status === 403) {
+                            // GA: 埋点 403 错误
+                            trackEvent('download_error_403', {
+                                worker_url: currentWorker,
+                                video_url: data.url
+                            });
+                            showToast('Download failed: Access Forbidden (403)', 'error');
+                            return; // 终止下载
+                        }
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+
+                        // 状态正常，执行下载
+                        showToast('Starting secure download...', 'success');
+                        window.open(finalDownloadUrl, '_blank');
+
+                        trackEvent('user_downloaded_video', { worker_url: currentWorker });
+
+                    } catch (error) {
+                        console.error('Download check failed:', error);
+                        window.open(finalDownloadUrl, '_blank');
+                    }
+
 
                 };
 
@@ -1104,6 +1149,8 @@
                 window.scrollTo({ top: resultSection.offsetTop - 100, behavior: 'smooth' });
 
             } catch (err) {
+                trackEvent('parse_failed');
+
                 console.error(err);
                 showToast('Parsing failed: ' + err.message);
             } finally {
