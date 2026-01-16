@@ -22,7 +22,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- CSS -->
     <link rel="stylesheet" href="/dist/output.css">
 
@@ -32,7 +32,7 @@
             box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
         }
 
-        
+
         /* Spinner */
         .spinner {
             border: 3px solid rgba(255, 255, 255, 0.3);
@@ -44,8 +44,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 
@@ -172,9 +177,9 @@
                         <a href="/shorts-reuse-guide.html"
                             class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">Shorts
                             Reuse Guide</a>
-                            
-                <a href="/about.html"
-                    class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">About</a>
+
+                        <a href="/about.html"
+                            class="block w-full text-left px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-red-500">About</a>
                     </div>
                 </div>
 
@@ -199,7 +204,7 @@
         class="fixed inset-0 bg-black/40 transition-opacity backdrop-hidden z-50 md:hidden">
     </div>
     <aside id="mobile-drawer"
-        class="fixed top-0 right-0 h-full w-80 max-w-[80%] bg-white shadow-2xl translate-x-full transition-transform z-50 md:hidden overflow-scroll invisible"
+        class="fixed top-0 right-0 h-full w-80 max-w-[80%] bg-white shadow-2xl translate-x-full transition-transform z-50 md:hidden overflow-scroll"
         aria-hidden="true">
         <div class="p-4 border-b border-slate-200 flex items-center justify-between">
             <span class="text-xl font-semibold">Menu</span>
@@ -262,32 +267,43 @@
     </aside>
     <main>
         <!-- Toast Notification Container -->
-        <div id="toast-container" class="fixed top-24 left-1/2 -translate-x-1/2 z-[60] flex flex-col gap-2 pointer-events-none"></div>
+        <div id="toast-container"
+            class="fixed top-24 left-1/2 -translate-x-1/2 z-[60] flex flex-col gap-2 pointer-events-none"></div>
 
         <!-- Hero Section -->
         <section id="tool" class="relative text-center py-16 md:py-30 overflow-hidden">
             <div class="glow-effect"></div>
-            <div class="container max-w-5xl mx-auto px-4 relative z-10 md:bg-white md:border md:border-slate-200 md:backdrop-blur-md md:p-12 md:rounded-xl md:shadow-lg">
+            <div
+                class="container max-w-5xl mx-auto px-4 relative z-10 md:bg-white md:border md:border-slate-200 md:backdrop-blur-md md:p-12 md:rounded-xl md:shadow-lg">
 
-                <h1 class="text-3xl md:text-5xl lg:text-5xl font-extrabold font-poppins leading-tight tracking-tighter text-slate-900">
+                <h1
+                    class="text-3xl md:text-5xl lg:text-5xl font-extrabold font-poppins leading-tight tracking-tighter text-slate-900">
                     Free YouTube Shorts <br><span class="text-red-500">Thumbnail Downloader</span>
                 </h1>
 
                 <p class="mt-4 text-md md:text-lg text-slate-600 max-w-3xl mx-auto font-medium">
-                    Paste any YouTube Shorts URL to view and download all available thumbnail sizes (HD, SD, MaxRes) instantly.
+                    Paste any YouTube Shorts URL to view and download all available thumbnail sizes (HD, SD, MaxRes)
+                    instantly.
                 </p>
 
                 <!-- Input Section -->
                 <div class="mt-12 max-w-4xl mx-auto">
                     <form id="shorts-thumbnail-form">
-                        <div class="flex flex-col md:flex-row items-center bg-white p-2 rounded-xl custom-focus-ring transition-shadow duration-300 shadow-lg border border-slate-100">
+                        <div
+                            class="flex flex-col md:flex-row items-center bg-white p-2 rounded-xl custom-focus-ring transition-shadow duration-300 shadow-lg border border-slate-100">
                             <div class="relative w-full">
                                 <i class="fas fa-link absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                                <input type="url" id="shorts-url" placeholder="Paste YouTube Shorts Link Here..." required
+                                <input type="url" id="shorts-url" placeholder="Paste YouTube Shorts Link Here..."
+                                    required
                                     class="w-full h-12 pl-10 pr-4 text-lg bg-transparent focus:outline-none text-slate-800 placeholder:text-slate-400"
                                     style="height: 48px;">
-                                <button type="button" id="clear-input" class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 hidden">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-6 h-6" fill="currentColor"> <path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zM167 167c9.4-9.4 24.6-9.4 33.9 0l55 55 55-55c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-55 55 55 55c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-55-55-55 55c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l55-55-55-55c-9.4-9.4-9.4-24.6 0-33.9z"/></svg>
+                                <button type="button" id="clear-input"
+                                    class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 hidden">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-6 h-6"
+                                        fill="currentColor">
+                                        <path
+                                            d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zM167 167c9.4-9.4 24.6-9.4 33.9 0l55 55 55-55c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-55 55 55 55c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-55-55-55 55c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l55-55-55-55c-9.4-9.4-9.4-24.6 0-33.9z" />
+                                    </svg>
                                 </button>
                             </div>
                             <button type="submit" id="submit-btn"
@@ -299,24 +315,29 @@
                             </button>
                         </div>
                     </form>
-                    <p id="input-help" class="mt-3 text-sm text-slate-500">Supports links like: <code>youtube.com/shorts/...</code> or <code>youtu.be/...</code></p>
+                    <p id="input-help" class="mt-3 text-sm text-slate-500">Supports links like:
+                        <code>youtube.com/shorts/...</code> or <code>youtu.be/...</code></p>
                     <p id="error-message" class="mt-3 text-sm text-red-600 font-bold hidden"></p>
                 </div>
 
                 <!-- Intent Chips -->
                 <div class="mt-8 flex flex-wrap justify-center gap-3">
-                    <span class="text-slate-400 text-[11px] font-black uppercase tracking-widest w-full mb-1">Other Tools</span>
-                    <a href="/" class="px-5 py-2.5 bg-white border border-slate-200 rounded-full font-bold hover:border-red-500 transition-all shadow-sm text-slate-700 text-sm">
+                    <span class="text-slate-400 text-[11px] font-black uppercase tracking-widest w-full mb-1">Other
+                        Tools</span>
+                    <a href="/"
+                        class="px-5 py-2.5 bg-white border border-slate-200 rounded-full font-bold hover:border-red-500 transition-all shadow-sm text-slate-700 text-sm">
                         🎬 Download Video
                     </a>
-                    <a href="/shorts-to-mp3.html" class="px-5 py-2.5 bg-white border border-slate-200 rounded-full font-bold hover:border-red-500 transition-all shadow-sm text-slate-700 text-sm">
+                    <a href="/shorts-to-mp3.html"
+                        class="px-5 py-2.5 bg-white border border-slate-200 rounded-full font-bold hover:border-red-500 transition-all shadow-sm text-slate-700 text-sm">
                         🎵 Extract Audio
                     </a>
                 </div>
 
                 <!-- Thumbnail Output Grid -->
                 <div id="thumbnail-output" class="hidden mt-16 transition-all duration-500">
-                    <h2 class="text-2xl font-bold font-poppins text-slate-800 mb-8 text-left border-b border-slate-200 pb-4 flex justify-between items-baseline">
+                    <h2
+                        class="text-2xl font-bold font-poppins text-slate-800 mb-8 text-left border-b border-slate-200 pb-4 flex justify-between items-baseline">
                         <span>Available Thumbnails</span>
                         <span id="video-id-display" class="text-sm font-mono font-normal text-slate-500 ml-2"></span>
                     </h2>
@@ -332,8 +353,11 @@
         <section id="why-dedicated" class="py-24 bg-slate-50 border-y border-slate-200/80">
             <div class="container max-w-4xl mx-auto px-6 text-center">
                 <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200/60">
-                    <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-5">Why Use a Dedicated Thumbnail Downloader?</h2>
-                    <p class="text-slate-600 text-lg leading-relaxed">Don't waste time taking blurry screenshots. A dedicated tool accesses the official thumbnail files directly from YouTube's servers, giving you the highest possible quality asset (up to 1280x720) without play buttons or overlays.</p>
+                    <h2 class="text-3xl font-bold font-poppins text-slate-900 mb-5">Why Use a Dedicated Thumbnail
+                        Downloader?</h2>
+                    <p class="text-slate-600 text-lg leading-relaxed">Don't waste time taking blurry screenshots. A
+                        dedicated tool accesses the official thumbnail files directly from YouTube's servers, giving you
+                        the highest possible quality asset (up to 1280x720) without play buttons or overlays.</p>
                 </div>
             </div>
         </section>
@@ -342,54 +366,69 @@
         <section id="resolutions" class="py-24 bg-white">
             <div class="container max-w-4xl mx-auto px-6">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold font-poppins text-slate-900">All Resolutions: Find the Perfect Size</h2>
+                    <h2 class="text-3xl font-bold font-poppins text-slate-900">All Resolutions: Find the Perfect Size
+                    </h2>
                 </div>
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div>
                         <p class="text-lg text-slate-500 leading-relaxed mb-6">
-                            Bigger isn't always best. For small thumbnails or website embeds, smaller files load faster. But for reposting to Instagram, Pinterest or blog headers, use the highest resolution.
+                            Bigger isn't always best. For small thumbnails or website embeds, smaller files load faster.
+                            But for reposting to Instagram, Pinterest or blog headers, use the highest resolution.
                         </p>
                         <ul class="space-y-4">
                             <li class="flex items-start">
-                                <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-red-100 rounded-full mr-3 mt-0.5">
+                                <div
+                                    class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-red-100 rounded-full mr-3 mt-0.5">
                                     <i class="fas fa-check text-red-500 text-sm"></i>
                                 </div>
-                                <div><strong class="text-slate-800 block text-lg">Maxres (1280x720)</strong> <span class="text-slate-600">Best for desktop backgrounds and high-quality editing.</span></div>
+                                <div><strong class="text-slate-800 block text-lg">Maxres (1280x720)</strong> <span
+                                        class="text-slate-600">Best for desktop backgrounds and high-quality
+                                        editing.</span></div>
                             </li>
                             <li class="flex items-start">
-                                <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-red-100 rounded-full mr-3 mt-0.5">
+                                <div
+                                    class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-red-100 rounded-full mr-3 mt-0.5">
                                     <i class="fas fa-check text-red-500 text-sm"></i>
                                 </div>
-                                <div><strong class="text-slate-800 block text-lg">High Quality (480x360)</strong> <span class="text-slate-600">Standard for most social media previews.</span></div>
+                                <div><strong class="text-slate-800 block text-lg">High Quality (480x360)</strong> <span
+                                        class="text-slate-600">Standard for most social media previews.</span></div>
                             </li>
                             <li class="flex items-start">
-                                <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-red-100 rounded-full mr-3 mt-0.5">
+                                <div
+                                    class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-red-100 rounded-full mr-3 mt-0.5">
                                     <i class="fas fa-check text-red-500 text-sm"></i>
                                 </div>
-                                <div><strong class="text-slate-800 block text-lg">Medium (320x180)</strong> <span class="text-slate-600">Ideal for smaller website widgets or email signatures.</span></div>
+                                <div><strong class="text-slate-800 block text-lg">Medium (320x180)</strong> <span
+                                        class="text-slate-600">Ideal for smaller website widgets or email
+                                        signatures.</span></div>
                             </li>
                         </ul>
                     </div>
                     <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 shadow-lg">
                         <div class="grid grid-cols-2 gap-4 text-center">
-                            <div class="bg-white rounded-lg shadow-sm border border-slate-200 aspect-video flex flex-col items-center justify-center p-2">
+                            <div
+                                class="bg-white rounded-lg shadow-sm border border-slate-200 aspect-video flex flex-col items-center justify-center p-2">
                                 <span class="text-red-500 font-bold text-lg">HD</span>
                                 <span class="text-xs text-slate-400">1280x720</span>
                             </div>
-                            <div class="bg-white rounded-lg shadow-sm border border-slate-200 aspect-[4/3] flex flex-col items-center justify-center p-2">
+                            <div
+                                class="bg-white rounded-lg shadow-sm border border-slate-200 aspect-[4/3] flex flex-col items-center justify-center p-2">
                                 <span class="text-slate-600 font-bold text-lg">HQ</span>
                                 <span class="text-xs text-slate-400">480x360</span>
                             </div>
-                            <div class="bg-white rounded-lg shadow-sm border border-slate-200 aspect-video flex flex-col items-center justify-center p-2">
+                            <div
+                                class="bg-white rounded-lg shadow-sm border border-slate-200 aspect-video flex flex-col items-center justify-center p-2">
                                 <span class="text-slate-500 font-bold text-sm">MQ</span>
                                 <span class="text-xs text-slate-400">320x180</span>
                             </div>
-                            <div class="bg-white rounded-lg shadow-sm border border-slate-200 aspect-video flex flex-col items-center justify-center p-2">
+                            <div
+                                class="bg-white rounded-lg shadow-sm border border-slate-200 aspect-video flex flex-col items-center justify-center p-2">
                                 <span class="text-slate-500 font-bold text-sm">SD</span>
                                 <span class="text-xs text-slate-400">640x480</span>
                             </div>
                         </div>
-                        <figcaption class="text-sm text-slate-500 italic mt-6 text-center">Visualizing relative aspect ratios.</figcaption>
+                        <figcaption class="text-sm text-slate-500 italic mt-6 text-center">Visualizing relative aspect
+                            ratios.</figcaption>
                     </div>
                 </div>
             </div>
@@ -398,11 +437,16 @@
         <!-- CTA Section -->
         <section id="full-video-cta" class="py-24 bg-slate-50 border-t border-slate-200/80">
             <div class="container mx-auto px-6 text-center">
-                <div class="bg-gradient-to-r from-slate-800 to-slate-900 text-white p-12 rounded-2xl shadow-2xl relative overflow-hidden max-w-4xl mx-auto">
-                     <div class="absolute -top-1/4 -right-1/4 w-80 h-80 bg-red-500/20 rounded-full filter blur-3xl opacity-50"></div>
+                <div
+                    class="bg-gradient-to-r from-slate-800 to-slate-900 text-white p-12 rounded-2xl shadow-2xl relative overflow-hidden max-w-4xl mx-auto">
+                    <div
+                        class="absolute -top-1/4 -right-1/4 w-80 h-80 bg-red-500/20 rounded-full filter blur-3xl opacity-50">
+                    </div>
                     <div class="relative z-10">
-                        <h2 class="text-3xl md:text-4xl font-bold font-poppins text-white mb-4">Beyond the Thumbnail</h2>
-                        <p class="text-lg text-slate-300 mb-8">Need the actual video file or audio track? Our main downloader handles it all.</p>
+                        <h2 class="text-3xl md:text-4xl font-bold font-poppins text-white mb-4">Beyond the Thumbnail
+                        </h2>
+                        <p class="text-lg text-slate-300 mb-8">Need the actual video file or audio track? Our main
+                            downloader handles it all.</p>
                         <div class="flex flex-wrap justify-center gap-4">
                             <a href="/"
                                 class="px-8 py-3 bg-red-500 text-white font-bold text-lg rounded-lg shadow-lg hover:bg-red-600 transition-all duration-300 transform hover:-translate-y-1">
@@ -424,29 +468,37 @@
         <div class="container mx-auto px-6 py-16">
             <div class="grid md:grid-cols-5 gap-8">
                 <div class="md:col-span-1">
-                    <a href="/" class="text-2xl font-bold font-poppins">YTShorts<span class="text-red-500">dl</span>.net</a>
-                    <p class="mt-4 text-sm text-slate-400 leading-relaxed">The ultimate tool for creators to download, optimize, and repurpose their YouTube Shorts content.</p>
+                    <a href="/" class="text-2xl font-bold font-poppins">YTShorts<span
+                            class="text-red-500">dl</span>.net</a>
+                    <p class="mt-4 text-sm text-slate-400 leading-relaxed">The ultimate tool for creators to download,
+                        optimize, and repurpose their YouTube Shorts content.</p>
                 </div>
                 <div>
                     <h3 class="font-semibold text-white mb-4">Core Tools</h3>
                     <ul class="space-y-3">
                         <li><a href="/index.html" class="hover:text-red-500 transition-colors">Download Shorts</a></li>
-                        <li><a href="/shorts-to-mp3.html" class="hover:text-red-500 transition-colors">MP3 Audio</a></li>
+                        <li><a href="/shorts-to-mp3.html" class="hover:text-red-500 transition-colors">MP3 Audio</a>
+                        </li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="font-semibold text-white mb-4">Guide</h3>
                     <ul class="space-y-3">
-                        <li><a href="/guide/chrome-extension.html" class="hover:text-red-500 transition-colors">Chrome Extension</a></li>
-                        <li><a href="/guide/shorts-to-mp3-tutorial.html" class="hover:text-red-500 transition-colors">Shorts To MP3</a></li>
+                        <li><a href="/guide/chrome-extension.html" class="hover:text-red-500 transition-colors">Chrome
+                                Extension</a></li>
+                        <li><a href="/guide/shorts-to-mp3-tutorial.html"
+                                class="hover:text-red-500 transition-colors">Shorts To MP3</a></li>
                     </ul>
                 </div>
                 <div>
                     <h3 class="font-semibold text-white mb-4">AI Tools</h3>
                     <ul class="space-y-3">
-                        <li><a href="/no-watermark.html" class="hover:text-red-500 transition-colors">Watermark Remover</a></li>
-                        <li><a href="/4k-shorts-downloader.html" class="hover:text-red-500 transition-colors">4K Shorts Downloader</a></li>
-                        <li><a href="/shorts-thumbnail-tool.html" class="hover:text-red-500 transition-colors">Shorts Thumbnail Tool</a></li>
+                        <li><a href="/no-watermark.html" class="hover:text-red-500 transition-colors">Watermark
+                                Remover</a></li>
+                        <li><a href="/4k-shorts-downloader.html" class="hover:text-red-500 transition-colors">4K Shorts
+                                Downloader</a></li>
+                        <li><a href="/shorts-thumbnail-tool.html" class="hover:text-red-500 transition-colors">Shorts
+                                Thumbnail Tool</a></li>
                     </ul>
                 </div>
                 <div>
@@ -461,8 +513,10 @@
             <div class="mt-12 pt-8 border-t border-slate-700 flex flex-col sm:flex-row justify-between items-center">
                 <p class="text-sm text-slate-400">&copy; 2025 YTShortsdl.net. All rights reserved.</p>
                 <div class="flex space-x-4 mt-4 sm:mt-0">
-                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><i class="fab fa-twitter text-xl"></i></a>
-                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><i class="fab fa-youtube text-xl"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><i
+                            class="fab fa-twitter text-xl"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-red-500 transition-colors"><i
+                            class="fab fa-youtube text-xl"></i></a>
                 </div>
             </div>
         </div>
@@ -480,15 +534,21 @@
         <span class="hidden md:inline ml-2">Feedback</span>
     </button>
 
-    <div id="feedback-modal" class="fixed inset-0 bg-black bg-opacity-70 z-[10001] p-0 md:p-4 hidden flex justify-center items-center">
-        <div id="feedback-panel" class="bg-white w-full border-t md:border border-gray-700 shadow-2xl flex flex-col text-gray-800 fixed bottom-0 left-0 right-0 rounded-t-2xl max-h-[85vh] p-4 transform translate-y-full transition-transform duration-300 ease-in-out md:relative md:max-w-xl md:rounded-2xl md:p-6 md:transform-none">
+    <div id="feedback-modal"
+        class="fixed inset-0 bg-black bg-opacity-70 z-[10001] p-0 md:p-4 hidden flex justify-center items-center">
+        <div id="feedback-panel"
+            class="bg-white w-full border-t md:border border-gray-700 shadow-2xl flex flex-col text-gray-800 fixed bottom-0 left-0 right-0 rounded-t-2xl max-h-[85vh] p-4 transform translate-y-full transition-transform duration-300 ease-in-out md:relative md:max-w-xl md:rounded-2xl md:p-6 md:transform-none">
             <header class="flex-shrink-0 text-center relative pb-4">
                 <div class="w-12 h-1.5 bg-gray-600 rounded-full mx-auto mb-4 md:hidden"></div>
                 <h2 class="text-xl lg:text-2xl font-bold text-gray-800">Community Feedback</h2>
-                <button id="close-button" class="absolute -top-1 right-0 text-gray-600 hover:text-gray-800 text-3xl leading-none transition duration-150" aria-label="Close">&times;</button>
+                <button id="close-button"
+                    class="absolute -top-1 right-0 text-gray-600 hover:text-gray-800 text-3xl leading-none transition duration-150"
+                    aria-label="Close">&times;</button>
             </header>
             <div class="overflow-y-auto">
-                <div id="cusdis_thread" data-host="https://cusdis.com" data-app-id="4535a28e-08e9-411e-9c74-0f118e22c1af" data-page-id="ytshots" data-page-url="https://ytshortsdl.net/" data-page-title="ytshots" data-theme="light"></div>
+                <div id="cusdis_thread" data-host="https://cusdis.com"
+                    data-app-id="4535a28e-08e9-411e-9c74-0f118e22c1af" data-page-id="ytshots"
+                    data-page-url="https://ytshortsdl.net/" data-page-title="ytshots" data-theme="light"></div>
             </div>
         </div>
     </div>
@@ -570,7 +630,7 @@
                 submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
             }
         }
-        
+
         // Populate pre-fill if URL param exists
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
@@ -700,4 +760,5 @@
         setTimeout(loadScripts, 5000);
     </script>
 </body>
+
 </html>

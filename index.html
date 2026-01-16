@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free YouTube Shorts Downloader | HD, MP4, MP3 & Batch Tools</title>
+    <title>Free YouTube Shorts Downloader | HD MP4 & MP3</title>
     <meta name="description"
-        content="Download YouTube Shorts videos and audio (MP4/MP3) instantly and for free. The fastest YT Shorts Downloader with no ads, including free batch download mode. Unlock PRO AI tools for creators.">
+        content="Download YouTube Shorts videos and audio (MP4/MP3) instantly and for free. The fastest YT Shorts Downloader with no ads.">
     <!-- Core Tech Stack -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
@@ -15,171 +15,43 @@
     <meta property="og:url" content="https://ytshortsdl.net/">
     <meta property="og:image" content="https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Free YouTube Shorts Downloader | HD, MP4, MP3 & AI Tools">
-    <meta name="twitter:description" content="Download YouTube Shorts (MP4/MP3) instantly. No ads. With AI tools.">
+    <meta name="twitter:title" content="Free YouTube Shorts Downloader | HD MP4 & AI Tools">
+    <meta name="twitter:description" content="Download YouTube Shorts (MP4/MP3) instantly. No ads.">
     <meta name="twitter:image" content="https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png">
 
-    <!-- 1. 预连接 CDN，加速建立握手 -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-
-    <!-- 已移除 Font Awesome CDN 链接，全部使用内联 SVG -->
 
     <link rel="canonical" href="https://ytshortsdl.net/">
     <link rel="stylesheet" href="/dist/output.css">
 
-
     <style>
-        /* Custom scrollbar for new batch UI elements */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #d1d5db;
-            /* gray-300 */
-            border-radius: 10px;
-        }
-
-        /* Custom Ring for focus states */
-
         .custom-focus-ring:focus-within {
             box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
         }
 
-        /* Markdown Styles for Summary Output */
-        #summary-text-output ul {
-            list-style-type: disc;
-            padding-left: 1.5em;
-            margin-bottom: 0.5em;
-        }
-
-        #summary-text-output ol {
-            list-style-type: decimal;
-            padding-left: 1.5em;
-            margin-bottom: 0.5em;
-        }
-
-        #summary-text-output li {
-            margin-bottom: 0.25em;
-        }
-
-        #summary-text-output strong {
-            font-weight: 700;
-            color: #1e293b;
-        }
-
-        #summary-text-output h1 {
-            font-size: 1.5em;
-            font-weight: 700;
-            margin-top: 0.5em;
-            margin-bottom: 0.5em;
-        }
-
-        #summary-text-output h2 {
-            font-size: 1.25em;
-            font-weight: 700;
-            margin-top: 0.5em;
-            margin-bottom: 0.5em;
-        }
-
-        #summary-text-output h3 {
-            font-size: 1.1em;
-            font-weight: 600;
-            margin-top: 0.5em;
-            margin-bottom: 0.5em;
-        }
-
-        #summary-text-output p {
-            margin-bottom: 0.75em;
-        }
-
-        #summary-text-output blockquote {
-            border-left: 4px solid #e2e8f0;
-            padding-left: 1em;
-            color: #64748b;
-            font-style: italic;
-        }
-
-        /* History Card Hover Effect */
-        .history-card .play-overlay {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .history-card:hover .play-overlay {
-            opacity: 1;
-        }
-
-        /* Utility for SVG Icons to behave like Font Awesome icons */
+        /* Utility for SVG Icons */
         svg {
             display: inline-block;
             height: 1em;
-            /* SVG高度跟随字体大小 */
             overflow: visible;
             vertical-align: -0.125em;
         }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
-    <script type="text/javascript">
-        (function (c, l, a, r, i, t, y) {
-            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-        })(window, document, "clarity", "script", "u5xi8vjmmq");
-    </script>
-
-    <meta name="google-adsense-account" content="ca-pub-3383070348689557">
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3383070348689557"
-        crossorigin="anonymous">
-        </script>
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "YTShortsDL",
-            "operatingSystem": "Windows, macOS, Android, iOS",
-            "applicationCategory": "MultimediaApplication",
-            "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.8",
-                "ratingCount": "1250"
-            },
-            "offers": {
-                "@type": "Offer",
-                "price": "0.00",
-                "priceCurrency": "USD"
-            }
-        } 
-    </script>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [{
-            "@type": "Question",
-            "name": "Is this YouTube Shorts Downloader completely free?",
-            "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, the core download functionality (up to 1080P HD) is 100% free. We offer a paid subscription for premium features like 4K downloads and our AI Watermark Remover tool."
-            }
-        }, {
-            "@type": "Question",
-            "name": "Will the YouTube watermark be preserved when I download?",
-            "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The free download retains the watermark. We offer a premium, paid AI feature specifically designed to remove watermarks for seamless cross-platform sharing."
-            }
-        }, {
-            "@type": "Question",
-            "name": "Is this tool safe to use?",
-            "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Absolutely. We use secure, server-side processing methods. Your privacy is fully guaranteed, and we do not store your files or personal data."
-            }
-        }]
-    }
-</script>
 </head>
 
 <body class="font-sans text-slate-800">
@@ -319,7 +191,7 @@
         class="fixed inset-0 bg-black/40 transition-opacity backdrop-hidden z-50 md:hidden">
     </div>
     <aside id="mobile-drawer"
-        class="fixed top-0 right-0 h-full w-80 max-w-[80%] bg-white shadow-2xl translate-x-full transition-transform z-50 md:hidden overflow-scroll invisible"
+        class="fixed top-0 right-0 h-full w-80 max-w-[80%] bg-white shadow-2xl translate-x-full transition-transform z-50 md:hidden overflow-scroll"
         aria-hidden="true">
         <div class="p-4 border-b border-slate-200 flex items-center justify-between">
             <span class="text-xl font-semibold">Menu</span>
@@ -381,117 +253,81 @@
         </nav>
     </aside>
 
-
     <!-- Main Content -->
     <main>
         <!-- Toast Notification Container -->
         <div id="toast-container"
             class="fixed top-24 left-1/2 -translate-x-1/2 z-[60] flex flex-col gap-2 pointer-events-none"></div>
+
         <section id="hero" class="relative py-16 md:py-30 text-center overflow-hidden">
             <div class="glow-effect"></div>
             <div
                 class="container max-w-5xl mx-auto px-4 relative z-10 md:bg-white md:border md:border-slate-200 md:backdrop-blur-md md:p-12 md:rounded-xl md:shadow-lg">
                 <h1
                     class="text-3xl md:text-5xl font-extrabold font-poppins leading-tight tracking-tighter text-slate-900">
-                    Free YouTube Shorts Downloader: <br>The Ultimate Tool for Creators</h1>
-                <p class="mt-4 text-md md:text-lg text-slate-600 max-w-3xl mx-auto font-medium"> HD MP4 and MP3
-                    audio instantly. Clean and completely ad-free. </p>
+                    Free YouTube Shorts Downloader: <br>Fast, Secure & Ad-Free</h1>
+                <p class="mt-4 text-md md:text-lg text-slate-600 max-w-3xl mx-auto font-medium">Download HD Shorts
+                    videos instantly using our edge-delivery technology.</p>
 
-                <!-- Mode Switch Tab -->
-                <div class="mt-8 max-w-xs mx-auto flex bg-slate-100 p-1 rounded-xl shadow-inner" role="tablist">
-                    <button id="mode-single" data-mode="single"
-                        class="mode-switch-btn flex-1 py-2 font-bold text-sm rounded-lg bg-white text-red-600 shadow-md transition-all flex items-center justify-center"
-                        role="tab" aria-selected="true">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-4 h-4 mr-2"
-                            fill="currentColor">
-                            <path
-                                d="M419.5 96c-16.6 0-32.7 4.5-46.8 12.7-15.8-16-34.2-29.4-54.5-39.5 28.2-24 64.1-37.2 101.3-37.2 86.4 0 156.5 70 156.5 156.5 0 41.5-16.5 81.3-45.8 110.6l-71.1 71.1c-29.3 29.3-69.1 45.8-110.6 45.8-86.4 0-156.5-70-156.5-156.5 0-1.5 0-3 .1-4.5 .5-17.7 15.2-31.6 32.9-31.1s31.6 15.2 31.1 32.9c0 .9 0 1.8 0 2.6 0 51.1 41.4 92.5 92.5 92.5 24.5 0 48-9.7 65.4-27.1l71.1-71.1c17.3-17.3 27.1-40.9 27.1-65.4 0-51.1-41.4-92.5-92.5-92.5zM275.2 173.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5 0-48 9.7-65.4 27.1L91.1 258.2c-17.3 17.3-27.1 40.9-27.1 65.4 0 51.1 41.4 92.5 92.5 92.5 16.5 0 32.6-4.4 46.7-12.6 15.8 16 34.2 29.4 54.6 39.5-28.2 23.9-64 37.2-101.3 37.2-86.4 0-156.5-70-156.5-156.5 0-41.5 16.5-81.3 45.8-110.6l71.1-71.1c29.3-29.3 69.1-45.8 110.6-45.8 86.6 0 156.5 70.6 156.5 156.9 0 1.3 0 2.6 0 3.9-.4 17.7-15.1 31.6-32.8 31.2s-31.6-15.1-31.2-32.8c0-.8 0-1.5 0-2.3 0-33.7-18-63.3-44.8-79.6z" />
-                        </svg>
-                        Single Download
-                    </button>
-                    <button id="mode-batch" data-mode="batch"
-                        class="mode-switch-btn flex-1 py-2 font-bold text-sm rounded-lg text-slate-600 hover:text-red-600 transition-all flex items-center justify-center"
-                        role="tab" aria-selected="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4 mr-2"
-                            fill="currentColor">
-                            <path
-                                d="M224.3-2.5c19.8-11.4 44.2-11.4 64 0L464.2 99c19.8 11.4 32 32.6 32 55.4l0 203c0 22.9-12.2 44-32 55.4L288.3 514.5c-19.8 11.4-44.2 11.4-64 0L48.5 413c-19.8-11.4-32-32.6-32-55.4l0-203c0-22.9 12.2-44 32-55.4L224.3-2.5zm207.8 360l0-166.1-143.8 83 0 166.1 143.8-83z" />
-                        </svg> Batch Download
-                    </button>
-                </div>
-
-                <!-- Input Section -->
+                <!-- 1. Input Area (输入链接区) -->
                 <div id="input-section" class="mt-12 max-w-4xl mx-auto">
                     <div
-                        class="flex flex-col md:flex-row items-center bg-white p-2 rounded-xl custom-ring custom-focus-ring transition-shadow duration-300 shadow-lg">
-                        <div id="input-container" class="relative w-full">
-                            <!-- Single Input -->
-                            <div id="single-input-wrapper" class="w-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
-                                    class="w-4 h-4 absolute left-2 top-1/2 -translate-y-1/2 text-slate-400"
-                                    fill="currentColor">
-                                    <path
-                                        d="M419.5 96c-16.6 0-32.7 4.5-46.8 12.7-15.8-16-34.2-29.4-54.5-39.5 28.2-24 64.1-37.2 101.3-37.2 86.4 0 156.5 70 156.5 156.5 0 41.5-16.5 81.3-45.8 110.6l-71.1 71.1c-29.3 29.3-69.1 45.8-110.6 45.8-86.4 0-156.5-70-156.5-156.5 0-1.5 0-3 .1-4.5 .5-17.7 15.2-31.6 32.9-31.1s31.6 15.2 31.1 32.9c0 .9 0 1.8 0 2.6 0 51.1 41.4 92.5 92.5 92.5 24.5 0 48-9.7 65.4-27.1l71.1-71.1c17.3-17.3 27.1-40.9 27.1-65.4 0-51.1-41.4-92.5-92.5-92.5zM275.2 173.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5 0-48 9.7-65.4 27.1L91.1 258.2c-17.3 17.3-27.1 40.9-27.1 65.4 0 51.1 41.4 92.5 92.5 92.5 16.5 0 32.6-4.4 46.7-12.6 15.8 16 34.2 29.4 54.6 39.5-28.2 23.9-64 37.2-101.3 37.2-86.4 0-156.5-70-156.5-156.5 0-41.5 16.5-81.3 45.8-110.6l71.1-71.1c29.3-29.3 69.1-45.8 110.6-45.8 86.6 0 156.5 70.6 156.5 156.9 0 1.3 0 2.6 0 3.9-.4 17.7-15.1 31.6-32.8 31.2s-31.6-15.1-31.2-32.8c0-.8 0-1.5 0-2.3 0-33.7-18-63.3-44.8-79.6z" />
-                                </svg>
-                                <input id="single-input" type="url" placeholder="Paste your YouTube Shorts link here..."
-                                    class="w-full h-12 pl-8 pr-10 bg-transparent focus:outline-none text-md text-slate-800 placeholder:text-slate-400"
-                                    style="height: 48px;">
-                                <button id="clear-single-input"
-                                    class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 hidden">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="4 h-6"
-                                        fill="currentColor">
-                                        <path
-                                            d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zM167 167c9.4-9.4 24.6-9.4 33.9 0l55 55 55-55c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-55 55 55 55c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-55-55-55 55c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l55-55-55-55c-9.4-9.4-9.4-24.6 0-33.9z" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <!-- Batch Input -->
-                            <div id="batch-input-wrapper" class="w-full hidden">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                    class="w-4 h-4 absolute left-2 top-4 text-slate-400" fill="currentColor">
-                                    <path
-                                        d="M0 72C0 58.8 10.7 48 24 48l48 0c13.3 0 24 10.7 24 24l0 104 24 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-96 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l24 0 0-80-24 0C10.7 96 0 85.3 0 72zM30.4 301.2C41.8 292.6 55.7 288 70 288l4.9 0c33.7 0 61.1 27.4 61.1 61.1 0 19.6-9.4 37.9-25.2 49.4l-24 17.5 33.2 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-90.7 0C13.1 464 0 450.9 0 434.7 0 425.3 4.5 416.5 12.1 411l70.5-51.3c3.4-2.5 5.4-6.4 5.4-10.6 0-7.2-5.9-13.1-13.1-13.1L70 336c-3.9 0-7.7 1.3-10.8 3.6L38.4 355.2c-10.6 8-25.6 5.8-33.6-4.8S-1 324.8 9.6 316.8l20.8-15.6zM224 64l256 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 160l256 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 160l256 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-256 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z" />
-                                </svg>
-                                <textarea id="batch-input" rows="5"
-                                    placeholder="Paste multiple Shorts links here, separated by new lines or commas..."
-                                    class="w-full pl-8 pr-10 pt-3 pb-3 bg-transparent focus:outline-none text-md text-slate-800 placeholder:text-slate-400 resize-none"
-                                    style="height: 120px;"></textarea>
-                                <button id="clear-batch-input"
-                                    class="absolute right-2 top-4 text-slate-400 hover:text-slate-600 hidden">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-6 h-6"
-                                        fill="currentColor">
-                                        <path
-                                            d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zM167 167c9.4-9.4 24.6-9.4 33.9 0l55 55 55-55c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-55 55 55 55c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-55-55-55 55c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l55-55-55-55c-9.4-9.4-9.4-24.6 0-33.9z" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                        <!-- CTA Button -->
-                        <button id="download-btn" data-current-mode="single" class="w-full md:w-auto mt-2 md:mt-0 
-                            bg-red-500 text-white font-bold text-lg px-6 py-3 rounded-lg flex-shrink-0 
-                            transition-all duration-300 transform hover:-translate-y-0.5 
-                            hover:shadow-lg flex items-center justify-center space-x-3" style="height: 48px;">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-6 h-6"
+                        class="flex flex-col md:flex-row items-center bg-white p-2 rounded-xl custom-ring custom-focus-ring transition-shadow duration-300 shadow-lg border border-slate-100">
+                        <div class="relative w-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
+                                class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                                 fill="currentColor">
                                 <path
-                                    d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 210.7-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7 256 32zM64 320c-35.3 0-64 28.7-64 64l0 32c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-32c0-35.3-28.7-64-64-64l-46.9 0-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320 64 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z" />
+                                    d="M419.5 96c-16.6 0-32.7 4.5-46.8 12.7-15.8-16-34.2-29.4-54.5-39.5 28.2-24 64.1-37.2 101.3-37.2 86.4 0 156.5 70 156.5 156.5 0 41.5-16.5 81.3-45.8 110.6l-71.1 71.1c-29.3 29.3-69.1 45.8-110.6 45.8-86.4 0-156.5-70-156.5-156.5 0-1.5 0-3 .1-4.5 .5-17.7 15.2-31.6 32.9-31.1s31.6 15.2 31.1 32.9c0 .9 0 1.8 0 2.6 0 51.1 41.4 92.5 92.5 92.5 24.5 0 48-9.7 65.4-27.1l71.1-71.1c17.3-17.3 27.1-40.9 27.1-65.4 0-51.1-41.4-92.5-92.5-92.5zM275.2 173.3c-1.9-.8-3.8-1.9-5.5-3.1-12.6-6.5-27-10.2-42.1-10.2-24.5 0-48 9.7-65.4 27.1L91.1 258.2c-17.3 17.3-27.1 40.9-27.1 65.4 0 51.1 41.4 92.5 92.5 92.5 16.5 0 32.6-4.4 46.7-12.6 15.8 16 34.2 29.4 54.6 39.5-28.2 23.9-64 37.2-101.3 37.2-86.4 0-156.5-70-156.5-156.5 0-41.5 16.5-81.3 45.8-110.6l71.1-71.1c29.3-29.3 69.1-45.8 110.6-45.8 86.6 0 156.5 70.6 156.5 156.9 0 1.3 0 2.6 0 3.9-.4 17.7-15.1 31.6-32.8 31.2s-31.6-15.1-31.2-32.8c0-.8 0-1.5 0-2.3 0-33.7-18-63.3-44.8-79.6z" />
                             </svg>
-                            <span id="download-btn-text">Convert & Download</span>
+                            <input id="videoUrlInput" type="url" placeholder="Paste your YouTube link here..."
+                                class="w-full h-12 pl-10 pr-4 bg-transparent focus:outline-none text-md text-slate-800 placeholder:text-slate-400">
+                        </div>
+                        <button id="parse-btn" onclick="handleParse()" class="w-full md:w-auto mt-2 md:mt-0 
+                            bg-red-500 text-white font-bold text-lg px-8 py-3 rounded-lg flex-shrink-0 
+                            transition-all duration-300 transform hover:-translate-y-0.5 
+                            hover:shadow-lg flex items-center justify-center space-x-2" style="height: 48px;">
+                            <span id="btn-text">Parse Video</span>
+                            <div id="loading-spinner" class="hidden">
+                                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                        stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                    </path>
+                                </svg>
+                            </div>
                         </button>
                     </div>
-                    <p id="input-help" class="mt-2 text-sm text-slate-500">Supports links like:
-
-                    <p id="input-error" class="mt-2 text-sm text-red-600 hidden">Please enter a valid YouTube Shorts
-                        link.</p>
+                    <p class="mt-4 text-sm text-slate-500">Supports all YouTube Shorts and Standard video links.</p>
                 </div>
 
-                <!-- Intent Chips -->
+                <!-- 2. Result Area (解析结果显示区) -->
+                <div id="result-section" class="mt-12 max-w-2xl mx-auto hidden">
+                    <div class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden text-left">
+                        <div class="p-6">
+                            <h3 id="res-title" class="text-xl font-bold text-slate-800 mb-4 line-clamp-2">Video Title
+                            </h3>
+                            <div class="relative aspect-video rounded-xl overflow-hidden bg-slate-100 mb-6">
+                                <img id="res-thumb" src="" alt="Thumbnail" class="w-full h-full object-cover">
+                            </div>
+                            <button id="downloadBtn"
+                                class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 rounded-xl text-lg transition-all transform active:scale-95 shadow-lg flex items-center justify-center space-x-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-6 h-6"
+                                    fill="currentColor">
+                                    <path
+                                        d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 210.7-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7 256 32zM64 320c-35.3 0-64 28.7-64 64l0 32c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-32c0-35.3-28.7-64-64-64l-46.9 0-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320 64 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z" />
+                                </svg>
+                                <span>Download HD Video Now</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="mt-8 flex flex-wrap justify-center gap-3">
-                    <span class="text-slate-400 text-[11px] font-black uppercase tracking-widest w-full mb-1">What
-                        do you need?</span>
-                    <button onclick="document.getElementById('single-input').focus()"
-                        class="px-5 py-2.5 bg-white border border-slate-200 rounded-full font-bold hover:border-red-500 transition-all shadow-sm">🎬
-                        Download Video</button>
+                    <span class="text-slate-400 text-[11px] font-black uppercase tracking-widest w-full mb-1">Tools for
+                        Creators</span>
                     <a href="/shorts-to-mp3.html"
                         class="px-5 py-2.5 bg-white border border-slate-200 rounded-full font-bold hover:border-red-500 transition-all shadow-sm">🎵
                         Extract Audio</a>
@@ -499,12 +335,9 @@
                         class="px-5 py-2.5 bg-white border border-slate-200 rounded-full font-bold hover:border-red-500 transition-all shadow-sm">🖼️
                         Get Cover</a>
                 </div>
-
-                <!-- Result Section (for both single and batch) -->
-                <div id="result-section" class="mt-12 max-w-4xl mx-auto hidden" aria-live="polite" aria-busy="false">
-                </div>
             </div>
         </section>
+
 
         <!-- NEW: HISTORY SECTION (Now Outside Hero) -->
         <section id="history-section"
@@ -1070,6 +903,49 @@
     <script async defer src="/cusdis/cusdis.es.js"></script>
 
     <script>
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileDrawer = document.getElementById('mobile-drawer');
+        const mobileBackdrop = document.getElementById('mobile-drawer-backdrop');
+
+
+
+        // Mobile drawer
+        function openDrawer() {
+            mobileDrawer.classList.remove('translate-x-full');
+            mobileBackdrop.classList.remove('backdrop-hidden');
+            mobileBackdrop.classList.add('backdrop-show');
+            mobileMenuBtn.setAttribute('aria-expanded', 'true');
+            mobileDrawer.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('overflow-hidden'); // lock scroll on body
+        }
+        function closeDrawer() {
+            mobileDrawer.classList.add('translate-x-full');
+            mobileBackdrop.classList.add('backdrop-hidden');
+            mobileBackdrop.classList.remove('backdrop-show');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            mobileDrawer.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('overflow-hidden'); // unlock scroll on body
+        }
+        mobileMenuBtn.addEventListener('click', openDrawer);
+        mobileMenuClose.addEventListener('click', closeDrawer);
+        mobileBackdrop.addEventListener('click', closeDrawer);
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeDrawer();
+        });
+        // Ensure drawer is closed when resizing to desktop breakpoint
+        const mq = window.matchMedia('(min-width: 768px)');
+        function handleBpChange(e) {
+            if (e.matches) closeDrawer();
+        }
+        if (mq.addEventListener) {
+            mq.addEventListener('change', handleBpChange);
+        } else if (mq.addListener) {
+            mq.addListener(handleBpChange);
+        }
+    </script>
+    <script>
         const modal = document.getElementById('feedback-modal');
         const panel = document.getElementById('feedback-panel');
         const toggleButton = document.getElementById('feedback-toggle-button');
@@ -1108,952 +984,127 @@
             }
         });
     </script>
+
     <script>
-        // ====================================================================
-        // START: JAVASCRIPT FOR DYNAMIC FUNCTIONALITY
-        // ====================================================================
+        // 标志，确保脚本只加载一次
+        let thirdPartyScriptsLoaded = false;
 
-        // API Configuration
-        const API_BASE_URL = 'https://ytdlp.vistaflyer.com';
+        // 创建一个函数来加载所有第三方脚本
+        function loadThirdPartyScripts() {
+            if (thirdPartyScriptsLoaded) {
+                return;
+            }
+            thirdPartyScriptsLoaded = true;
+            console.log("User interaction detected, loading third-party scripts...");
 
-        // --- NEW: LIMIT CONFIGURATION ---
-        const MAX_DOWNLOAD_LIMIT = 3; // 最大下载数量限制
-        const STORAGE_KEY = 'yt_user_download_count'; // 本地存储Key
-        const HISTORY_KEY = 'yt_parse_history'; // History Storage Key
-        const MAX_HISTORY = 10; // Keep last 10 items
+            // 1. 加载 Google Tag Manager (GTAG)
+            const gtagScript = document.createElement('script');
+            gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-Z6TQTL70L0';
+            gtagScript.async = true;
+            // GTAG 脚本加载完成后，再执行初始化代码
+            gtagScript.onload = function () {
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-Z6TQTL70L0');
+            };
+            document.head.appendChild(gtagScript);
 
-        // 获取当前下载次数
-        function getDownloadCount() {
-            return parseInt(localStorage.getItem(STORAGE_KEY) || '0');
         }
 
-        // 增加下载次数
-        function incrementDownloadCount() {
-            let count = getDownloadCount();
-            localStorage.setItem(STORAGE_KEY, count + 1);
-        }
+        const userInteractionEvents = [
+            "mousemove", "scroll", "keydown", "touchstart", "click"
+        ];
 
-        // Element References
-        const singleInput = document.getElementById('single-input'),
-            batchInput = document.getElementById('batch-input'),
-            singleWrapper = document.getElementById('single-input-wrapper'),
-            batchWrapper = document.getElementById('batch-input-wrapper'),
-            clearSingleBtn = document.getElementById('clear-single-input'),
-            clearBatchBtn = document.getElementById('clear-batch-input'),
-            downloadButton = document.getElementById('download-btn'),
-            resultSection = document.getElementById('result-section'),
-            historySection = document.getElementById('history-section'),
-            historyList = document.getElementById('history-list'),
-            clearHistoryBtn = document.getElementById('clear-history-btn'),
-            inputError = document.getElementById('input-error'),
-            inputHelp = document.getElementById('input-help'),
-            modeSwitchBtns = document.querySelectorAll('.mode-switch-btn'),
-            inputSection = document.getElementById('input-section'),
-            mobileMenuBtn = document.getElementById('mobile-menu-button'),
-            mobileMenuClose = document.getElementById('mobile-menu-close'),
-            mobileDrawer = document.getElementById('mobile-drawer'),
-            mobileBackdrop = document.getElementById('mobile-drawer-backdrop');
+        userInteractionEvents.forEach(function (event) {
+            window.addEventListener(event, loadThirdPartyScripts, { once: true, passive: true });
+        });
 
-        // Batch Task State
-        let batchPollingInterval = null;
+        setTimeout(loadThirdPartyScripts, 5000);
+    </script>
+    <!-- JavaScript Logic (按照参考代码重新实现) -->
+    <script>
+        // API Configuration (配置)
+        const API_URL = 'https://ytdlp.vistaflyer.com/api/parse';
+        const WORKER_URL = 'https://patient-shadow-6e5c.franke-4b7.workers.dev/';
 
-        // --- Core Helpers ---
-        const isValidYouTubeUrl = (value) => { try { const url = new URL(value.trim()); const host = url.hostname.replace(/^www\./, ''); return ['youtube.com', 'm.youtube.com', 'youtu.be'].includes(host); } catch { return false; } };
-        const showError = (message) => { inputError.textContent = message; inputError.classList.remove('hidden'); };
-        const clearError = () => inputError.classList.add('hidden');
-        const extractAndValidateLinks = (text) => { const lines = text.trim().replace(/,/g, '\n').split('\n'); const validLinks = new Set(); lines.forEach(line => { const trimmed = line.trim(); if (trimmed && isValidYouTubeUrl(trimmed)) { validLinks.add(trimmed); } }); return Array.from(validLinks); };
-
-        // Escape text for use inside HTML attributes
-        function attrEscape(s) {
-            if (s === undefined || s === null) return '';
-            return String(s).replace(/\"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        }
-
-        // --- Toast Notification Helper ---
+        // Notification Helper (弹窗提示)
         function showToast(message, type = 'error') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-
             const bgClass = type === 'error' ? 'bg-red-600' : 'bg-green-600';
-
-            // Replaced icon classes with SVGs
-            const iconSvg = type === 'error'
-                ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="text-lg w-5 h-5" fill="currentColor"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/></svg>`
-                : `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="text-lg w-5 h-5" fill="currentColor"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>`;
-
-            toast.className = `${bgClass} text-white px-6 py-4 rounded-lg shadow-xl flex items-center gap-3 transition-all duration-300 transform translate-y-[-20px] opacity-0 pointer-events-auto min-w-[300px] max-w-[90vw]`;
-            toast.innerHTML = `
-        ${iconSvg}
-        <span class="font-medium text-sm md:text-base">${message}</span>
-    `;
-
+            toast.className = `${bgClass} text-white px-6 py-4 rounded-lg shadow-xl flex items-center gap-3 transition-all duration-300 pointer-events-auto`;
+            toast.innerHTML = `<span class="font-medium text-sm">${message}</span>`;
             container.appendChild(toast);
-
-            requestAnimationFrame(() => {
-                toast.classList.remove('translate-y-[-20px]', 'opacity-0');
-            });
-
             setTimeout(() => {
-                toast.classList.add('opacity-0', '-translate-y-2');
+                toast.classList.add('opacity-0');
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
 
-        // --- UI & Mode Switching ---
-        function setLoading(state, mode, text = '') {
-            if (state) {
-                // Replaced fa-spinner with SVG animate-spin
-                downloadButton.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>${text || (mode === 'batch' ? 'Processing...' : 'Processing...')}</span>`;
-                downloadButton.disabled = true;
-            } else {
-                downloadButton.innerHTML = mode === 'batch'
-                    ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4 mr-2" fill="currentColor"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg><span>Analyze Links</span>`
-                    : `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-6 h-6" fill="currentColor"> <path d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 210.7-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7 256 32zM64 320c-35.3 0-64 28.7-64 64l0 32c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-32c0-35.3-28.7-64-64-64l-46.9 0-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320 64 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg><span>Convert & Download</span>`;
-                downloadButton.disabled = false;
-            }
-        }
+        // Main Parse Function (解析核心函数)
+        async function handleParse() {
+            const urlInput = document.getElementById('videoUrlInput').value.trim();
+            const btnText = document.getElementById('btn-text');
+            const spinner = document.getElementById('loading-spinner');
+            const resultSection = document.getElementById('result-section');
+            const parseBtn = document.getElementById('parse-btn');
 
-        function switchMode(mode) {
-            downloadButton.dataset.currentMode = mode;
-            clearError();
-            resultSection.innerHTML = '';
+            if (!urlInput) {
+                showToast('Please enter a YouTube link first!');
+                return;
+            }
+
+            // UI State: Loading (加载状态)
+            btnText.innerText = 'Analyzing...';
+            spinner.classList.remove('hidden');
+            parseBtn.disabled = true;
             resultSection.classList.add('hidden');
-            inputSection.classList.remove('hidden');
-            if (batchPollingInterval) clearInterval(batchPollingInterval);
-
-            modeSwitchBtns.forEach(btn => {
-                const isTarget = btn.dataset.mode === mode;
-                btn.classList.toggle('bg-white', isTarget);
-                btn.classList.toggle('text-red-600', isTarget);
-                btn.classList.toggle('shadow-md', isTarget);
-                btn.classList.toggle('text-slate-600', !isTarget);
-            });
-
-            const isSingle = mode === 'single';
-            singleWrapper.classList.toggle('hidden', !isSingle);
-            batchWrapper.classList.toggle('hidden', isSingle);
-
-            // Fixed String Concatenation syntax error here
-            inputHelp.textContent = isSingle
-                ? "Supports links like: https://www.youtube.com/shorts/ipdvBJGgx9k"
-                : `Enter one link per line (Max ${MAX_DOWNLOAD_LIMIT} links).`;
-
-            downloadButton.style.height = isSingle ? '48px' : '120px';
-            (isSingle ? singleInput : batchInput).focus();
-            setLoading(false, mode);
-        }
-
-        // --- HISTORY FUNCTIONALITY ---
-        function updateHistory(videoData) {
-            try {
-                let history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
-
-                // Remove existing entry with same URL to push it to top (updates timestamp/details)
-                history = history.filter(item => item.url !== videoData.url);
-
-                // Add new item to beginning
-                history.unshift({
-                    title: videoData.title,
-                    url: videoData.url,
-                    thumbnail: videoData.thumbnail,
-                    uploader: videoData.uploader,
-                    timestamp: new Date().getTime()
-                });
-
-                // Trim to max length
-                if (history.length > MAX_HISTORY) {
-                    history = history.slice(0, MAX_HISTORY);
-                }
-
-                localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-                renderHistory();
-            } catch (e) {
-                console.error("Failed to save history", e);
-            }
-        }
-
-        function renderHistory() {
-            try {
-                const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
-
-                if (history.length === 0) {
-                    historySection.classList.add('hidden');
-                    return;
-                }
-
-                historySection.classList.remove('hidden');
-                historyList.innerHTML = history.map(item => `
-                    <div class="history-card bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden cursor-pointer hover:shadow-lg hover:border-red-200 transition-all duration-300 group" onclick="loadHistoryItem('${item.url}')">
-                        <div class="relative aspect-video bg-slate-100 overflow-hidden">
-                             <img src="${item.thumbnail}" alt="thumb" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                             <div class="play-overlay absolute inset-0 bg-black/40 flex items-center justify-center backdrop-blur-[2px]">
-                                <div class="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center text-white shadow-lg transform scale-90 group-hover:scale-100 transition-transform">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="ml-1 text-sm w-3 h-3" fill="currentColor"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                                </div>
-                             </div>
-                        </div>
-                        <div class="p-3">
-                            <h4 class="text-sm font-bold text-slate-800 truncate leading-tight mb-1" title="${attrEscape(item.title)}">${item.title || 'Untitled Video'}</h4>
-                            <p class="text-xs text-slate-500 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="text-red-500 mr-1.5 w-3 h-3" fill="currentColor"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 42.3 48.3 48.6C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.9 48.3-48.6 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5l0-175.2l152.7 87.6l-152.7 87.6z"/></svg>
-                                <span class="truncate">${item.uploader || 'YouTube Shorts'}</span>
-                            </p>
-                        </div>
-                    </div>
-                `).join('');
-
-            } catch (e) {
-                console.error("Failed to render history", e);
-            }
-        }
-
-        function clearHistory() {
-            if (confirm('Are you sure you want to clear your download history?')) {
-                localStorage.removeItem(HISTORY_KEY);
-                renderHistory();
-            }
-        }
-
-        // Global function for onclick in HTML string
-        window.loadHistoryItem = (url) => {
-            singleInput.value = url;
-            clearSingleBtn.classList.remove('hidden');
-            window.scrollTo({ top: document.getElementById('hero').offsetTop, behavior: 'smooth' });
-            handleSingleGetInfo(url);
-        };
-
-        // --- RENDER FUNCTIONS (FOR BOTH MODES) ---
-
-        function renderSkeleton() {
-            return `
-            <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 text-left animate-pulse">
-                <div class="flex flex-col md:flex-row gap-6 mb-8">
-                    <div class="w-full md:w-48 h-28 bg-slate-200 rounded-lg"></div>
-                    <div class="flex-1 space-y-3 py-2">
-                        <div class="h-6 w-3/4 bg-slate-200 rounded"></div>
-                        <div class="h-4 w-1/2 bg-slate-200 rounded"></div>
-                        <div class="h-4 w-1/4 bg-slate-200 rounded mt-2"></div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8"> 
-                    <div class="md:col-span-2 space-y-4">
-                        <div class="flex gap-4 mb-6 border-b border-slate-200 pb-2">
-                            <div class="h-8 w-24 bg-slate-200 rounded"></div>
-                            <div class="h-8 w-24 bg-slate-200 rounded"></div>
-                        </div>
-                        <div class="h-12 w-full bg-slate-200 rounded-lg"></div>
-                        <div class="h-12 w-full bg-slate-200 rounded-lg"></div>
-                        <div class="h-12 w-full bg-slate-200 rounded-lg"></div>
-                        <div class="h-12 w-full bg-slate-200 rounded-lg"></div>
-                    </div>
-                    <div class="md:col-span-1 hidden md:block">
-                        <div class="h-64 w-full bg-slate-100 rounded-xl border border-slate-200"></div>
-                    </div>
-                </div>
-            </div>`;
-        }
-
-        function renderSingleResults(data) {
-            const title = data.title || 'Unknown Title';
-            const thumbnail = data.thumbnail || '';
-            const uploader = data.uploader || 'Unknown Author';
-            const url = data.url;
-            const formats = data.formats || [];
-            const subtitles = data.subtitles || [];
-
-            // Add to history if successful
-            updateHistory({
-                title: title,
-                url: url,
-                thumbnail: thumbnail,
-                uploader: uploader
-            });
-
-            // Combine title + description to improve detection
-            const combinedForTags = (title + '\n').trim();
-            let hashtagsArr = [];
-            try {
-                hashtagsArr = combinedForTags.match(/#[\p{L}\p{N}_]+/gu) || [];
-            } catch (e) {
-                // Fallback for older engines without unicode property escapes
-                hashtagsArr = combinedForTags.match(/#[A-Za-z0-9_]+/g) || [];
-            }
-            const hashtags = hashtagsArr.join(' ');
-
-            // Updated Filter Logic based on Backend 'is_audio' flag
-            // If is_audio is available, use it. Otherwise fallback to resolution string check.
-            const videoFormats = formats.filter(f => {
-                if (typeof f.is_audio !== 'undefined') return !f.is_audio;
-                return f.resolution && !f.resolution.includes('Audio Only');
-            });
-
-            const audioFormats = formats.filter(f => {
-                if (typeof f.is_audio !== 'undefined') return f.is_audio;
-                return !f.resolution || f.resolution.includes('Audio Only') || f.resolution === 'MP3';
-            });
-
-            // --- Updated Render Function to include Remaining Limit ---
-            const renderFormats = (fmtList, type) => {
-                if (!fmtList || fmtList.length === 0) {
-                    return `<div class="p-4 text-sm text-slate-500 text-center italic bg-slate-50 rounded-lg">No ${type} formats available.</div>`;
-                }
-                // Show Remaining Downloads
-                const remaining = MAX_DOWNLOAD_LIMIT - getDownloadCount();
-                const limitHtml = `<div class="mb-3 text-xs font-semibold text-slate-500 text-right">Daily Limit: <span class="${remaining > 0 ? 'text-green-600' : 'text-red-600'}">${remaining} / ${MAX_DOWNLOAD_LIMIT}</span> remaining</div>`;
-
-                return limitHtml + fmtList.map(f => {
-                    const isAudio = type === 'audio';
-                    // Replaced icon logic
-                    const iconSvg = isAudio
-                        ? `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" class="w-4 h-4"><path d="M499.1 6.3c8.1 6 12.9 15.6 12.9 25.7v72V368c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V147L192 223.8V432c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V112V32c0-10.1 4.8-19.2 12.9-25.2S161.4-4.2 173.2-.2l288 96c13 4.3 22.2 15.4 24.2 28.5z"/></svg>`
-                        : `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor" class="w-4 h-4"><path d="M0 128C0 92.7 28.7 64 64 64H320c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zM559.1 99.8c10.4 5.6 16.9 16.4 16.9 28.2V384c0 11.9-6.5 22.6-16.9 28.2s-23 5-32.9-1.6l-96-64L448 128l-17.8 11.9 96-64c9.9-6.6 22.5-7.2 32.9-1.6z"/></svg>`;
-                    // Backend now provides clean string e.g. "1080p HD (MP4)"
-                    const labelText = f.resolution || 'High Quality';
-                    const fileSizeText = f.filesize ? `${(f.filesize / 1024 / 1024).toFixed(2)} MB` : 'N/A';
-
-                    return `
-                    <div class="flex items-center justify-between p-3 mb-2 bg-white rounded-lg shadow-sm border border-slate-100 hover:bg-slate-50 transition-colors">
-                        <div class="flex items-center gap-3 overflow-hidden">
-                            <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-red-500">
-                                ${iconSvg}
-                            </div>
-                            <div class="font-medium text-slate-700 text-sm truncate">${labelText}</div>
-                        </div>
-                        <div class="flex items-center gap-3 flex-shrink-0">
-                            <span class="text-xs text-slate-400 w-16 text-right font-mono hidden sm:block">${fileSizeText}</span>
-                            <button class="download-link-btn bg-red-500 text-white font-semibold px-4 py-1.5 rounded-md text-xs hover:bg-gray-600 transition-colors shadow-sm " 
-                                data-url="${url}" 
-                                data-title="${title}"
-                                data-format-id="${f.format_id}">
-                                Download
-                            </button>
-                        </div>
-                    </div>`;
-                }).join('');
-            };
-
-            const renderSubtitlesList = (subs) => {
-                if (!subs || subs.length === 0) {
-                    return `<div class="p-4 text-sm text-slate-500 text-center italic bg-slate-50 rounded-lg">No subtitles found.</div>`;
-                }
-                return subs.map(s => {
-                    const labelText = `${s.name} (${s.lang_code.toUpperCase()})`;
-                    return `
-                    <div class="flex items-center justify-between p-2 mb-2 bg-white rounded border border-slate-100 text-sm hover:bg-slate-50 transition-colors">
-                        <div class="flex items-center gap-2">
-                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="text-slate-400 w-4 h-4" fill="currentColor"><path d="M448 64c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128c0-35.3 28.7-64 64-64H448zM256 192H128c-17.7 0-32 14.3-32 32V352c0 17.7 14.3 32 32 32H256c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32zm128 0H352c-17.7 0-32 14.3-32 32V352c0 17.7 14.3 32 32 32h32c17.7 0 32-14.3 32-32V224c0-17.7-14.3-32-32-32z"/></svg>
-                             <span class="text-slate-700 font-medium">${labelText}</span>
-                             ${s.is_auto ? '<span class="text-[10px] bg-slate-100 text-slate-500 px-1 rounded">Auto</span>' : ''}
-                        </div>
-                        
-                        <div class="relative flex items-center group-dropdown">
-                            <button class="download-link-btn flex items-center bg-white border border-slate-300 text-slate-700 hover:text-red-500 hover:border-red-400 text-xs font-semibold px-3 py-1.5 rounded-l-md transition-colors" 
-                                    title="Download .srt"
-                                    data-url="${url}" 
-                                    data-title="${title}_${s.lang_code}"
-                                    data-format-id="sub_srt_${s.lang_code}">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="mr-1 w-3 h-3" fill="currentColor"><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zM432 456a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/></svg> .SRT
-                            </button>
-                             <button class="menu-toggle-btn flex items-center bg-slate-50 border-t border-b border-r border-slate-300 text-slate-600 hover:text-red-500 hover:bg-white text-xs font-semibold px-2 py-1.5 rounded-r-md transition-colors"
-                                     onclick="this.nextElementSibling.classList.toggle('hidden')">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-3 h-3" fill="currentColor"><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>
-                            </button>
-                            <div class="absolute right-0 top-full mt-1 w-40 bg-white border border-slate-200 shadow-lg rounded-md z-10 hidden" onmouseleave="this.classList.add('hidden')">
-                                <button class="download-link-btn block w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-slate-50 hover:text-red-500"
-                                        data-url="${url}" 
-                                        data-title="${title}_${s.lang_code}"
-                                        data-format-id="sub_txt_${s.lang_code}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="mr-2 inline w-3 h-3" fill="currentColor"><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V128c0-17.7-14.3-32-32-32H208V64c0-17.7-14.3-32-32-32H64zM240 128V32.9L351.1 144H240zM64 416c0-8.8 7.2-16 16-16H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H80c-8.8 0-16-7.2-16-16zm0-96c0-8.8 7.2-16 16-16H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H80c-8.8 0-16-7.2-16-16zm0-96c0-8.8 7.2-16 16-16H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H80c-8.8 0-16-7.2-16-16z"/></svg> Plain Text (.txt)
-                                </button>
-                            </div>
-                        </div>
-                    </div>`;
-                }).join('');
-            };
-
-            const renderSummaryTab = (subs) => {
-                if (!subs || subs.length === 0) {
-                    return `<div class="p-4 text-sm text-slate-500 text-center italic bg-slate-50 rounded-lg">No subtitles found.</div>`;
-                }
-                const userLang = navigator.language.split('-')[0];
-                let defaultSub = subs.find(s => s.lang_code === userLang);
-                if (!defaultSub) defaultSub = subs.find(s => s.lang_code.startsWith('en'));
-                if (!defaultSub) defaultSub = subs[0];
-
-                const optionsHtml = subs.map(s => {
-                    const isSelected = (defaultSub && s.lang_code === defaultSub.lang_code) ? 'selected' : '';
-                    const label = `${s.name} (${s.lang_code.toUpperCase()}) ${s.is_auto ? '[Auto]' : ''}`;
-                    return `<option value="${s.lang_code}" ${isSelected}>${label}</option>`;
-                }).join('');
-
-                return `
-                <div class="bg-red-50 p-4 rounded-lg border border-red-100 mb-6">
-                    <h4 class="font-bold text-slate-600 mb-3 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="mr-2 w-4 h-4" fill="currentColor"><path d="M320 0c17.7 0 32 14.3 32 32V96H472c39.8 0 72 32.2 72 72V440c0 39.8-32.2 72-72 72H168c-39.8 0-72-32.2-72-72V168c0-39.8 32.2-72 72-72H288V32c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H208zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H304zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H400zM264 256a40 40 0 1 0 -80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224H64V416H48c-26.5 0-48-21.5-48-48V272c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H576V224h16z"/></svg> AI Video Summary
-                    </h4>
-                    <div class="flex flex-col sm:flex-row gap-3">
-                        <select id="summary-lang-select" class="flex-1 p-2.5 rounded-lg border border-red-200 text-sm focus:ring-2 focus:ring-red-500 outline-none">
-                            ${optionsHtml}
-                        </select>
-                        <button id="btn-generate-summary" data-url="${url}" class="bg-red-500 text-white font-bold px-6 py-2.5 rounded-lg hover:bg-red-700 transition-colors shadow-sm flex items-center justify-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4" fill="currentColor"><path d="M448 256c0-106-86-192-192-192V444.1l115.6-70.1c54.7-33.1 76.4-96.1 76.4-118zM224 444.1V64C118 64 32 150 32 256c0 62.4 29.5 119.5 76.4 154.9L224 444.1zM256 0c141.4 0 256 114.6 256 256s-114.6 256-256 256S0 397.4 0 256S114.6 0 256 0z"/></svg> Generate Summary
-                        </button>
-                    </div>
-                    <div id="summary-container" class="mt-4 hidden">
-                         <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-inner min-h-[120px] max-h-[400px] overflow-y-auto">
-                            <div id="summary-text-output" class="text-slate-700 text-sm leading-relaxed font-sans"></div>
-                            <span id="summary-cursor" class="inline-block w-1.5 h-4 bg-red-500 ml-1 animate-pulse align-middle"></span>
-                         </div>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <h5 class="font-semibold text-slate-700 text-sm mb-2 px-1 flex justify-between items-center">
-                        <span>Subtitle Downloads</span>
-                        <span class="text-xs font-normal text-slate-500 bg-slate-100 px-2 py-0.5 rounded">SRT & TXT Supported</span>
-                    </h5>
-                    <div class="max-h-60 overflow-y-auto custom-scrollbar border border-slate-100 rounded-lg p-2 bg-slate-50">
-                        ${renderSubtitlesList(subs)}
-                    </div>
-                </div>`;
-            };
-
-            resultSection.innerHTML = `
-            <div class="bg-white p-4 text-left rounded-2xl">
-                <div class="flex flex-col md:flex-row gap-6 items-start border-b border-slate-100 pb-8">
-                    <img src="${thumbnail}" alt="${title}" class="w-full md:w-48 h-auto rounded-lg object-cover shadow-lg border bg-slate-100">
-                    <div class="flex-1 overflow-hidden">
-                            <h3 class="text-2xl font-bold font-poppins text-slate-800 leading-tight">${title}</h3>
-                            <div class="mt-3 flex flex-wrap items-center gap-3">
-                                <button class="copy-caption-btn inline-flex items-center gap-2 px-3 py-1.5 bg-slate-100 text-sm rounded-md hover:bg-slate-200" data-caption="${attrEscape(title)}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-3 h-3" fill="currentColor"><path d="M384 336H192c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16l140.1 0L400 115.9V320c0 8.8-7.2 16-16 16zM192 384H384c35.3 0 64-28.7 64-64V115.9c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1H192c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H256c35.3 0 64-28.7 64-64V416H272v32c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16H96V128H64z"/></svg>
-                                    <span>Copy Caption</span>
-                                </button>
-
-                                <button class="copy-hashtag-btn inline-flex items-center gap-2 px-3 py-1.5 bg-slate-100 text-sm rounded-md hover:bg-slate-200" data-hashtags="${attrEscape(hashtags)}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-3 h-3" fill="currentColor"><path d="M181.3 32.4c17.4 2.9 29.2 19.4 26.3 36.8L197.8 128h95.1l11.5-69.3c2.9-17.4 19.4-29.2 36.8-26.3s29.2 19.4 26.3 36.8L357.8 128H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H347.1L325.8 320H384c17.7 0 32 14.3 32 32s-14.3 32-32 32H315.1l-11.5 69.3c-2.9 17.4-19.4 29.2-36.8 26.3s-29.2-19.4-26.3-36.8l9.8-58.7H155.1l-11.5 69.3c-2.9 17.4-19.4 29.2-36.8 26.3s-29.2-19.4-26.3-36.8L90.2 384H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h68.9l21.3-128H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h68.9l11.5-69.3c2.9-17.4 19.4-29.2 36.8-26.3zM155.1 320h95.1l21.3-128H176.4l-21.3 128z"/></svg>
-                                    <span>Copy Hashtags</span>
-                                </button>
-
-                                <button class="download-thumb-btn inline-flex items-center gap-2 px-3 py-1.5 bg-slate-100 text-sm rounded-md hover:bg-slate-200" data-thumb-url="${attrEscape(thumbnail)}" data-title="${attrEscape(title)}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-3 h-3" fill="currentColor"><path d="M448 80c8.8 0 16 7.2 16 16V415.8l-5-6.5-136-176c-4.5-5.9-11.6-9.3-19-9.3s-14.4 3.4-19 9.3L202 340.7l-30.5-42.7C167 291.7 159.8 288 152 288s-15 3.7-19.5 10.1l-80 112L48 416.3l0-.3V96c0-8.8 7.2-16 16-16H448zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM336 264a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"/></svg>
-                                    <span>Download Thumbnail</span>
-                                </button>
-                            </div>
-                        </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="md:col-span-2">
-                        <div class="md:bg-slate-50 md:p-4 md:rounded-xl border border-transparent md:border-slate-200 h-full">
-                            <div class="flex flex-wrap gap-2 border-b border-slate-300 mb-4 pb-1" role="tablist">
-                                <button data-tab="video" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-red-500 text-red-600 transition-colors focus:outline-none flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="mr-1 w-4 h-4" fill="currentColor"><path d="M0 128C0 92.7 28.7 64 64 64H320c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zM559.1 99.8c10.4 5.6 16.9 16.4 16.9 28.2V384c0 11.9-6.5 22.6-16.9 28.2s-23 5-32.9-1.6l-96-64L448 128l-17.8 11.9 96-64c9.9-6.6 22.5-7.2 32.9-1.6z"/></svg> Video (${videoFormats.length})
-                                </button>
-                                <button data-tab="audio" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-transparent text-slate-600 hover:text-red-500 transition-colors focus:outline-none flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="mr-1 w-4 h-4" fill="currentColor"><path d="M499.1 6.3c8.1 6 12.9 15.6 12.9 25.7v72V368c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V147L192 223.8V432c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V112V32c0-10.1 4.8-19.2 12.9-25.2S161.4-4.2 173.2-.2l288 96c13 4.3 22.2 15.4 24.2 28.5z"/></svg> Audio (${audioFormats.length})
-                                </button>
-                                <button data-tab="summary" class="tab-button font-bold px-4 py-2 text-sm border-b-2 border-transparent text-slate-600 hover:text-slate-600 transition-colors focus:outline-none flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="mr-1 w-4 h-4" fill="currentColor"><path d="M234.7 42.7L197 56.8c-3 1.1-5 4-5 7.2s2 6.1 5 7.2l37.7 14.1L248.8 123c1.1 3 4 5 7.2 5s6.1-2 7.2-5l14.1-37.7L315 71.2c3-1.1 5-4 5-7.2s-2-6.1-5-7.2L277.3 42.7 263.2 5c-1.1-3-4-5-7.2-5s-6.1 2-7.2 5L234.7 42.7zM46.1 395.4c-18.7 18.7-18.7 49.1 0 67.9l34.6 34.6c18.7 18.7 49.1 18.7 67.9 0L529.9 116.5c18.7-18.7 18.7-49.1 0-67.9L495.3 14.1c-18.7-18.7-49.1-18.7-67.9 0L46.1 395.4zM484.6 82.6l34.6 34.6c6.3 6.3 6.3 16.4 0 22.6l-22.6 22.6L461.2 127L435.6 101.4l-22.6 22.6L387.4 98.4l22.6-22.6L384.6 50.3l22.6-22.6c6.3-6.3 16.4-6.3 22.6 0l34.6 34.6c6.3 6.3 16.4 6.3 22.6 0L484.6 59.9c6.3 6.3 6.3 16.4 0 22.6zM288 139.2l-22.6 22.6 25.6 25.6-22.6 22.6-25.6-25.6L217.2 210l25.6 25.6-22.6 22.6-25.6-25.6L169 258.2l-22.6-22.6 25.6-25.6-22.6-22.6-25.6 25.6L98.2 187.4l22.6-22.6 25.6 25.6 22.6-22.6 25.6-25.6L146.4 116.6l-22.6-22.6L149.4 68.4l22.6 22.6 25.6-25.6-22.6-22.6-25.6 25.6L123.8 43.2l22.6-22.6 25.6 25.6 22.6-22.6 25.6-25.6L194.6 23.4l22.6 22.6 25.6-25.6 22.6 22.6 25.6 25.6L265.4 43.2l22.6-22.6L288 20.6l-22.6-22.6-25.6 25.6-22.6-22.6-25.6 25.6L169 2.2l-22.6-22.6L120.8 2.2 98.2-20.4 72.6 5.2 98.2 30.8 75.6 53.4 50 27.8 72.6 5.2 46.1 31.7c-6.3 6.3-6.3 16.4 0 22.6l34.6 34.6c6.3 6.3 16.4 6.3 22.6 0L128.8 63.3 288 222.5l25.6-25.6c6.3-6.3 6.3-16.4 0-22.6L288 139.2z"/></svg> AI Summary (${subtitles.length})
-                                </button>
-                            </div>
-                            
-                            <div data-content="video" class="tab-content space-y-2">
-                                ${renderFormats(videoFormats, 'video')}
-                            </div>
-                            <div data-content="audio" class="tab-content space-y-2 hidden">
-                                ${renderFormats(audioFormats, 'audio')}
-                            </div>
-                            <div data-content="summary" class="tab-content space-y-2 hidden">
-                                ${renderSummaryTab(subtitles)}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="md:col-span-1">
-                        <div class="bg-gradient-to-br from-red-50 to-blue-50 p-6 rounded-xl border border-red-100 h-fit shadow-sm sticky top-24">
-                            <h4 class="font-semibold text-lg mb-4 flex items-center text-slate-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="text-red-500 mr-2 w-4 h-4" fill="currentColor"><path d="M234.7 42.7L197 56.8c-3 1.1-5 4-5 7.2s2 6.1 5 7.2l37.7 14.1L248.8 123c1.1 3 4 5 7.2 5s6.1-2 7.2-5l14.1-37.7L315 71.2c3-1.1 5-4 5-7.2s-2-6.1-5-7.2L277.3 42.7 263.2 5c-1.1-3-4-5-7.2-5s-6.1 2-7.2 5L234.7 42.7zM46.1 395.4c-18.7 18.7-18.7 49.1 0 67.9l34.6 34.6c18.7 18.7 49.1 18.7 67.9 0L529.9 116.5c18.7-18.7 18.7-49.1 0-67.9L495.3 14.1c-18.7-18.7-49.1-18.7-67.9 0L46.1 395.4zM484.6 82.6l34.6 34.6c6.3 6.3 6.3 16.4 0 22.6l-22.6 22.6L461.2 127L435.6 101.4l-22.6 22.6L387.4 98.4l22.6-22.6L384.6 50.3l22.6-22.6c6.3-6.3 16.4-6.3 22.6 0l34.6 34.6c6.3 6.3 16.4 6.3 22.6 0L484.6 59.9c6.3 6.3 6.3 16.4 0 22.6zM288 139.2l-22.6 22.6 25.6 25.6-22.6 22.6-25.6-25.6L217.2 210l25.6 25.6-22.6 22.6-25.6-25.6L169 258.2l-22.6-22.6 25.6-25.6-22.6-22.6-25.6 25.6L98.2 187.4l22.6-22.6 25.6 25.6 22.6-22.6 25.6-25.6L146.4 116.6l-22.6-22.6L149.4 68.4l22.6 22.6 25.6-25.6-22.6-22.6-25.6 25.6L123.8 43.2l22.6-22.6 25.6 25.6 22.6-22.6 25.6-25.6L194.6 23.4l22.6 22.6 25.6-25.6 22.6 22.6 25.6 25.6L265.4 43.2l22.6-22.6L288 20.6l-22.6-22.6-25.6 25.6-22.6-22.6-25.6 25.6L169 2.2l-22.6-22.6L120.8 2.2 98.2-20.4 72.6 5.2 98.2 30.8 75.6 53.4 50 27.8 72.6 5.2 46.1 31.7c-6.3 6.3-6.3 16.4 0 22.6l34.6 34.6c6.3 6.3 16.4 6.3 22.6 0L128.8 63.3 288 222.5l25.6-25.6c6.3-6.3 6.3-16.4 0-22.6L288 139.2z"/></svg> Creator Suite 
-                                <span class="ml-2 text-[10px] font-bold bg-red-500 text-white px-2 py-0.5 rounded-full tracking-wider">PRO</span>
-                            </h4>
-                            <div class="space-y-3">
-                                <a href="/shorts-to-mp3.html?url=${encodeURIComponent(url)}" class="flex items-center p-3 bg-white rounded-lg shadow-sm hover:shadow-md hover:border-red-500 border border-transparent transition group">
-                                    <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="text-yellow-600 text-sm w-3 h-3" fill="currentColor"><path d="M290.7 57.4L57.4 290.7c-25 25-25 65.5 0 90.5l80 80c12 12 28.3 18.7 45.3 18.7H288h9.4H512c17.7 0 32-14.3 32-32s-14.3-32-32-32H387.9L518.6 98.3c25-25 25-65.5 0-90.5l-80-80c-25-25-65.5-25-90.5 0l-57.4 57.4zM102.6 336l96-96L272 313.4l-96 96L102.6 336zM317.3 268.1L240 190.9l96-96L413.4 172l-96.1 96.1z"/></svg>
-                                    </div>
-                                    <div>
-                                        <p class="font-semibold text-sm text-slate-800">Convert to MP3</p>
-                                    </div>
-                                </a>
-                                <a href="/shorts-thumbnail-tool.html?url=${encodeURIComponent(url)}" class="flex items-center p-3 bg-white rounded-lg shadow-sm hover:shadow-md hover:border-red-500 border border-transparent transition group">
-                                    <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3 group-hover:scale-110 transition-transform">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="text-blue-600 text-sm w-3 h-3" fill="currentColor"><path d="M384 32H64C28.6 32 0 60.6 0 96v320c0 35.4 28.6 64 64 64h320c35.4 0 64-28.6 64-64V96c0-35.4-28.6-64-64-64zM160 144c0-8.8 7.2-16 16-16h96c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-96c-8.8 0-16-7.2-16-16v-32zm0 128c0-8.8 7.2-16 16-16h96c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16h-96c-8.8 0-16-7.2-16-16v-32zm160 128c-8.8 0-16-7.2-16-16v-32c0-8.8 7.2-16 16-16h-96c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h96z"/></svg>
-                                    </div>
-                                    <div>
-                                        <p class="font-semibold text-sm text-slate-800">Grab HD Cover</p>
-                                    </div>
-                                </a> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-
-            resultSection.classList.remove('hidden');
-        }
-
-        function renderBatchPreview(resultsArray) {
-            const listHtml = resultsArray.map((itemArray, index) => {
-                if (Array.isArray(itemArray) && itemArray.length > 0 && itemArray[0]) {
-                    const video = itemArray[0];
-                    return `
-                    <div class="flex items-center p-3 rounded-lg hover:bg-slate-50 border border-slate-200">
-                        <input type="checkbox" id="video-checkbox-${index}" data-url="${video.url}" class="h-5 w-5 mr-4 rounded text-red-600 focus:ring-red-500 cursor-pointer" checked>
-                        <img src="${video.thumbnail}" class="w-24 h-14 object-cover rounded-md shadow mr-4" alt="thumbnail">
-                        <div class="flex-grow overflow-hidden">
-                            <p class="font-semibold text-slate-800 leading-tight truncate" title="${video.title}">${video.title}</p>
-                            <p class="text-sm text-slate-500">${video.uploader} • ${video.duration}s</p>
-                        </div>
-                    </div>`;
-                } else {
-                    return `
-                    <div class="flex items-center bg-red-50 p-3 rounded-lg border border-red-200 opacity-80">
-                        <input type="checkbox" class="h-5 w-5 mr-4" disabled>
-                        <div class="w-24 h-14 bg-red-100 rounded-md mr-4 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="text-red-400 w-6 h-6" fill="currentColor"><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg></div>
-                        <div class="flex-grow overflow-hidden">
-                            <p class="font-semibold text-red-700">Analysis Failed</p>
-                            <p class="text-sm text-red-500 truncate">Invalid Link or Private Video</p>
-                        </div>
-                    </div>`;
-                }
-            }).join('');
-
-            resultSection.innerHTML = `
-            <div class="bg-white rounded-2xl shadow-2xl p-8 text-left">
-                <h3 class="text-xl font-bold mb-4 text-slate-800">Confirm Videos for Download</h3>
-                <p class="text-slate-600 mb-6">Uncheck any videos you don't want to download, then choose a format and start the process.</p>
-                <div id="videoPreviewList" class="space-y-3 mb-6 max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">${listHtml}</div>
-                <div class="flex flex-col sm:flex-row gap-4 items-center bg-slate-50 p-4 rounded-lg border">
-                    <select id="formatChoice" class="w-full sm:flex-grow p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500">
-                        <option value="1080p" selected>1080p HD (MP4)</option>
-                        <option value="720p">720p SD (MP4)</option>
-                        <option value="audio">Best Audio Only (MP3)</option>
-                    </select>
-                    <button id="batchStartBtn" class="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg disabled:opacity-50 transition-colors">Start Download</button>
-                </div>
-            </div>`;
-            resultSection.classList.remove('hidden');
-        }
-
-        // --- BATCH WORKFLOW LOGIC ---
-        // BATCH STEP 1: Analyze Links
-        async function handleBatchAnalyze() {
-            const links = extractAndValidateLinks(batchInput.value);
-            if (links.length === 0) { showError('No valid YouTube links found.'); return; }
-
-            // --- NEW: Limit Batch Input Size to 3 ---
-            if (links.length > MAX_DOWNLOAD_LIMIT) {
-                showError(`You can only analyze up to ${MAX_DOWNLOAD_LIMIT} links at a time.`);
-                return;
-            }
-
-            setLoading(true, 'batch', `Analyzing ${links.length} links...`);
-            inputSection.classList.add('hidden');
-            resultSection.innerHTML = renderSkeleton();
-            resultSection.classList.remove('hidden');
 
             try {
-                const response = await fetch(`${API_BASE_URL}/api/batch-info`, {
+                // Step 1: Call Backend Parse API (调用后端解析接口)
+                const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ urls: links })
-                });
-                const resJson = await response.json();
-
-                if (resJson.code !== 0) throw new Error("Batch analysis failed.");
-
-                renderBatchPreview(resJson.data);
-            } catch (error) {
-                showError(`Analysis failed: ${error.message}`);
-                resultSection.classList.add('hidden');
-                inputSection.classList.remove('hidden');
-            } finally {
-                setLoading(false, 'batch');
-            }
-        }
-
-        // BATCH STEP 2: Start Download Task (Placeholder logic as per request)
-        async function handleBatchStartDownload() {
-            return;
-            const selectedInputs = Array.from(document.querySelectorAll('#videoPreviewList input:checked'));
-            if (selectedInputs.length === 0) {
-                showToast('Please select at least one video to download.', 'error');
-                return;
-            }
-            const formatChoice = document.getElementById('formatChoice').value;
-
-            // Construct request body for API 2.2
-            const videosPayload = selectedInputs.map(input => ({
-                url: input.dataset.url,
-                quality: formatChoice
-            }));
-
-            renderBatchProgressUI(videosPayload.length);
-            const startBtn = document.getElementById('batchStartBtn');
-            if (startBtn) startBtn.disabled = true;
-
-            try {
-                // API 2.2: Submit Batch Download Task
-                const response = await fetch(`${API_BASE_URL}/api/batch-download`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ videos: videosPayload })
+                    body: JSON.stringify({ url: urlInput })
                 });
 
-                const resJson = await response.json();
-                if (resJson.code !== 0) throw new Error('Failed to submit task.');
+                const data = await response.json();
 
-                const taskId = resJson.task_id;
-                batchPollingInterval = setInterval(() => pollTaskStatus(taskId), 2000);
-                pollTaskStatus(taskId); // Immediate check
-            } catch (error) {
-                document.getElementById('logArea').innerHTML = `<div class="text-red-400">[ERROR] ${error.message}</div>`;
-            }
-        }
+                if (data.error) {
+                    throw new Error(data.error);
+                }
 
-        // --- SINGLE DOWNLOAD WORKFLOW ---
-        async function handleSingleGetInfo(url) {
-            setLoading(true, 'single');
-            resultSection.innerHTML = renderSkeleton();
-            resultSection.classList.remove('hidden');
+                // Step 2: Update UI with Data (填充视频信息)
+                document.getElementById('res-title').innerText = data.title;
+                document.getElementById('res-thumb').src = data.thumbnail;
 
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/info?url=${encodeURIComponent(url)}`);
-                const resJson = await response.json();
+                // Step 3: Configure Download Button (配置下载按钮，跳转Worker)
+                document.getElementById('downloadBtn').onclick = function () {
+                    const finalDownloadUrl = `${WORKER_URL}?title=${encodeURIComponent(data.title)}.mp4&url=${encodeURIComponent(data.url)}&ua=${encodeURIComponent(data.ua)}`;
+                    showToast('Starting secure download...', 'success');
+                    window.location.href = finalDownloadUrl;
+                };
 
-                if (resJson.code !== 0) throw new Error(resJson.error || resJson.message || "Could not fetch video info");
+                // Show Results (显示结果区)
+                resultSection.classList.remove('hidden');
+                window.scrollTo({ top: resultSection.offsetTop - 100, behavior: 'smooth' });
 
-                renderSingleResults(resJson.data);
-            } catch (error) {
-                showError(`Failed to get video info: ${error.message}`);
-                resultSection.innerHTML = `<div class="text-red-600 p-4 bg-red-50 rounded-lg text-center font-bold">Error: ${error.message}</div>`;
+            } catch (err) {
+                console.error(err);
+                showToast('Parsing failed: ' + err.message);
             } finally {
-                setLoading(false, 'single');
+                // UI State: Reset (重置按钮状态)
+                btnText.innerText = 'Parse Video';
+                spinner.classList.add('hidden');
+                parseBtn.disabled = false;
             }
         }
 
-        // --- NEW: Handle AI Summary Generation ---
-        async function handleGenerateSummary(url) {
-            const langSelect = document.getElementById('summary-lang-select');
-            const lang = langSelect.value;
-            const container = document.getElementById('summary-container');
-            const output = document.getElementById('summary-text-output');
-            const btn = document.getElementById('btn-generate-summary');
-            const cursor = document.getElementById('summary-cursor');
-
-            container.classList.remove('hidden');
-            output.innerHTML = '';
-            cursor.classList.remove('hidden');
-            btn.disabled = true;
-            // Replaced fa-spinner
-            btn.innerHTML = '<svg class="animate-spin h-4 w-4 mr-2 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Generating...';
-
-            let fullMarkdown = '';
-
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/summarize?url=${encodeURIComponent(url)}&lang=${lang}`);
-                if (!response.ok) throw new Error(`Server error: ${response.status}`);
-
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
-
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-                    const chunk = decoder.decode(value, { stream: true });
-                    if (fullMarkdown === '' && chunk.startsWith('[ERROR]')) throw new Error(chunk.replace('[ERROR]', '').trim());
-                    fullMarkdown += chunk;
-                    if (typeof marked !== 'undefined') output.innerHTML = marked.parse(fullMarkdown);
-                    else output.textContent = fullMarkdown;
-                    output.parentElement.scrollTop = output.parentElement.scrollHeight;
-                }
-            } catch (e) {
-                // Replaced fa-exclamation-triangle and fa-magic
-                output.innerHTML = `<span class="text-red-500 font-bold"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="inline w-4 h-4 mr-1" fill="currentColor"><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"/></svg> Error: ${e.message}</span>`;
-                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4 mr-2 inline-block" fill="currentColor"><path d="M448 256c0-106-86-192-192-192V444.1l115.6-70.1c54.7-33.1 76.4-96.1 76.4-118zM224 444.1V64C118 64 32 150 32 256c0 62.4 29.5 119.5 76.4 154.9L224 444.1zM256 0c141.4 0 256 114.6 256 256s-114.6 256-256 256S0 397.4 0 256S114.6 0 256 0z"/></svg> Retry Summary';
-            } finally {
-                cursor.classList.add('hidden');
-                btn.disabled = false;
-                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4 mr-2 inline-block" fill="currentColor"><path d="M448 256c0-106-86-192-192-192V444.1l115.6-70.1c54.7-33.1 76.4-96.1 76.4-118zM224 444.1V64C118 64 32 150 32 256c0 62.4 29.5 119.5 76.4 154.9L224 444.1zM256 0c141.4 0 256 114.6 256 256s-114.6 256-256 256S0 397.4 0 256S114.6 0 256 0z"/></svg> Generate Summary';
-            }
-        }
-
-        // --- EVENT LISTENERS ---
-        downloadButton.addEventListener('click', (e) => {
-            e.preventDefault(); clearError();
-            const mode = downloadButton.dataset.currentMode;
-            if (mode === 'single') {
-                const url = singleInput.value.trim();
-                if (!url || !isValidYouTubeUrl(url)) { showError('Please enter a valid YouTube link.'); return; }
-                handleSingleGetInfo(url);
-            } else {
-                handleBatchAnalyze();
-            }
+        // Listen for Enter Key (监听回车键)
+        document.getElementById('videoUrlInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') handleParse();
         });
-
-        clearHistoryBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            clearHistory();
-        });
-
-        resultSection.addEventListener('click', async (e) => {
-            const copyCaptionBtn = e.target.closest('.copy-caption-btn');
-            const copyHashtagBtn = e.target.closest('.copy-hashtag-btn');
-            const downloadThumbBtn = e.target.closest('.download-thumb-btn');
-            const downloadBtn = e.target.closest('.download-link-btn');
-            const summaryBtn = e.target.closest('#btn-generate-summary');
-
-            if (copyCaptionBtn) {
-                e.preventDefault();
-                const text = copyCaptionBtn.getAttribute('data-caption') || '';
-                if (!text) { showToast('No caption available to copy.', 'error'); return; }
-                try {
-                    await navigator.clipboard.writeText(text);
-                    showToast('Caption copied to clipboard.', 'success');
-                } catch (err) {
-                    showToast('Copy failed. Please copy manually.', 'error');
-                }
-                return;
-            }
-
-            if (copyHashtagBtn) {
-                e.preventDefault();
-                const text = copyHashtagBtn.getAttribute('data-hashtags') || '';
-                if (!text) { showToast('No hashtags found.', 'error'); return; }
-                try {
-                    await navigator.clipboard.writeText(text);
-                    showToast('Hashtags copied to clipboard.', 'success');
-                } catch (err) {
-                    showToast('Copy failed. Please copy manually.', 'error');
-                }
-                return;
-            }
-
-            if (downloadThumbBtn) {
-                e.preventDefault();
-                const imgUrl = downloadThumbBtn.getAttribute('data-thumb-url');
-                const titleForName = downloadThumbBtn.getAttribute('data-title') || 'thumbnail';
-                if (!imgUrl) { showToast('Thumbnail URL not found.', 'error'); return; }
-                showToast('Downloading thumbnail...', 'success');
-                try {
-                    const resp = await fetch(imgUrl);
-                    if (!resp.ok) throw new Error('Request failed');
-                    const blob = await resp.blob();
-                    const a = document.createElement('a');
-                    const objectUrl = window.URL.createObjectURL(blob);
-                    a.href = objectUrl;
-                    const safeName = titleForName.replace(/[^a-z0-9\-_\.\u4e00-\u9fa5]/gi, '_');
-                    a.download = safeName + '.jpg';
-                    document.body.appendChild(a);
-                    a.click();
-                    a.remove();
-                    window.URL.revokeObjectURL(objectUrl);
-                    showToast('Thumbnail downloaded.', 'success');
-                } catch (err) {
-                    console.error(err);
-                    showToast('Thumbnail download failed.', 'error');
-                }
-                return;
-            }
-
-            if (summaryBtn) {
-                e.preventDefault();
-                const url = summaryBtn.getAttribute('data-url');
-                if (url) handleGenerateSummary(url);
-                return;
-            }
-
-            if (downloadBtn) {
-                e.preventDefault();
-
-                // --- NEW: CHECK DOWNLOAD LIMIT BEFORE REQUEST ---
-                if (getDownloadCount() >= MAX_DOWNLOAD_LIMIT) {
-                    showToast(`Limit Reached! You have used your ${MAX_DOWNLOAD_LIMIT} free downloads.`, 'error');
-                    return;
-                }
-
-                const targetUrl = downloadBtn.getAttribute('data-url');
-                const targetQuality = downloadBtn.getAttribute('data-format-id');
-
-                if (!targetUrl || !targetQuality) {
-                    showToast('Error: Missing download parameters. Please refresh.', 'error');
-                    return;
-                }
-
-                const originalText = downloadBtn.innerHTML;
-                const originalIcon = downloadBtn.querySelector('svg');
-                // Store original icon HTML
-                const originalIconHtml = originalIcon ? originalIcon.outerHTML : '';
-
-                if (downloadBtn.classList.contains('text-slate-700')) {
-                    // Replaced fa-spinner
-                    if (originalIcon) originalIcon.outerHTML = '<svg class="animate-spin mr-1 w-4 h-4 text-slate-700 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
-                } else {
-                    downloadBtn.innerHTML = '<svg class="animate-spin w-4 h-4 mr-2 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Downloading...';
-                }
-                downloadBtn.disabled = true;
-
-                try {
-                    let downloadApiUrl = '';
-                    if (targetQuality.startsWith('sub_')) {
-                        const parts = targetQuality.split('_');
-                        const fmt = parts[1];
-                        const lang = parts.slice(2).join('_');
-                        downloadApiUrl = `${API_BASE_URL}/api/subtitle?url=${encodeURIComponent(targetUrl)}&lang=${lang}&format=${fmt}`;
-                    } else {
-                        downloadApiUrl = `${API_BASE_URL}/api/download?url=${encodeURIComponent(targetUrl)}&quality=${encodeURIComponent(targetQuality)}`;
-                    }
-
-                    const response = await fetch(downloadApiUrl);
-
-                    if (!response.ok) {
-                        throw new Error(`Server error: ${response.status}`);
-                    }
-
-                    // --- NEW: INCREMENT COUNT ON SUCCESSFUL RESPONSE ---
-                    incrementDownloadCount();
-                    showToast(`Download started! (${getDownloadCount()}/${MAX_DOWNLOAD_LIMIT} used)`, 'success');
-
-                    // Update UI to reflect new remaining count immediately
-                    const remainingDisplay = document.querySelector('.text-right .font-semibold span');
-                    if (remainingDisplay) {
-                        const newRemaining = MAX_DOWNLOAD_LIMIT - getDownloadCount();
-                        remainingDisplay.textContent = `${newRemaining} / ${MAX_DOWNLOAD_LIMIT}`;
-                        if (newRemaining <= 0) remainingDisplay.className = 'text-red-600';
-                    }
-
-                    const blob = await response.blob();
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.style.display = 'none';
-                    a.href = url;
-
-                    const disposition = response.headers.get('Content-Disposition');
-                    let fileName = downloadBtn.getAttribute('data-title').replace(/[^\w\s-]/g, '') + '.mp4';
-
-                    if (targetQuality.startsWith('sub_txt')) fileName = fileName.replace('.mp4', '.txt');
-                    else if (targetQuality.startsWith('sub_srt')) fileName = fileName.replace('.mp4', '.srt');
-
-                    if (disposition && disposition.includes('filename=')) {
-                        const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
-                        const matches = filenameRegex.exec(disposition);
-                        if (matches != null && matches[1]) {
-                            fileName = matches[1].replace(/['"]/g, '');
-                        }
-                    }
-                    a.download = fileName;
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
-                    document.body.removeChild(a);
-
-                } catch (error) {
-                    console.error('Download failed:', error);
-                    showToast('Download failed. Please check your connection and try again.', 'error');
-                } finally {
-                    if (downloadBtn.classList.contains('text-slate-700')) {
-                        // Restore icon if it existed, otherwise just reset content
-                        const currentIcon = downloadBtn.querySelector('svg');
-                        if (currentIcon && originalIconHtml) currentIcon.outerHTML = originalIconHtml;
-                    } else {
-                        downloadBtn.innerHTML = originalText;
-                    }
-                    downloadBtn.disabled = false;
-                }
-            }
-
-            const tabBtn = e.target.closest('.tab-button');
-            if (tabBtn) {
-                const allTabs = document.querySelectorAll('.tab-button');
-                allTabs.forEach(btn => {
-                    btn.classList.remove('border-red-500', 'text-red-600');
-                    btn.classList.add('border-transparent', 'text-slate-600');
-                });
-
-                tabBtn.classList.remove('border-transparent', 'text-slate-600');
-                tabBtn.classList.add('border-red-500', 'text-red-600');
-
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-                const targetContent = resultSection.querySelector(`[data-content="${tabBtn.dataset.tab}"]`);
-                if (targetContent) {
-                    targetContent.classList.remove('hidden');
-                }
-            }
-
-            if (e.target.id === 'batchStartBtn') handleBatchStartDownload();
-            if (e.target.id === 'batchResetBtn') switchMode('batch');
-        });
-
-        const setupInput = (input, clearBtn) => {
-            input.addEventListener('input', () => clearBtn.classList.toggle('hidden', !input.value));
-            clearBtn.addEventListener('click', () => { input.value = ''; clearBtn.classList.add('hidden'); input.focus(); });
-        };
-        setupInput(singleInput, clearSingleBtn);
-        setupInput(batchInput, clearBatchBtn);
-
-        modeSwitchBtns.forEach(btn => btn.addEventListener('click', () => switchMode(btn.dataset.mode)));
-
-        // Init
-        window.addEventListener('DOMContentLoaded', () => {
-            switchMode('single');
-            renderHistory(); // Show history on load
-        });
-
-        // --- Mobile Drawer & Third Party Scripts ---
-        function openDrawer() {
-            mobileDrawer.classList.remove("translate-x-full");
-            mobileDrawer.classList.remove("invisible"); // 移除隐形
-            mobileDrawer.setAttribute("aria-hidden", "false"); // 设为可见
-            mobileBackdrop.classList.remove("backdrop-hidden");
-            mobileBackdrop.classList.add("backdrop-show");
-            document.body.classList.add("overflow-hidden");
-        }
-
-        function closeDrawer() {
-            mobileDrawer.classList.add("translate-x-full");
-            mobileDrawer.classList.add("invisible"); // 恢复隐形
-            mobileDrawer.setAttribute("aria-hidden", "true"); // 设为隐藏
-            mobileBackdrop.classList.add("backdrop-hidden");
-            mobileBackdrop.classList.remove("backdrop-show");
-            document.body.classList.remove("overflow-hidden");
-        }
-        mobileMenuBtn.addEventListener("click", openDrawer), mobileMenuClose.addEventListener("click", closeDrawer), mobileBackdrop.addEventListener("click", closeDrawer);
-
-
-
-
-
-
-
-
-
-
-
-        let thirdPartyScriptsLoaded = !1;
-        function loadThirdPartyScripts() {
-            if (thirdPartyScriptsLoaded) return;
-            thirdPartyScriptsLoaded = !0;
-            const e = document.createElement("script");
-            e.src = "https://www.googletagmanager.com/gtag/js?id=G-Z6TQTL70L0",
-                e.async = !0, e.onload = function () {
-                    window.dataLayer = window.dataLayer || [], window.gtag = function () {
-                        dataLayer.push(arguments)
-                    }, gtag("js", new Date), gtag("config", "G-Z6TQTL70L0")
-                },
-                document.head.appendChild(e)
-        } ["mousemove", "scroll", "keydown", "touchstart", "click"].forEach(function (e) {
-            window.addEventListener(e, loadThirdPartyScripts, { once: !0, passive: !0 })
-        }), setTimeout(loadThirdPartyScripts, 5e3
-
-        );
     </script>
 </body>
 
