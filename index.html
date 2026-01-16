@@ -1094,55 +1094,9 @@
                     const finalDownloadUrl = `${WORKER_URL}?title=${encodeURIComponent(data.title)}.mp4&url=${encodeURIComponent(data.url)}&ua=${encodeURIComponent(data.ua)}`;
                     showToast('Starting secure download...', 'success');
 
+                    // 新打开窗口下载（防止被浏览器拦截）
+                    window.open(finalDownloadUrl, '_blank');
 
-
-
-
-
-
-                    try {
-                        // 发送 HEAD 请求预检 
-                        const checkResponse = await fetch(finalDownloadUrl, { method: 'HEAD' });
-
-                        if (checkResponse.ok) {
-                            // 情况 A: 成功 (200 OK)
-                            console.log("Verified: 200 OK");
-                            if (window.gtag) {
-                                console.log("gtag: Verified: 200 OK");
-                                gtag('event', 'download_actual_success', {
-                                    'file_name': videoTitle,
-                                    'status': checkResponse.status
-                                });
-                            }
-                            // 真正触发下载
-                            window.location.href = finalDownloadUrl;
-                        } else {
-                            // 情况 B: 失败 (403, 500 等)
-                            console.error("Verification failed:", checkResponse.status);
-                            if (window.gtag) {
-                                console.log("gtag: Verified: 403 NO");
-
-                                gtag('event', 'download_actual_failed', {
-                                    'file_name': videoTitle,
-                                    'error_code': checkResponse.status
-                                });
-                            }
-                            // 提示用户具体的错误
-                            if (checkResponse.status === 403) {
-                                showToast('YouTube Rejected. Please re-parse.', 'error');
-                            } else {
-                                showToast(`Server Error (${checkResponse.status}). Please try again later.`, 'error');
-                            }
-                        }
-                    } catch (err) {
-                        console.log("gtag: Verified: 403 NO");
-                        console.error("Pre-check catch error:", err);
-                        if (window.gtag) {
-                            gtag('event', 'download_check_exception', { 'msg': err.message });
-                        }
-                        // 兜底：如果预检报错（可能是跨域限制），依然尝试直接下载
-                        window.location.href = finalDownloadUrl;
-                    }
                 };
 
                 // Show Results (显示结果区)
