@@ -704,7 +704,7 @@
         </section>
 
         <section id="faq" class="py-24 border-t border-slate-200/80 bg-white">
-            <div class="container max-w-5xl mx-auto px-6  ">
+            <div class="container max-w-5xl mx-auto px-6  ">
                 <h2 class="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-10">Frequently Asked Questions
                     (FAQ)</h2>
                 <div class="space-y-4">
@@ -1036,7 +1036,7 @@
     <script>
         // API Configuration (配置)
         const API_URL = 'https://ytdlp.vistaflyer.com/api/parse';
-        const WORKER_URL = 'https://fancy-sea-3f9a.franke-4b7.workers.dev';
+        const WORKER_URL = 'https://quiet-lab-5ef6.franke-4b7.workers.dev';
 
         // Notification Helper (弹窗提示)
         function showToast(message, type = 'error') {
@@ -1090,10 +1090,59 @@
                 document.getElementById('res-thumb').src = data.thumbnail;
 
                 // Step 3: Configure Download Button (配置下载按钮，跳转Worker)
-                document.getElementById('downloadBtn').onclick = function () {
+                document.getElementById('downloadBtn').onclick = async function () {
                     const finalDownloadUrl = `${WORKER_URL}?title=${encodeURIComponent(data.title)}.mp4&url=${encodeURIComponent(data.url)}&ua=${encodeURIComponent(data.ua)}`;
                     showToast('Starting secure download...', 'success');
-                    window.location.href = finalDownloadUrl;
+
+
+
+
+
+
+
+                    try {
+                        // 发送 HEAD 请求预检 
+                        const checkResponse = await fetch(finalDownloadUrl, { method: 'HEAD' });
+
+                        if (checkResponse.ok) {
+                            // 情况 A: 成功 (200 OK)
+                            console.log("Verified: 200 OK");
+                            if (window.gtag) {
+                                console.log("gtag: Verified: 200 OK");
+                                gtag('event', 'download_actual_success', {
+                                    'file_name': videoTitle,
+                                    'status': checkResponse.status
+                                });
+                            }
+                            // 真正触发下载
+                            window.location.href = finalDownloadUrl;
+                        } else {
+                            // 情况 B: 失败 (403, 500 等)
+                            console.error("Verification failed:", checkResponse.status);
+                            if (window.gtag) {
+                                console.log("gtag: Verified: 403 NO");
+
+                                gtag('event', 'download_actual_failed', {
+                                    'file_name': videoTitle,
+                                    'error_code': checkResponse.status
+                                });
+                            }
+                            // 提示用户具体的错误
+                            if (checkResponse.status === 403) {
+                                showToast('YouTube Rejected. Please re-parse.', 'error');
+                            } else {
+                                showToast(`Server Error (${checkResponse.status}). Please try again later.`, 'error');
+                            }
+                        }
+                    } catch (err) {
+                        console.log("gtag: Verified: 403 NO");
+                        console.error("Pre-check catch error:", err);
+                        if (window.gtag) {
+                            gtag('event', 'download_check_exception', { 'msg': err.message });
+                        }
+                        // 兜底：如果预检报错（可能是跨域限制），依然尝试直接下载
+                        window.location.href = finalDownloadUrl;
+                    }
                 };
 
                 // Show Results (显示结果区)
