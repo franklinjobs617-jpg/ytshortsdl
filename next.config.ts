@@ -1,19 +1,6 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  // 建议关闭尾部斜杠，保持 URL 简洁（ytshortsdl.net/about）
-  trailingSlash: false, 
-  
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
-        port: '',
-        pathname: '/**',
-      }, 
-    ],
-  },
+const nextConfig: NextConfig = {  
 
   async redirects() {
     return [
@@ -27,6 +14,8 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
+  
 };
 
 export default nextConfig;
