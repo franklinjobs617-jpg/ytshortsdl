@@ -1,11 +1,10 @@
 // app/api/auth/login/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { HttpsProxyAgent } from 'https-proxy-agent';
 
 export async function POST(req: NextRequest) {
     try {
-        // --- 修复点 1：兼容前端可能传的不同字段名 ---
+        // --- 1. 获取 Token ---
         const body = await req.json();
         const token = body.token || body.accessToken;
 
@@ -13,20 +12,17 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Token is required' }, { status: 400 });
         }
 
-        // --- 修复点 2：配置代理 ---
-        // 请确保端口 7890 与你电脑上的加速器（Clash, V2Ray等）一致
-        const proxyAddr = 'http://127.0.0.1:7890';
-        const agent = process.env.NODE_ENV === 'development' ? new HttpsProxyAgent(proxyAddr) : undefined;
-
         console.log(`🚀 开始校验 Google Token...`);
 
-        // 1. 请求 Google UserInfo 接口
+        // --- 2. 请求 Google UserInfo 接口 ---
+        // 注意：删除了 HttpsProxyAgent。Vercel 位于海外，可以直接连接 Google。
+        // 本地开发如需代理，请在终端执行 set HTTPS_PROXY=http://127.0.0.1:7890 
+        // 而不是在代码中注入 agent，否则部署到 Vercel 会因为找不到本地代理端口而报错。
         const googleRes = await fetch(`https://www.googleapis.com/oauth2/v3/userinfo`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             },
-            // @ts-ignore - HttpsProxyAgent 在这里是合法的
-            agent: agent
+            cache: 'no-store'
         });
 
         if (!googleRes.ok) {
@@ -46,7 +42,7 @@ export async function POST(req: NextRequest) {
         // 获取用户 IP
         const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0] || '127.0.0.1';
 
-        // --- 修复点 3：实现你的业务补分逻辑 ---
+        // --- 3. 执行业务逻辑 ---
         let user = await prisma.user.findUnique({ where: { email } });
 
         if (user) {
@@ -61,6 +57,7 @@ export async function POST(req: NextRequest) {
                 picture: payload.picture
             };
 
+            // 跨天补分逻辑
             if (lastActive < today && parseInt(user.credits || "0") === 0) {
                 updateData.credits = "1";
             }
@@ -71,7 +68,6 @@ export async function POST(req: NextRequest) {
             });
             console.log(`✅ 老用户登录: ${email}`);
         } else {
-            // 新用户：初始赠送 3 分
             user = await prisma.user.create({
                 data: {
                     email,
@@ -103,13 +99,12 @@ export async function POST(req: NextRequest) {
         });
 
     } catch (error: any) {
-        // --- 修复点 4：更详细的错误打印 ---
         console.error('❌ Server Login Error Detail:', error);
 
-        // 如果依然 fetch failed，通常是代理没开或者端口不对
+        // 针对网络问题的友好提示
         if (error.message.includes('fetch failed')) {
             return NextResponse.json({
-                error: "Network error: Server cannot reach Google. Check your local Proxy/VPN."
+                error: "Network error: Server cannot reach Google. If local, check your VPN. If on Vercel, check DATABASE_URL."
             }, { status: 500 });
         }
 
