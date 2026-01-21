@@ -10,6 +10,7 @@ import Image from 'next/image';
 const NAV_CONFIG = [
     { label: 'Download Shorts', href: '/' },
     { label: 'MP3 Audio', href: '/shorts-to-mp3' },
+    { label: 'Youtube Trend', href: '/trending' },
     {
         label: 'AI Tools',
         type: 'dropdown',
