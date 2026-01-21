@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  googleUserId String?   @unique @map("google_user_id")
+  email        String?   @unique
+  name         String?
+  givenName    String?   @map("given_name")
+  familyName   String?   @map("family_name")
+  picture      String?
+  score        String?   @default("3") // 对应积分情况
+  credits      String?   @default("5") // 对应剩余点数
+  accessToken  String?   @map("access_token") @db.Text
+  createTime   DateTime? @default(now()) @map("create_time")
+  updateTime   DateTime? @updatedAt @map("update_time")
+  ip           String?
+  type         String?   @default("1")
+
+  // 关联支付表
+  payments Pay[]
+
+  @@map("google_user")
+}
+
+model Pay {
+  id            Int       @id @default(autoincrement())
+  userId        Int?      @map("user_id")
+  googleUserId  String?   @map("google_user_id")
+  email         String?
+  orderNo       String?   @map("order_no")
+  checkoutUrl   String?   @map("checkout_url") @db.Text
+  orderRequest  String?   @map("order_request") @db.Text
+  orderResponse String?   @map("order_response") @db.Text
+  retUrl        String?   @map("ret_url")
+  cancelUrl     String?   @map("cancel_url")
+  orderId       String?   @map("order_id")
+  status        String?   @default("1") // 1.待支付 2.支付成功
+  type          String? // 套餐类型
+  businessType  String?   @map("business_type") // 3:stripe
+  remark        String?
+  amount        String?
+  ip            String?
+  timestamp     String?
+  createTime    DateTime? @default(now()) @map("create_time")
+  updateTime    DateTime? @updatedAt @map("update_time")
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("pay")
+}
