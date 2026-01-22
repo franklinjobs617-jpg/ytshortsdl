@@ -54,7 +54,7 @@ const MarkdownRenderer = ({ text }: { text: string }) => {
     return <div>{text.split('\n').map((line, i) => renderLine(line, i))}</div>;
 };
 
-export default function AiSummarizerSection() {
+export default function AiGeneraterSection() {
     const [url, setUrl] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isSummarizing, setIsSummarizing] = useState(false);
@@ -123,7 +123,7 @@ export default function AiSummarizerSection() {
     // 3. 流式解析 (打字机)
     const startAiStreaming = async (text: string) => {
         try {
-            const response = await fetch('/api/summarize', {
+            const response = await fetch('/api/Generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ transcript: text.substring(0, 12000) })
@@ -195,7 +195,7 @@ export default function AiSummarizerSection() {
 
                 <div className="text-center mb-12">
                     <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tighter">
-                        YouTube video <span className="text-red-600">AI Summarizer</span>
+                        YouTube video <span className="text-red-600">AI Script Generator</span>
                     </h1>
                     <p className="text-slate-500 text-sm">Instant insights and transcripts powered by AI.</p>
                 </div>
@@ -208,7 +208,7 @@ export default function AiSummarizerSection() {
                                 <input type="url" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="Paste Youtube video link ..." required className="grow bg-transparent outline-none text-slate-800 font-bold" />
                             </div>
                             <button type="submit" disabled={isLoading} className="md:w-52 h-12 rounded-2xl font-black bg-red-600 text-white hover:bg-red-700 shadow-xl flex items-center justify-center gap-3 disabled:opacity-50">
-                                {isLoading ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} />} <span>Summarize</span>
+                                {isLoading ? <Loader2 className="animate-spin" size={20} /> : <Sparkles size={20} />} <span>Generate</span>
                             </button>
                         </form>
                     </div>
@@ -228,7 +228,7 @@ export default function AiSummarizerSection() {
                                     </select>
                                 </div>
                             </div>
-                            <button onClick={() => fetchTranscriptContent(videoData.id, selectedLang)} className="w-full py-4 bg-slate-100 text-slate-500 rounded-2xl font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-2"><RefreshCcw size={16} /> Summarize Again</button>
+                            <button onClick={() => fetchTranscriptContent(videoData.id, selectedLang)} className="w-full py-4 bg-slate-100 text-slate-500 rounded-2xl font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-2"><RefreshCcw size={16} /> Generate Again</button>
                         </div>
 
                         <div className="lg:col-span-2">
