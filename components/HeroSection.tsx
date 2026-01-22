@@ -108,7 +108,8 @@ export default function HeroSection() {
         if (activeDownloads[index] !== undefined || isZipDownloading) return;
         setActiveDownloads(prev => ({ ...prev, [index]: 0 }));
         try {
-            const url = `${WORKER_URL}?title=${encodeURIComponent(video.title)}&url=${encodeURIComponent(video.url)}`;
+            console.log(video);
+            const url = `${WORKER_URL}?title=${encodeURIComponent(video.title)}&url=${encodeURIComponent(video.url)}&ua=${encodeURIComponent(video.ua)}`;
             const response = await fetch(url);
             if (!response.ok) throw new Error("Download Link Error");
             const contentLength = response.headers.get('content-length');
