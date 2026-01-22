@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import { AuthProvider } from "@/lib/auth-context";
 import Footer from "@/components/Footer";
 import { GoogleAnalytics } from '@next/third-parties/google'
-
+import Head from "next/head";
 
 export default function RootLayout({
   children,
@@ -15,6 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <Head>
+        <meta name="color-scheme" content="light only" />
+      </Head>
+
       <GoogleAnalytics gaId="G-Z6TQTL70L0" />
       <Script
         id="microsoft-clarity"
@@ -29,9 +33,7 @@ export default function RootLayout({
               `,
         }}
       />
-      <body
-        className={``}
-      >
+      <body>
         <Script src="https://accounts.google.com/gsi/client" strategy="afterInteractive" />
         <AuthProvider>
 
