@@ -106,7 +106,8 @@ const TrendingItem = ({ video }: { video: any }) => {
                         <button
                             onClick={() => {
                                 navigator.clipboard.writeText(videoUrl);
-                                alert("Link copied!");
+                                // alert("Link copied!");
+
                             }}
                             className="text-gray-400 hover:text-blue-600 p-1"
                         >

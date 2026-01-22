@@ -174,7 +174,7 @@ export default function AiSummarizerSection() {
     const handleCopy = () => {
         let content = view === "summary" ? aiSummary : (transcriptMode === "time" ? segments.map(s => `[${s.t}] ${s.txt}`).join('\n') : fullText);
         navigator.clipboard.writeText(content);
-        alert("Copied to clipboard!");
+        // addtoast("Content copied to clipboard!", { type: "success" });
     };
 
     const handleExport = () => {

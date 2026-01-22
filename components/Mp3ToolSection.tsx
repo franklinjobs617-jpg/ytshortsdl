@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Loader2, Download, Settings, Link as LinkIcon, ShieldCheck, AlertCircle, Music, RefreshCcw } from 'lucide-react';
 import Link from 'next/link';
+
 // 匹配后端返回的简化数据结构
 interface VideoData {
     title: string;
@@ -76,7 +77,6 @@ export default function Mp3ToolSection() {
         setDownloadProgress(0);
 
         try {
-            // 注意：这里需要替换为你最新的 Worker 地址
             const WORKER_URL = "https://proud-frost-bf8e.franke-4b7.workers.dev/";
 
             const params = new URLSearchParams({
@@ -92,7 +92,8 @@ export default function Mp3ToolSection() {
             const reader = response.body?.getReader();
             if (!reader) throw new Error("Stream reader initialization failed");
 
-            const chunks: Uint8Array[] = [];
+            // --- 修复点：显式声明为 BlobPart[] ---
+            const chunks: BlobPart[] = [];
             let loaded = 0;
 
             while (true) {
@@ -107,7 +108,7 @@ export default function Mp3ToolSection() {
                 }
             }
 
-            // 关键：将下载的 Format 18 数据封装为 m4a MIME 类型
+            // 将下载的数据封装为 m4a MIME 类型
             const audioBlob = new Blob(chunks, { type: 'audio/x-m4a' });
 
             // 强制后缀名为 .m4a
@@ -117,6 +118,7 @@ export default function Mp3ToolSection() {
 
         } catch (err: any) {
             alert("Download failed: " + err.message);
+
         } finally {
             setIsDownloading(false);
             setDownloadProgress(0);
@@ -128,23 +130,18 @@ export default function Mp3ToolSection() {
             <div className="glow-effect -z-10"></div>
 
             <h1 className="text-3xl md:text-5xl font-black font-poppins leading-tight tracking-tight text-slate-900 mb-6">
-                Free YouTube Shorts MP3 Downloader:<br />
+                Free YouTube Shorts M4A Downloader:<br />
                 <span className="text-red-600">for High-Quality Audio</span>
             </h1>
             <p className="text-slate-500 max-w-xl mx-auto mb-10 text-lg">
                 Extract high-quality audio tracks from your favorite Shorts in seconds.
             </p>
 
-
-
-
-
-            {/* 输入区 - 已适配首页样式 */}
+            {/* 输入区 */}
             <div className="max-w-4xl mx-auto mb-12">
                 <div className="bg-white p-3 rounded-4xl border border-slate-200 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.08)]">
                     <form onSubmit={handleExtract} className="flex flex-col md:flex-row items-stretch gap-3">
                         <div className="relative grow flex bg-slate-50/80 rounded-2xl border border-slate-100 overflow-hidden focus-within:bg-white transition-all">
-                            {/* 输入区域容器 */}
                             <div className="relative grow flex items-center h-12 px-4">
                                 <LinkIcon size={18} className="text-slate-400 mr-3" />
                                 <input
@@ -156,7 +153,6 @@ export default function Mp3ToolSection() {
                                     className="w-full h-full bg-transparent outline-none text-slate-800 font-bold placeholder:text-slate-400 placeholder:font-normal"
                                 />
 
-                                {/* 粘贴按钮 - 逻辑适配 */}
                                 <button
                                     type="button"
                                     onClick={async () => {
@@ -174,11 +170,10 @@ export default function Mp3ToolSection() {
                             </div>
                         </div>
 
-                        {/* 解析按钮 - 样式同步首页 */}
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="md:w-52 px-6 py-4 md:py-0 rounded-2xl font-black text-md flex items-center justify-center gap-3 transition-all bg-red-600 text-white hover:bg-red-700 shadow-xl shadow-red-200 disabled:opacity-70 disabled:cursor-not-allowed"
+                            className="md:w-52 px-6 py-4 md:py-0 rounded-2xl font-black text-md flex items-center justify-center gap-3 transition-all bg-red-600 text-white hover:bg-red-700 shadow-xl shadow-red-200 disabled:opacity-70"
                         >
                             {isLoading ? (
                                 <Loader2 className="animate-spin" size={22} />
@@ -190,7 +185,6 @@ export default function Mp3ToolSection() {
                     </form>
                 </div>
 
-                {/* 错误提示 - 紧随输入框下方 */}
                 {error && (
                     <div className="mt-4 p-4 bg-red-50 border border-red-100 rounded-2xl flex items-center gap-3 text-red-600 text-sm font-medium animate-in fade-in slide-in-from-top-2">
                         <AlertCircle size={18} />
@@ -198,6 +192,7 @@ export default function Mp3ToolSection() {
                     </div>
                 )}
             </div>
+
             {/* 下载卡片 */}
             {videoData && (
                 <div className="max-w-xl mx-auto animate-in fade-in zoom-in-95 duration-500">
@@ -239,7 +234,6 @@ export default function Mp3ToolSection() {
                                     disabled={isDownloading}
                                     className="relative group w-full h-16 bg-red-600 hover:bg-red-700 text-white font-black text-lg rounded-2xl transition-all overflow-hidden shadow-xl shadow-red-600/20 disabled:opacity-90"
                                 >
-                                    {/* 进度条背景 */}
                                     {isDownloading && (
                                         <div
                                             className="absolute left-0 top-0 h-full bg-red-800/40 transition-all duration-300"
@@ -251,7 +245,7 @@ export default function Mp3ToolSection() {
                                         {isDownloading ? (
                                             <>
                                                 <Loader2 className="w-6 h-6 animate-spin" />
-                                                <span>Extracting {downloadProgress}%</span>
+                                                <span>Downloading {downloadProgress}%</span>
                                             </>
                                         ) : (
                                             <>
@@ -295,10 +289,7 @@ export default function Mp3ToolSection() {
                         <span className="text-2xl">✍️</span>
                         <div className="text-left font-black tracking-tighter"><p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 04</p><p className="text-sm font-black">AI Script Generator</p></div>
                     </Link>
-
-
                 </div>
-
             </div>
         </section>
     );
