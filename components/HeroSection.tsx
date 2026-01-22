@@ -216,9 +216,11 @@ export default function HeroSection() {
                 <div className="glow-effect -z-10"></div>
                 <div className="container max-w-6xl mx-auto relative z-10">
                     <h1 className="text-3xl md:text-5xl font-black text-slate-900 leading-tight tracking-tighter">
-                        Free YouTube Shorts Downloader: <br /><span className="text-red-600">Fast, Secure & Ad-Free</span>
+                        Free YouTube Shorts Downloader : <br /><span className="text-red-600">AI Creator Suite</span>
                     </h1>
-                    <p className="mt-4 text-md md:text-lg text-slate-600 font-medium tracking-tight">Download HD Shorts videos instantly using our edge-delivery technology.</p>
+                    <p className="mt-4 text-md md:text-lg text-slate-600 font-medium tracking-tight">
+                        Download HD Shorts and use AI to transform videos into viral scripts instantly.
+                    </p>
 
                     <div className="flex justify-center mt-10 mb-8">
                         <div className="bg-slate-200/60 p-1.5 rounded-2xl flex gap-1 backdrop-blur-sm border border-white shadow-inner">
@@ -326,16 +328,23 @@ export default function HeroSection() {
                     <span className="text-slate-400 mb-4 font-bold text-sm">Professional Creator Suite</span>
                     <div className="flex flex-wrap justify-center gap-6">
                         <Link href="/shorts-to-mp3" className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
-                            <span className="text-xl">🎵</span>
+                            <span className="text-2xl">🎵</span>
                             <div className="text-left font-black tracking-tighter">
                                 <p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 01</p>
                                 <p className="text-sm font-black">Extract MP3</p></div>
                         </Link>
-                        <Link href="/shorts-thumbnail-tool" className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
-                            <span className="text-xl">🖼️</span>
-                            <div className="text-left font-black tracking-tighter"><p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 02</p><p className="text-sm font-black">Get Thumbnail</p></div>
+                        <Link href="/video-to-script-converter" className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
+                            <span className="text-2xl">🤖</span>
+                            <div className="text-left font-black tracking-tighter"><p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 02</p><p className="text-sm font-black">Video to Script</p></div>
                         </Link>
+                        <Link href="/ai-script-generator" className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
+                            <span className="text-2xl">✍️</span>
+                            <div className="text-left font-black tracking-tighter"><p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 03</p><p className="text-sm font-black">AI Script Generator</p></div>
+                        </Link>
+
+
                     </div>
+
                 </div>
             </section>
 

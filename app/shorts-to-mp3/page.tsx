@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-
+import Mp3ToolSection from '@/components/Mp3ToolSection';
 export const metadata: Metadata = {
     title: 'ShortsSync | Free YouTube Shorts to MP3 Downloader',
     description: 'Use the best YouTube Shorts Audio Downloader tool to convert any Shorts video to MP3 or M4A instantly. Simple, fast, and high-quality audio extraction.',
@@ -31,38 +31,7 @@ export const metadata: Metadata = {
 export default function ShortsToMp3() {
     return (
         <main>
-
-            <section id="tool-interface" className="relative text-center py-24 ">
-                <div className="glow-effect -z-10"></div>
-                <h1 className="text-3xl md:text-5xl lg:text-5xl font-extrabold font-poppins leading-tight tracking-tighter text-slate-900">
-                    Free YouTube Shorts MP3 Downloader: <br className="hidden md:block" />for High-Quality Audio
-                </h1>
-                <div className="mt-12 max-w-sm sm:max-w-5xl mx-auto bg-white p-6 sm:p-8 rounded-2xl shadow-2xl border border-slate-200/50">
-                    <p className="text-lg text-slate-600 mb-6">Snag the audio from any Short: Paste the URL below.</p>
-                    <form id="shorts-audio-form" className="flex flex-col md:flex-row items-center gap-3 p-2 rounded-xl ring-1 ring-slate-200 focus-within:ring-2 focus-within:ring-primary/50 transition-shadow duration-300">
-                        <div className="relative w-full">
-                            <i className="fas fa-link absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                            <input type="url" id="shorts-url" placeholder="Paste YouTube Shorts Link Here..." required={true} className="w-full h-12 pl-10 pr-4 text-lg bg-transparent focus:outline-none text-slate-800 placeholder:text-slate-500" />
-                        </div>
-                        <div className="relative w-full md:w-auto">
-                            <div id="audio-format-select" className="w-full md:w-auto px-4 text-md bg-transparent text-slate-800 font-medium border-y-2 md:border-y-0 md:border-x-2 border-slate-200">
-                                <option value="mp3-high">MP3 (Best)</option>
-
-
-
-                            </div>
-
-                        </div>
-                        <button type="submit" id="submit-btn" className="w-full md:w-auto mt-2 md:mt-0 bg-gradient-to-br from-red-500 to-red-600 text-white font-bold text-lg px-6 py-3 rounded-lg flex-shrink-0 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-red-500/30 flex items-center justify-center space-x-3">
-                            <i id="btn-icon" className="fas fa-cogs"></i>
-                            <span id="btn-text">Extract Audio</span>
-                            <div id="btn-loader" className="spinner hidden"></div>
-                        </button>
-                    </form>
-                </div>
-                <div id="result-section-mp3" className="mt-12 max-w-4xl mx-auto hidden transition-all duration-500 ease-in-out">
-                </div>
-            </section>
+            <Mp3ToolSection />
 
             <section id="why-dedicated-tool" className="py-16 sm:py-20 bg-white">
                 <div className="container mx-auto px-6">

@@ -5,11 +5,11 @@ import { Metadata } from "next";
 
 
 export const metadata: Metadata = {
-  title: 'Free YouTube Shorts Downloader | HD MP4 & MP3',
-  description: 'Download YouTube Shorts videos and audio (MP4/MP3) instantly and for free. The fastest YT Shorts Downloader with no ads.',
+  title: 'Free YouTube Shorts Downloader | HD MP4 & MP3 | AI Video to Script',
+  description: 'Download YouTube Shorts videos and audio (MP4/MP3) instantly. Now featuring AI-powered video to script converter and viral script generator for creators.',
   openGraph: {
-    title: 'Free YouTube Shorts Downloader | HD MP4 & MP3',
-    description: 'Download YouTube Shorts videos and audio (MP4/MP3) instantly and for free. The fastest YT Shorts Downloader with no ads.',
+    title: 'Free YouTube Shorts Downloader | HD MP4 & MP3 | AI Video to Script',
+    description: 'Download YouTube Shorts videos and audio (MP4/MP3) instantly. Now featuring AI-powered video to script converter and viral script generator for creators.',
     url: 'https://ytshortsdl.net/',
     type: 'website',
     images: [

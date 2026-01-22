@@ -10,6 +10,8 @@ import Image from 'next/image';
 const NAV_CONFIG = [
     { label: 'Download Shorts', href: '/' },
     { label: 'MP3 Audio', href: '/shorts-to-mp3' },
+    { label: 'Video to Script Converter', href: '/video-to-script-converter' },
+    { label: 'AI Script Generator', href: '/ai-script-generator' },
     { label: 'Youtube Trend', href: '/trending' },
     {
         label: 'AI Tools',
@@ -20,21 +22,7 @@ const NAV_CONFIG = [
             { label: 'Shorts Thumbnail Tool', href: '/shorts-thumbnail-tool' },
         ]
     },
-    {
-        label: 'Guide',
-        type: 'dropdown',
-        links: [
-            { label: 'Chrome Extension', href: '/guide/chrome-extension' },
-            { label: 'iPhone Downloader', href: '/guide/iphone-downloader' },
-            { label: 'Latest Shorts Tool', href: '/guide/latest-shorts-tool' },
-            { label: 'Shorts To MP3 Tutorial', href: '/guide/shorts-to-mp3-tutorial' },
-            { label: 'Shorts Without Watermark', href: '/guide/shorts-without-watermark' },
-            { label: 'Best Shorts Downloader Apps', href: '/shorts-reuse-guide' },
-            { label: 'Shorts Creators Reddit Insights', href: '/shorts-creators-reddit-insights' }
-        ]
-    },
-    { label: 'Pricing', href: '/pricing' },
-    { label: 'Add-On', href: '/addon' },
+
 ];
 
 const Header = () => {

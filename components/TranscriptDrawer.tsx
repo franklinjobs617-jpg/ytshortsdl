@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { FileText, X, Download, ClipboardPaste, Loader2, Languages, AlertCircle } from 'lucide-react';
 import { saveAs } from "file-saver";
-
+import Link from 'next/link';
 interface Language {
     code: string;
     label: string;
@@ -195,6 +195,17 @@ const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, vi
                             <p className="text-xs font-bold text-slate-600 line-clamp-2 italic">{video.title}</p>
                         </>
                     ) : null}
+                </div>
+                <div className="px-6 py-4 border-t border-slate-100 bg-red-50/50">
+                    <div className="flex items-center justify-between mb-4">
+                        <p className="text-[11px] font-bold text-slate-800 tracking-widest">Ready to Repurpose?</p>
+                        <span className="bg-red-600 text-white text-[9px] px-2 py-0.5 rounded-full font-bold">PRO</span>
+                    </div>
+                    <Link href="/ai-script-generator"
+                        className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-2xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-red-200 text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /></svg>
+                        Rewrite with AI Remix
+                    </Link>
                 </div>
 
                 {/* 控制面板 */}

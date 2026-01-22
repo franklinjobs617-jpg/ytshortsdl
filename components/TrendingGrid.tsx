@@ -152,7 +152,7 @@ export default function TrendingGrid({ initialVideos }: { initialVideos: any[] }
                                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                 }`}
                         >
-                            {tab === 'all' ? "🔥 All Trends" : tab === 'shorts' ? "⚡ Shorts" : "🎥 Videos"}
+                            {tab === 'all' ? "🔥 All Trends" : tab === 'shorts' ? "⚡ Shorts" : "📽️ Videos"}
                         </button>
                     ))}
                 </div>

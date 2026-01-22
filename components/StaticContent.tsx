@@ -1,19 +1,19 @@
 import Link from "next/link"
 import Image from 'next/image'
-
+import { Wand2, ArrowRight, Quote, Sparkles, Check } from 'lucide-react'
 export function StaticContent() {
     return (
         <>
             <section className="py-8 bg-white border-y border-slate-200/80">
                 <div className="container mx-auto px-6 max-w-4xl">
                     <h2 className="font-bold text-2xl text-slate-800 mb-8 text-center md:text-left">
-                        Simple 3-Step Guide to Convert Shorts to MP3
+                        Simple 3-Step Guide to Download YouTube Videos & Shorts
                     </h2>
                     <div className="pt-8">
                         <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 relative">
                             <div className="flex-1 flex items-start space-x-4 md:flex-col md:space-x-0 md:items-center text-center">
                                 <div className="md:mt-4">
-                                    <h3 className="text-xl font-bold text-slate-800 mb-1">1. Copy the Link</h3>
+                                    <h3 className="text-xl font-bold text-slate-800 mb-1">1. Copy YouTube Link</h3>
                                     <p className="text-slate-600 text-left md:text-center">Find the YouTube Short video you need and copy its URL.</p>
                                 </div>
                             </div>
@@ -26,8 +26,8 @@ export function StaticContent() {
 
                             <div className="flex-1 flex items-start space-x-4 md:flex-col md:space-x-0 md:items-center text-center">
                                 <div className="md:mt-4">
-                                    <h3 className="text-xl font-bold text-slate-800 mb-1">2. Select MP3</h3>
-                                    <p className="text-slate-600 text-left md:text-center">Paste the URL into the box above and ensure 'MP3' is selected.</p>
+                                    <h3 className="text-xl font-bold text-slate-800 mb-1">2. Paste URL Here</h3>
+                                    <p className="text-slate-600 text-left md:text-center">Paste the URL into the box above and click 'Parse' .</p>
                                 </div>
                             </div>
 
@@ -40,7 +40,7 @@ export function StaticContent() {
                             <div className="flex-1 flex items-start space-x-4 md:flex-col md:space-x-0 md:items-center text-center">
                                 <div className="md:mt-4">
                                     <h3 className="text-xl font-bold text-slate-800 mb-1">3. Download</h3>
-                                    <p className="text-slate-600 text-left md:text-center">Hit the button. The high-quality audio file is saved instantly to your device.</p>
+                                    <p className="text-slate-600 text-left md:text-center">Hit the button. The high-quality file is saved instantly to your device.</p>
                                 </div>
                             </div>
                         </div>
@@ -166,6 +166,103 @@ export function StaticContent() {
                 </div>
             </section>
 
+            <section className="py-24 bg-slate-50 border-t border-slate-200">
+                <div className="container max-w-6xl mx-auto px-6">
+                    <div className="text-center mb-4">
+                        <h2 className="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-4">
+                            AI-Generated Content Examples
+                        </h2>
+                        <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">
+                            See how our AI transforms raw YouTube transcripts into high-engagement, original scripts for your social media.
+                        </p>
+                    </div>
+                    <div className="container mx-auto p-6 max-w-4xl text-center">
+                        <div className="grid md:grid-cols-3 gap-8">
+                            <div>
+                                <div className="text-4xl mb-4">🔗</div>
+                                <h3 className="text-xl font-bold mb-2">1. Paste Link</h3>
+                                <p className="text-slate-600 text-sm">Paste any YouTube Shorts URL to start extraction.</p>
+                            </div>
+                            <div>
+                                <div className="text-4xl mb-4">🤖</div>
+                                <h3 className="text-xl font-bold mb-2">2. Extract AI Script</h3>
+                                <p className="text-slate-600 text-sm">Automatically turn video audio into structured text scripts.
+                                </p>
+                            </div>
+                            <div>
+                                <div className="text-4xl mb-4">🚀</div>
+                                <h3 className="text-xl font-bold mb-2">3. Remix & Download</h3>
+                                <p className="text-slate-600 text-sm">Use AI to rewrite and download your new content instantly.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="relative grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center gap-8 bg-white p-6 md:p-12 rounded-[40px] shadow-xl border border-slate-100">
+
+                        {/* 左侧：原始 Transcript */}
+                        <div className="flex flex-col h-full">
+                            <div className="flex items-center gap-2 mb-4 text-slate-400 font-black uppercase tracking-widest text-[10px]">
+                                <Quote size={12} />
+                                Raw YouTube Transcript
+                            </div>
+                            <div className="flex-1 p-6 bg-slate-50 rounded-3xl border border-slate-100 text-sm text-slate-500 leading-relaxed italic font-mono">
+                                "So today I'm going to show you this cool life hack with a plastic bottle. You just cut the top off and then you can use it to seal bags of rice or chips... it's really simple and works every time, you should definitely try it out at home..."
+                            </div>
+                        </div>
+
+                        {/* 中间：魔术棒图标 */}
+                        <div className="flex flex-col items-center justify-center gap-2">
+                            <div className="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg shadow-red-200 animate-pulse">
+                                <Wand2 size={24} />
+                            </div>
+                            <ArrowRight className="hidden md:block text-slate-300" />
+                        </div>
+
+                        {/* 右侧：AI 改写后的 Script */}
+                        <div className="flex flex-col h-full">
+                            <div className="flex items-center gap-2 mb-4 text-red-600 font-black uppercase tracking-widest text-[10px]">
+                                <Sparkles size={12} fill="currentColor" />
+                                AI-Optimized Viral Script
+                            </div>
+                            <div className="flex-1 p-6 bg-red-50/50 rounded-3xl border border-red-100 text-sm text-slate-800 leading-relaxed font-bold shadow-inner">
+                                "STOP throwing away your plastic bottles! 🛑 Here is a genius 5-second hack to keep your snacks fresh forever. 🍿 <br /><br />
+                                1️⃣ Cut the cap section.<br />
+                                2️⃣ Slide it over your bag.<br />
+                                3️⃣ Twist the lid shut.<br /><br />
+                                Boom! Perfectly sealed. 🔒 Follow for more life-changing creator tips! 🔥"
+                            </div>
+                        </div>
+
+                        {/* 底部补充说明，增强 Google 爬虫的增量价值识别 */}
+                        <div className="md:col-span-3 mt-4 pt-4 border-t border-slate-100 text-center">
+
+                            <div className="my-4 flex justify-center text-center">
+                                <Link
+                                    href="/ai-script-generator"
+                                    className="inline-flex items-center gap-3 px-10 py-5 bg-red-600 text-white font-black rounded-3xl hover:bg-red-500 hover:-translate-y-1 transition-all active:scale-95 group"
+                                >
+                                    <Wand2 size={20} />
+                                    <span>Try AI Script Generator Now</span>
+                                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                                </Link>
+
+                            </div>
+                            <div className="inline-flex items-center gap-4 px-6 py-2 bg-slate-100 rounded-full text-xs font-bold text-slate-500">
+                                <span className="flex items-center gap-1 text-green-600">
+                                    <Check size={14} strokeWidth={3} /> SEO Optimized
+                                </span>
+                                <span className="flex items-center gap-1 text-green-600">
+                                    <Check size={14} strokeWidth={3} /> Re-hooked Intro
+                                </span>
+                                <span className="flex items-center gap-1 text-green-600">
+                                    <Check size={14} strokeWidth={3} /> High Readability
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
             <section className="py-24 bg-slate-50 border-y border-slate-200/80">
                 <div className="container mx-auto px-6">
                     <div className="text-center mb-16 max-w-3xl mx-auto">
@@ -284,6 +381,26 @@ export function StaticContent() {
                     </div>
                 </div>
             </section>
+            <div
+                className="fixed right-0 h-full w-full max-w-md bg-white shadow-2xl transform translate-x-full transition-transform z-[150]">
+                <div className="p-6 border-b border-slate-100 flex items-center justify-between">
+                    <h2 className="text-lg font-black text-slate-900 tracking-tighter uppercase">Transcript</h2>
+                    <button className="p-2 hover:bg-slate-100 rounded-full">✕</button>
+                </div>
+                <div className="grow overflow-y-auto p-6 scrollbar-thin">
+                    <div className="text-slate-500 text-sm">Waiting for video link...</div>
+                </div>
+                <div className="p-6 border-t border-slate-100 bg-red-50/50">
+                    <div className="flex items-center justify-between mb-3">
+                        <p className="text-[10px] font-black text-slate-800 uppercase tracking-widest">Repurpose Content</p>
+                        <span className="bg-red-600 text-white text-[8px] px-2 py-0.5 rounded-full font-bold">PRO FEATURE</span>
+                    </div>
+                    <Link href="/ai-script-generator"
+                        className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-2xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-red-200 text-[12px] uppercase">
+                        🚀 One-Click Script Remix
+                    </Link>
+                </div>
+            </div>
         </>
     )
 }

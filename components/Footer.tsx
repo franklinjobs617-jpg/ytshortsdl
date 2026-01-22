@@ -7,7 +7,10 @@ const FOOTER_LINKS = [
         title: "Core Tools",
         links: [
             { label: "Download Shorts", href: "/" },
-            { label: "MP3 Audio", href: "/shorts-to-mp3" },
+            { label: 'MP3 Audio', href: '/shorts-to-mp3' },
+            { label: 'Video to Script Converter', href: '/video-to-script-converter' },
+            { label: 'AI Script Generator', href: '/ai-script-generator' },
+            { label: 'Youtube Trend', href: '/trending' },
         ],
     },
     {
@@ -24,7 +27,7 @@ const FOOTER_LINKS = [
         ],
     },
     {
-        title: "AI Tools",
+        title: "Tools",
         links: [
             { label: "Watermark Remover", href: "/no-watermark" },
             { label: "4K Shorts Downloader", href: "/4k-shorts-downloader" },
