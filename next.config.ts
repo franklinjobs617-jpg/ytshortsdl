@@ -1,21 +1,24 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {  
-
+const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        // 匹配任意层级的 .html 结尾路径，例如：
-        // /about.html -> /about
-        // /guide/latest-shorts-tool.html -> /guide/latest-shorts-tool
-        source: '/:path*((?!index).+)\\.html',
-        destination: '/:path*',
-        permanent: true, // 301 永久重定向，传递 SEO 权重
+        // 匹配多层目录下的 html 文件，例如 /guide/tools/test.html
+        // :path+ 匹配一层或多层目录
+        // :slug 匹配最后的文件名
+        source: '/:path+/:slug.html',
+        destination: '/:path+/:slug',
+        permanent: true,
+      },
+      {
+        // 匹配根目录下的 html 文件，例如 /about.html
+        source: '/:slug.html',
+        destination: '/:slug',
+        permanent: true,
       },
     ];
   },
-
-  
 };
 
 export default nextConfig;
