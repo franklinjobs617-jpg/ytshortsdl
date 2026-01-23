@@ -15,7 +15,7 @@ export const metadata: Metadata = {
         type: 'article',
         images: [
             {
-                url: 'https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png',
+                url: 'https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png',
                 width: 1200,
                 height: 630,
                 alt: "Creator's Guide: Repurposing YouTube Shorts",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: "Creator's Guide: Repurposing YouTube Shorts",
         description: 'Master the legal and technical workflow for downloading and reusing YouTube Shorts content across platforms.',
-        images: ['https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png'],
+        images: ['https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png'],
     },
 };
 

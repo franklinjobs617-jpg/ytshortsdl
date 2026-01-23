@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     title: 'ShortsSync | YouTube AI Video Summarizer & Transcript Extractor',
     description: 'Turn any YouTube video or Short into an AI-powered summary. Extract full transcripts in multiple languages instantly. Free, fast, and easy to use.',
     alternates: {
-        canonical: '/ai-script-generator',
+        canonical: 'https://ytshortsdl.net/ai-script-generator',
     }
 };
 

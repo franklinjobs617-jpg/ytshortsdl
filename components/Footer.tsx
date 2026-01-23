@@ -1,5 +1,5 @@
-import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 // 1. 提取链接配置数组
 const FOOTER_LINKS = [
@@ -61,10 +61,13 @@ const Footer = () => {
                         <Link href="/" className="text-2xl font-bold text-white">
                             YTShorts<span className="text-red-500">dl</span>.net
                         </Link>
-                        <p className="mt-4 text-sm text-slate-500 leading-relaxed">
+                        <p className="my-4 text-sm text-slate-500 leading-relaxed">
                             The ultimate tool for creators to download, optimize, and repurpose their YouTube Shorts
                             content. Fast, free, and built with passion.
                         </p>
+                        <Link href="https://theresanaiforthat.com/ai/ytshortsdl-ai-creator-suite/?ref=featured&v=7340698" target="_blank" rel="nofollow" >
+                            <Image width="300" height="50" src="https://media.theresanaiforthat.com/featured-on-taaft.png?width=600" alt="Featured on TAAFT" />
+                        </Link>
                     </div>
 
                     {/* 循环渲染提取出的链接数组 */}

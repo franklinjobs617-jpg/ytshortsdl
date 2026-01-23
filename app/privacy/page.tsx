@@ -15,7 +15,7 @@ export const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: 'https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png',
+                url: 'https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png',
                 width: 1200,
                 height: 630,
                 alt: 'Privacy Policy - YtShortsDL.net',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Privacy Policy - YtShortsDL.net',
         description: 'Read the YtShortsDL.net Privacy Policy to understand how we collect, use, and protect your information when using our YouTube Shorts downloader and AI tools.',
-        images: ['https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png'],
+        images: ['https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png'],
     },
 };
 

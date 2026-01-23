@@ -15,7 +15,7 @@ export const metadata: Metadata = {
         type: 'article',
         images: [
             {
-                url: 'https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png',
+                url: 'https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png',
                 alt: 'Why Search for a 2025 YouTube Shorts Downloader?',
             },
         ],
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Why Search for a 2025 YouTube Shorts Downloader?',
         description: "YouTube's constant updates demand a tool that evolves. Welcome to the future of downloading with 99.9% uptime.",
-        images: ['https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png'],
+        images: ['https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png'],
     },
 };
 export default function LatestShortsTool() {

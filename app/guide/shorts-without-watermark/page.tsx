@@ -16,7 +16,7 @@ export const metadata: Metadata = {
         type: 'article',
         images: [
             {
-                url: 'https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png',
+                url: 'https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png',
                 width: 1200,
                 height: 630,
                 alt: 'How Creators Legally Download Shorts Without Watermarks 2025',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'How Creators Legally Download Shorts Without Watermarks 2025',
         description: 'A 2025 guide on legally repurposing your own YouTube Shorts. Learn technical compliance, AI watermark removal, and cross-platform strategy.',
-        images: ['https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png'],
+        images: ['https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png'],
     },
 };
 export default function ShortsWithoutWatermark() {

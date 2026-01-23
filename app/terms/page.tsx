@@ -13,7 +13,7 @@ export const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: 'https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png',
+                url: 'https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png',
                 width: 1200,
                 height: 630,
                 alt: 'Terms of Service | YTShortsDL.net',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Terms of Service | YTShortsDL.net',
         description: 'Understand the rules and guidelines for using our free YouTube Shorts downloader and premium AI tools on YTShortsDL.net.',
-        images: ['https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png'],
+        images: ['https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png'],
     },
 };
 

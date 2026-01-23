@@ -15,7 +15,7 @@ export const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: 'https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png',
+                url: 'https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png',
                 width: 1200,
                 height: 630,
                 alt: 'Support & Help Center | YTShortsDL.net',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Support & Help Center | YTShortsDL.net',
         description: 'Get help with SnapShorts - Pro browser extension. Troubleshooting, FAQs, and support contact information.',
-        images: ['https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png'],
+        images: ['https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png'],
     },
 };
 export default function Privacy() {

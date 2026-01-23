@@ -16,7 +16,7 @@ export const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: 'https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png',
+                url: 'https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png',
                 width: 1200,
                 height: 630,
                 alt: 'YTShortsDL.net About Us',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'About Us | YTShortsDL.net',
         description: 'Learn the story behind YTShortsDL.net and our mission to build the ultimate toolkit for YouTube Shorts creators.',
-        images: ['https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png'],
+        images: ['https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png'],
     },
 };
 export default function About() {

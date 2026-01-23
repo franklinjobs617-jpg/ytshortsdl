@@ -14,7 +14,7 @@ export const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: 'https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png',
+                url: 'https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png',
                 width: 1200,
                 height: 630,
                 alt: 'Free YouTube Shorts Thumbnail Downloader',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Free YouTube Shorts Thumbnail Downloader | HD, SD & MaxRes',
         description: 'Instantly download YouTube Shorts thumbnails in all available resolutions (HD, SD, Max). The fastest tool to grab the perfect cover image for your content.',
-        images: ['https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png'],
+        images: ['https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png'],
     },
 };
 

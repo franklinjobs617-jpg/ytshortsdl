@@ -13,7 +13,7 @@ export const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: 'https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png',
+                url: 'https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png',
                 width: 1200,
                 height: 630,
                 alt: 'Free YouTube Shorts to MP3 Downloader',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'ShortsSync | Free YouTube Shorts to MP3 Downloader',
         description: 'Use the best YouTube Shorts Audio Downloader tool to convert any Shorts video to MP3 or M4A instantly. Simple, fast, and high-quality audio extraction.',
-        images: ['https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png'],
+        images: ['https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png'],
     },
 };
 

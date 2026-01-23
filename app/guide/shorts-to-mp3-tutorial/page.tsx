@@ -14,13 +14,13 @@ export const metadata: Metadata = {
         description: 'Master the 2025 creator workflow: Quickly convert YouTube Shorts to lossless MP3 audio using our dedicated tool. Learn best practices for audio extraction and repurposing.',
         url: 'https://ytshortsdl.net/guide/shorts-to-mp3-tutorial',
         type: 'article',
-        images: ['https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png'],
+        images: ['https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png'],
     },
     twitter: {
         card: 'summary_large_image',
         title: 'High-Quality Shorts MP3 Downloader Guide (2025 Creator Audio)',
         description: 'Master the 2025 creator workflow: Quickly convert YouTube Shorts to lossless MP3 audio using our dedicated tool. Learn best practices for audio extraction and repurposing.',
-        images: ['https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png'],
+        images: ['https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png'],
     },
 };
 

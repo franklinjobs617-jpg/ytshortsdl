@@ -1,8 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+   images: {
+    remotePatterns: [new URL('https://media.theresanaiforthat.com/featured-on-taaft.png?width=600')],
+  },
   async redirects() {
     return [
+
       {
         // 匹配多层目录下的 html 文件，例如 /guide/tools/test.html
         // :path+ 匹配一层或多层目录

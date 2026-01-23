@@ -16,7 +16,7 @@ export const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: 'https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png',
+                url: 'https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png',
                 width: 1200,
                 height: 630,
                 alt: 'Official Browser Add-On | YTShortsDL',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Official Browser Add-On | YTShortsDL',
         description: 'Install the YTShortsDL browser add-on. The fastest way to download YouTube Shorts videos without copy-pasting links',
-        images: ['https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png'],
+        images: ['https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png'],
     },
 };
 

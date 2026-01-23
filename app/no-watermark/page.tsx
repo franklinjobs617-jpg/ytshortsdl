@@ -15,7 +15,7 @@ export const metadata: Metadata = {
         type: 'article',
         images: [
             {
-                url: 'https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png',
+                url: 'https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png',
                 width: 1200,
                 height: 630,
                 alt: 'YouTube Shorts Downloader Without Watermark | AI Remover Tool',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'YouTube Shorts Downloader Without Watermark | AI Remover Tool',
         description: 'Stop manually editing! Use our AI Watermark Remover to get clean videos for cross-posting. The best YouTube Shorts Downloader without watermark solution.',
-        images: ['https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png'],
+        images: ['https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png'],
     },
 };
 

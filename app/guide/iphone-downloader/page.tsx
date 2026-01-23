@@ -16,7 +16,7 @@ export const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: 'https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png',
+                url: 'https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png',
                 width: 1200,
                 height: 630,
                 alt: 'YouTube Shorts Downloader iPhone',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'YouTube Shorts Downloader iPhone - No App, Works on iOS!',
         description: 'The ultimate YouTube Shorts Downloader for iPhone users. Get clear 1080p files directly via browser. No need for complex iOS shortcuts or external apps. Safe and fast.',
-        images: ['https://ytshortsdl.net/images/ytshortsdl-youtube-video-mp3-downloader.png'],
+        images: ['https://ytshortsdl.net/ytshortsdl-youtube-video-mp3-downloader.png'],
     },
 };
 
