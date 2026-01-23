@@ -4,6 +4,9 @@ import TrendingGrid from "@/components/TrendingGrid";
 export const metadata: Metadata = {
     title: 'YouTube Trending List | Today\'s Viral Videos & Shorts',
     description: 'Explore daily trending YouTube videos and shorts. Use AI tools for insights.',
+    alternates: {
+        canonical: 'https://ytshortsdl.net/trending',
+    },
 };
 
 // 保持 24 小时更新一次缓存

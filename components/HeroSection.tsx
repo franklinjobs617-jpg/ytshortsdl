@@ -236,7 +236,10 @@ export default function HeroSection() {
                                     {mode === 'batch' && <div className="hidden md:flex flex-col py-5 px-3 bg-slate-100/50 text-slate-400 text-xs font-mono border-r border-slate-200 select-none space-y-[0.7rem]"><span>01</span><span>02</span><span>03</span></div>}
                                     <div className="relative grow">
                                         {mode === 'single' ? (
-                                            <div className="flex items-center h-12 px-4"><LinkIcon size={18} className="text-slate-400 mr-3" /><input value={singleInputUrl} onChange={(e) => setSingleInputUrl(e.target.value)} placeholder="Paste YouTube link here..." className="w-full h-full bg-transparent outline-none text-slate-800 font-bold" /></div>
+                                            <div className="flex items-center h-12 px-4">
+                                                <LinkIcon size={18} className="text-slate-400 mr-3" />
+                                                <input value={singleInputUrl} onChange={(e) => setSingleInputUrl(e.target.value)} placeholder="Paste YouTube link here..." className="w-full h-full bg-transparent outline-none text-slate-800 font-bold" />
+                                            </div>
                                         ) : (
                                             <textarea ref={textareaRef} value={batchInputUrl} onChange={(e) => setBatchInputUrl(e.target.value)} rows={3} placeholder="Paste up to 3 links (one per line)..." className="w-full px-4 md:p-5 bg-transparent outline-none text-slate-800 font-mono text-sm leading-relaxed resize-none text-left overflow-hidden" />
                                         )}
@@ -258,11 +261,9 @@ export default function HeroSection() {
                                         {currentResults.length}
                                     </span>
                                     <div>
-                                        {/* 修改：这里使用了 flex 包裹标题和新按钮 */}
                                         <div className="md:flex md:items-center gap-3">
                                             <h3 className="text-2xl font-black text-slate-900 leading-none">Ready to Download</h3>
 
-                                            {/* 新增：返回顶部的“解析另一个”按钮 */}
                                             <button
                                                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                                                 className="flex items-center gap-1.5 px-4 py-1.5 my-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl text-sm font-black tracking-tighter transition-all active:scale-95"

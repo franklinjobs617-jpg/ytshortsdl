@@ -17,6 +17,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/shorts-reuse-guide',
     '/shorts-thumbnail-tool',
     '/shorts-creators-reddit-insights',
+    '/video-to-script-converter',
+    '/ai-script-generator',
+    '/support',
+    '/trending',
     // Guide 子目录
     '/guide/chrome-extension',
     '/guide/iphone-downloader',

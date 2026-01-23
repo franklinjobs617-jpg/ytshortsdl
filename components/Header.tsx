@@ -13,6 +13,7 @@ const NAV_CONFIG = [
     { label: 'Video to Script Converter', href: '/video-to-script-converter' },
     { label: 'AI Script Generator', href: '/ai-script-generator' },
     { label: 'Youtube Trend', href: '/trending' },
+    { label: 'Pricing', href: '/pricing' },
     {
         label: 'AI Tools',
         type: 'dropdown',
