@@ -192,8 +192,10 @@ export default function AiSummarizerSection() {
             <div className="glow-effect -z-10"></div>
             <div className="relative py-20 px-4 max-w-7xl mx-auto">
                 <div className="text-center mb-12">
-                    <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tighter uppercase leading-none">YouTube AI <span className="text-red-600 italic">Summarizer</span></h1>
-                    <p className="text-slate-500 text-sm font-bold uppercase tracking-widest">Powered by Advanced Language Models</p>
+                    <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tighter">
+                        YouTube video <span className="text-red-600">AI Script Generator</span>
+                    </h1>
+                    <p className="text-slate-500 text-sm">Instant insights and transcripts powered by AI.</p>
                 </div>
 
                 <div className="max-w-4xl mx-auto mb-16">
@@ -272,6 +274,38 @@ export default function AiSummarizerSection() {
                         </div>
                     </div>
                 )}
+
+                <div className="mt-12 text-xs text-slate-400 flex items-center justify-center gap-2">
+                    <ShieldCheck size={14} className="text-green-500" /> Secure AI processing using Volcano Ark Engine.
+                </div>
+
+                <div className="pt-12 flex flex-col items-center max-w-6xl mx-auto">
+                    <span className="text-slate-400 mb-4 font-bold text-sm">Professional Creator Suite</span>
+                    <div className="flex flex-wrap justify-center gap-6">
+                        <Link href="/" className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
+                            <span className="text-2xl">📽️</span>
+                            <div className="text-left font-black tracking-tighter">
+                                <p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 01</p>
+                                <p className="text-sm font-black">Download Shorts</p>
+                            </div>
+                        </Link>
+                        <Link href="/shorts-to-mp3" className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
+                            <span className="text-2xl">🎵</span>
+                            <div className="text-left font-black tracking-tighter">
+                                <p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 02</p>
+                                <p className="text-sm font-black">Extract MP3</p>
+                            </div>
+                        </Link>
+                        <Link href="/video-to-script-converter" className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
+                            <span className="text-2xl">🤖</span>
+                            <div className="text-left font-black tracking-tighter">
+                                <p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 03</p>
+                                <p className="text-sm font-black">Video to Script</p>
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+
             </div>
         </section>
     );
