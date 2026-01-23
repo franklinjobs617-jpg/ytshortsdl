@@ -16,8 +16,10 @@ interface AuthContextType {
     isLoggedIn: boolean;
     credits: number; // 总积分 (本地 + 账户)
     isLoaded: boolean;
+    isLoggingIn: boolean; // 新增：登录中状态
     login: () => void;
     logout: () => void;
+
     deductCredit: () => Promise<boolean>;
     refreshCredits: () => Promise<void>; // 新增：刷新方法
 }
@@ -30,6 +32,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [guestCredits, setGuestCredits] = useState(0); // 本地游客积分
     const [isLoaded, setIsLoaded] = useState(false);
     const [tokenClient, setTokenClient] = useState<any>(null);
+    const [isLoggingIn, setIsLoggingIn] = useState(false); // 新增状态
+
 
     // --- 1. 获取本地游客积分 (1分/天) ---
     const getGuestCreditsValue = useCallback(() => {
@@ -48,6 +52,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // --- 2. 后端登录/同步逻辑 ---
     const syncUserToDatabase = useCallback(async (accessToken: string) => {
+        setIsLoggingIn(true);
         try {
             const res = await fetch('/api/auth/login', {
                 method: 'POST',
@@ -66,6 +71,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
         } catch (e) {
             console.error("Database sync failed", e);
+        } finally {
+            setIsLoggingIn(false); // 无论成功失败都结束状态
         }
     }, []);
 
@@ -176,6 +183,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             isLoggedIn: !!user,
             credits: guestCredits + dbCredits, // 这里的计算结果是实时总分
             isLoaded,
+            isLoggingIn,
             login,
             logout,
             deductCredit,

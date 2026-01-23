@@ -91,7 +91,7 @@ export function StaticContent() {
                 <div className="container max-w-6xl mx-auto px-6 space-y-24">
                     <div className="grid md:grid-cols-1 gap-8 items-center">
                         <div className="text-left">
-                            <h2 className="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-5">Supported Formats:<br />MP4, MP3, and HD Quality</h2>
+                            <h2 className="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-5">Supported Formats:<br />MP4, MP3, and Quality</h2>
                             <p className="text-slate-600 text-lg leading-relaxed mb-10">We don't just download; we ensure your videos meet all content repurposing requirements.</p>
                             <div className="grid sm:grid-cols-2 gap-8">
                                 <div className="bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-transparent transition-all duration-300 transform hover:-translate-y-2 hover:shadow-red-500/20 hover:border-red-500/30">
@@ -102,7 +102,7 @@ export function StaticContent() {
                                     </div>
                                     <h3 className="text-2xl font-bold text-slate-800 mb-3">High-Quality MP4</h3>
                                     <p className="text-slate-600 leading-relaxed">
-                                        Download in Standard HD or Full HD. For higher quality, check our{" "}
+                                        Download in Standard . For higher quality, check our{" "}
                                         <Link href="/4k-shorts-downloader" className="text-red-500 font-semibold hover:underline">
                                             4K/8K Pro Options
                                         </Link>.
@@ -352,7 +352,7 @@ export function StaticContent() {
                                 </svg>
                             </summary>
                             <p className="mt-4 text-slate-600 leading-relaxed">
-                                Yes, the core download functionality (up to 1080P HD) is <strong>100% free </strong>. We offer a paid subscription for premium features like 4K downloads and our AI Watermark Remover tool.
+                                Yes, the core download functionality is <strong>100% free </strong>. We offer a paid subscription for premium features like 4K downloads and our AI Watermark Remover tool.
                             </p>
                         </details>
                         <details className="bg-white p-6 rounded-lg group shadow-lg border border-slate-200/50 shadow-slate-200/50">

@@ -160,7 +160,7 @@ export default function LatestShortsTool() {
                                 <div className="bg-slate-800 p-4 rounded-lg border border-slate-700">
                                     <i className="fas fa-expand text-green-400 text-xl mb-3"></i>
                                     <h3 className="font-bold mb-2">8K Downscaling</h3>
-                                    <p className="text-sm text-slate-400">Support for future ultra-HD formats, downscaling to
+                                    <p className="text-sm text-slate-400">Support for future ultra formats, downscaling to
                                         perfect, crisp 4K mobile files.</p>
                                 </div>
                             </div>
@@ -190,7 +190,7 @@ export default function LatestShortsTool() {
                                 alt="Feature comparison grid showing the standard free features available now versus the advanced AI and 4K/8K features planned for the 2025 Pro subscription."
                                 className="w-full rounded-xl shadow-xl border border-slate-200" />
                             <figcaption className="mt-4 text-center text-slate-500 text-sm">
-                                Free is great, but Pro ensures you are ready for the future of HD Shorts.
+                                Free is great, but Pro ensures you are ready for the future of Shorts.
                             </figcaption>
                         </figure>
 

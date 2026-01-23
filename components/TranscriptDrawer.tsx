@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { FileText, X, Download, ClipboardPaste, Loader2, Languages, AlertCircle } from 'lucide-react';
 import { saveAs } from "file-saver";
 import Link from 'next/link';
@@ -45,6 +46,7 @@ const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, vi
     // 独立控制下载按钮的 Loading 状态
     const [isDownloadingSrt, setIsDownloadingSrt] = useState(false);
     const [isDownloadingTxt, setIsDownloadingTxt] = useState(false);
+    const router = useRouter();
 
     // 1. 当抽屉打开时，获取语言列表
     useEffect(() => {
@@ -160,6 +162,30 @@ const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, vi
         </div>
     );
 
+
+
+    const handleRemixClick = () => {
+        if (!video || !meta || !fullText) {
+            addToast("Please wait until transcript is fully loaded", "error");
+            return;
+        }
+
+        const fullPackage = {
+            url: video.targetUrl,
+            meta: meta,
+            segments: segments,
+            fullText: fullText,
+            selectedLang: selectedLang
+        };
+
+        // 存入全量数据，不需要再二次调用 API
+        sessionStorage.setItem('pending_remix_data', JSON.stringify(fullPackage));
+
+        onClose();
+        router.push('/ai-script-generator');
+    };
+
+
     return (
         <div className={`fixed inset-0 z-150 transition-all duration-300 ${isOpen ? 'visible' : 'invisible pointer-events-none'}`}>
             {/* 遮罩 */}
@@ -201,11 +227,13 @@ const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, vi
                         <p className="text-[11px] font-bold text-slate-800 tracking-widest">Ready to Repurpose?</p>
                         <span className="bg-red-600 text-white text-[9px] px-2 py-0.5 rounded-full font-bold">PRO</span>
                     </div>
-                    <Link href={`/ai-script-generator?videoId=${video?.id}`}
-                        className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-2xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-red-200 text-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /></svg>
+                    <button
+                        onClick={handleRemixClick}
+                        className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-2xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-red-200 text-sm active:scale-95"
+                    >
+                        <FileText size={18} strokeWidth={3} />
                         Rewrite with AI Remix
-                    </Link>
+                    </button>
                 </div>
 
                 {/* 控制面板 */}

@@ -91,6 +91,8 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({
             status: "success",
             user: {
+                id: user.id,
+                googleUserId: user.googleUserId,
                 email: user.email,
                 name: user.name,
                 picture: user.picture,

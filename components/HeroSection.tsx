@@ -219,7 +219,7 @@ export default function HeroSection() {
                         Free YouTube Shorts Downloader : <br /><span className="text-red-600">AI Creator Suite</span>
                     </h1>
                     <p className="mt-4 text-md md:text-lg text-slate-600 font-medium tracking-tight">
-                        Download HD Shorts and use AI to transform videos into viral scripts instantly.
+                        Download Shorts and use AI to transform videos into viral scripts instantly.
                     </p>
 
                     <div className="flex justify-center mt-10 mb-8">
@@ -299,7 +299,7 @@ export default function HeroSection() {
                                         <div key={idx} className={`group bg-white rounded-[40px] border border-slate-100 overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col ${currentResults.length === 1 ? 'w-full max-w-md' : 'w-full'}`}>
                                             <div className="relative aspect-video overflow-hidden">
                                                 {video.status !== 'failed' ? (
-                                                    <><img src={video.thumbnail} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" /><div className="absolute top-4 right-4 bg-red-600 text-white text-[9px] font-black px-2.5 py-1 rounded shadow-lg uppercase">HD Ready</div></>
+                                                    <><img src={video.thumbnail} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" /><div className="absolute top-4 right-4 bg-red-600 text-white text-[9px] font-black px-2.5 py-1 rounded shadow-lg uppercase">Ready</div></>
                                                 ) : (
                                                     <div className="w-full h-full flex flex-col items-center justify-center bg-red-50 text-red-500 p-8 font-black text-[10px] italic"><AlertCircle size={32} className="mb-2" /> FAILED</div>
                                                 )}
@@ -309,7 +309,7 @@ export default function HeroSection() {
                                                 {video.status !== 'failed' && (
                                                     <div className="flex gap-2 mt-auto w-full">
                                                         <button onClick={() => downloadSingle(video, idx)} disabled={isThisItemDownloading || isZipDownloading} className={`flex-2 py-4 rounded-2xl text-sm flex items-center justify-center gap-2 transition-all shadow-lg active:scale-95 tracking-tighter whitespace-nowrap font-black ${isThisItemDownloading ? 'bg-slate-400 text-white shadow-none' : (isZipDownloading ? 'bg-slate-100 text-slate-300 shadow-none' : 'bg-slate-900 hover:bg-red-600 text-white shadow-red-200')}`}>
-                                                            {isThisItemDownloading ? <div className="relative flex items-center justify-center"><LoaderCircle size={20} className="animate-spin opacity-40" /><span className="absolute text-[8px] font-bold">{progress}%</span></div> : <Download size={20} strokeWidth={3} />}
+                                                            {isThisItemDownloading ? <div className="relative flex items-center justify-center"><LoaderCircle size={28} className="animate-spin opacity-40" /><span className="absolute text-[14px] font-bold">{progress}%</span></div> : <Download size={20} strokeWidth={3} />}
                                                             <span>{isThisItemDownloading ? 'Downloading...' : 'Download Video'}</span>
                                                         </button>
                                                         <button onClick={() => { setSelectedVideo(video); setIsDrawerOpen(true); }} disabled={isThisItemDownloading || isZipDownloading} className="flex-1 relative py-4 rounded-2xl flex items-center justify-center gap-1 transition-all border border-slate-200 group/btn bg-slate-100 hover:bg-slate-200 text-slate-600 disabled:opacity-50"><FileText size={14} className="group-hover/btn:text-red-500 transition-colors shrink-0" /><span className="text-[11px] font-black tracking-tighter whitespace-nowrap">Transcript</span><span className="text-[8px] absolute right-2 top-0 bg-red-500 text-white px-2 py-0.5 rounded-md font-black shrink-0">AI</span></button>
