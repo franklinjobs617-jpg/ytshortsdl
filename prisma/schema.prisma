@@ -31,8 +31,35 @@ model User {
 
   // 关联支付表
   payments Pay[]
+  usage    Usage?
 
   @@map("google_user")
+}
+
+model Usage {
+  id      Int     @id @default(autoincrement())
+  userId  Int?    @unique @map("user_id") // 登录用户ID
+  guestId String? @unique @map("guest_id") // 游客唯一标识（IP哈希或设备指纹）
+
+  // 等级逻辑
+  plan       String    @default("FREE") // "FREE", "PRO", "ELITE"
+  expireTime DateTime? @map("expire_time") // 订阅到期时间，到期后 plan 自动视为 FREE
+
+  // 本月已使用计数（每月重置）
+  downloadCount   Int @default(0) @map("download_count")
+  extractionCount Int @default(0) @map("extraction_count")
+  summaryCount    Int @default(0) @map("summary_count")
+
+  // 重置逻辑
+  lastResetMonth Int @map("last_reset_month") // 记录上次重置的月份 (1-12)
+  lastResetYear  Int @map("last_reset_year") // 记录上次重置的年份 (如 2026)
+
+  createTime DateTime @default(now()) @map("create_time")
+  updateTime DateTime @updatedAt @map("update_time")
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("google-ytshort-usage")
 }
 
 model Pay {
