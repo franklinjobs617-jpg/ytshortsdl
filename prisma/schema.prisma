@@ -59,7 +59,7 @@ model Usage {
 
   user User? @relation(fields: [userId], references: [id])
 
-  @@map("google-ytshort-usage")
+  @@map("google_ytshort_usage")
 }
 
 model Pay {
