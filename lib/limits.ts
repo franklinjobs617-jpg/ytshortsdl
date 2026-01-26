@@ -1,8 +1,8 @@
 export const PLAN_LIMITS = {
   FREE: {
-    download: 10,
-    extract: 5,
-    summary: 5,
+    download: 3,
+    extract: 3,
+    summary: 3,
     label: "Free Plan"
   },
   PRO: {
