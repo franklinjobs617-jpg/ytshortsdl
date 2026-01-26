@@ -4,11 +4,8 @@ import { getOrCreateUsage } from '@/lib/usage-service';
 import { prisma } from '@/lib/prisma';
 
 // 定义不同等级的上限
-const PLAN_LIMITS: any = {
-    FREE: { download: 10, extract: 5, summary: 5 },
-    PRO: { download: 9999, extract: 150, summary: 300 },
-    ELITE: { download: 9999, extract: 9999, summary: 9999 }
-};
+import { PLAN_LIMITS } from '@/lib/limits';
+
 
 export async function POST(req: NextRequest) {
     try {
@@ -19,8 +16,8 @@ export async function POST(req: NextRequest) {
             guestId
         );
 
-        const plan = usage.plan as string;
-        const limits = PLAN_LIMITS[plan];
+        const plan = usage.plan as keyof typeof PLAN_LIMITS;
+const limits = PLAN_LIMITS[plan];
         
         // 确定要检查和增加的字段
         let field: "downloadCount" | "extractionCount" | "summaryCount";
@@ -37,7 +34,7 @@ export async function POST(req: NextRequest) {
             currentCount = usage.summaryCount;
         }
 
-        const maxLimit = limits[type];
+       const maxLimit = limits[type as 'download' | 'extract' | 'summary'] as number;
 
         // 校验额度
         if (currentCount >= maxLimit) {

@@ -1,9 +1,9 @@
 export const PLAN_LIMITS = {
   FREE: {
-    download: 3,
-    extract: 3,
-    summary: 3,
-    label: "Free Plan"
+     download: 1,
+    extract: 1,
+    summary: 1,
+    label: "Daily Free Plan"
   },
   PRO: {
     download: 9999, // 模拟无限

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { Check, X, ChevronDown, Loader2 } from "lucide-react";
-import { useAuth } from "@/lib/auth-context"; // 确保路径正确
+import { useState, useEffect } from "react";
+import { Check, X, ChevronDown, Loader2, CreditCard, CheckCircle2, AlertCircle, RefreshCcw } from "lucide-react";
+import { useAuth } from "@/lib/auth-context";
 
 interface Feature {
     label: string;
@@ -24,7 +24,38 @@ interface Plan {
 const PricingTable = () => {
     const [isYearly, setIsYearly] = useState(false);
     const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
-    const { user, isLoggedIn, login } = useAuth(); // 使用你的 AuthContext
+    const [payProvider, setPayProvider] = useState<'stripe' | 'paypal' | null>(null);
+    const { user, isLoggedIn, login } = useAuth();
+
+    // --- 🚀 新增：支付回调校验状态 ---
+    const [verificationStatus, setVerificationStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+    // --- 🚀 逻辑：处理 PayPal 回跳后的自动检测 ---
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const payerId = urlParams.get('PayerID');
+
+        if (payerId) {
+            handleVerifyPayPal();
+        }
+    }, []);
+
+    const handleVerifyPayPal = async () => {
+        setVerificationStatus('loading');
+        try {
+            // 使用你提供的校验地址
+            const res = await fetch(`https://api.removermarca.com/prod-api/paypal/retUrl${window.location.search}`);
+            const data = await res.json();
+            if (data.code === 0) {
+                setVerificationStatus('success');
+                setTimeout(() => window.location.href = "/", 2000);
+            } else {
+                setVerificationStatus('error');
+            }
+        } catch (e) {
+            setVerificationStatus('error');
+        }
+    };
 
     const plans: Plan[] = [
         {
@@ -33,12 +64,12 @@ const PricingTable = () => {
             monthlyPrice: "$0",
             yearlyPrice: "$0",
             features: [
-                { label: "Shorts Downloads", value: 10, included: true, bold: false },
-                { label: "Subtitle Extractions", value: 3, included: true, bold: false },
-                { label: "AI Script Generations", value: 5, included: true, bold: false },
+                { label: "Shorts Downloads", value: 1, included: true, bold: false },
+                { label: "Subtitle Extractions", value: 1, included: true, bold: false },
+                { label: "AI Script Generations", value: 1, included: true, bold: false },
                 { label: "4K Support", value: null, included: false, bold: false },
             ],
-            buttonText: "Get Started",
+            buttonText: "Current Plan",
             featured: false,
         },
         {
@@ -72,47 +103,40 @@ const PricingTable = () => {
         },
     ];
 
-    // --- 核心逻辑：处理支付跳转 ---
-    const handlePlanClick = async (plan: Plan) => {
-        if (plan.name === "Free") {
-            window.location.href = "/";
-            return;
-        }
-
-        if (!isLoggedIn) {
-            login(); // 未登录则触发登录
-            return;
-        }
+    // --- 🚀 核心逻辑：发起支付 ---
+    const handleStartPayment = async (plan: Plan, provider: 'stripe' | 'paypal') => {
+        if (plan.name === "Free") return;
+        if (!isLoggedIn) { login(); return; }
 
         setLoadingPlan(plan.name);
+        setPayProvider(provider);
 
         try {
-            // 构建发送给接口的 type (例如: "pro_yearly" 或 "elite_monthly")
             const typeString = `plan_${plan.name.toLowerCase()}_${isYearly ? 'yearly' : 'monthly'}`;
-            console.log(user);
-            const res = await fetch('/api/pay/create', {
+            // 根据不同供应商请求不同接口
+            const endpoint = provider === 'stripe' ? '/api/pay/create' : '/api/pay/paypal-create';
+            const res = await fetch(endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     googleUserId: user?.googleUserId,
                     email: user?.email,
-                    userId: (user as any)?.id, // 对应 Prisma 的 Int ID
+                    userId: user?.id,
                     type: typeString
                 })
             });
 
             const data = await res.json();
-            console.log("Payment response data:", data);
             if (data.url) {
-                window.location.href = data.url; // 跳转到 Stripe 支付页
+                window.location.href = data.url;
             } else {
-                alert("Payment system is busy, please try again later.");
+                alert("Service busy, please try again.");
             }
         } catch (error) {
-            console.error("Payment failed", error);
-            alert("Connection error.");
+            alert("Payment connection failed.");
         } finally {
             setLoadingPlan(null);
+            setPayProvider(null);
         }
     };
 
@@ -123,66 +147,105 @@ const PricingTable = () => {
         return `${num} ${label} / ${isYearly ? 'yr' : 'mo'}`;
     };
 
-    return (
-        <div className="py-6 md:py-12 px-4 sm:px-6 lg:px-8 bg-white text-slate-900 font-sans antialiased overflow-hidden">
-            <div className="max-w-7xl mx-auto flex flex-col items-center">
-                <div className="text-center mb-6 lg:mb-8">
-                    <h2 className="text-[10px] md:text-xs font-black text-red-600 tracking-[0.2em] uppercase mb-1">Pricing Plans</h2>
-                    <p className="text-2xl md:text-6xl font-black text-slate-900 leading-tight">
-                        Select the best plan for<br /> <span className="text-red-600 italic">your creativity</span>
-                    </p>
-
-                    <div className="mt-4 flex justify-center items-center gap-3">
-                        <span className={`text-xs md:text-sm font-bold ${!isYearly ? 'text-slate-900' : 'text-slate-400'}`}>Monthly</span>
-                        <button onClick={() => setIsYearly(!isYearly)} className="relative inline-flex h-5 w-10 md:h-6 md:w-12 items-center rounded-full bg-slate-200 focus:outline-none">
-                            <span className={`inline-block h-3.5 w-3.5 md:h-4 md:w-4 transform rounded-full bg-red-600 transition-transform ${isYearly ? 'translate-x-5 md:translate-x-7' : 'translate-x-1'}`}></span>
+    // --- 🚀 如果处于回跳验证状态，显示全屏覆盖 ---
+    if (verificationStatus !== 'idle') {
+        return (
+            <div className="min-h-[80vh] flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-500">
+                {verificationStatus === 'loading' && (
+                    <div className="space-y-6">
+                        <Loader2 className="w-16 h-16 animate-spin text-red-600 mx-auto" />
+                        <h2 className="text-2xl font-black">Verifying Payment...</h2>
+                        <p className="text-slate-500">Please do not close this window.</p>
+                    </div>
+                )}
+                {verificationStatus === 'success' && (
+                    <div className="space-y-6">
+                        <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto animate-bounce" />
+                        <h2 className="text-2xl font-black text-slate-900">Payment Successful!</h2>
+                        <p className="text-slate-500">Welcome to {user?.givenName} Pro. Redirecting...</p>
+                    </div>
+                )}
+                {verificationStatus === 'error' && (
+                    <div className="space-y-6">
+                        <AlertCircle className="w-16 h-16 text-red-500 mx-auto" />
+                        <h2 className="text-2xl font-black text-slate-900">Payment Verification Failed</h2>
+                        <button onClick={() => window.location.href = "/pricing"} className="px-8 py-3 bg-slate-900 text-white rounded-2xl font-bold flex items-center gap-2 mx-auto">
+                            <RefreshCcw size={18} /> Retry or Contact Support
                         </button>
-                        <span className={`text-xs md:text-sm font-bold ${isYearly ? 'text-slate-900' : 'text-slate-400'}`}>
-                            Yearly <span className="text-green-600 text-[10px] md:text-[11px] font-black bg-green-50 px-2 py-0.5 rounded-full">(Save 25%+)</span>
-                        </span>
+                    </div>
+                )}
+            </div>
+        );
+    }
+
+    return (
+        <div className="py-6 md:py-12 px-4 sm:px-6 lg:px-8 bg-white text-slate-900 font-sans antialiased">
+            <div className="max-w-7xl mx-auto flex flex-col items-center">
+                {/* 头部展示逻辑省略... 保持你之前的代码 */}
+                <div className="text-center mb-10">
+                    <h2 className="text-xs font-black text-red-600 tracking-widest uppercase mb-2 italic">Pricing Plans</h2>
+                    <p className="text-3xl md:text-6xl font-black text-slate-900 leading-tight tracking-tighter">Select the best plan for<br /> <span className="text-red-600 italic">your creativity</span></p>
+                    <div className="mt-8 flex justify-center items-center gap-4">
+                        <span className={`text-sm font-bold ${!isYearly ? 'text-slate-900' : 'text-slate-400'}`}>Monthly</span>
+                        <button onClick={() => setIsYearly(!isYearly)} className="relative inline-flex h-7 w-14 items-center rounded-full bg-slate-100 border border-slate-200 transition-all"><span className={`inline-block h-5 w-5 transform rounded-full bg-red-600 transition-all ${isYearly ? 'translate-x-8' : 'translate-x-1'}`}></span></button>
+                        <span className={`text-sm font-bold ${isYearly ? 'text-slate-900' : 'text-slate-400'}`}>Yearly <span className="text-green-600 text-xs font-black bg-green-50 px-2 py-1 rounded-full ml-1">Save 25%+</span></span>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3 w-full max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 w-full max-w-6xl mx-auto items-stretch">
                     {plans.map((plan, idx) => (
-                        <div key={idx} className={`relative rounded-[24px] md:rounded-[32px] p-5 md:p-8 transition-all duration-500 flex flex-col border ${plan.featured ? 'bg-slate-950 text-white shadow-2xl lg:scale-105 z-10 border-red-600' : 'bg-white border-slate-200 text-slate-900'}`}>
-                            {plan.featured && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[8px] md:text-[10px] font-black px-3 py-1 rounded-full uppercase shadow-lg">Most Popular</div>}
-                            <div className="mb-4 md:mb-6 text-left">
-                                <h3 className={`text-lg md:text-xl font-black ${plan.featured ? 'text-white' : 'text-slate-900'}`}>{plan.name}</h3>
-                                <p className={`text-[11px] md:text-xs font-medium ${plan.featured ? 'text-slate-400' : 'text-slate-500'}`}>{plan.desc}</p>
+                        <div key={idx} className={`relative rounded-[40px] p-8 md:p-10 transition-all duration-500 flex flex-col border ${plan.featured ? 'bg-slate-950 text-white shadow-2xl lg:scale-105 z-10 border-red-600' : 'bg-white border-slate-200 text-slate-900'}`}>
+                            {plan.featured && <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest">Most Popular</div>}
+
+                            <div className="mb-8">
+                                <h3 className="text-2xl font-black">{plan.name}</h3>
+                                <p className={`text-sm font-medium ${plan.featured ? 'text-slate-400' : 'text-slate-500'}`}>{plan.desc}</p>
                             </div>
-                            <div className="mb-4 md:mb-6 flex flex-col items-start">
+
+                            <div className="mb-8 flex flex-col">
                                 <div className="flex items-baseline">
-                                    <span className="text-3xl md:text-4xl font-black tracking-tighter">{isYearly ? plan.yearlyPrice : plan.monthlyPrice}</span>
-                                    <span className={`text-[10px] font-bold ml-1 ${plan.featured ? 'text-slate-500' : 'text-slate-400'}`}>{isYearly ? '/yr' : '/mo'}</span>
+                                    <span className="text-5xl font-black tracking-tighter">{isYearly ? plan.yearlyPrice : plan.monthlyPrice}</span>
+                                    <span className={`text-sm font-bold ml-1 ${plan.featured ? 'text-slate-500' : 'text-slate-400'}`}>{isYearly ? '/yr' : '/mo'}</span>
                                 </div>
-                                {isYearly && plan.name !== "Free" && (
-                                    <span className="text-[10px] text-green-500 font-bold mt-1">Only {(parseFloat(plan.yearlyPrice.replace('$', '')) / 12).toFixed(2)}$ / mo</span>
-                                )}
+                                {isYearly && plan.name !== "Free" && <span className="text-xs text-green-500 font-bold mt-2 uppercase tracking-wider italic">Only {(parseFloat(plan.yearlyPrice.replace('$', '')) / 12).toFixed(2)}$ / month</span>}
                             </div>
-                            <ul className="space-y-3 md:space-y-4 text-[12px] md:text-[13px] mb-6 md:mb-8 grow text-left">
+
+                            <ul className="space-y-4 mb-12 grow text-left">
                                 {plan.features.map((feat, fIdx) => (
-                                    <li key={fIdx} className={`flex items-start gap-2 ${feat.included ? '' : 'opacity-40'}`}>
-                                        {feat.included ? <Check className="w-4 h-4 text-red-500 shrink-0" strokeWidth={4} /> : <X className={`w-4 h-4 shrink-0 ${plan.featured ? 'text-slate-700' : 'text-slate-300'}`} strokeWidth={3} />}
-                                        <span className={`${feat.bold ? 'font-black' : 'font-medium'} ${plan.featured && feat.included ? 'text-slate-200' : ''}`}>{formatFeature(feat.value, feat.label)}</span>
+                                    <li key={fIdx} className={`flex items-start gap-3 ${feat.included ? '' : 'opacity-30'}`}>
+                                        {feat.included ? <Check className="w-5 h-5 text-red-500 shrink-0" strokeWidth={4} /> : <X className="w-5 h-5 text-slate-300 shrink-0" strokeWidth={3} />}
+                                        <span className={`text-sm ${feat.bold ? 'font-black' : 'font-medium'} ${plan.featured && feat.included ? 'text-slate-200' : ''}`}>{formatFeature(feat.value, feat.label)}</span>
                                     </li>
                                 ))}
                             </ul>
 
-                            <button
-                                onClick={() => handlePlanClick(plan)}
-                                disabled={loadingPlan === plan.name}
-                                className={`w-full py-3 md:py-4 rounded-xl font-black text-xs md:text-sm transition-all flex items-center justify-center gap-2 ${plan.featured ? 'bg-red-600 hover:bg-red-700 text-white' : 'bg-slate-900 hover:bg-red-600 text-white'} disabled:opacity-50`}
-                            >
-                                {loadingPlan === plan.name ? <Loader2 className="animate-spin" size={16} /> : null}
-                                {loadingPlan === plan.name ? 'Connecting...' : plan.buttonText}
-                            </button>
+                            {/* 🚀 支付按钮区域：双通道并列设计 */}
+                            {plan.name === "Free" ? (
+                                <button disabled className="w-full py-5 rounded-3xl font-black bg-slate-100 text-slate-400">Current Plan</button>
+                            ) : (
+                                <div className="space-y-3">
+                                    <button
+                                        disabled={loadingPlan !== null}
+                                        onClick={() => handleStartPayment(plan, 'stripe')}
+                                        className={`w-full text-lg py-4 rounded-2xl font-black transition-all flex items-center justify-center gap-2 shadow-lg active:scale-95 ${plan.featured ? 'bg-red-600 text-white' : 'bg-slate-900 text-white'}`}
+                                    > Pay with
+                                        {(loadingPlan === plan.name && payProvider === 'stripe') ? <Loader2 className="animate-spin" size={18} /> :
+                                            <img src="/StripeLogo.png" className="h-8" alt="Stripe" />}
+                                    </button>
+                                    <button
+                                        disabled={loadingPlan !== null}
+                                        onClick={() => handleStartPayment(plan, 'paypal')}
+                                        className="w-full py-4 rounded-2xl font-black text-lg transition-all flex items-center justify-center gap-2 border-2 border-slate-200 text-slate-700 bg-white hover:bg-slate-50 active:scale-95 shadow-sm"
+                                    >  Pay with
+                                        {(loadingPlan === plan.name && payProvider === 'paypal') ? <Loader2 className="animate-spin" size={18} /> :
+                                            <img src="/PayPalLogo.png" className="h-8" alt="PayPal" />}
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
             </div>
-
-            {/* FAQ ... 保持不变 */}
         </div>
     );
 };

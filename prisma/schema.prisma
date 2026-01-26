@@ -51,8 +51,9 @@ model Usage {
   summaryCount    Int @default(0) @map("summary_count")
 
   // 重置逻辑
-  lastResetMonth Int @map("last_reset_month") // 记录上次重置的月份 (1-12)
-  lastResetYear  Int @map("last_reset_year") // 记录上次重置的年份 (如 2026)
+  lastResetMonth Int     @map("last_reset_month") // 记录上次重置的月份 (1-12)
+  lastResetYear  Int     @map("last_reset_year") // 记录上次重置的年份 (如 2026)
+  lastResetDate  String? @map("last_reset_date") // 存储格式如 "2026-01-26"
 
   createTime DateTime @default(now()) @map("create_time")
   updateTime DateTime @updatedAt @map("update_time")
