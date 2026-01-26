@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   },
   colorScheme: 'light',
   themeColor: '#ffffff',
+  verification: {
+    other: {
+      "saashub-verification": "dbxb8loh2q88",
+    },
+  },
 };
 export default function RootLayout({
   children,
