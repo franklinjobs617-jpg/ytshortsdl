@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Script from 'next/script'
 import Header from "@/components/Header";
@@ -7,7 +6,15 @@ import { AuthProvider } from "@/lib/auth-context";
 import Footer from "@/components/Footer";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import Head from "next/head";
-
+export const metadata: Metadata = {
+  title: 'Free YouTube Shorts Downloader | HD MP4 & MP3 | AI Video to Script',
+  description: 'Download YouTube Shorts videos and audio (MP4/MP3) instantly. Now featuring AI-powered video to script converter and viral script generator for creators.',
+  alternates: {
+    canonical: 'https://ytshortsdl.net/',
+  },
+  colorScheme: 'light',
+  themeColor: '#ffffff',
+};
 export default function RootLayout({
   children,
 }: Readonly<{
