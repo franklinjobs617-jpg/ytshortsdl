@@ -64,7 +64,7 @@ const Header = () => {
 
     return (
         <>
-            <header className="py-4 px-6 md:px-12 sticky top-0 bg-white/70 backdrop-blur-md z-50 border-b border-slate-200/50 transition-all duration-300">
+            <header className="py-4 px-6 md:px-12 sticky top-0 bg-white backdrop-blur-md z-50 border-b border-slate-200/50 transition-all duration-300">
                 <nav className="flex justify-between items-center max-w-7xl mx-auto">
                     <Link href="/" className="group flex items-center gap-2">
                         <Image src="/ytshortsdl-logo.webp" alt="logo" className="w-10 h-10 transition-transform group-hover:scale-110" width={40} height={40} />
