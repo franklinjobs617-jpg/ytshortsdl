@@ -5,7 +5,6 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
     title: 'YouTube Shorts Downloader iPhone - No App, Works on iOS!',
     description: 'The ultimate YouTube Shorts Downloader for iPhone users. Get clear 1080p files directly via browser. No need for complex iOS shortcuts or external apps. Safe and fast.',
-    themeColor: '#EF4444',
     alternates: {
         canonical: 'https://ytshortsdl.net/guide/iphone-downloader',
     },

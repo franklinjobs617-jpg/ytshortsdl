@@ -12,8 +12,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://ytshortsdl.net/',
   },
-  colorScheme: 'light',
-  themeColor: '#ffffff',
   verification: {
     other: {
       "saashub-verification": "dbxb8loh2q88",
