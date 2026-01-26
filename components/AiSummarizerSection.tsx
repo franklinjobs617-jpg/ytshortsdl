@@ -4,12 +4,15 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import {
     Loader2, Link as LinkIcon, ShieldCheck,
     FileText, Sparkles, Languages,
-    ClipboardPaste, Download, RefreshCcw, ChevronDown, ChevronUp
+    ClipboardPaste, Download, RefreshCcw, ChevronDown, ChevronUp, AlertCircle, X, Check
 } from 'lucide-react';
 import { saveAs } from "file-saver";
+import { useAuth } from '@/lib/auth-context';
+import SubscriptionModal from "@/components/SubscriptionModal"; // 🚀 引入组件
 
 const API_BASE = "https://ytdlp.vistaflyer.com";
 
+// --- Markdown 渲染器 ---
 const MarkdownRenderer = ({ text }: { text: string }) => {
     const renderLine = (line: string, index: number) => {
         const trimmed = line.trim();
@@ -31,6 +34,10 @@ const MarkdownRenderer = ({ text }: { text: string }) => {
 };
 
 export default function AiSummarizerSection() {
+    const { user, credits, consumeUsage, isLoggedIn, login } = useAuth(); // 🚀 增加 user, login
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isPayLoading, setIsPayLoading] = useState(false); // 🚀 增加支付加载状态
+
     const [url, setUrl] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isSummarizing, setIsSummarizing] = useState(false);
@@ -43,8 +50,8 @@ export default function AiSummarizerSection() {
     const [aiSummary, setAiSummary] = useState("");
     const [view, setView] = useState<"summary" | "transcript">("summary");
     const [transcriptMode, setTranscriptMode] = useState<"time" | "text">("time");
-    const [toasts, setToasts] = useState<{ id: number; message: string; type: 'success' | 'error' }[]>([]);
 
+    const [toasts, setToasts] = useState<{ id: number; message: string; type: 'success' | 'error' }[]>([]);
     const hasInited = useRef(false);
 
     const addToast = (message: string, type: 'success' | 'error' = 'error') => {
@@ -53,12 +60,46 @@ export default function AiSummarizerSection() {
         setTimeout(() => setToasts((prev) => prev.filter((t) => t.id !== id)), 5000);
     };
 
+    // 🚀 新增：处理支付跳转逻辑
+    const handleUpgradeClick = async (typeString: string) => {
+        if (!isLoggedIn) {
+            login();
+            return;
+        }
+
+        setIsPayLoading(true);
+        try {
+            const res = await fetch('/api/pay/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    googleUserId: user?.googleUserId,
+                    email: user?.email,
+                    userId: user?.id,
+                    type: typeString
+                })
+            });
+
+            const data = await res.json();
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                addToast("Payment gateway is busy, please try again.", "error");
+            }
+        } catch (error) {
+            addToast("Connection error, please try again.", "error");
+        } finally {
+            setIsPayLoading(false);
+        }
+    };
+
     const resetAiStates = () => {
         setAiSummary("");
         setAiReasoning("");
         setIsReasoningExpanded(false);
     };
 
+    // 1. AI 流式总结逻辑
     const startAiStreaming = async (text: string) => {
         if (!text) return;
         setIsSummarizing(true);
@@ -91,80 +132,95 @@ export default function AiSummarizerSection() {
                 }
             }
         } catch (err: any) {
-            addToast("AI analysis failed", "error");
+            addToast("AI synthesis failed", "error");
         } finally {
             setIsSummarizing(false);
         }
     };
 
-    // 核心解析函数：自动获取元数据 -> 内容 -> 触发 AI
-    const handleExtract = useCallback(async (targetUrl?: string) => {
+    // 2. 带扣费检查的 Content 获取逻辑
+    const fetchContentWithCheck = async (targetUrl: string, langCode: string) => {
+        if (credits <= 0) {
+            setIsModalOpen(true);
+            return;
+        }
+        setIsLoading(true);
+        setSegments([]);
+        resetAiStates();
+
+        try {
+            const hasQuota = await consumeUsage('summary');
+            if (!hasQuota) {
+                setIsModalOpen(true);
+                setIsLoading(false);
+                return;
+            }
+
+            const res = await fetch(`${API_BASE}/api/transcript/content`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url: targetUrl, lang: langCode })
+            });
+
+            if (!res.ok) throw new Error("Server temporary error (500).");
+
+            const data = await res.json();
+            setSegments(data.segments || []);
+            setFullText(data.full_text || "");
+            setIsLoading(false);
+            await startAiStreaming(data.full_text);
+        } catch (err: any) {
+            addToast(err.message, "error");
+            setIsLoading(false);
+            setSegments([]);
+        }
+    };
+
+    // 3. 初始解析
+    const handleInitialExtract = useCallback(async (targetUrl?: string) => {
         const fetchUrl = targetUrl || url.trim();
         if (!fetchUrl) return;
+
         setIsLoading(true);
-        resetAiStates();
         try {
-            // 1. 获取视频元数据 (Info)
             const res = await fetch(`${API_BASE}/api/transcript/info`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ url: fetchUrl })
             });
-            if (!res.ok) throw new Error("Transcript unavailable.");
+            if (!res.ok) throw new Error("Video info not found.");
             const info = await res.json();
             setVideoData(info);
             setSelectedLang(info.default_lang);
-
-            // 2. 获取具体内容 (Content)
-            const res2 = await fetch(`${API_BASE}/api/transcript/content`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ url: fetchUrl, lang: info.default_lang })
-            });
-            const content = await res2.json();
-            setSegments(content.segments);
-            setFullText(content.full_text);
-
-            // 3. 触发总结
-            await startAiStreaming(content.full_text);
+            await fetchContentWithCheck(fetchUrl, info.default_lang);
         } catch (err: any) {
             addToast(err.message, "error");
-        } finally {
             setIsLoading(false);
         }
-    }, [url]);
+    }, [url, credits]);
 
-    // --- 智能初始化逻辑：检查会话存储 ---
+    // 监听会话跳转
     useEffect(() => {
         if (hasInited.current) return;
         const incomingStr = sessionStorage.getItem('pending_remix_data');
-
         if (incomingStr) {
             try {
                 const data = JSON.parse(incomingStr);
                 setUrl(data.url);
-
-                // 判断数据是否完整 (包含 meta 和 fullText)
                 if (data.meta && data.fullText) {
-                    // 数据完整：直接填充 UI 并开始 AI
                     setVideoData(data.meta);
                     setSegments(data.segments);
                     setFullText(data.fullText);
                     setSelectedLang(data.selectedLang);
                     startAiStreaming(data.fullText);
-                    addToast("Content restored from drawer", "success");
                 } else {
-                    // 数据不完整 (只有 URL)：自动触发完整解析逻辑
-                    handleExtract(data.url);
+                    handleInitialExtract(data.url);
                 }
-
                 hasInited.current = true;
                 sessionStorage.removeItem('pending_remix_data');
-            } catch (e) {
-                console.error("Session sync failed", e);
-            }
+            } catch (e) { }
         }
-    }, [handleExtract]);
+    }, [handleInitialExtract]);
 
     const handleCopy = () => {
         const text = view === "summary" ? aiSummary : (transcriptMode === "time" ? segments.map(s => `[${s.t}] ${s.txt}`).join('\n') : fullText);
@@ -179,6 +235,14 @@ export default function AiSummarizerSection() {
 
     return (
         <section className="relative">
+            {/* 🚀 正式的订阅弹窗组件 */}
+            <SubscriptionModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onUpgrade={handleUpgradeClick}
+                isLoading={isPayLoading}
+            />
+
             {/* Toast */}
             <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center pointer-events-none w-xs md:w-lg max-sm px-4">
                 {toasts.map((toast) => (
@@ -200,12 +264,12 @@ export default function AiSummarizerSection() {
 
                 <div className="max-w-4xl mx-auto mb-16">
                     <div className="bg-white p-3 rounded-2xl border border-slate-200 shadow-2xl shadow-slate-100">
-                        <form onSubmit={(e) => { e.preventDefault(); handleExtract(); }} className="flex flex-col md:flex-row items-stretch gap-3">
+                        <form onSubmit={(e) => { e.preventDefault(); handleInitialExtract(); }} className="flex flex-col md:flex-row items-stretch gap-3">
                             <div className="relative grow flex bg-slate-50/80 rounded-2xl border border-slate-100 focus-within:bg-white transition-all px-4 items-center h-12">
                                 <LinkIcon size={18} className="text-slate-400 mr-3" />
-                                <input type="url" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="Paste Youtube link here..." required className="grow bg-transparent outline-none text-slate-800 font-bold" />
+                                <input type="url" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="Paste Youtube link here..." required className="grow bg-transparent outline-none text-slate-800 font-bold text-sm" />
                             </div>
-                            <button type="submit" disabled={isLoading || isSummarizing} className="md:w-52 h-12 rounded-2xl font-black bg-red-600 text-white hover:bg-red-700 shadow-xl shadow-red-100 flex items-center justify-center gap-3 disabled:opacity-50">
+                            <button type="submit" disabled={isLoading || isSummarizing} className="md:w-52 h-12 rounded-2xl font-black bg-red-600 text-white hover:bg-red-700 shadow-xl flex items-center justify-center gap-3 disabled:opacity-50 transition-all">
                                 {(isLoading || isSummarizing) ? <Loader2 className="animate-spin" /> : <Sparkles size={20} />} <span>Generate</span>
                             </button>
                         </form>
@@ -218,57 +282,80 @@ export default function AiSummarizerSection() {
                             <div className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
                                 <img src={videoData.thumbnail} className="w-full aspect-video object-cover" alt="" />
                                 <div className="p-6">
-                                    <h3 className="font-bold text-slate-800 mb-6 line-clamp-2 italic tracking-tight leading-snug">{videoData.title}</h3>
+                                    <h3 className="font-bold text-slate-800 mb-6 line-clamp-2 italic leading-snug tracking-tight">{videoData.title}</h3>
                                     <div className="flex items-center gap-2 text-slate-400 mb-2">
                                         <Languages size={14} />
                                         <span className="text-[10px] font-black uppercase tracking-widest">Select Language</span>
                                     </div>
-                                    <select value={selectedLang} onChange={(e) => handleExtract(url)} className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs font-bold text-slate-700 outline-none">
+                                    <select
+                                        disabled={isLoading || isSummarizing}
+                                        value={selectedLang}
+                                        onChange={(e) => fetchContentWithCheck(url, e.target.value)}
+                                        className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs font-bold text-slate-700 outline-none"
+                                    >
                                         {videoData.languages?.map((l: any) => <option key={l.code} value={l.code}>{l.label}</option>)}
                                     </select>
                                 </div>
                             </div>
-                            <button onClick={() => handleExtract(url)} className="w-full py-4 bg-slate-100 text-slate-500 rounded-2xl font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-2 uppercase text-xs tracking-widest">Generate Again</button>
+                            <button onClick={() => fetchContentWithCheck(url, selectedLang)} disabled={isLoading || isSummarizing} className="w-full py-4 bg-slate-100 text-slate-500 rounded-2xl font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-2 uppercase text-xs tracking-tighter">
+                                <RefreshCcw size={16} className={(isLoading || isSummarizing) ? "animate-spin" : ""} /> {isLoading ? "Updating..." : "Generate Again"}
+                            </button>
                         </div>
 
                         <div className="lg:col-span-2">
-                            <div className="bg-white rounded-[32px] shadow-2xl flex flex-col h-[650px] overflow-hidden p-2 border border-slate-100">
+                            <div className="bg-white rounded-[32px] shadow-2xl flex flex-col h-[650px] overflow-hidden p-2 border border-slate-100 relative">
+
                                 <div className="bg-slate-200/60 p-1.5 rounded-2xl flex gap-1 backdrop-blur-sm border border-white shadow-inner">
                                     <button onClick={() => setView("summary")} className={`flex-1 py-3 text-xs md:text-sm rounded-2xl flex items-center justify-center gap-2 font-black transition-all ${view === 'summary' ? 'bg-white text-red-600 shadow-sm' : 'text-slate-400'}`}><Sparkles size={16} /> AI SUMMARY</button>
                                     <button onClick={() => setView("transcript")} className={`flex-1 py-3 text-xs md:text-sm  rounded-2xl flex items-center justify-center gap-2 font-black transition-all ${view === 'transcript' ? 'bg-white text-red-600 shadow-sm' : 'text-slate-400'}`}><FileText size={16} /> TRANSCRIPT</button>
                                 </div>
-                                <div className="grow overflow-y-auto p-6 text-left scrollbar-thin">
-                                    {view === "summary" ? (
+
+                                {view === "transcript" && !isLoading && segments.length > 0 && (
+                                    <div className="px-6 py-2 flex justify-end gap-2 border-b border-slate-50 animate-in slide-in-from-top-1">
+                                        <button onClick={() => setTranscriptMode("time")} className={`px-4 py-1.5 text-[10px] font-black rounded-lg transition-all ${transcriptMode === 'time' ? 'bg-red-600 text-white shadow-lg shadow-red-200' : 'bg-slate-100 text-slate-400'}`}>TIME</button>
+                                        <button onClick={() => setTranscriptMode("text")} className={`px-4 py-1.5 text-[10px] font-black rounded-lg transition-all ${transcriptMode === 'text' ? 'bg-red-600 text-white shadow-lg shadow-red-200' : 'bg-slate-100 text-slate-400'}`}>TEXT</button>
+                                    </div>
+                                )}
+
+                                <div className="grow overflow-y-auto p-6 text-left scrollbar-thin flex flex-col">
+                                    {isLoading ? (
+                                        <div className="h-full flex flex-col items-center justify-center text-slate-400 gap-3 min-h-[300px]"><Loader2 className="animate-spin" size={32} /><p className="text-[10px] font-black uppercase tracking-widest">Loading Data...</p></div>
+                                    ) : segments.length === 0 ? (
+                                        <button onClick={() => fetchContentWithCheck(url, selectedLang)} className="h-full w-full flex flex-col items-center justify-center text-slate-300 hover:text-red-500 transition-all duration-300 group p-12 min-h-[300px]">
+                                            <RefreshCcw size={48} className="mb-4 group-hover:rotate-180 transition-transform duration-500" /><p className="text-sm font-black uppercase tracking-widest leading-none">Request Failed</p><span className="text-[10px] mt-2 font-bold opacity-60 underline">Click to retry</span>
+                                        </button>
+                                    ) : view === "summary" ? (
                                         <div className="space-y-4">
                                             {aiReasoning && (
                                                 <div className="rounded-2xl border border-slate-100 border-dashed overflow-hidden">
                                                     <button onClick={() => setIsReasoningExpanded(!isReasoningExpanded)} className="w-full flex items-center justify-between p-3 bg-slate-50 text-[10px] font-black text-slate-400 uppercase">
-                                                        <span>AI Process Check</span>
-                                                        {isReasoningExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                                                        <span>AI Thinking Process</span>{isReasoningExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                                                     </button>
                                                     {isReasoningExpanded && <div className="p-4 text-xs text-slate-400 italic whitespace-pre-wrap leading-relaxed">{aiReasoning}</div>}
                                                 </div>
                                             )}
                                             <div className="prose prose-slate max-w-none">
-                                                {!aiSummary && isSummarizing && <div className="flex flex-col items-center justify-center h-40 text-slate-300 gap-3"><Loader2 className="animate-spin" size={30} /><span className="text-xs font-bold uppercase tracking-widest italic">AI Analysis...</span></div>}
+                                                {!aiSummary && isSummarizing && (
+                                                    <div className="flex flex-col items-center justify-center h-40 text-slate-300 gap-3"><Loader2 className="animate-spin" size={30} /><span className="text-xs font-bold uppercase tracking-widest italic text-center">AI is analyzing script...</span></div>
+                                                )}
                                                 <MarkdownRenderer text={aiSummary} />
                                                 {isSummarizing && aiSummary && <span className="inline-block w-2 h-5 ml-1 bg-red-500 animate-pulse" />}
                                             </div>
                                         </div>
                                     ) : (
                                         <div className="space-y-6">
-                                            {segments.map((s, i) => (
-                                                <div key={i} className="flex gap-4 group">
-                                                    <span className="font-mono text-[10px] text-red-500/60 font-black shrink-0 mt-1">{s.t}</span>
-                                                    <p className="text-sm text-slate-700 font-medium leading-relaxed group-hover:text-slate-950 transition-colors">{s.txt}</p>
+                                            {transcriptMode === "time" ? segments.map((s, i) => (
+                                                <div key={i} className="flex gap-4 group text-left">
+                                                    <span className="font-mono text-[10px] text-red-500/60 font-black shrink-0 mt-1 tabular-nums">{s.t}</span>
+                                                    <p className="text-sm text-slate-700 font-medium leading-relaxed group-hover:text-slate-950 transition-colors select-text">{s.txt}</p>
                                                 </div>
-                                            ))}
+                                            )) : <p className="text-sm text-slate-700 font-medium leading-[2.2] whitespace-pre-wrap select-text px-2">{fullText}</p>}
                                         </div>
                                     )}
                                 </div>
                                 <div className="p-4 border-t border-slate-50 bg-white grid grid-cols-2 gap-4">
-                                    <button onClick={handleCopy} className="py-4 bg-slate-900 text-white text-sm font-black rounded-2xl flex items-center justify-center gap-2 hover:bg-red-600 transition-all uppercase tracking-tighter">Copy Content</button>
-                                    <button onClick={handleExport} className="py-4 bg-white border border-slate-200 text-sm text-slate-700 font-black rounded-2xl flex items-center justify-center gap-2 hover:bg-slate-50 transition-all uppercase tracking-tighter">Export TXT</button>
+                                    <button onClick={handleCopy} disabled={isLoading || (view === 'summary' && !aiSummary)} className="py-4 bg-slate-900 text-white text-sm font-black rounded-2xl flex items-center justify-center gap-2 hover:bg-red-600 transition-all uppercase tracking-tighter disabled:opacity-30 shadow-lg">Copy Content</button>
+                                    <button onClick={handleExport} disabled={isLoading || (view === 'summary' && !aiSummary)} className="py-4 bg-white border border-slate-200 text-sm text-slate-700 font-black rounded-2xl flex items-center justify-center gap-2 hover:bg-slate-50 transition-all uppercase tracking-tighter disabled:opacity-30">Export TXT</button>
                                 </div>
                             </div>
                         </div>

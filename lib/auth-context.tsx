@@ -1,42 +1,65 @@
 "use client"
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react"
 
-// 定义与 Prisma 模型一致的用户接口
+// 用户基础信息接口
 interface User {
+    id: number;
     email: string;
     name: string;
     givenName?: string;
     picture: string;
-    credits: string; // 数据库存的是 string
     googleUserId: string;
+    credits: string;
+}
+
+// 订阅使用情况接口
+interface UsageData {
+    plan: 'FREE' | 'PRO' | 'ELITE';
+    downloadCount: number;
+    extractionCount: number;
+    summaryCount: number;
+    expireTime: string | null;
 }
 
 interface AuthContextType {
     user: User | null;
     isLoggedIn: boolean;
-    credits: number; // 总积分 (本地 + 账户)
+    isSubscriber: boolean; // 是否是付费订阅用户
+    usage: UsageData | null; // 详细的每月用量
+    credits: number; // 当前每日本地/账户点数 (用于 ZIP)
     isLoaded: boolean;
-    isLoggingIn: boolean; // 新增：登录中状态
+    isLoggingIn: boolean;
     login: () => void;
     logout: () => void;
-
+    consumeUsage: (type: 'download' | 'extract' | 'summary') => Promise<boolean>;
+    refreshUsage: () => Promise<void>;
     deductCredit: () => Promise<boolean>;
-    refreshCredits: () => Promise<void>; // 新增：刷新方法
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
-    const [dbCredits, setDbCredits] = useState(0); // 数据库积分
-    const [guestCredits, setGuestCredits] = useState(0); // 本地游客积分
+    const [usage, setUsage] = useState<UsageData | null>(null);
+    const [dbCredits, setDbCredits] = useState(0);
+    const [guestCredits, setGuestCredits] = useState(0);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [tokenClient, setTokenClient] = useState<any>(null);
-    const [isLoggingIn, setIsLoggingIn] = useState(false); // 新增状态
 
+    // --- 1. 设备指纹 (用于追踪游客每月用量) ---
+    const getFingerprint = useCallback(() => {
+        if (typeof window === "undefined") return "";
+        let fp = localStorage.getItem('device_fp');
+        if (!fp) {
+            fp = 'fp_' + Math.random().toString(36).substring(2, 15);
+            localStorage.setItem('device_fp', fp);
+        }
+        return fp;
+    }, []);
 
-    // --- 1. 获取本地游客积分 (1分/天) ---
-    const getGuestCreditsValue = useCallback(() => {
+    // --- 2. 获取每日本地积分 (1分/天，不累计) ---
+    const getGuestDailyCredits = useCallback(() => {
         if (typeof window === "undefined") return 1;
         const today = new Date().toDateString();
         const lastReset = localStorage.getItem("guest_reset_date");
@@ -50,42 +73,57 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return stored ? parseInt(stored) : 1;
     }, []);
 
-    // --- 2. 后端登录/同步逻辑 ---
+    // --- 3. 获取/刷新每月配额使用情况 ---
+    const refreshUsage = useCallback(async () => {
+        try {
+            const savedUser = localStorage.getItem("yt_db_user");
+            const parsedUser = savedUser ? JSON.parse(savedUser) : null;
+
+            const res = await fetch('/api/usage/get', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userId: parsedUser?.id,
+                    guestId: parsedUser ? undefined : getFingerprint()
+                })
+            });
+            if (res.ok) {
+                const data = await res.json();
+                setUsage(data);
+            }
+        } catch (e) {
+            console.error("Fetch usage failed", e);
+        }
+    }, [getFingerprint]);
+
+    // --- 4. 登录同步逻辑 ---
     const syncUserToDatabase = useCallback(async (accessToken: string) => {
         setIsLoggingIn(true);
         try {
             const res = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ accessToken }) // 对应后端接口字段
+                body: JSON.stringify({ accessToken })
             });
 
             if (res.ok) {
                 const data = await res.json();
-                // 假设后端返回格式为 { status: "success", user: { ... } }
                 const dbUser = data.user;
                 setUser(dbUser);
                 setDbCredits(parseInt(dbUser.credits || "0"));
                 localStorage.setItem("auth_token", accessToken);
                 localStorage.setItem("yt_db_user", JSON.stringify(dbUser));
+                // 登录后立即刷新用量表
+                await refreshUsage();
             }
         } catch (e) {
             console.error("Database sync failed", e);
         } finally {
-            setIsLoggingIn(false); // 无论成功失败都结束状态
+            setIsLoggingIn(false);
         }
-    }, []);
+    }, [refreshUsage]);
 
-    // --- 3. 新增：刷新积分方法 ---
-    const refreshCredits = useCallback(async () => {
-        const savedToken = localStorage.getItem("auth_token");
-        if (savedToken) {
-            await syncUserToDatabase(savedToken);
-        }
-        setGuestCredits(getGuestCreditsValue());
-    }, [getGuestCreditsValue, syncUserToDatabase]);
-
-    // --- 4. 初始化加载 ---
+    // --- 5. 初始化 ---
     useEffect(() => {
         const initialize = async () => {
             const savedToken = localStorage.getItem("auth_token");
@@ -100,7 +138,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     localStorage.removeItem("auth_token");
                 }
             }
-            setGuestCredits(getGuestCreditsValue());
+            setGuestCredits(getGuestDailyCredits());
+            await refreshUsage();
             setIsLoaded(true);
         };
 
@@ -124,28 +163,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         initialize();
         loadGoogleSDK();
-    }, [getGuestCreditsValue, syncUserToDatabase]);
+    }, [getGuestDailyCredits, syncUserToDatabase, refreshUsage]);
 
-    // --- 5. 操作方法 ---
-    const login = () => {
-        if (tokenClient) tokenClient.requestAccessToken();
-        else console.warn("Google Sign-in is initializing...");
+    // --- 6. 消耗每月配额 (下载/解析/总结前调用) ---
+    const consumeUsage = async (type: 'download' | 'extract' | 'summary'): Promise<boolean> => {
+        try {
+            const res = await fetch('/api/usage/check-and-consume', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userId: user?.id,
+                    guestId: user ? undefined : getFingerprint(),
+                    type
+                })
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                setUsage(data.usage); // 更新本地用量状态
+                return true;
+            }
+            return false;
+        } catch (e) {
+            return false;
+        }
     };
 
-    const logout = () => {
-        setUser(null);
-        setDbCredits(0);
-        localStorage.removeItem("auth_token");
-        localStorage.removeItem("yt_db_user");
-        setGuestCredits(getGuestCreditsValue());
-    };
-
-    // --- 6. 核心：扣除积分逻辑 ---
+    // --- 7. 消耗每日本地/账户积分 (ZIP打包时调用) ---
     const deductCredit = async (): Promise<boolean> => {
-        // 总分不足
         if (guestCredits + dbCredits <= 0) return false;
 
-        // A. 优先扣除本地游客积分
         if (guestCredits > 0) {
             const newVal = guestCredits - 1;
             setGuestCredits(newVal);
@@ -153,16 +200,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             return true;
         }
 
-        // B. 本地积分为 0，扣除数据库积分
         if (user) {
             try {
-                const token = localStorage.getItem("auth_token");
-                const res = await fetch('/api/user/consume', { // 对应你的扣费接口
+                const res = await fetch('/api/user/consume', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: user.email })
                 });
-
                 if (res.ok) {
                     const updatedUser = await res.json();
                     setDbCredits(parseInt(updatedUser.credits || "0"));
@@ -170,24 +214,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     return true;
                 }
             } catch (e) {
-                console.error("Deduct credit failed", e);
                 return false;
             }
         }
         return false;
     };
 
+    const login = () => {
+        if (tokenClient) tokenClient.requestAccessToken();
+    };
+
+    const logout = () => {
+        setUser(null);
+        setUsage(null);
+        setDbCredits(0);
+        localStorage.removeItem("auth_token");
+        localStorage.removeItem("yt_db_user");
+        setGuestCredits(getGuestDailyCredits());
+        refreshUsage();
+    };
+
     return (
         <AuthContext.Provider value={{
             user,
             isLoggedIn: !!user,
-            credits: guestCredits + dbCredits, // 这里的计算结果是实时总分
+            isSubscriber: usage ? (usage.plan === 'PRO' || usage.plan === 'ELITE') : false,
+            usage,
+            credits: guestCredits + dbCredits,
             isLoaded,
             isLoggingIn,
             login,
             logout,
-            deductCredit,
-            refreshCredits
+            consumeUsage,
+            refreshUsage,
+            deductCredit
         }}>
             {children}
         </AuthContext.Provider>

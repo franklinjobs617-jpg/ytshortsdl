@@ -1,33 +1,34 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Loader2, Download, Settings, Link as LinkIcon, ShieldCheck, AlertCircle, Music, RefreshCcw } from 'lucide-react';
+import {
+    Loader2, Download, Settings, Link as LinkIcon,
+    ShieldCheck, AlertCircle, Music, RefreshCcw, X, Sparkles, Check
+} from 'lucide-react';
 import Link from 'next/link';
+import { useAuth } from '@/lib/auth-context'; // 🚀 引入 AuthContext
+import { saveAs as fileSaveAs } from "file-saver";
+import SubscriptionModal from "@/components/SubscriptionModal"; // 🚀 引入新组件
 
 // 匹配后端返回的简化数据结构
 interface VideoData {
     title: string;
     thumbnail: string;
     duration: number;
-    url: string;      // 已被后端过滤为 Format 18 的直链
-    ext: string;      // 后端强制返回的 "m4a"
-    ua: string;       // 解析时使用的 UA
-    filesize: number; // Format 18 的大小
+    url: string;
+    ext: string;
+    ua: string;
+    filesize: number;
 }
 
-// 文件保存辅助函数
-const saveAs = (blob: Blob, fileName: string) => {
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = fileName;
-    link.click();
-    window.URL.revokeObjectURL(link.href);
-};
-
 export default function Mp3ToolSection() {
+    const { user, credits, consumeUsage, isLoggedIn, login } = useAuth(); // 🚀 获取授权状态及方法
+
     const [url, setUrl] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isDownloading, setIsDownloading] = useState(false);
+    const [isPayLoading, setIsPayLoading] = useState(false); // 🚀 支付加载状态
+    const [isModalOpen, setIsModalOpen] = useState(false); // 订阅弹窗状态
     const [downloadProgress, setDownloadProgress] = useState(0);
     const [videoData, setVideoData] = useState<VideoData | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -39,7 +40,40 @@ export default function Mp3ToolSection() {
         return `${min}:${sec < 10 ? '0' : ''}${sec}`;
     };
 
-    // 1. 请求后端获取直链
+    // 🚀 处理支付跳转逻辑
+    const handleUpgradeClick = async (typeString: string) => {
+        if (!isLoggedIn) {
+            login();
+            return;
+        }
+
+        setIsPayLoading(true);
+        try {
+            const res = await fetch('/api/pay/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    googleUserId: user?.googleUserId,
+                    email: user?.email,
+                    userId: user?.id,
+                    type: typeString
+                })
+            });
+
+            const data = await res.json();
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                alert("Payment gateway is busy, please try again.");
+            }
+        } catch (error) {
+            alert("Connection error, please try again.");
+        } finally {
+            setIsPayLoading(false);
+        }
+    };
+
+    // 1. 请求后端获取直链 (解析不扣费)
     const handleExtract = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!url.trim()) return;
@@ -56,11 +90,9 @@ export default function Mp3ToolSection() {
             });
 
             const result = await response.json();
-
             if (!response.ok || result.error) {
                 throw new Error(result.error || "Failed to analyze link.");
             }
-
             setVideoData(result);
         } catch (err: any) {
             setError(err.message || "Connection failed");
@@ -69,30 +101,43 @@ export default function Mp3ToolSection() {
         }
     };
 
-    // 2. 核心流式下载逻辑
+    // 2. 核心流式下载逻辑 (带积分校验)
     const handleDownload = async () => {
         if (!videoData || isDownloading) return;
+
+        // --- 🚀 步骤 1: 基础积分预检 ---
+        if (credits <= 0) {
+            setIsModalOpen(true);
+            return;
+        }
 
         setIsDownloading(true);
         setDownloadProgress(0);
 
         try {
-            const WORKER_URL = "https://proud-frost-bf8e.franke-4b7.workers.dev/";
+            // --- 🚀 步骤 2: 调用后端扣费接口 ---
+            const hasQuota = await consumeUsage('download');
+            if (!hasQuota) {
+                setIsModalOpen(true);
+                setIsDownloading(false);
+                return;
+            }
 
+            // --- 🚀 步骤 3: 扣费成功，开始下载 ---
+            const WORKER_URL = "https://proud-frost-bf8e.franke-4b7.workers.dev/";
             const params = new URLSearchParams({
                 url: videoData.url,
                 title: videoData.title,
             });
 
-            const response = await fetch(`${WORKER_URL}?${params.toString()}&ua=${undefined}`);
+            const response = await fetch(`${WORKER_URL}?${params.toString()}`);
             if (!response.ok) throw new Error("Worker transfer failed");
 
             const contentLength = response.headers.get('content-length');
             const totalSize = contentLength ? parseInt(contentLength, 10) : 0;
             const reader = response.body?.getReader();
-            if (!reader) throw new Error("Stream reader initialization failed");
+            if (!reader) throw new Error("Stream reader failed");
 
-            // --- 修复点：显式声明为 BlobPart[] ---
             const chunks: BlobPart[] = [];
             let loaded = 0;
 
@@ -108,17 +153,18 @@ export default function Mp3ToolSection() {
                 }
             }
 
-            // 将下载的数据封装为 m4a MIME 类型
             const audioBlob = new Blob(chunks, { type: 'audio/x-m4a' });
-
-            // 强制后缀名为 .m4a
             const safeFileName = `${videoData.title.replace(/[\\/:*?"<>|]/g, '_')}.m4a`;
 
-            saveAs(audioBlob, safeFileName);
+            const blobUrl = window.URL.createObjectURL(audioBlob);
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = safeFileName;
+            link.click();
+            window.URL.revokeObjectURL(blobUrl);
 
         } catch (err: any) {
             alert("Download failed: " + err.message);
-
         } finally {
             setIsDownloading(false);
             setDownloadProgress(0);
@@ -127,6 +173,15 @@ export default function Mp3ToolSection() {
 
     return (
         <section id="tool-interface" className="relative text-center py-20 px-4">
+
+            {/* 🚀 集成通用的订阅弹窗组件 */}
+            <SubscriptionModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onUpgrade={handleUpgradeClick}
+                isLoading={isPayLoading}
+            />
+
             <div className="glow-effect -z-10"></div>
 
             <h1 className="text-3xl md:text-5xl font-black font-poppins leading-tight tracking-tight text-slate-900 mb-6">
@@ -138,7 +193,7 @@ export default function Mp3ToolSection() {
             </p>
 
             {/* 输入区 */}
-            <div className="max-w-4xl mx-auto mb-12">
+            <div className="max-w-4xl mx-auto mb-12 text-left">
                 <div className="bg-white p-3 rounded-4xl border border-slate-200 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.08)]">
                     <form onSubmit={handleExtract} className="flex flex-col md:flex-row items-stretch gap-3">
                         <div className="relative grow flex bg-slate-50/80 rounded-2xl border border-slate-100 overflow-hidden focus-within:bg-white transition-all">
@@ -148,7 +203,7 @@ export default function Mp3ToolSection() {
                                     type="url"
                                     value={url}
                                     onChange={(e) => setUrl(e.target.value)}
-                                    placeholder="Paste YouTube link (Shorts or Video)..."
+                                    placeholder="Paste YouTube link here..."
                                     required
                                     className="w-full h-full bg-transparent outline-none text-slate-800 font-bold placeholder:text-slate-400 placeholder:font-normal"
                                 />
@@ -160,7 +215,7 @@ export default function Mp3ToolSection() {
                                             const text = await navigator.clipboard.readText();
                                             setUrl(text);
                                         } catch (err) {
-                                            console.error('Failed to read clipboard');
+                                            console.error('Clipboard access denied');
                                         }
                                     }}
                                     className="absolute hidden md:flex right-4 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-white border border-slate-200 text-slate-500 text-[10px] font-black rounded-lg transition-all shadow-sm z-10 items-center gap-1.5 uppercase hover:bg-slate-50"
@@ -173,20 +228,16 @@ export default function Mp3ToolSection() {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="md:w-52 px-6 py-4 md:py-0 rounded-2xl font-black text-md flex items-center justify-center gap-3 transition-all bg-red-600 text-white hover:bg-red-700 shadow-xl shadow-red-200 disabled:opacity-70"
+                            className="md:w-52 px-6 py-4 md:py-0 rounded-2xl font-black text-md flex items-center justify-center gap-3 transition-all bg-red-600 text-white hover:bg-red-700 shadow-xl shadow-red-200 disabled:opacity-70 active:scale-95"
                         >
-                            {isLoading ? (
-                                <Loader2 className="animate-spin" size={22} />
-                            ) : (
-                                <Settings size={22} strokeWidth={3} />
-                            )}
+                            {isLoading ? <Loader2 className="animate-spin" size={22} /> : <RefreshCcw size={20} strokeWidth={3} />}
                             <span>{isLoading ? 'Wait...' : 'Analyze Audio'}</span>
                         </button>
                     </form>
                 </div>
 
                 {error && (
-                    <div className="mt-4 p-4 bg-red-50 border border-red-100 rounded-2xl flex items-center gap-3 text-red-600 text-sm font-medium animate-in fade-in slide-in-from-top-2">
+                    <div className="mt-4 p-4 bg-red-50 border border-red-100 rounded-2xl flex items-center gap-3 text-red-600 text-sm font-bold animate-in fade-in slide-in-from-top-2">
                         <AlertCircle size={18} />
                         <p>{error}</p>
                     </div>
@@ -203,26 +254,26 @@ export default function Mp3ToolSection() {
                             <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur text-slate-900 text-xs font-black px-3 py-1.5 rounded-full">
                                 {formatDuration(videoData.duration)}
                             </div>
-                            <div className="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-black px-2 py-1 rounded uppercase tracking-wider">
+                            <div className="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-black px-2.5 py-1 rounded uppercase tracking-wider">
                                 M4A Audio
                             </div>
                         </div>
 
                         <div className="p-6 sm:p-8 text-left">
-                            <h3 className="text-xl font-bold text-slate-800 line-clamp-2 mb-6 leading-tight">
+                            <h3 className="text-xl font-bold text-slate-800 line-clamp-2 mb-6 leading-tight tracking-tighter">
                                 {videoData.title}
                             </h3>
 
                             <div className="grid grid-cols-2 gap-4 mb-8">
                                 <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                                    <p className="text-[10px] uppercase font-black text-slate-400 mb-1">Format</p>
-                                    <p className="text-sm font-bold text-slate-700 flex items-center gap-1.5">
-                                        <Music size={14} className="text-red-500" /> High Quality M4A
+                                    <p className="text-[10px] uppercase font-black text-slate-400 mb-1 tracking-widest leading-none">Format</p>
+                                    <p className="text-sm font-bold text-slate-700 flex items-center gap-1.5 uppercase">
+                                        <Music size={14} className="text-red-500" /> High Quality
                                     </p>
                                 </div>
                                 <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                                    <p className="text-[10px] uppercase font-black text-slate-400 mb-1">Size</p>
-                                    <p className="text-sm font-bold text-slate-700">
+                                    <p className="text-[10px] uppercase font-black text-slate-400 mb-1 tracking-widest leading-none">Size</p>
+                                    <p className="text-sm font-bold text-slate-700 uppercase">
                                         {(videoData.filesize / 1024 / 1024).toFixed(2)} MB
                                     </p>
                                 </div>
@@ -232,11 +283,11 @@ export default function Mp3ToolSection() {
                                 <button
                                     onClick={handleDownload}
                                     disabled={isDownloading}
-                                    className="relative group w-full h-16 bg-red-600 hover:bg-red-700 text-white font-black text-lg rounded-2xl transition-all overflow-hidden shadow-xl shadow-red-600/20 disabled:opacity-90"
+                                    className="relative group w-full h-16 bg-slate-950 hover:bg-red-600 text-white font-black text-lg rounded-2xl transition-all overflow-hidden shadow-xl active:scale-[0.98] disabled:opacity-90"
                                 >
                                     {isDownloading && (
                                         <div
-                                            className="absolute left-0 top-0 h-full bg-red-800/40 transition-all duration-300"
+                                            className="absolute left-0 top-0 h-full bg-white/10 transition-all duration-300"
                                             style={{ width: `${downloadProgress}%` }}
                                         />
                                     )}
@@ -244,13 +295,13 @@ export default function Mp3ToolSection() {
                                     <div className="relative z-10 flex items-center justify-center gap-3">
                                         {isDownloading ? (
                                             <>
-                                                <Loader2 className="w-6 h-6 animate-spin" />
-                                                <span>Downloading {downloadProgress}%</span>
+                                                <Loader2 className="w-6 h-6 animate-spin text-red-500" />
+                                                <span className="uppercase tracking-widest text-sm italic">Downloading {downloadProgress}%</span>
                                             </>
                                         ) : (
                                             <>
-                                                <Download className="group-hover:translate-y-0.5 transition-transform" />
-                                                <span>Download M4A Audio</span>
+                                                <Download className="group-hover:translate-y-0.5 transition-transform" size={24} />
+                                                <span className="uppercase tracking-tight">Save Audio File</span>
                                             </>
                                         )}
                                     </div>
@@ -258,15 +309,15 @@ export default function Mp3ToolSection() {
 
                                 <button
                                     onClick={() => { setVideoData(null); setUrl(''); }}
-                                    className="w-full py-3 flex items-center justify-center gap-2 text-slate-400 font-bold hover:text-red-500 transition-all text-sm"
+                                    className="w-full py-3 flex items-center justify-center gap-2 text-slate-400 font-bold hover:text-red-500 transition-all text-[10px] uppercase tracking-widest"
                                 >
-                                    <RefreshCcw size={16} /> Convert Another
+                                    <RefreshCcw size={14} /> Analyze Another
                                 </button>
                             </div>
 
-                            <div className="mt-6 flex items-center justify-center gap-2 text-[10px] text-slate-400 font-medium">
+                            <div className="mt-6 flex items-center justify-center gap-2 text-[10px] text-slate-400 font-black uppercase tracking-tighter">
                                 <ShieldCheck size={14} className="text-green-500" />
-                                Verified High-Bitrate AAC Extraction
+                                Verified AAC Extraction • 1 Credit Used
                             </div>
                         </div>
                     </div>
