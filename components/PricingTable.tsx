@@ -179,7 +179,7 @@ const PricingTable = () => {
     }
 
     return (
-        <div className="py-6 md:py-12 px-4 sm:px-6 lg:px-8 bg-white text-slate-900 font-sans antialiased">
+        <div className="py-6 px-4 sm:px-6 lg:px-8 bg-white text-slate-900 font-sans antialiased">
             <div className="max-w-7xl mx-auto flex flex-col items-center">
                 {/* 头部展示逻辑省略... 保持你之前的代码 */}
                 <div className="text-center mb-10">
@@ -194,23 +194,23 @@ const PricingTable = () => {
 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 w-full max-w-6xl mx-auto items-stretch">
                     {plans.map((plan, idx) => (
-                        <div key={idx} className={`relative rounded-[40px] p-8 md:p-10 transition-all duration-500 flex flex-col border ${plan.featured ? 'bg-slate-950 text-white shadow-2xl lg:scale-105 z-10 border-red-600' : 'bg-white border-slate-200 text-slate-900'}`}>
+                        <div key={idx} className={`relative rounded-[40px] p-6 transition-all duration-500 flex flex-col border ${plan.featured ? 'bg-slate-950 text-white shadow-2xl lg:scale-105 z-10 border-red-600' : 'bg-white border-slate-200 text-slate-900'}`}>
                             {plan.featured && <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest">Most Popular</div>}
 
-                            <div className="mb-8">
+                            <div className="mb-4">
                                 <h3 className="text-2xl font-black">{plan.name}</h3>
                                 <p className={`text-sm font-medium ${plan.featured ? 'text-slate-400' : 'text-slate-500'}`}>{plan.desc}</p>
                             </div>
 
                             <div className="mb-8 flex flex-col">
                                 <div className="flex items-baseline">
-                                    <span className="text-5xl font-black tracking-tighter">{isYearly ? plan.yearlyPrice : plan.monthlyPrice}</span>
+                                    <span className="text-4xl font-black tracking-tighter">{isYearly ? plan.yearlyPrice : plan.monthlyPrice}</span>
                                     <span className={`text-sm font-bold ml-1 ${plan.featured ? 'text-slate-500' : 'text-slate-400'}`}>{isYearly ? '/yr' : '/mo'}</span>
                                 </div>
                                 {isYearly && plan.name !== "Free" && <span className="text-xs text-green-500 font-bold mt-2 uppercase tracking-wider italic">Only {(parseFloat(plan.yearlyPrice.replace('$', '')) / 12).toFixed(2)}$ / month</span>}
                             </div>
 
-                            <ul className="space-y-4 mb-12 grow text-left">
+                            <ul className="space-y-4 mb-4 grow text-left">
                                 {plan.features.map((feat, fIdx) => (
                                     <li key={fIdx} className={`flex items-start gap-3 ${feat.included ? '' : 'opacity-30'}`}>
                                         {feat.included ? <Check className="w-5 h-5 text-red-500 shrink-0" strokeWidth={4} /> : <X className="w-5 h-5 text-slate-300 shrink-0" strokeWidth={3} />}
@@ -223,7 +223,7 @@ const PricingTable = () => {
                             {plan.name === "Free" ? (
                                 <button disabled className="w-full py-5 rounded-3xl font-black bg-slate-100 text-slate-400">Current Plan</button>
                             ) : (
-                                <div className="space-y-3">
+                                <div className="space-y-3 flex flex-col items-center">
                                     <button
                                         disabled={loadingPlan !== null}
                                         onClick={() => handleStartPayment(plan, 'stripe')}
