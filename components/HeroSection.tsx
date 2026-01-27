@@ -20,7 +20,7 @@ const WORKER_URLS = [
 ];
 
 export default function HeroSection() {
-    const { user, isLoggedIn, credits, consumeUsage, deductCredit, login } = useAuth();
+    const { user, isLoggedIn, credits, checkQuota, consumeUsage, deductCredit, login } = useAuth();
 
     const [mode, setMode] = useState<"single" | "batch">("single");
     const [singleInputUrl, setSingleInputUrl] = useState("");
@@ -94,31 +94,18 @@ export default function HeroSection() {
         }
     };
 
-    // 🚀 修改：解析视频现在消耗 1 积分 (extract 分类)
     const handleParse = async () => {
         const activeUrl = mode === "single" ? singleInputUrl : batchInputUrl;
         const urls = activeUrl.split('\n').filter(u => u.trim() !== "");
         if (urls.length === 0) { addToast("Please enter a URL", "error"); return; }
 
-        // --- 🚀 积分检查 ---
-        if (credits <= 0) {
-            setIsModalOpen(true);
-            return;
-        }
+        // 🚀 预检本地积分
+        if (credits <= 0) { setIsModalOpen(true); return; }
 
         setIsLoading(true);
         try {
-            // A. 执行扣费
-            const hasQuota = await consumeUsage('extract');
-            if (!hasQuota) {
-                setIsModalOpen(true);
-                setIsLoading(false);
-                return;
-            }
-
             const token = localStorage.getItem('google_access_token');
             const headers = { 'Content-Type': 'application/json', 'Authorization': token ? `Bearer ${token}` : '' };
-
             if (mode === "single" || urls.length === 1) {
                 const res = await fetch(API_SINGLE, { method: 'POST', headers, body: JSON.stringify({ url: urls[0].trim() }) });
                 const data = await res.json();
@@ -130,7 +117,7 @@ export default function HeroSection() {
                 if (data.error) throw new Error(data.error);
                 setBatchResults(data.results.map((v: any, i: number) => ({ ...v, targetUrl: urls[i].trim() })));
             }
-            addToast("Parsed successfully & 1 Credit used", "success");
+            addToast("Parsed successfully", "success");
             setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
         } catch (err: any) {
             addToast(err.message, "error");
@@ -147,12 +134,10 @@ export default function HeroSection() {
                 const response = await fetch(downloadUrl);
                 if (response.status === 403) continue;
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
                 const contentLength = response.headers.get('content-length');
                 const total = contentLength ? parseInt(contentLength, 10) : 0;
                 const reader = response.body?.getReader();
                 if (!reader) throw new Error("Stream reader failed");
-
                 const chunks = [];
                 let loaded = 0;
                 while (true) {
@@ -167,22 +152,33 @@ export default function HeroSection() {
                 if (i === WORKER_URLS.length - 1) throw err;
             }
         }
-        throw new Error("All nodes busy (403).");
+        throw new Error("Download nodes unavailable (403).");
     };
 
+    // 🚀 核心：单个视频下载逻辑
     const downloadSingle = async (video: any, index: number) => {
         if (activeDownloads[index] !== undefined || isZipDownloading) return;
 
-        const hasQuota = await consumeUsage('download');
-        if (!hasQuota) { setIsModalOpen(true); return; }
+        // 1. 🚀 下载前只检查不扣费
+        const canI = await checkQuota('download');
+        if (!canI) {
+            setIsModalOpen(true);
+            return;
+        }
 
         setActiveDownloads(prev => ({ ...prev, [index]: 0 }));
         try {
+            // 2. 执行真正的网络下载
             const blob = await downloadWithRetry(video, (p) => {
                 setActiveDownloads(prev => ({ ...prev, [index]: p }));
             });
-            saveAs(blob, `${video.title.replace(/[\\/:*?"<>|]/g, '_')}.mp4`);
-            addToast("Download successful", "success");
+
+            // 3. 🚀 下载流完整到达浏览器后，再执行扣费
+            const consumeSuccess = await consumeUsage('download');
+            if (consumeSuccess) {
+                saveAs(blob, `${video.title.replace(/[\\/:*?"<>|]/g, '_')}.mp4`);
+                addToast("Downloaded & 1 Credit used", "success");
+            }
         } catch (error: any) {
             addToast(error.message, "error");
         } finally {
@@ -190,10 +186,12 @@ export default function HeroSection() {
         }
     };
 
+    // 🚀 核心：批量下载 ZIP
     const downloadBatchAsZip = async () => {
+        // 1. 检查本地积分和下载配额（只查不扣）
         if (credits <= 0) { setIsModalOpen(true); return; }
-        const hasQuota = await consumeUsage('download');
-        if (!hasQuota) { setIsModalOpen(true); return; }
+        const canI = await checkQuota('download');
+        if (!canI) { setIsModalOpen(true); return; }
 
         setIsZipDownloading(true);
         const zip = new JSZip();
@@ -210,11 +208,18 @@ export default function HeroSection() {
                     successCount++;
                 } catch (e) { console.error(e); }
             }
+
             if (successCount > 0) {
-                setDownloadProgress("Zipping...");
-                saveAs(await zip.generateAsync({ type: "blob" }), `batch_${Date.now()}.zip`);
-                await deductCredit(); // 打包扣除 ZIP 专用积分
-                addToast("Batch ZIP created", "success");
+                setDownloadProgress("Packing...");
+                const content = await zip.generateAsync({ type: "blob" });
+
+                // 2. 🚀 全部打包成功后，一并扣除 1 次下载配额和 1 个 ZIP 点数
+                const consumeSuccess = await consumeUsage('download');
+                if (consumeSuccess) {
+                    saveAs(content, `batch_${Date.now()}.zip`);
+                    await deductCredit();
+                    addToast("Batch ZIP success", "success");
+                }
             }
         } catch (e: any) {
             addToast("ZIP failed", "error");
@@ -225,8 +230,12 @@ export default function HeroSection() {
     };
 
     const handleOpenTranscript = async (video: any) => {
-        const canExtract = await consumeUsage('extract');
-        if (!canExtract) { setIsModalOpen(true); return; }
+        // 打开抽屉只预检，不消耗 extract 积分
+        const canI = await checkQuota('extract');
+        if (!canI) {
+            setIsModalOpen(true);
+            return;
+        }
         setSelectedVideo(video);
         setIsDrawerOpen(true);
     };
@@ -242,7 +251,7 @@ export default function HeroSection() {
         <>
             <SubscriptionModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onUpgrade={handleUpgradeClick} isLoading={isPayLoading} />
 
-            <div className="fixed top-24 left-1/2 -translate-x-1/2 z-100 flex flex-col items-center pointer-events-none w-xs md:w-lg max-sm px-4">
+            <div className="fixed top-24 left-1/2 -translate-x-1/2 z-100 flex flex-col items-center pointer-events-none w-xs md:w-lg px-4">
                 {toasts.map((toast) => (
                     <div key={toast.id} className={`animate-in slide-in-from-top-4 fade-in duration-300 ${toast.type === 'error' ? 'bg-slate-900' : 'bg-green-600'} text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 pointer-events-auto mb-3 border border-white/10 w-full`}>
                         <span className={toast.type === 'error' ? "text-red-400 font-bold" : "text-green-400 font-bold"}>{toast.type === 'error' ? '●' : '✓'}</span>
@@ -261,7 +270,9 @@ export default function HeroSection() {
                         Download Shorts and use AI to transform videos into viral scripts instantly.
                     </p>
 
-                    <div className="flex justify-center mt-10 mb-8">
+
+
+                    <div className="flex justify-center mb-8">
                         <div className="bg-slate-200/60 p-1.5 rounded-2xl flex gap-1 backdrop-blur-sm border border-white shadow-inner">
                             <button onClick={() => handleTabChange("single")} className={`flex items-center gap-2 px-8 py-2.5 rounded-xl font-bold transition-all ${mode === 'single' ? 'bg-white shadow-lg text-red-600' : 'text-slate-500 hover:text-slate-800'}`}><LinkIcon size={16} /> Single</button>
                             <button onClick={() => handleTabChange("batch")} className={`flex items-center gap-2 px-8 py-2.5 rounded-xl font-bold transition-all ${mode === 'batch' ? 'bg-white shadow-lg text-red-600' : 'text-slate-500 hover:text-slate-800'}`}><Layers size={16} /> Batch (Max 3)</button>
@@ -271,11 +282,11 @@ export default function HeroSection() {
                     <div className="max-w-4xl mx-auto mb-6">
                         <div className="bg-white p-3 rounded-4xl border border-slate-200 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.08)]">
                             <div className="flex flex-col md:flex-row items-stretch gap-3">
-                                <div className="relative grow flex bg-slate-50/80 rounded-2xl border border-slate-100 overflow-hidden focus-within:bg-white transition-all px-4 items-center">
+                                <div className="relative grow flex bg-slate-50/80 rounded-2xl border border-slate-100 overflow-hidden focus-within:bg-white transition-all px-4 items-center min-h-12 text-left">
                                     {mode === 'batch' && <div className="hidden md:flex flex-col py-5 px-3 bg-slate-100/50 text-slate-400 text-xs font-mono border-r border-slate-200 select-none space-y-[0.7rem] mr-4 ml-[-1rem]"><span>01</span><span>02</span><span>03</span></div>}
                                     <div className="grow">
                                         {mode === 'single' ? (
-                                            <div className="flex items-center h-12 px-2 text-left"><LinkIcon size={18} className="text-slate-400 mr-3" /><input value={singleInputUrl} onChange={(e) => setSingleInputUrl(e.target.value)} placeholder="Paste YouTube link here..." className="w-full h-full bg-transparent outline-none text-slate-800 font-bold" /></div>
+                                            <div className="flex items-center h-12 px-2 text-left font-black"><LinkIcon size={18} className="text-slate-400 mr-3" /><input value={singleInputUrl} onChange={(e) => setSingleInputUrl(e.target.value)} placeholder="Paste YouTube link here..." className="w-full h-full bg-transparent outline-none text-slate-800 font-bold" /></div>
                                         ) : (
                                             <textarea ref={textareaRef} value={batchInputUrl} onChange={(e) => setBatchInputUrl(e.target.value)} rows={3} placeholder="Paste up to 3 links (one per line)..." className="w-full px-4 md:p-5 bg-transparent outline-none text-slate-800 font-mono text-sm leading-relaxed resize-none text-left overflow-hidden" />
                                         )}
@@ -299,7 +310,7 @@ export default function HeroSection() {
                                             <h3 className="text-2xl font-black text-slate-900 leading-none tracking-tighter uppercase italic">Ready to download</h3>
                                             <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-1.5 px-4 py-1.5 my-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-xl text-sm font-black tracking-tighter transition-all active:scale-95"><Plus size={14} strokeWidth={4} /> Parse Another</button>
                                         </div>
-                                        <p className="text-slate-500 text-sm mt-2 font-bold uppercase tracking-widest text-[10px]">Parsed via high-speed node</p>
+                                        <p className="text-slate-500 text-sm mt-2 font-bold uppercase tracking-widest text-[10px]">Parsed via our high-speed node</p>
                                     </div>
                                 </div>
                                 {mode === "batch" && batchResults.length > 1 && (
@@ -317,7 +328,7 @@ export default function HeroSection() {
                                         <div key={idx} className={`group bg-white rounded-[40px] border border-slate-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col ${currentResults.length === 1 ? 'w-full max-w-md' : 'w-full'}`}>
                                             <div className="relative aspect-video overflow-hidden">
                                                 {video.status !== 'failed' ? (
-                                                    <><img src={video.thumbnail} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" /><div className="absolute top-4 right-4 bg-red-600 text-white text-[9px] font-black px-2.5 py-1 rounded shadow-lg uppercase tracking-tighter font-black">HD Ready</div></>
+                                                    <><img src={video.thumbnail} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" /><div className="absolute top-4 right-4 bg-red-600 text-white text-[9px] font-black px-2.5 py-1 rounded shadow-lg uppercase tracking-tighter font-black font-black">HD Ready</div></>
                                                 ) : (
                                                     <div className="w-full h-full flex flex-col items-center justify-center bg-red-50 text-red-500 p-8 font-black text-[10px] italic"><AlertCircle size={32} className="mb-2" /> FAILED</div>
                                                 )}
@@ -330,7 +341,10 @@ export default function HeroSection() {
                                                             {isItemLoading ? <div className="relative flex items-center justify-center"><LoaderCircle size={28} className="animate-spin opacity-40" /><span className="absolute text-[12px] font-bold">{progress}%</span></div> : <Download size={20} strokeWidth={3} />}
                                                             <span>{isItemLoading ? 'Downloading...' : 'Download Video'}</span>
                                                         </button>
-                                                        <button onClick={() => handleOpenTranscript(video)} disabled={isItemLoading || isZipDownloading} className="flex-1 relative py-4 rounded-2xl flex items-center justify-center gap-1 transition-all border border-slate-200 group/btn bg-slate-100 hover:bg-slate-200 text-slate-600 disabled:opacity-50"><FileText size={14} className="group-hover/btn:text-red-500 transition-colors shrink-0" /><span className="text-[11px] font-black tracking-tighter whitespace-nowrap">Transcript</span><span className="text-[8px] absolute right-2 top-0 bg-red-500 text-white px-2 py-0.5 rounded-md font-black shrink-0 shadow-sm">AI</span></button>
+                                                        {
+                                                            video.languages && <button onClick={() => handleOpenTranscript(video)} disabled={isItemLoading || isZipDownloading} className="flex-1 relative py-4 rounded-2xl flex items-center justify-center gap-1 transition-all border border-slate-200 bg-slate-100 hover:bg-slate-200 text-slate-600 disabled:opacity-50 font-black tracking-tighter leading-none"><FileText size={14} className="shrink-0" />Transcript<span className="text-[8px] absolute right-2 top-0 bg-red-500 text-white px-2 py-0.5 rounded-md font-black shadow-sm">AI</span></button>
+                                                        }
+
                                                     </div>
                                                 )}
                                             </div>

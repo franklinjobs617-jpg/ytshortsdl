@@ -31,6 +31,7 @@ interface AuthContextType {
     isLoggingIn: boolean;
     login: () => void;
     logout: () => void;
+    checkQuota: (type: 'download' | 'extract' | 'summary') => Promise<boolean>;
     consumeUsage: (type: 'download' | 'extract' | 'summary') => Promise<boolean>;
     refreshUsage: () => Promise<void>;
     deductCredit: () => Promise<boolean>;
@@ -224,6 +225,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (tokenClient) tokenClient.requestAccessToken();
     };
 
+
+    // 1. 检查剩余积分方法
+    const checkQuota = async (type: 'download' | 'extract' | 'summary'): Promise<boolean> => {
+        const res = await fetch('/api/usage/check-and-consume', {
+            method: 'POST',
+            body: JSON.stringify({
+                userId: user?.id,
+                guestId: user ? undefined : getFingerprint(),
+                type,
+                action: 'check'
+            })
+        });
+        if (res.ok) {
+            const data = await res.json();
+            setUsage(data.usage); // 同步一下最新的使用情况
+            return data.allowed;
+        }
+        return false;
+    };
+
     const logout = () => {
         setUser(null);
         setUsage(null);
@@ -246,6 +267,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             login,
             logout,
             consumeUsage,
+            checkQuota,
             refreshUsage,
             deductCredit
         }}>

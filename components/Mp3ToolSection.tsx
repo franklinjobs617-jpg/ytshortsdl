@@ -6,9 +6,9 @@ import {
     ShieldCheck, AlertCircle, Music, RefreshCcw, X, Sparkles, Check
 } from 'lucide-react';
 import Link from 'next/link';
-import { useAuth } from '@/lib/auth-context'; // 🚀 引入 AuthContext
+import { useAuth } from '@/lib/auth-context';
 import { saveAs as fileSaveAs } from "file-saver";
-import SubscriptionModal from "@/components/SubscriptionModal"; // 🚀 引入新组件
+import SubscriptionModal from "@/components/SubscriptionModal";
 
 // 匹配后端返回的简化数据结构
 interface VideoData {
@@ -22,16 +22,25 @@ interface VideoData {
 }
 
 export default function Mp3ToolSection() {
-    const { user, credits, consumeUsage, isLoggedIn, login } = useAuth(); // 🚀 获取授权状态及方法
+    const { user, credits, consumeUsage, checkQuota, isLoggedIn, login } = useAuth();
 
     const [url, setUrl] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isDownloading, setIsDownloading] = useState(false);
-    const [isPayLoading, setIsPayLoading] = useState(false); // 🚀 支付加载状态
-    const [isModalOpen, setIsModalOpen] = useState(false); // 订阅弹窗状态
+    const [isPayLoading, setIsPayLoading] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [downloadProgress, setDownloadProgress] = useState(0);
     const [videoData, setVideoData] = useState<VideoData | null>(null);
     const [error, setError] = useState<string | null>(null);
+
+    // 🚀 Toast State & Helper
+    const [toasts, setToasts] = useState<{ id: number; message: string; type: 'success' | 'error' }[]>([]);
+
+    const addToast = (message: string, type: 'success' | 'error' = 'error') => {
+        const id = Date.now();
+        setToasts((prev) => [...prev, { id, message, type }]);
+        setTimeout(() => setToasts((prev) => prev.filter((t) => t.id !== id)), 5000);
+    };
 
     const formatDuration = (seconds: number) => {
         if (!seconds) return '0:00';
@@ -40,7 +49,6 @@ export default function Mp3ToolSection() {
         return `${min}:${sec < 10 ? '0' : ''}${sec}`;
     };
 
-    // 🚀 处理支付跳转逻辑
     const handleUpgradeClick = async (typeString: string) => {
         if (!isLoggedIn) {
             login();
@@ -64,10 +72,10 @@ export default function Mp3ToolSection() {
             if (data.url) {
                 window.location.href = data.url;
             } else {
-                alert("Payment gateway is busy, please try again.");
+                addToast("Payment gateway is busy, please try again.", "error");
             }
         } catch (error) {
-            alert("Connection error, please try again.");
+            addToast("Connection error, please try again.", "error");
         } finally {
             setIsPayLoading(false);
         }
@@ -94,8 +102,10 @@ export default function Mp3ToolSection() {
                 throw new Error(result.error || "Failed to analyze link.");
             }
             setVideoData(result);
+            addToast("Audio analyzed successfully", "success");
         } catch (err: any) {
             setError(err.message || "Connection failed");
+            // Optionally also toast if you want double feedback, but setError handles the UI box
         } finally {
             setIsLoading(false);
         }
@@ -111,19 +121,18 @@ export default function Mp3ToolSection() {
             return;
         }
 
+        // --- 🚀 步骤 2: 调用 checkQuota 预检 ---
+        const canDownload = await checkQuota('download');
+        if (!canDownload) {
+            setIsModalOpen(true);
+            return;
+        }
+
         setIsDownloading(true);
         setDownloadProgress(0);
 
         try {
-            // --- 🚀 步骤 2: 调用后端扣费接口 ---
-            const hasQuota = await consumeUsage('download');
-            if (!hasQuota) {
-                setIsModalOpen(true);
-                setIsDownloading(false);
-                return;
-            }
-
-            // --- 🚀 步骤 3: 扣费成功，开始下载 ---
+            // --- 🚀 步骤 3: 开始下载请求 ---
             const WORKER_URL = "https://proud-frost-bf8e.franke-4b7.workers.dev/";
             const params = new URLSearchParams({
                 url: videoData.url,
@@ -132,6 +141,10 @@ export default function Mp3ToolSection() {
 
             const response = await fetch(`${WORKER_URL}?${params.toString()}`);
             if (!response.ok) throw new Error("Worker transfer failed");
+
+            // --- 🚀 步骤 4: 请求成功后，执行扣费 ---
+            await consumeUsage('download');
+            addToast("Downloaded & 1 Credit used", "success");
 
             const contentLength = response.headers.get('content-length');
             const totalSize = contentLength ? parseInt(contentLength, 10) : 0;
@@ -164,17 +177,37 @@ export default function Mp3ToolSection() {
             window.URL.revokeObjectURL(blobUrl);
 
         } catch (err: any) {
-            alert("Download failed: " + err.message);
+            addToast(err.message || "Download failed", "error");
         } finally {
             setIsDownloading(false);
             setDownloadProgress(0);
         }
     };
 
+    const handlePaste = async () => {
+        try {
+            const text = await navigator.clipboard.readText();
+            setUrl(text);
+            addToast("Link pasted", "success");
+        } catch (err) {
+            addToast("Clipboard access denied", "error");
+        }
+    };
+
     return (
         <section id="tool-interface" className="relative text-center py-20 px-4">
 
-            {/* 🚀 集成通用的订阅弹窗组件 */}
+            {/* 🚀 Toast Notifications Container */}
+            <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center pointer-events-none w-xs md:w-lg max-sm px-4">
+                {toasts.map((toast) => (
+                    <div key={toast.id} className={`animate-in slide-in-from-top-4 fade-in duration-300 ${toast.type === 'error' ? 'bg-slate-900' : 'bg-green-600'} text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 pointer-events-auto mb-3 border border-white/10 w-full`}>
+                        <span className={toast.type === 'error' ? "text-red-400 font-bold" : "text-green-400 font-bold"}>{toast.type === 'error' ? '●' : '✓'}</span>
+                        <span className="font-bold text-xs">{toast.message}</span>
+                    </div>
+                ))}
+            </div>
+
+            {/* 🚀 Subscription Modal */}
             <SubscriptionModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
@@ -210,14 +243,7 @@ export default function Mp3ToolSection() {
 
                                 <button
                                     type="button"
-                                    onClick={async () => {
-                                        try {
-                                            const text = await navigator.clipboard.readText();
-                                            setUrl(text);
-                                        } catch (err) {
-                                            console.error('Clipboard access denied');
-                                        }
-                                    }}
+                                    onClick={handlePaste}
                                     className="absolute hidden md:flex right-4 top-1/2 -translate-y-1/2 px-3 py-1.5 bg-white border border-slate-200 text-slate-500 text-[10px] font-black rounded-lg transition-all shadow-sm z-10 items-center gap-1.5 uppercase hover:bg-slate-50"
                                 >
                                     Paste

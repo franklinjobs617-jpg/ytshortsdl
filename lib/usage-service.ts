@@ -109,3 +109,50 @@ export async function checkAndIncrement(
 
     return { allowed: true, usage: updatedUsage };
 }
+
+/**
+ * 仅检查：判断用户当前是否还有配额
+ */
+export async function isQuotaAvailable(
+    type: 'download' | 'extract' | 'summary',
+    userId?: number,
+    guestId?: string
+) {
+    const usage = await getOrCreateUsage(userId, guestId);
+    const plan = (usage.plan || "FREE") as keyof typeof PLAN_LIMITS;
+    const limits = PLAN_LIMITS[plan];
+
+    let currentCount = 0;
+    if (type === 'download') currentCount = usage.downloadCount;
+    else if (type === 'extract') currentCount = usage.extractionCount;
+    else currentCount = usage.summaryCount;
+
+    const maxLimit = limits[type];
+    
+    // 返回是否允许（已用 < 上限）
+    return { allowed: currentCount < maxLimit, usage };
+}
+
+/**
+ * 仅扣费：直接增加计数器
+ */
+export async function incrementUsageCount(
+    type: 'download' | 'extract' | 'summary',
+    userId?: number,
+    guestId?: string
+) {
+    const usage = await getOrCreateUsage(userId, guestId);
+    
+    const fieldMap = {
+        download: "downloadCount",
+        extract: "extractionCount",
+        summary: "summaryCount"
+    };
+
+    const updatedUsage = await prisma.usage.update({
+        where: { id: usage.id },
+        data: { [fieldMap[type]]: { increment: 1 } }
+    });
+
+    return updatedUsage;
+}

@@ -3,12 +3,11 @@ import Link from 'next/link';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import {
     Loader2, Link as LinkIcon, ShieldCheck,
-    FileText, Sparkles, Languages,
-    ClipboardPaste, Download, RefreshCcw, ChevronDown, ChevronUp, AlertCircle, X, Check
+    FileText, Sparkles, Languages, RefreshCcw, ChevronDown, ChevronUp, AlertCircle
 } from 'lucide-react';
 import { saveAs } from "file-saver";
 import { useAuth } from '@/lib/auth-context';
-import SubscriptionModal from "@/components/SubscriptionModal"; // 🚀 引入组件
+import SubscriptionModal from "@/components/SubscriptionModal";
 
 const API_BASE = "https://ytdlp.vistaflyer.com";
 
@@ -34,13 +33,14 @@ const MarkdownRenderer = ({ text }: { text: string }) => {
 };
 
 export default function AiSummarizerSection() {
-    const { user, credits, consumeUsage, isLoggedIn, login } = useAuth(); // 🚀 增加 user, login
+    const { user, credits, consumeUsage, checkQuota, isLoggedIn, login } = useAuth();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isPayLoading, setIsPayLoading] = useState(false); // 🚀 增加支付加载状态
+    const [isPayLoading, setIsPayLoading] = useState(false);
 
     const [url, setUrl] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isSummarizing, setIsSummarizing] = useState(false);
+    const [isSummaryFailed, setIsSummaryFailed] = useState(false);
     const [isReasoningExpanded, setIsReasoningExpanded] = useState(false);
     const [videoData, setVideoData] = useState<any>(null);
     const [selectedLang, setSelectedLang] = useState("");
@@ -60,7 +60,6 @@ export default function AiSummarizerSection() {
         setTimeout(() => setToasts((prev) => prev.filter((t) => t.id !== id)), 5000);
     };
 
-    // 🚀 新增：处理支付跳转逻辑
     const handleUpgradeClick = async (typeString: string) => {
         if (!isLoggedIn) {
             login();
@@ -96,20 +95,39 @@ export default function AiSummarizerSection() {
     const resetAiStates = () => {
         setAiSummary("");
         setAiReasoning("");
+        setIsSummaryFailed(false);
         setIsReasoningExpanded(false);
     };
 
     // 1. AI 流式总结逻辑
     const startAiStreaming = async (text: string) => {
         if (!text) return;
+
+        // Quota Check
+        const canSummarize = await checkQuota('summary');
+        if (!canSummarize) {
+            setIsModalOpen(true);
+            return;
+        }
+
         setIsSummarizing(true);
+        setIsSummaryFailed(false);
         resetAiStates();
+
         try {
-            const response = await fetch('/api/summarize', {
+            const response = await fetch('/api/summare', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ transcript: text.substring(0, 12000) })
             });
+
+            if (!response.ok) {
+                throw new Error(`Summary API Error: ${response.status}`);
+            }
+
+            // Deduct Credit only on success
+            await consumeUsage('summary');
+
             const reader = response.body?.getReader();
             const decoder = new TextDecoder();
             let buffer = "";
@@ -132,7 +150,9 @@ export default function AiSummarizerSection() {
                 }
             }
         } catch (err: any) {
-            addToast("AI synthesis failed", "error");
+            console.error(err);
+            setIsSummaryFailed(true);
+            addToast("AI Summary generation failed", "error");
         } finally {
             setIsSummarizing(false);
         }
@@ -140,22 +160,27 @@ export default function AiSummarizerSection() {
 
     // 2. 带扣费检查的 Content 获取逻辑
     const fetchContentWithCheck = async (targetUrl: string, langCode: string) => {
+        // Check 1: Local credits
         if (credits <= 0) {
             setIsModalOpen(true);
+            setIsLoading(false); // 🚀 FIX: Reset loading state if blocked
             return;
         }
+
+        // Check 2: Server quota
+        const canExtract = await checkQuota('extract');
+        if (!canExtract) {
+            setIsModalOpen(true);
+            setIsLoading(false); // 🚀 FIX: Reset loading state if blocked
+            return;
+        }
+
         setIsLoading(true);
         setSegments([]);
+        setFullText("");
         resetAiStates();
 
         try {
-            const hasQuota = await consumeUsage('summary');
-            if (!hasQuota) {
-                setIsModalOpen(true);
-                setIsLoading(false);
-                return;
-            }
-
             const res = await fetch(`${API_BASE}/api/transcript/content`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -165,9 +190,13 @@ export default function AiSummarizerSection() {
             if (!res.ok) throw new Error("Server temporary error (500).");
 
             const data = await res.json();
+
+            await consumeUsage('extract');
+
             setSegments(data.segments || []);
             setFullText(data.full_text || "");
             setIsLoading(false);
+
             await startAiStreaming(data.full_text);
         } catch (err: any) {
             addToast(err.message, "error");
@@ -199,7 +228,6 @@ export default function AiSummarizerSection() {
         }
     }, [url, credits]);
 
-    // 监听会话跳转
     useEffect(() => {
         if (hasInited.current) return;
         const incomingStr = sessionStorage.getItem('pending_remix_data');
@@ -235,7 +263,6 @@ export default function AiSummarizerSection() {
 
     return (
         <section className="relative">
-            {/* 🚀 正式的订阅弹窗组件 */}
             <SubscriptionModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
@@ -243,7 +270,6 @@ export default function AiSummarizerSection() {
                 isLoading={isPayLoading}
             />
 
-            {/* Toast */}
             <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center pointer-events-none w-xs md:w-lg max-sm px-4">
                 {toasts.map((toast) => (
                     <div key={toast.id} className={`animate-in slide-in-from-top-4 fade-in duration-300 ${toast.type === 'error' ? 'bg-slate-900' : 'bg-green-600'} text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 pointer-events-auto mb-3 border border-white/10 w-full`}>
@@ -325,23 +351,40 @@ export default function AiSummarizerSection() {
                                             <RefreshCcw size={48} className="mb-4 group-hover:rotate-180 transition-transform duration-500" /><p className="text-sm font-black uppercase tracking-widest leading-none">Request Failed</p><span className="text-[10px] mt-2 font-bold opacity-60 underline">Click to retry</span>
                                         </button>
                                     ) : view === "summary" ? (
-                                        <div className="space-y-4">
-                                            {aiReasoning && (
-                                                <div className="rounded-2xl border border-slate-100 border-dashed overflow-hidden">
-                                                    <button onClick={() => setIsReasoningExpanded(!isReasoningExpanded)} className="w-full flex items-center justify-between p-3 bg-slate-50 text-[10px] font-black text-slate-400 uppercase">
-                                                        <span>AI Thinking Process</span>{isReasoningExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                                                    </button>
-                                                    {isReasoningExpanded && <div className="p-4 text-xs text-slate-400 italic whitespace-pre-wrap leading-relaxed">{aiReasoning}</div>}
+                                        <>
+                                            {isSummaryFailed ? (
+                                                <div className="h-full w-full flex flex-col items-center justify-center text-slate-300 gap-4 animate-in fade-in">
+                                                    <RefreshCcw size={48} className="mb-2" />
+                                                    <div className="text-center">
+                                                        <p className="text-sm font-black uppercase tracking-widest leading-none mb-2">Request Failed</p>
+                                                        <button
+                                                            onClick={() => startAiStreaming(fullText)}
+                                                            className="text-[10px] font-bold text-red-500 hover:text-red-600 underline underline-offset-4 uppercase tracking-widest"
+                                                        >
+                                                            Click to retry summary
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <div className="space-y-4">
+                                                    {aiReasoning && (
+                                                        <div className="rounded-2xl border border-slate-100 border-dashed overflow-hidden">
+                                                            <button onClick={() => setIsReasoningExpanded(!isReasoningExpanded)} className="w-full flex items-center justify-between p-3 bg-slate-50 text-[10px] font-black text-slate-400 uppercase">
+                                                                <span>AI Thinking Process</span>{isReasoningExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                                                            </button>
+                                                            {isReasoningExpanded && <div className="p-4 text-xs text-slate-400 italic whitespace-pre-wrap leading-relaxed">{aiReasoning}</div>}
+                                                        </div>
+                                                    )}
+                                                    <div className="prose prose-slate max-w-none">
+                                                        {!aiSummary && isSummarizing && (
+                                                            <div className="flex flex-col items-center justify-center h-40 text-slate-300 gap-3"><Loader2 className="animate-spin" size={30} /><span className="text-xs font-bold uppercase tracking-widest italic text-center">AI is analyzing script...</span></div>
+                                                        )}
+                                                        <MarkdownRenderer text={aiSummary} />
+                                                        {isSummarizing && aiSummary && <span className="inline-block w-2 h-5 ml-1 bg-red-500 animate-pulse" />}
+                                                    </div>
                                                 </div>
                                             )}
-                                            <div className="prose prose-slate max-w-none">
-                                                {!aiSummary && isSummarizing && (
-                                                    <div className="flex flex-col items-center justify-center h-40 text-slate-300 gap-3"><Loader2 className="animate-spin" size={30} /><span className="text-xs font-bold uppercase tracking-widest italic text-center">AI is analyzing script...</span></div>
-                                                )}
-                                                <MarkdownRenderer text={aiSummary} />
-                                                {isSummarizing && aiSummary && <span className="inline-block w-2 h-5 ml-1 bg-red-500 animate-pulse" />}
-                                            </div>
-                                        </div>
+                                        </>
                                     ) : (
                                         <div className="space-y-6">
                                             {transcriptMode === "time" ? segments.map((s, i) => (
@@ -354,8 +397,11 @@ export default function AiSummarizerSection() {
                                     )}
                                 </div>
                                 <div className="p-4 border-t border-slate-50 bg-white grid grid-cols-2 gap-4">
-                                    <button onClick={handleCopy} disabled={isLoading || (view === 'summary' && !aiSummary)} className="py-4 bg-slate-900 text-white text-sm font-black rounded-2xl flex items-center justify-center gap-2 hover:bg-red-600 transition-all uppercase tracking-tighter disabled:opacity-30 shadow-lg">Copy Content</button>
-                                    <button onClick={handleExport} disabled={isLoading || (view === 'summary' && !aiSummary)} className="py-4 bg-white border border-slate-200 text-sm text-slate-700 font-black rounded-2xl flex items-center justify-center gap-2 hover:bg-slate-50 transition-all uppercase tracking-tighter disabled:opacity-30">Export TXT</button>
+                                    <button onClick={handleCopy} disabled={isLoading || (view === 'summary' && !aiSummary || view === 'transcript' && segments.length === 0)}
+                                        className="py-4 bg-slate-900 text-white text-sm font-black rounded-2xl flex items-center justify-center gap-2 hover:bg-red-600 transition-all uppercase tracking-tighter disabled:opacity-30 shadow-lg">
+                                        Copy Content
+                                    </button>
+                                    <button onClick={handleExport} disabled={isLoading || (view === 'summary' && !aiSummary || view === 'transcript' && segments.length === 0)} className="py-4 bg-white border border-slate-200 text-sm text-slate-700 font-black rounded-2xl flex items-center justify-center gap-2 hover:bg-slate-50 transition-all uppercase tracking-tighter disabled:opacity-30">Export TXT</button>
                                 </div>
                             </div>
                         </div>

@@ -34,7 +34,7 @@ interface TranscriptMeta {
 const API_BASE = "https://ytdlp.vistaflyer.com";
 
 export default function VideoToScriptToolSection() {
-    const { user, credits, consumeUsage, isLoggedIn, login } = useAuth(); // 🚀 增加 user, login
+    const { user, credits, consumeUsage, checkQuota, isLoggedIn, login } = useAuth(); // 🚀 增加 user, login, checkQuota
     const router = useRouter();
 
     // --- 状态管理 ---
@@ -108,20 +108,22 @@ export default function VideoToScriptToolSection() {
     };
 
     const fetchContentWithCheck = async (langCode: string, targetUrl: string) => {
+        // 1. 本地积分检查（不扣）
         if (credits <= 0) {
+            setIsModalOpen(true);
+            return;
+        }
+
+        // 2. 服务器配额预检（不扣）
+        const hasQuota = await checkQuota('extract');
+        if (!hasQuota) {
             setIsModalOpen(true);
             return;
         }
 
         setLoadingContent(true);
         try {
-            const hasQuota = await consumeUsage('extract');
-            if (!hasQuota) {
-                setIsModalOpen(true);
-                setLoadingContent(false);
-                return;
-            }
-
+            // 3. 调用真正的转写内容接口
             const res = await fetch(`${API_BASE}/api/transcript/content`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -133,6 +135,9 @@ export default function VideoToScriptToolSection() {
             const data = await res.json();
             setSegments(data.segments || []);
             setFullText(data.full_text || "");
+
+            // 4. API 成功返回后，再扣除一次 extract 配额
+            await consumeUsage('extract');
         } catch (err: any) {
             addToast(err.message, "error");
             setSegments([]);
