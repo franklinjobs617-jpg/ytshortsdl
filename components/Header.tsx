@@ -242,7 +242,27 @@ const Header = () => {
                             <button onClick={login} disabled={isLoggingIn} className="w-full py-4 rounded-2xl font-bold bg-slate-900 text-white">Sign In with Google</button>
                         )}
                     </div>
-                    {/* 循环渲染 NAV_CONFIG ... */}
+                    {NAV_CONFIG.map((item, idx) => (
+                        <div key={idx} className="block">
+                            {item.type === 'dropdown' ? (
+                                <div className="space-y-1">
+                                    <button onClick={() => toggleMobileDropdown(item.label)} className={`w-full flex items-center justify-between py-3 px-4 rounded-xl font-bold ${isChildActive(item.links!) ? 'bg-red-50 text-red-600' : 'text-slate-700'}`}>
+                                        {item.label}
+                                        <ChevronDown className={`w-4 h-4 transition-transform ${openDropdowns.includes(item.label) ? 'rotate-180' : ''}`} />
+                                    </button>
+                                    {openDropdowns.includes(item.label) && (
+                                        <div className="space-y-1 mt-1 pl-4">
+                                            {item.links?.map((sub, sIdx) => (
+                                                <Link key={sIdx} href={sub.href} onClick={() => setIsDrawerOpen(false)} className={`block py-3 px-4 rounded-xl text-sm ${isActive(sub.href) ? 'text-red-600 font-bold bg-red-50/50' : 'text-slate-500'}`}>{sub.label}</Link>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <Link href={item.href!} onClick={() => setIsDrawerOpen(false)} className={`block py-3 px-4 rounded-xl font-bold ${isActive(item.href!) ? 'bg-red-50 text-red-600' : 'text-slate-700'}`}>{item.label}</Link>
+                            )}
+                        </div>
+                    ))}
                 </nav>
             </aside>
         </>
