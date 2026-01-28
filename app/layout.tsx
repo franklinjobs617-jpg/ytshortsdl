@@ -6,6 +6,7 @@ import { AuthProvider } from "@/lib/auth-context";
 import Footer from "@/components/Footer";
 import { GoogleAnalytics } from '@next/third-parties/google'
 import Head from "next/head";
+import PayPalProviderWrapper from "@/components/PayPalProviderWrapper";
 export const metadata: Metadata = {
   title: 'Free YouTube Shorts Downloader | HD MP4 & MP3 | AI Video to Script',
   description: 'Download YouTube Shorts videos and audio (MP4/MP3) instantly. Now featuring AI-powered video to script converter and viral script generator for creators.',
@@ -46,10 +47,12 @@ export default function RootLayout({
       <body>
         <Script src="https://accounts.google.com/gsi/client" strategy="afterInteractive" />
         <AuthProvider>
+          <PayPalProviderWrapper>
+            <Header />
+            {children}
+            <Footer />
 
-          <Header />
-          {children}
-          <Footer />
+          </PayPalProviderWrapper>
         </AuthProvider>
       </body>
     </html>

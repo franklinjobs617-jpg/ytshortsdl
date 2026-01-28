@@ -16,7 +16,12 @@ const WORKER_URLS = [
     "https://dry-water-d2f3.franke-4b7.workers.dev",
     "https://throbbing-breeze-b608.franke-4b7.workers.dev",
     "https://broken-frost-aa82.franke-4b7.workers.dev",
-    "https://fragrant-butterfly-8f1f.franke-4b7.workers.dev"
+    "https://fragrant-butterfly-8f1f.franke-4b7.workers.dev",
+    "https://fancy-disk-b43e.franke-4b7.workers.dev",
+    "https://cold-wood-3350.franke-4b7.workers.dev",
+    "https://floral-queen-1592.franke-4b7.workers.dev",
+    "https://quiet-lab-5ef6.franke-4b7.workers.dev",
+    "https://fancy-sea-3f9a.franke-4b7.workers.dev"
 ];
 
 export default function HeroSection() {

@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-     "build": "prisma generate && next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
     "@next/third-parties": "^16.1.4",
+    "@paypal/react-paypal-js": "^8.9.2",
     "@prisma/client": "^6.0.0",
     "file-saver": "^2.0.5",
     "google-auth-library": "^10.5.0",
@@ -19,7 +20,6 @@
     "prisma": "^6.0.0",
     "react": "19.2.3",
     "react-dom": "19.2.3"
-    
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
