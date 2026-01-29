@@ -6,9 +6,10 @@ import { PLAN_LIMITS } from '@/lib/limits';
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
-        const { userId, guestId, type, action } = body; 
+        const { userId, guestId, type, action, count = 1 } = body;
         // type: 'download' | 'extract' | 'summary'
         // action: 'check' | 'consume' | undefined (不传则走原有逻辑)
+        // count: 消耗或检查的数量，默认为 1
 
         const usage = await getOrCreateUsage(
             userId ? parseInt(userId) : undefined,
@@ -32,9 +33,9 @@ export async function POST(req: NextRequest) {
         // 分支 1: 纯检查逻辑 (action === 'check')
         // ==========================================================
         if (action === 'check') {
-            return NextResponse.json({ 
-                allowed: currentCount < maxLimit, 
-                usage 
+            return NextResponse.json({
+                allowed: (currentCount + count) <= maxLimit,
+                usage
             });
         }
 
@@ -44,7 +45,7 @@ export async function POST(req: NextRequest) {
         if (action === 'consume') {
             const updatedUsage = await prisma.usage.update({
                 where: { id: usage.id },
-                data: { [field]: { increment: 1 } }
+                data: { [field]: { increment: count } }
             });
             return NextResponse.json({ success: true, usage: updatedUsage });
         }
@@ -52,13 +53,13 @@ export async function POST(req: NextRequest) {
         // ==========================================================
         // 分支 3: 原有逻辑 - 查询并立即扣费
         // ==========================================================
-        if (currentCount >= maxLimit) {
+        if ((currentCount + count) > maxLimit) {
             return NextResponse.json({ allowed: false, reason: "limit_reached" }, { status: 403 });
         }
 
         const updatedUsage = await prisma.usage.update({
             where: { id: usage.id },
-            data: { [field]: { increment: 1 } }
+            data: { [field]: { increment: count } }
         });
 
         return NextResponse.json({ allowed: true, usage: updatedUsage });

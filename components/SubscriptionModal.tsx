@@ -1,7 +1,10 @@
 "use client";
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Check, X, Sparkles, ChevronRight, Loader2 } from 'lucide-react';
+import { useAuth } from '@/lib/auth-context';
+import { useToast } from "@/components/ToastContext";
+import { trackEvent, GA_EVENTS } from "@/lib/gtag";
 
 interface Feature {
     label: string;
@@ -20,21 +23,61 @@ interface Plan {
     featured: boolean;
 }
 
-// 🚀 确保这里的接口名称和属性完全匹配
 interface SubscriptionModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onUpgrade: (planType: string) => Promise<void> | void; // 必须有这一行
-    isLoading: boolean; // 必须有这一行
 }
 
 export default function SubscriptionModal({
     isOpen,
     onClose,
-    onUpgrade,
-    isLoading
 }: SubscriptionModalProps) {
     const [isYearly, setIsYearly] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const { user, isLoggedIn, login } = useAuth();
+    const { addToast } = useToast();
+
+    const handleUpgradeClick = async (planType: string, planName: string) => {
+        if (!isLoggedIn) {
+            login();
+            return;
+        }
+
+        //  埋点：点击支付（Modal 内 Stripe）
+        trackEvent(GA_EVENTS.F_PAY_CLICK, {
+            method: 'stripe',
+            plan: planName,
+            cycle: isYearly ? 'yearly' : 'monthly',
+            context: 'paywall_modal'
+        });
+
+        setIsLoading(true);
+        try {
+            const res = await fetch('/api/pay/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    googleUserId: user?.googleUserId,
+                    email: user?.email,
+                    userId: user?.id,
+                    type: planType
+                })
+            });
+
+            const data = await res.json();
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                trackEvent(GA_EVENTS.ERR_PARSE, { context: 'modal_stripe_create', msg: 'no_url' });
+                addToast("Payment gateway is busy, please try again.", "error");
+            }
+        } catch (error: any) {
+            trackEvent(GA_EVENTS.ERR_PARSE, { context: 'modal_stripe_exception', msg: error.message });
+            addToast("Connection error, please try again.", "error");
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     const plans: Plan[] = [
         {
@@ -95,7 +138,12 @@ export default function SubscriptionModal({
 
                         <div className="flex justify-center items-center gap-4 mt-6">
                             <span className={`text-xs font-bold ${!isYearly ? 'text-slate-900' : 'text-slate-400'}`}>Monthly</span>
-                            <button onClick={() => setIsYearly(!isYearly)} className="relative inline-flex h-6 w-12 items-center rounded-full bg-slate-200 focus:outline-none">
+                            <button onClick={() => {
+                                const next = !isYearly;
+                                setIsYearly(next);
+                                //  埋点：周期切换
+                                trackEvent(GA_EVENTS.UI_PRICING_TOGGLE, { cycle: next ? 'yearly' : 'monthly', context: 'modal' });
+                            }} className="relative inline-flex h-6 w-12 items-center rounded-full bg-slate-200 focus:outline-none">
                                 <span className={`inline-block h-4 w-4 transform rounded-full bg-red-600 transition-transform ${isYearly ? 'translate-x-7' : 'translate-x-1'}`}></span>
                             </button>
                             <span className={`text-xs font-bold ${isYearly ? 'text-slate-900' : 'text-slate-400'}`}>
@@ -128,7 +176,7 @@ export default function SubscriptionModal({
                                 </ul>
                                 <button
                                     disabled={isLoading}
-                                    onClick={() => onUpgrade(`plan_${plan.name.toLowerCase()}_${isYearly ? 'yearly' : 'monthly'}`)}
+                                    onClick={() => handleUpgradeClick(`plan_${plan.name.toLowerCase()}_${isYearly ? 'yearly' : 'monthly'}`, plan.name)}
                                     className={`w-full py-4 rounded-2xl font-black text-sm transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 ${plan.featured ? 'bg-red-600 hover:bg-red-700 text-white shadow-xl shadow-red-900/30' : 'bg-slate-900 hover:bg-red-600 text-white'}`}
                                 >
                                     {isLoading ? <Loader2 className="animate-spin" size={18} /> : null}

@@ -14,7 +14,7 @@ export async function getOrCreateUsage(userId?: number, guestId?: string) {
 
     // 查找条件
     const where = userId ? { userId } : { guestId };
-    
+
     let usage = await prisma.usage.findFirst({ where });
 
     // --- 逻辑 1: 如果不存在记录 (新用户或新游客) ---
@@ -75,7 +75,7 @@ export async function checkAndIncrement(
 ) {
     // 获取最新的使用情况 (内部已包含重置逻辑)
     const usage = await getOrCreateUsage(userId, guestId);
-    
+
     const plan = (usage.plan || "FREE") as keyof typeof PLAN_LIMITS;
     const limits = PLAN_LIMITS[plan];
 
@@ -83,18 +83,23 @@ export async function checkAndIncrement(
     let field: "downloadCount" | "extractionCount" | "summaryCount";
 
     // 映射对应字段
-    if (type === 'download') { 
-        field = "downloadCount"; 
-        currentCount = usage.downloadCount; 
-    } else if (type === 'extract') { 
-        field = "extractionCount"; 
-        currentCount = usage.extractionCount; 
-    } else { 
-        field = "summaryCount"; 
-        currentCount = usage.summaryCount; 
+    if (type === 'download') {
+        field = "downloadCount";
+        currentCount = usage.downloadCount;
+    } else if (type === 'extract') {
+        field = "extractionCount";
+        currentCount = usage.extractionCount;
+    } else {
+        field = "summaryCount";
+        currentCount = usage.summaryCount;
     }
 
-    const maxLimit = limits[type];
+    let maxLimit = limits[type];
+
+    // 如果是下载，且有额外赠送的配额
+    if (type === 'download' && (usage as any).bonusDownloadQuota) {
+        maxLimit += (usage as any).bonusDownloadQuota;
+    }
 
     // 校验：如果当前已用次数 >= 最大限制
     if (currentCount >= maxLimit) {
@@ -127,8 +132,11 @@ export async function isQuotaAvailable(
     else if (type === 'extract') currentCount = usage.extractionCount;
     else currentCount = usage.summaryCount;
 
-    const maxLimit = limits[type];
-    
+    let maxLimit = limits[type];
+    if (type === 'download' && (usage as any).bonusDownloadQuota) {
+        maxLimit += (usage as any).bonusDownloadQuota;
+    }
+
     // 返回是否允许（已用 < 上限）
     return { allowed: currentCount < maxLimit, usage };
 }
@@ -142,7 +150,7 @@ export async function incrementUsageCount(
     guestId?: string
 ) {
     const usage = await getOrCreateUsage(userId, guestId);
-    
+
     const fieldMap = {
         download: "downloadCount",
         extract: "extractionCount",

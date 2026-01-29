@@ -112,7 +112,7 @@ export default function About() {
                                     className="text-2xl md:text-3xl font-bold font-poppins text-slate-800 mb-4 pb-2 border-b border-slate-200">
                                     Contact Us & Support</h2>
                                 <p className="text-slate-700 leading-relaxed mb-6">We are dedicated to supporting our creator
-                                    community. If you have questions about the tools, need help with your AI credits, or
+                                    community. If you have questions about the tools, need help with your usage quota, or
                                     want
                                     to discuss a partnership, please reach out.</p>
 

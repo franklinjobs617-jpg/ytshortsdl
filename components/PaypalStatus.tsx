@@ -110,7 +110,7 @@ export default function PaypalStatus() {
                     </div>
                     <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase">Success!</h2>
                     <p className="text-slate-500 text-sm font-medium">
-                        Your transaction is complete. Your credits have been added. <br />
+                        Your transaction is complete. Your plan limits have been upgraded. <br />
                         <span className="text-red-600 font-bold">Redirecting you now...</span>
                     </p>
                 </div>

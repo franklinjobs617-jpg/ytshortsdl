@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Check, X, ChevronDown, Loader2, CreditCard, CheckCircle2, AlertCircle, RefreshCcw } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { PayPalScriptProvider, PayPalButtons, ReactPayPalScriptOptions } from "@paypal/react-paypal-js";
+import { trackEvent, GA_EVENTS } from "@/lib/gtag"; // 🚀 引入
 
 interface Feature {
     label: string;
@@ -31,6 +32,11 @@ const PricingTable = () => {
     // --- 🚀 新增：支付回调校验状态 ---
     const [verificationStatus, setVerificationStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
+    // 🚀 埋点：进入定价页面
+    useEffect(() => {
+        trackEvent(GA_EVENTS.F_PRICING_VIEW);
+    }, []);
+
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const payerId = urlParams.get('PayerID');
@@ -46,12 +52,17 @@ const PricingTable = () => {
             const res = await fetch(`https://api.removermarca.com/prod-api/paypal/retUrl${window.location.search}`);
             const data = await res.json();
             if (data.code === 0) {
+                // 🚀 埋点：支付校验成功
+                trackEvent(GA_EVENTS.F_PAY_SUCCESS, { method: 'paypal', type: 'url_verify' });
                 setVerificationStatus('success');
                 setTimeout(() => window.location.href = "/", 2000);
             } else {
+                // 🚀 埋点：支付校验失败
+                trackEvent(GA_EVENTS.ERR_PARSE, { context: 'paypal_verify', msg: data.msg });
                 setVerificationStatus('error');
             }
-        } catch (e) {
+        } catch (e: any) {
+            trackEvent(GA_EVENTS.ERR_PARSE, { context: 'paypal_verify_exception', msg: e.message });
             setVerificationStatus('error');
         }
     };
@@ -106,6 +117,13 @@ const PricingTable = () => {
     const handleStripePayment = async (plan: Plan) => {
         if (!isLoggedIn) { login(); return; }
 
+        // 🚀 埋点：点击支付（Stripe）
+        trackEvent(GA_EVENTS.F_PAY_CLICK, {
+            method: 'stripe',
+            plan: plan.name,
+            cycle: isYearly ? 'yearly' : 'monthly'
+        });
+
         setLoadingPlan(plan.name);
         setPayProvider('stripe');
 
@@ -127,9 +145,11 @@ const PricingTable = () => {
             if (data.url) {
                 window.location.href = data.url;
             } else {
+                trackEvent(GA_EVENTS.ERR_PARSE, { context: 'stripe_create', msg: 'no_url' });
                 alert("Service busy, please try again.");
             }
-        } catch (error) {
+        } catch (error: any) {
+            trackEvent(GA_EVENTS.ERR_PARSE, { context: 'stripe_exception', msg: error.message });
             alert("Payment connection failed.");
         } finally {
             setLoadingPlan(null);
@@ -195,7 +215,12 @@ const PricingTable = () => {
                     <p className="text-3xl md:text-6xl font-black text-slate-900 leading-tight tracking-tighter">Select the best plan for<br /> <span className="text-red-600 italic">your creativity</span></p>
                     <div className="mt-8 flex justify-center items-center gap-4">
                         <span className={`text-sm font-bold ${!isYearly ? 'text-slate-900' : 'text-slate-400'}`}>Monthly</span>
-                        <button onClick={() => setIsYearly(!isYearly)} className="relative inline-flex h-7 w-14 items-center rounded-full bg-slate-100 border border-slate-200 transition-all"><span className={`inline-block h-5 w-5 transform rounded-full bg-red-600 transition-all ${isYearly ? 'translate-x-8' : 'translate-x-1'}`}></span></button>
+                        <button onClick={() => {
+                            const next = !isYearly;
+                            setIsYearly(next);
+                            // 🚀 埋点：周期切换
+                            trackEvent(GA_EVENTS.UI_PRICING_TOGGLE, { cycle: next ? 'yearly' : 'monthly' });
+                        }} className="relative inline-flex h-7 w-14 items-center rounded-full bg-slate-100 border border-slate-200 transition-all"><span className={`inline-block h-5 w-5 transform rounded-full bg-red-600 transition-all ${isYearly ? 'translate-x-8' : 'translate-x-1'}`}></span></button>
                         <span className={`text-sm font-bold ${isYearly ? 'text-slate-900' : 'text-slate-400'}`}>Yearly <span className="text-green-600 text-xs font-black bg-green-50 px-2 py-1 rounded-full ml-1">Save 25%+</span></span>
                     </div>
                 </div>
@@ -275,6 +300,13 @@ const PricingTable = () => {
                                                         throw new Error("Please login first");
                                                     }
 
+                                                    // 🚀 埋点：点击支付（PayPal）
+                                                    trackEvent(GA_EVENTS.F_PAY_CLICK, {
+                                                        method: 'paypal_smart',
+                                                        plan: plan.name,
+                                                        cycle: isYearly ? 'yearly' : 'monthly'
+                                                    });
+
                                                     const typeString = `plan_${plan.name.toLowerCase()}_${isYearly ? 'yearly' : 'monthly'}`;
                                                     try {
                                                         const response = await fetch("/api/pay/paypal-smart-create", {
@@ -293,8 +325,8 @@ const PricingTable = () => {
                                                         } else {
                                                             throw new Error(res.msg);
                                                         }
-                                                    } catch (err) {
-                                                        console.error(err);
+                                                    } catch (err: any) {
+                                                        trackEvent(GA_EVENTS.ERR_PARSE, { context: 'paypal_create', msg: err.message });
                                                         throw err;
                                                     }
                                                 }}
@@ -307,12 +339,16 @@ const PricingTable = () => {
                                                         });
                                                         const res = await response.json();
                                                         if (res.code === 200) {
+                                                            // 🚀 埋点：支付成功（PayPal Capture）
+                                                            trackEvent(GA_EVENTS.F_PAY_SUCCESS, { method: 'paypal_smart' });
                                                             setVerificationStatus('success');
                                                             setTimeout(() => window.location.reload(), 2000);
                                                         } else {
+                                                            trackEvent(GA_EVENTS.ERR_PARSE, { context: 'paypal_capture', msg: res.msg });
                                                             alert("Payment Capture Failed: " + res.msg);
                                                         }
-                                                    } catch (err) {
+                                                    } catch (err: any) {
+                                                        trackEvent(GA_EVENTS.ERR_PARSE, { context: 'paypal_capture_exception', msg: err.message });
                                                         alert("Capture Error");
                                                     }
                                                 }}

@@ -5,20 +5,22 @@ import { FileText, X, Download, ClipboardPaste, Loader2, Languages, AlertCircle,
 import { saveAs } from "file-saver";
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
+import { useToast } from "@/components/ToastContext";
+import { trackEvent, GA_EVENTS } from '@/lib/gtag'; // 引入埋点
 
 interface TranscriptDrawerProps {
     isOpen: boolean;
     onClose: () => void;
     video: any;
-    addToast: (msg: string, type?: 'success' | 'error') => void;
 }
 
 const API_BASE = "https://ytdlp.vistaflyer.com";
 const CACHE_KEY = "last_transcript_cache";
 
-const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, video, addToast }) => {
+const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, video }) => {
+    const { addToast } = useToast();
     const router = useRouter();
-    const { credits, checkQuota, consumeUsage } = useAuth();
+    const { checkQuota, consumeUsage } = useAuth();
 
     const [view, setView] = useState<"time" | "text">("time");
     const [selectedLang, setSelectedLang] = useState("");
@@ -29,7 +31,6 @@ const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, vi
     const [isDownloadingSrt, setIsDownloadingSrt] = useState(false);
     const [isDownloadingTxt, setIsDownloadingTxt] = useState(false);
 
-    // 🚀 使用 Ref 记录当前正在处理的 URL 和语言，防止重复触发
     const processingRef = useRef<string>("");
 
     // 获取字幕内容的核心函数
@@ -40,11 +41,16 @@ const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, vi
         processingRef.current = processKey;
         setLoadingContent(true);
 
+        // 埋点：开始提取漏斗第一步
+        trackEvent(GA_EVENTS.F_EXTRACT_START, { lang: langCode });
+
         try {
             // 1. 检查配额
             const canExtract = await checkQuota('extract');
             if (!canExtract) {
-                addToast("Insufficient credits", "error");
+                // 埋点：支付拦截
+                trackEvent(GA_EVENTS.F_PAYWALL_VIEW, { trigger: 'transcript_drawer' });
+                addToast("Daily quota reached", "error");
                 onClose();
                 return;
             }
@@ -68,7 +74,9 @@ const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, vi
                 setSegments(newSegments);
                 setFullText(newFullText);
 
-                // 写入缓存
+                // 埋点：提取漏斗第二步成功
+                trackEvent(GA_EVENTS.F_EXTRACT_SUCCESS, { lang: langCode });
+
                 sessionStorage.setItem(CACHE_KEY, JSON.stringify({
                     url: targetUrl,
                     lang: langCode,
@@ -77,35 +85,33 @@ const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, vi
                 }));
                 addToast("Transcript extracted", "success");
             }
-        } catch (err) {
+        } catch (err: any) {
+            // 埋点：提取失败监控
+            trackEvent(GA_EVENTS.ERR_EXTRACT, { message: err.message, lang: langCode });
             setSegments([]);
             setFullText("");
             addToast("Failed to load transcript", "error");
         } finally {
             setLoadingContent(false);
-            processingRef.current = ""; // 释放锁定
+            processingRef.current = "";
         }
     }, [checkQuota, consumeUsage, addToast, onClose, loadingContent]);
 
-    // 🚀 核心修复：统一管理打开抽屉和语言切换的逻辑
     useEffect(() => {
         if (!isOpen || !video?.targetUrl) return;
 
         const currentUrl = video.targetUrl;
         const cachedStr = sessionStorage.getItem(CACHE_KEY);
 
-        // 尝试从缓存加载
         if (cachedStr) {
             try {
                 const cachedData = JSON.parse(cachedStr);
                 if (cachedData.url === currentUrl) {
-                    // 如果缓存里已经有当前 URL 的数据了
                     if (!selectedLang || selectedLang === cachedData.lang) {
-                        // 初始化或切回缓存语言时直接还原
                         setSegments(cachedData.segments);
                         setFullText(cachedData.fullText);
                         setSelectedLang(cachedData.lang);
-                        return; // 命中缓存，终止执行
+                        return;
                     }
                 }
             } catch (e) {
@@ -113,21 +119,17 @@ const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, vi
             }
         }
 
-        // 如果没命中缓存，且 selectedLang 没值，则先设置默认语言
         if (!selectedLang) {
             const hasEn = video.languages?.find((l: any) => l.code === 'en');
             const defaultCode = hasEn ? 'en' : (video.languages?.[0]?.code || "");
             setSelectedLang(defaultCode);
-            // 这里 return，依靠下一次 Effect 运行进入 fetch 分支
             return;
         }
 
-        // 执行网络请求
         fetchContent(selectedLang, currentUrl);
 
     }, [isOpen, video?.targetUrl, selectedLang, fetchContent]);
 
-    // 重置逻辑：仅在彻底关闭时执行
     useEffect(() => {
         if (!isOpen) {
             setSegments([]);
@@ -139,6 +141,10 @@ const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, vi
 
     const handleRemixClick = () => {
         if (!video?.targetUrl) return;
+
+        // 埋点：关键引流动作
+        trackEvent(GA_EVENTS.NAV_AI_REMIX, { lang: selectedLang });
+
         sessionStorage.setItem('pending_remix_data', JSON.stringify({
             url: video.targetUrl, meta: video, segments, fullText, selectedLang
         }));
@@ -149,10 +155,17 @@ const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, vi
     const copyToClipboard = () => {
         const textToCopy = view === "time" ? segments.map(s => `[${s.t}] ${s.txt}`).join('\n') : fullText;
         navigator.clipboard.writeText(textToCopy);
+
+        // 埋点：交互动作
+        trackEvent(GA_EVENTS.UI_TRANS_ACTION, { type: 'copy' });
+
         addToast("Copied!", "success");
     };
 
     const handleDownload = async (type: 'srt' | 'txt') => {
+        // 埋点：交互动作
+        trackEvent(GA_EVENTS.UI_TRANS_ACTION, { type });
+
         if (type === 'srt') setIsDownloadingSrt(true); else setIsDownloadingTxt(true);
         try {
             const downloadUrl = `${API_BASE}/api/transcript/download?url=${encodeURIComponent(video.targetUrl)}&lang=${selectedLang}&type=${type}`;
@@ -161,7 +174,7 @@ const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, vi
             saveAs(blob, `${(video?.title || 'transcript').replace(/[\\/:*?"<>|]/g, '_')}.${type}`);
             addToast("Downloaded", "success");
         } catch (err) {
-            addToast("Error", "error");
+            addToast("There are some issues, Try again !", "error");
         } finally {
             if (type === 'srt') setIsDownloadingSrt(false); else setIsDownloadingTxt(false);
         }
@@ -201,7 +214,11 @@ const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, vi
                         <Languages className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
                         <select
                             value={selectedLang}
-                            onChange={(e) => setSelectedLang(e.target.value)}
+                            onChange={(e) => {
+                                setSelectedLang(e.target.value);
+                                // 埋点：语言切换
+                                trackEvent(GA_EVENTS.UI_TRANS_LANG, { lang_code: e.target.value });
+                            }}
                             disabled={loadingContent}
                             className="w-full bg-slate-100 rounded-xl pl-9 pr-4 py-2.5 text-[11px] font-black text-slate-700 outline-none appearance-none cursor-pointer disabled:opacity-50"
                         >
@@ -209,8 +226,12 @@ const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, vi
                         </select>
                     </div>
                     <div className="flex bg-slate-100 p-1 rounded-xl">
-                        {(["time", "text"] as const).map((mode) => (
-                            <button key={mode} onClick={() => setView(mode)} className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase transition-all ${view === mode ? 'bg-white text-red-600 shadow-sm' : 'text-slate-400'}`}>{mode}</button>
+                        {(["time", "text"] as const).map((m) => (
+                            <button key={m} onClick={() => {
+                                setView(m);
+                                // 埋点：视图切换
+                                trackEvent(GA_EVENTS.UI_TRANS_VIEW, { mode: m });
+                            }} className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase transition-all ${view === m ? 'bg-white text-red-600 shadow-sm' : 'text-slate-400'}`}>{m}</button>
                         ))}
                     </div>
                 </div>
@@ -236,7 +257,11 @@ const TranscriptDrawer: React.FC<TranscriptDrawerProps> = ({ isOpen, onClose, vi
                         </div>
                     ) : (
                         <button
-                            onClick={() => fetchContent(selectedLang, video.targetUrl)}
+                            onClick={() => {
+                                // 埋点：重试
+                                trackEvent(GA_EVENTS.UI_TRANS_RETRY);
+                                fetchContent(selectedLang, video.targetUrl);
+                            }}
                             className="h-full w-full flex flex-col items-center justify-center text-slate-300 hover:text-red-500 transition-colors group p-10"
                         >
                             <RefreshCcw size={40} className="mb-4 group-hover:rotate-180 transition-transform duration-500" />

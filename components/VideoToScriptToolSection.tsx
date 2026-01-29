@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import SubscriptionModal from "@/components/SubscriptionModal"; // 🚀 引入新组件
+import { useToast } from "@/components/ToastContext";
 
 interface Language {
     code: string;
@@ -34,14 +35,13 @@ interface TranscriptMeta {
 const API_BASE = "https://ytdlp.vistaflyer.com";
 
 export default function VideoToScriptToolSection() {
-    const { user, credits, consumeUsage, checkQuota, isLoggedIn, login } = useAuth(); // 🚀 增加 user, login, checkQuota
+    const { consumeUsage, checkQuota } = useAuth();
     const router = useRouter();
 
     // --- 状态管理 ---
     const [inputUrl, setInputUrl] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isPayLoading, setIsPayLoading] = useState(false); // 🚀 支付加载状态
     const [error, setError] = useState<string | null>(null);
 
     // 字幕相关状态
@@ -55,47 +55,10 @@ export default function VideoToScriptToolSection() {
     const [isDownloadingSrt, setIsDownloadingSrt] = useState(false);
     const [isDownloadingTxt, setIsDownloadingTxt] = useState(false);
 
-    const [toasts, setToasts] = useState<{ id: number; message: string; type: 'success' | 'error' }[]>([]);
+    const { addToast } = useToast();
     const resultsRef = useRef<HTMLDivElement>(null);
 
-    const addToast = (message: string, type: 'success' | 'error' = 'error') => {
-        const id = Date.now();
-        setToasts((prev) => [...prev, { id, message, type }]);
-        setTimeout(() => setToasts((prev) => prev.filter((t) => t.id !== id)), 5000);
-    };
 
-    // 🚀 处理支付跳转逻辑
-    const handleUpgradeClick = async (typeString: string) => {
-        if (!isLoggedIn) {
-            login();
-            return;
-        }
-
-        setIsPayLoading(true);
-        try {
-            const res = await fetch('/api/pay/create', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    googleUserId: user?.googleUserId,
-                    email: user?.email,
-                    userId: user?.id,
-                    type: typeString
-                })
-            });
-
-            const data = await res.json();
-            if (data.url) {
-                window.location.href = data.url;
-            } else {
-                addToast("Payment service is busy, please try again.", "error");
-            }
-        } catch (error) {
-            addToast("Connection error, please try again.", "error");
-        } finally {
-            setIsPayLoading(false);
-        }
-    };
 
     const handlePaste = async () => {
         try {
@@ -108,13 +71,7 @@ export default function VideoToScriptToolSection() {
     };
 
     const fetchContentWithCheck = async (langCode: string, targetUrl: string) => {
-        // 1. 本地积分检查（不扣）
-        if (credits <= 0) {
-            setIsModalOpen(true);
-            return;
-        }
-
-        // 2. 服务器配额预检（不扣）
+        // 1. 服务器配额预检（不扣）
         const hasQuota = await checkQuota('extract');
         if (!hasQuota) {
             setIsModalOpen(true);
@@ -123,7 +80,7 @@ export default function VideoToScriptToolSection() {
 
         setLoadingContent(true);
         try {
-            // 3. 调用真正的转写内容接口
+            // 2. 调用真正的转写内容接口
             const res = await fetch(`${API_BASE}/api/transcript/content`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -136,7 +93,7 @@ export default function VideoToScriptToolSection() {
             setSegments(data.segments || []);
             setFullText(data.full_text || "");
 
-            // 4. API 成功返回后，再扣除一次 extract 配额
+            // 3. API 成功返回后，再扣除一次 extract 配额
             await consumeUsage('extract');
         } catch (err: any) {
             addToast(err.message, "error");
@@ -149,10 +106,6 @@ export default function VideoToScriptToolSection() {
     const handleParse = async () => {
         if (!inputUrl.trim()) {
             addToast("Please enter a valid URL.", "error");
-            return;
-        }
-        if (credits <= 0) {
-            setIsModalOpen(true);
             return;
         }
 
@@ -235,20 +188,11 @@ export default function VideoToScriptToolSection() {
             <SubscriptionModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                onUpgrade={handleUpgradeClick}
-                isLoading={isPayLoading}
             />
 
             <div className="glow-effect -z-10"></div>
 
-            <div className="fixed top-24 left-1/2 -translate-x-1/2 z-100 flex flex-col items-center pointer-events-none w-xs md:w-lg px-4">
-                {toasts.map((toast) => (
-                    <div key={toast.id} className={`animate-in slide-in-from-top-4 fade-in duration-300 ${toast.type === 'error' ? 'bg-slate-900' : 'bg-green-600'} text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 pointer-events-auto mb-3 border border-white/10 w-full`}>
-                        <span className={toast.type === 'error' ? "text-red-400 font-bold" : "text-green-400 font-bold"}>{toast.type === 'error' ? '●' : '✓'}</span>
-                        <span className="font-bold text-xs">{toast.message}</span>
-                    </div>
-                ))}
-            </div>
+
 
             <div className="container max-w-6xl mx-auto relative z-10">
                 <h1 className="text-3xl md:text-5xl font-black text-slate-900 leading-tight tracking-tighter">

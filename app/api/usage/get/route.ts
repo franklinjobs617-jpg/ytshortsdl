@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
 
         // 调用刚才写的通用方法
         const usage = await getOrCreateUsage(
-            userId ? parseInt(userId) : undefined, 
+            userId ? parseInt(userId) : undefined,
             guestId
         );
 
@@ -17,4 +17,4 @@ export async function POST(req: NextRequest) {
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
-}
+} 

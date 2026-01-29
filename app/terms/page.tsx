@@ -71,13 +71,13 @@ export default function Terms() {
                             <section id="paid-services">
                                 <h2
                                     className="text-2xl md:text-3xl font-bold font-poppins text-slate-800 mb-4 pb-2 border-b border-slate-200">
-                                    3. Paid Services, Credits, and AI Tools</h2>
+                                    3. Paid Services, Usage Quota, and AI Tools</h2>
                                 <p className="text-slate-700 leading-relaxed mb-6">We offer premium, paid services (e.g., AI
-                                    Watermark Remover, 4K/8K Downloads) accessible via subscription or purchased credits.
+                                    Watermark Remover, 4K/8K Downloads) accessible via subscription or daily usage quotas.
                                 </p>
                                 <ul className="list-disc list-outside space-y-3 pl-6 text-slate-700">
                                     <li><strong className="text-slate-900">No Refunds:</strong> Due to the immediate,
-                                        non-reversible nature of digital content processing, all purchases of credits and
+                                        non-reversible nature of digital content processing, all purchases of usage quotas and
                                         subscriptions for AI services are <strong
                                             className="text-slate-900">non-refundable</strong>.</li>
                                     <li><strong className="text-slate-900">Service Availability:</strong> We reserve the right

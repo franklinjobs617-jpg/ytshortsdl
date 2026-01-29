@@ -5,9 +5,10 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
 import {
-    ChevronDown, Loader2, Sparkles, Zap, Gem, NotebookText,
-    Download, FileText, BrainCircuit, Music, Eraser, Image as ImageIcon,
-    MonitorPlay, TrendingUp, Menu, X, ArrowRight, LogOut, User
+    ChevronDown, Loader2, Gem, NotebookText,
+    Download, FileText, Music, Eraser, Image as ImageIcon,
+    MonitorPlay, TrendingUp, Menu, X, ArrowRight, LogOut, Sparkles,
+    Zap, BrainCircuit
 } from 'lucide-react';
 import Image from 'next/image';
 import { PLAN_LIMITS } from '@/lib/limits';
@@ -53,7 +54,6 @@ const NAV_CONFIG: NavItemConfig[] = [
     {
         label: "Guide",
         type: 'dropdown',
-
         items: [
             { label: 'Chrome Extension', href: '/guide/chrome-extension', icon: <NotebookText size={18} className="text-red-600" />, description: 'Download Extension Guide' },
             { label: 'iPhone Downloader', href: '/guide/iphone-downloader', icon: <NotebookText size={18} className="text-red-600" />, description: 'YouTube Shorts Downloader on iPhone' },
@@ -84,7 +84,7 @@ const CreditsBadge = ({ usage, isLoggedIn, login }: any) => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const creditsInfo = useMemo(() => {
+    const quotaInfo = useMemo(() => {
         const plan = (usage?.plan || 'FREE') as keyof typeof PLAN_LIMITS;
         const limits = PLAN_LIMITS[plan] || PLAN_LIMITS.FREE;
 
@@ -94,17 +94,31 @@ const CreditsBadge = ({ usage, isLoggedIn, login }: any) => {
         };
 
         const details = [
-            { key: 'download', label: 'Shorts & Video Downloads', icon: <Download size={14} className="text-blue-500" />, value: getRemaining(limits.download, usage?.downloadCount || 0), isUnlimited: limits.download > 9000 },
-            { key: 'extract', label: 'Audio & Script', icon: <FileText size={14} className="text-purple-500" />, value: getRemaining(limits.extract, usage?.extractionCount || 0), isUnlimited: limits.extract > 9000 },
-            { key: 'summary', label: 'AI Summaries', icon: <BrainCircuit size={14} className="text-pink-500" />, value: getRemaining(limits.summary, usage?.summaryCount || 0), isUnlimited: limits.summary > 9000 },
+            {
+                key: 'download',
+                label: 'Download Shorts & Video',
+                icon: <Download size={14} className="text-blue-500" />,
+                value: getRemaining(limits.download + ((usage as any)?.bonusDownloadQuota || 0), usage?.downloadCount || 0),
+                isUnlimited: limits.download > 9000
+            },
+            {
+                key: 'extract',
+                label: 'Extract Transcript',
+                icon: <FileText size={14} className="text-purple-500" />,
+                value: getRemaining(limits.extract, usage?.extractionCount || 0), isUnlimited: limits.extract > 9000
+            },
+            {
+                key: 'summary',
+                label: 'AI Summaries',
+                icon: <BrainCircuit size={14} className="text-pink-500" />,
+                value: getRemaining(limits.summary, usage?.summaryCount || 0),
+                isUnlimited: limits.summary > 9000
+            },
         ];
-
-        let totalDisplay: string | number = 0;
-        if (plan === 'ELITE') totalDisplay = 'Elite';
-        else if (plan === 'PRO') totalDisplay = 'Pro';
-        else totalDisplay = (typeof details[0].value === 'number' ? details[0].value : 0) + (typeof details[1].value === 'number' ? details[1].value : 0) + (typeof details[2].value === 'number' ? details[2].value : 0);
-
-        return { total: totalDisplay, details, plan };
+        const isTotalUnlimited = details.some(d => d.isUnlimited);
+        const totalRemaining = isTotalUnlimited
+            ? 'Unlimited Access'
+            : details.reduce((sum, item) => sum + (item.value as number), 0); return { details, plan, totalRemaining };
     }, [usage]);
 
     const handleNavigation = (href: string) => {
@@ -121,20 +135,20 @@ const CreditsBadge = ({ usage, isLoggedIn, login }: any) => {
             >
                 <Sparkles className="w-4 h-4 text-amber-600 fill-amber-500/20" />
                 <span className="text-sm font-bold tracking-tight whitespace-nowrap">
-                    {creditsInfo.total} {typeof creditsInfo.total === 'number' ? 'Credits' : ''}
+                    {quotaInfo.totalRemaining + ' Left'}
                 </span>
             </button>
 
             <div className={`absolute top-full right-0 mt-3 w-72 bg-white rounded-2xl shadow-xl shadow-slate-200/50 ring-1 ring-slate-100 p-0 transition-all duration-200 transform origin-top-right overflow-hidden ${showCreditsBubble ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'}`}>
                 <div className="bg-slate-50 p-4 border-b border-slate-100 flex justify-between items-center">
-                    <span className="text-[10px] font-black text-slate-400 tracking-widest uppercase">Quota Status</span>
-                    <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${creditsInfo.plan !== 'FREE' ? 'bg-purple-100 text-purple-700 border-purple-200' : 'bg-slate-100 text-slate-600 border-slate-200'}`}>
-                        <Zap size={10} fill="currentColor" /> {creditsInfo.plan} Plan
+                    <span className="text-[10px] font-black text-slate-400 tracking-widest uppercase">Daily Quota Status</span>
+                    <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${quotaInfo.plan !== 'FREE' ? 'bg-purple-100 text-purple-700 border-purple-200' : 'bg-slate-100 text-slate-600 border-slate-200'}`}>
+                        <Sparkles size={10} fill="currentColor" /> {quotaInfo.plan}
                     </div>
                 </div>
 
                 <div className="p-2 bg-white">
-                    {creditsInfo.details.map((item) => (
+                    {quotaInfo.details.map((item) => (
                         <div key={item.key} className="flex justify-between items-center p-2.5 hover:bg-slate-50 rounded-xl transition-colors group">
                             <div className="flex items-center gap-3">
                                 <div className="p-2 bg-slate-100 rounded-lg group-hover:bg-white group-hover:shadow-sm transition-all">{item.icon}</div>
@@ -148,7 +162,7 @@ const CreditsBadge = ({ usage, isLoggedIn, login }: any) => {
                 </div>
 
                 <div className="p-3 bg-slate-50 border-t border-slate-100 space-y-2">
-                    {creditsInfo.plan === 'FREE' ? (
+                    {quotaInfo.plan === 'FREE' ? (
                         <button
                             onClick={() => handleNavigation('/pricing')}
                             className="group/btn relative overflow-hidden flex items-center justify-between w-full p-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-all shadow-md active:scale-95 text-left"
@@ -257,7 +271,7 @@ const Header = () => {
         <>
             <header
                 className={`transition-all duration-300 border-b ${isScrolled
-                    ? 'bg-white/95 backdrop-blur-xl border-slate-200/60 shadow-sm py-2'
+                    ? 'bg-white/95 border-slate-200/60 shadow-sm py-2'
                     : 'bg-white border-transparent py-4'
                     }`}
             >
@@ -295,7 +309,7 @@ const Header = () => {
                                                             href={subItem.href || '#'}
                                                             className="group/item flex items-start gap-3 p-3 rounded-lg hover:bg-slate-50 transition-colors"
                                                         >
-                                                            <div className="mt-0.5 p-1.5 bg-slate-50 rounded-md group-hover/item:bg-white group-hover/item:shadow-sm border border-transparent group-hover/item:border-slate-100 transition-all text-slate-500 group-hover/item:text-slate-700">
+                                                            <div className="mt-0.5 p-1.5 bg-slate-100 rounded-md group-hover/item:bg-white group-hover/item:shadow-sm border border-transparent group-hover/item:border-slate-100 transition-all text-slate-500 group-hover/item:text-slate-700">
                                                                 {subItem.icon}
                                                             </div>
                                                             <div>

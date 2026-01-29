@@ -9,6 +9,8 @@ import Link from 'next/link';
 import { useAuth } from '@/lib/auth-context';
 import { saveAs as fileSaveAs } from "file-saver";
 import SubscriptionModal from "@/components/SubscriptionModal";
+import { useToast } from "@/components/ToastContext";
+import { trackEvent, GA_EVENTS } from '@/lib/gtag'; // 引入埋点
 
 // 匹配后端返回的简化数据结构
 interface VideoData {
@@ -22,25 +24,17 @@ interface VideoData {
 }
 
 export default function Mp3ToolSection() {
-    const { user, credits, consumeUsage, checkQuota, isLoggedIn, login } = useAuth();
+    const { checkQuota, consumeUsage } = useAuth();
 
     const [url, setUrl] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isDownloading, setIsDownloading] = useState(false);
-    const [isPayLoading, setIsPayLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [downloadProgress, setDownloadProgress] = useState(0);
     const [videoData, setVideoData] = useState<VideoData | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    // 🚀 Toast State & Helper
-    const [toasts, setToasts] = useState<{ id: number; message: string; type: 'success' | 'error' }[]>([]);
-
-    const addToast = (message: string, type: 'success' | 'error' = 'error') => {
-        const id = Date.now();
-        setToasts((prev) => [...prev, { id, message, type }]);
-        setTimeout(() => setToasts((prev) => prev.filter((t) => t.id !== id)), 5000);
-    };
+    const { addToast } = useToast();
 
     const formatDuration = (seconds: number) => {
         if (!seconds) return '0:00';
@@ -49,42 +43,13 @@ export default function Mp3ToolSection() {
         return `${min}:${sec < 10 ? '0' : ''}${sec}`;
     };
 
-    const handleUpgradeClick = async (typeString: string) => {
-        if (!isLoggedIn) {
-            login();
-            return;
-        }
-
-        setIsPayLoading(true);
-        try {
-            const res = await fetch('/api/pay/create', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    googleUserId: user?.googleUserId,
-                    email: user?.email,
-                    userId: user?.id,
-                    type: typeString
-                })
-            });
-
-            const data = await res.json();
-            if (data.url) {
-                window.location.href = data.url;
-            } else {
-                addToast("Payment gateway is busy, please try again.", "error");
-            }
-        } catch (error) {
-            addToast("Connection error, please try again.", "error");
-        } finally {
-            setIsPayLoading(false);
-        }
-    };
-
     // 1. 请求后端获取直链 (解析不扣费)
     const handleExtract = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!url.trim()) return;
+
+        // 埋点：解析开始
+        trackEvent(GA_EVENTS.F_PARSE_CLICK, { context: 'mp3' });
 
         setIsLoading(true);
         setError(null);
@@ -101,29 +66,32 @@ export default function Mp3ToolSection() {
             if (!response.ok || result.error) {
                 throw new Error(result.error || "Failed to analyze link.");
             }
+
+            // 埋点：解析成功
+            trackEvent(GA_EVENTS.F_PARSE_SUCCESS, { context: 'mp3' });
+
             setVideoData(result);
             addToast("Audio analyzed successfully", "success");
         } catch (err: any) {
+            // 埋点：解析报错
+            trackEvent(GA_EVENTS.ERR_PARSE, { context: 'mp3', message: err.message });
             setError(err.message || "Connection failed");
-            // Optionally also toast if you want double feedback, but setError handles the UI box
         } finally {
             setIsLoading(false);
         }
     };
 
-    // 2. 核心流式下载逻辑 (带积分校验)
+    // 2. 核心流式下载逻辑 (带配额校验)
     const handleDownload = async () => {
         if (!videoData || isDownloading) return;
 
-        // --- 🚀 步骤 1: 基础积分预检 ---
-        if (credits <= 0) {
-            setIsModalOpen(true);
-            return;
-        }
+        // 埋点：下载意图
+        trackEvent(GA_EVENTS.F_DOWNLOAD_CLICK, { file_type: 'mp3' });
 
-        // --- 🚀 步骤 2: 调用 checkQuota 预检 ---
+        // --- 🚀 步骤 1: 调用 checkQuota 预检 ---
         const canDownload = await checkQuota('download');
         if (!canDownload) {
+            trackEvent(GA_EVENTS.F_PAYWALL_VIEW, { trigger: 'mp3_download' });
             setIsModalOpen(true);
             return;
         }
@@ -132,7 +100,7 @@ export default function Mp3ToolSection() {
         setDownloadProgress(0);
 
         try {
-            // --- 🚀 步骤 3: 开始下载请求 ---
+            // --- 🚀 步骤 2: 开始下载请求 ---
             const WORKER_URL = "https://proud-frost-bf8e.franke-4b7.workers.dev/";
             const params = new URLSearchParams({
                 url: videoData.url,
@@ -142,39 +110,43 @@ export default function Mp3ToolSection() {
             const response = await fetch(`${WORKER_URL}?${params.toString()}`);
             if (!response.ok) throw new Error("Worker transfer failed");
 
-            // --- 🚀 步骤 4: 请求成功后，执行扣费 ---
-            await consumeUsage('download');
-            addToast("Downloaded & 1 Credit used", "success");
+            // --- 🚀 步骤 3: 请求成功后，执行扣费 ---
+            const consumeSuccess = await consumeUsage('download');
+            if (consumeSuccess) {
+                // 埋点：下载成功
+                trackEvent(GA_EVENTS.F_DOWNLOAD_SUCCESS, { file_type: 'mp3' });
+                addToast("Downloaded successfully", "success");
 
-            const contentLength = response.headers.get('content-length');
-            const totalSize = contentLength ? parseInt(contentLength, 10) : 0;
-            const reader = response.body?.getReader();
-            if (!reader) throw new Error("Stream reader failed");
+                const contentLength = response.headers.get('content-length');
+                const totalSize = contentLength ? parseInt(contentLength, 10) : 0;
+                const reader = response.body?.getReader();
+                if (!reader) throw new Error("Stream reader failed");
 
-            const chunks: BlobPart[] = [];
-            let loaded = 0;
+                const chunks: BlobPart[] = [];
+                let loaded = 0;
 
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-                if (value) {
-                    chunks.push(value);
-                    loaded += value.length;
-                    if (totalSize) {
-                        setDownloadProgress(Math.round((loaded / totalSize) * 100));
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    if (value) {
+                        chunks.push(value);
+                        loaded += value.length;
+                        if (totalSize) {
+                            setDownloadProgress(Math.round((loaded / totalSize) * 100));
+                        }
                     }
                 }
+
+                const audioBlob = new Blob(chunks, { type: 'audio/x-m4a' });
+                const safeFileName = `${videoData.title.replace(/[\\/:*?"<>|]/g, '_')}.m4a`;
+
+                const blobUrl = window.URL.createObjectURL(audioBlob);
+                const link = document.createElement('a');
+                link.href = blobUrl;
+                link.download = safeFileName;
+                link.click();
+                window.URL.revokeObjectURL(blobUrl);
             }
-
-            const audioBlob = new Blob(chunks, { type: 'audio/x-m4a' });
-            const safeFileName = `${videoData.title.replace(/[\\/:*?"<>|]/g, '_')}.m4a`;
-
-            const blobUrl = window.URL.createObjectURL(audioBlob);
-            const link = document.createElement('a');
-            link.href = blobUrl;
-            link.download = safeFileName;
-            link.click();
-            window.URL.revokeObjectURL(blobUrl);
 
         } catch (err: any) {
             addToast(err.message || "Download failed", "error");
@@ -185,6 +157,8 @@ export default function Mp3ToolSection() {
     };
 
     const handlePaste = async () => {
+        // 埋点：粘贴
+        trackEvent(GA_EVENTS.UI_PASTE_CLICK, { context: 'mp3' });
         try {
             const text = await navigator.clipboard.readText();
             setUrl(text);
@@ -196,23 +170,9 @@ export default function Mp3ToolSection() {
 
     return (
         <section id="tool-interface" className="relative text-center py-20 px-4">
-
-            {/* 🚀 Toast Notifications Container */}
-            <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center pointer-events-none w-xs md:w-lg max-sm px-4">
-                {toasts.map((toast) => (
-                    <div key={toast.id} className={`animate-in slide-in-from-top-4 fade-in duration-300 ${toast.type === 'error' ? 'bg-slate-900' : 'bg-green-600'} text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 pointer-events-auto mb-3 border border-white/10 w-full`}>
-                        <span className={toast.type === 'error' ? "text-red-400 font-bold" : "text-green-400 font-bold"}>{toast.type === 'error' ? '●' : '✓'}</span>
-                        <span className="font-bold text-xs">{toast.message}</span>
-                    </div>
-                ))}
-            </div>
-
-            {/* 🚀 Subscription Modal */}
             <SubscriptionModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                onUpgrade={handleUpgradeClick}
-                isLoading={isPayLoading}
             />
 
             <div className="glow-effect -z-10"></div>
@@ -334,7 +294,11 @@ export default function Mp3ToolSection() {
                                 </button>
 
                                 <button
-                                    onClick={() => { setVideoData(null); setUrl(''); }}
+                                    onClick={() => {
+                                        trackEvent(GA_EVENTS.UI_PARSE_ANOTHER, { context: 'mp3' });
+                                        setVideoData(null);
+                                        setUrl('');
+                                    }}
                                     className="w-full py-3 flex items-center justify-center gap-2 text-slate-400 font-bold hover:text-red-500 transition-all text-[10px] uppercase tracking-widest"
                                 >
                                     <RefreshCcw size={14} /> Analyze Another
@@ -353,16 +317,16 @@ export default function Mp3ToolSection() {
             <div className="pt-12 flex flex-col items-center">
                 <span className="text-slate-400 mb-4 font-bold text-sm">Professional Creator Suite</span>
                 <div className="flex flex-wrap justify-center gap-6">
-                    <Link href="/" className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
+                    <Link href="/" onClick={() => trackEvent(GA_EVENTS.NAV_TOOL_CLICK, { tool: 'downloader' })} className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
                         <span className="text-2xl">📽️</span>
                         <div className="text-left font-black tracking-tighter"><p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 01</p><p className="text-sm font-black">Download Shorts</p></div>
                     </Link>
-                    <Link href="/video-to-script-converter" className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
+                    <Link href="/video-to-script-converter" onClick={() => trackEvent(GA_EVENTS.NAV_TOOL_CLICK, { tool: 'converter' })} className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
                         <span className="text-2xl">🤖</span>
                         <div className="text-left font-black tracking-tighter">
                             <p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 02</p><p className="text-sm font-black">Video to Script</p></div>
                     </Link>
-                    <Link href="/ai-script-generator" className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
+                    <Link href="/ai-script-generator" onClick={() => trackEvent(GA_EVENTS.NAV_TOOL_CLICK, { tool: 'generator' })} className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
                         <span className="text-2xl">✍️</span>
                         <div className="text-left font-black tracking-tighter"><p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 04</p><p className="text-sm font-black">AI Script Generator</p></div>
                     </Link>

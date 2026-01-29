@@ -8,6 +8,8 @@ import {
 import { saveAs } from "file-saver";
 import { useAuth } from '@/lib/auth-context';
 import SubscriptionModal from "@/components/SubscriptionModal";
+import { useToast } from "@/components/ToastContext";
+import { trackEvent, GA_EVENTS } from '@/lib/gtag'; // 引入埋点
 
 const API_BASE = "https://ytdlp.vistaflyer.com";
 
@@ -33,9 +35,8 @@ const MarkdownRenderer = ({ text }: { text: string }) => {
 };
 
 export default function AiSummarizerSection() {
-    const { user, credits, consumeUsage, checkQuota, isLoggedIn, login } = useAuth();
+    const { consumeUsage, checkQuota } = useAuth();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isPayLoading, setIsPayLoading] = useState(false);
 
     const [url, setUrl] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -51,46 +52,8 @@ export default function AiSummarizerSection() {
     const [view, setView] = useState<"summary" | "transcript">("summary");
     const [transcriptMode, setTranscriptMode] = useState<"time" | "text">("time");
 
-    const [toasts, setToasts] = useState<{ id: number; message: string; type: 'success' | 'error' }[]>([]);
+    const { addToast } = useToast();
     const hasInited = useRef(false);
-
-    const addToast = (message: string, type: 'success' | 'error' = 'error') => {
-        const id = Date.now();
-        setToasts((prev) => [...prev, { id, message, type }]);
-        setTimeout(() => setToasts((prev) => prev.filter((t) => t.id !== id)), 5000);
-    };
-
-    const handleUpgradeClick = async (typeString: string) => {
-        if (!isLoggedIn) {
-            login();
-            return;
-        }
-
-        setIsPayLoading(true);
-        try {
-            const res = await fetch('/api/pay/create', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    googleUserId: user?.googleUserId,
-                    email: user?.email,
-                    userId: user?.id,
-                    type: typeString
-                })
-            });
-
-            const data = await res.json();
-            if (data.url) {
-                window.location.href = data.url;
-            } else {
-                addToast("Payment gateway is busy, please try again.", "error");
-            }
-        } catch (error) {
-            addToast("Connection error, please try again.", "error");
-        } finally {
-            setIsPayLoading(false);
-        }
-    };
 
     const resetAiStates = () => {
         setAiSummary("");
@@ -103,9 +66,9 @@ export default function AiSummarizerSection() {
     const startAiStreaming = async (text: string) => {
         if (!text) return;
 
-        // Quota Check
         const canSummarize = await checkQuota('summary');
         if (!canSummarize) {
+            trackEvent(GA_EVENTS.F_PAYWALL_VIEW, { trigger: 'ai_summary' });
             setIsModalOpen(true);
             return;
         }
@@ -121,11 +84,8 @@ export default function AiSummarizerSection() {
                 body: JSON.stringify({ transcript: text.substring(0, 12000) })
             });
 
-            if (!response.ok) {
-                throw new Error(`Summary API Error: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`Summary API Error: ${response.status}`);
 
-            // Deduct Credit only on success
             await consumeUsage('summary');
 
             const reader = response.body?.getReader();
@@ -149,8 +109,10 @@ export default function AiSummarizerSection() {
                     } catch (e) { }
                 }
             }
+            // 埋点：总结成功
+            trackEvent(GA_EVENTS.F_GEN_AI_SUCCESS);
         } catch (err: any) {
-            console.error(err);
+            trackEvent(GA_EVENTS.ERR_GEN, { step: 'summary', message: err.message });
             setIsSummaryFailed(true);
             addToast("AI Summary generation failed", "error");
         } finally {
@@ -158,20 +120,13 @@ export default function AiSummarizerSection() {
         }
     };
 
-    // 2. 带扣费检查的 Content 获取逻辑
+    // 2. 带配额检查的 Content 获取逻辑
     const fetchContentWithCheck = async (targetUrl: string, langCode: string) => {
-        // Check 1: Local credits
-        if (credits <= 0) {
-            setIsModalOpen(true);
-            setIsLoading(false); // 🚀 FIX: Reset loading state if blocked
-            return;
-        }
-
-        // Check 2: Server quota
         const canExtract = await checkQuota('extract');
         if (!canExtract) {
+            trackEvent(GA_EVENTS.F_PAYWALL_VIEW, { trigger: 'extract_content' });
             setIsModalOpen(true);
-            setIsLoading(false); // 🚀 FIX: Reset loading state if blocked
+            setIsLoading(false);
             return;
         }
 
@@ -188,10 +143,12 @@ export default function AiSummarizerSection() {
             });
 
             if (!res.ok) throw new Error("Server temporary error (500).");
-
             const data = await res.json();
 
             await consumeUsage('extract');
+
+            // 埋点：提取脚本成功
+            trackEvent(GA_EVENTS.F_GEN_CONTENT_SUCCESS, { lang: langCode });
 
             setSegments(data.segments || []);
             setFullText(data.full_text || "");
@@ -199,6 +156,7 @@ export default function AiSummarizerSection() {
 
             await startAiStreaming(data.full_text);
         } catch (err: any) {
+            trackEvent(GA_EVENTS.ERR_GEN, { step: 'extract', message: err.message });
             addToast(err.message, "error");
             setIsLoading(false);
             setSegments([]);
@@ -210,6 +168,9 @@ export default function AiSummarizerSection() {
         const fetchUrl = targetUrl || url.trim();
         if (!fetchUrl) return;
 
+        // 埋点：开始生成
+        trackEvent(GA_EVENTS.F_GEN_START, { source: targetUrl ? 'auto' : 'manual' });
+
         setIsLoading(true);
         try {
             const res = await fetch(`${API_BASE}/api/transcript/info`, {
@@ -219,14 +180,19 @@ export default function AiSummarizerSection() {
             });
             if (!res.ok) throw new Error("Video info not found.");
             const info = await res.json();
+
+            // 埋点：解析信息成功
+            trackEvent(GA_EVENTS.F_GEN_INFO_SUCCESS);
+
             setVideoData(info);
             setSelectedLang(info.default_lang);
             await fetchContentWithCheck(fetchUrl, info.default_lang);
         } catch (err: any) {
+            trackEvent(GA_EVENTS.ERR_GEN, { step: 'info', message: err.message });
             addToast(err.message, "error");
             setIsLoading(false);
         }
-    }, [url, credits]);
+    }, [url]);
 
     useEffect(() => {
         if (hasInited.current) return;
@@ -236,6 +202,8 @@ export default function AiSummarizerSection() {
                 const data = JSON.parse(incomingStr);
                 setUrl(data.url);
                 if (data.meta && data.fullText) {
+                    // 如果是从首页点击过来的，直接开始总结逻辑
+                    trackEvent(GA_EVENTS.F_GEN_START, { source: 'hero_remix' });
                     setVideoData(data.meta);
                     setSegments(data.segments);
                     setFullText(data.fullText);
@@ -252,32 +220,23 @@ export default function AiSummarizerSection() {
 
     const handleCopy = () => {
         const text = view === "summary" ? aiSummary : (transcriptMode === "time" ? segments.map(s => `[${s.t}] ${s.txt}`).join('\n') : fullText);
-        if (text) { navigator.clipboard.writeText(text); addToast("Copied", "success"); }
+        if (text) {
+            navigator.clipboard.writeText(text);
+            addToast("Copied", "success");
+            trackEvent(GA_EVENTS.UI_GEN_ACTION, { type: 'copy', view });
+        }
     };
 
     const handleExport = () => {
         const text = view === "summary" ? aiSummary : (transcriptMode === "time" ? segments.map(s => `[${s.t}] ${s.txt}`).join('\n') : fullText);
         if (!text) return;
         saveAs(new Blob([text], { type: "text/plain;charset=utf-8" }), `${videoData?.title || 'script'}.txt`);
+        trackEvent(GA_EVENTS.UI_GEN_ACTION, { type: 'export', view });
     };
 
     return (
         <section className="relative">
-            <SubscriptionModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                onUpgrade={handleUpgradeClick}
-                isLoading={isPayLoading}
-            />
-
-            <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center pointer-events-none w-xs md:w-lg max-sm px-4">
-                {toasts.map((toast) => (
-                    <div key={toast.id} className={`animate-in slide-in-from-top-4 fade-in duration-300 ${toast.type === 'error' ? 'bg-slate-900' : 'bg-green-600'} text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 pointer-events-auto mb-3 border border-white/10 w-full`}>
-                        <span className={toast.type === 'error' ? "text-red-400 font-bold" : "text-green-400 font-bold"}>{toast.type === 'error' ? '●' : '✓'}</span>
-                        <span className="font-bold text-xs">{toast.message}</span>
-                    </div>
-                ))}
-            </div>
+            <SubscriptionModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
             <div className="glow-effect -z-10"></div>
             <div className="relative py-20 px-4 max-w-7xl mx-auto">
@@ -316,30 +275,47 @@ export default function AiSummarizerSection() {
                                     <select
                                         disabled={isLoading || isSummarizing}
                                         value={selectedLang}
-                                        onChange={(e) => fetchContentWithCheck(url, e.target.value)}
+                                        onChange={(e) => {
+                                            trackEvent(GA_EVENTS.UI_TRANS_LANG, { lang: e.target.value, context: 'generator' });
+                                            fetchContentWithCheck(url, e.target.value);
+                                        }}
                                         className="w-full bg-slate-50 border border-slate-100 rounded-xl px-4 py-3 text-xs font-bold text-slate-700 outline-none"
                                     >
                                         {videoData.languages?.map((l: any) => <option key={l.code} value={l.code}>{l.label}</option>)}
                                     </select>
                                 </div>
                             </div>
-                            <button onClick={() => fetchContentWithCheck(url, selectedLang)} disabled={isLoading || isSummarizing} className="w-full py-4 bg-slate-100 text-slate-500 rounded-2xl font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-2 uppercase text-xs tracking-tighter">
+                            <button onClick={() => {
+                                trackEvent(GA_EVENTS.UI_PARSE_ANOTHER, { context: 'generator' });
+                                fetchContentWithCheck(url, selectedLang);
+                            }} disabled={isLoading || isSummarizing} className="w-full py-4 bg-slate-100 text-slate-500 rounded-2xl font-bold hover:bg-slate-200 transition-all flex items-center justify-center gap-2 uppercase text-xs tracking-tighter">
                                 <RefreshCcw size={16} className={(isLoading || isSummarizing) ? "animate-spin" : ""} /> {isLoading ? "Updating..." : "Generate Again"}
                             </button>
                         </div>
 
                         <div className="lg:col-span-2">
                             <div className="bg-white rounded-[32px] shadow-2xl flex flex-col h-[650px] overflow-hidden p-2 border border-slate-100 relative">
-
                                 <div className="bg-slate-200/60 p-1.5 rounded-2xl flex gap-1 backdrop-blur-sm border border-white shadow-inner">
-                                    <button onClick={() => setView("summary")} className={`flex-1 py-3 text-xs md:text-sm rounded-2xl flex items-center justify-center gap-2 font-black transition-all ${view === 'summary' ? 'bg-white text-red-600 shadow-sm' : 'text-slate-400'}`}><Sparkles size={16} /> AI SUMMARY</button>
-                                    <button onClick={() => setView("transcript")} className={`flex-1 py-3 text-xs md:text-sm  rounded-2xl flex items-center justify-center gap-2 font-black transition-all ${view === 'transcript' ? 'bg-white text-red-600 shadow-sm' : 'text-slate-400'}`}><FileText size={16} /> TRANSCRIPT</button>
+                                    <button onClick={() => {
+                                        setView("summary");
+                                        trackEvent(GA_EVENTS.UI_GEN_VIEW, { view: 'summary' });
+                                    }} className={`flex-1 py-3 text-xs md:text-sm rounded-2xl flex items-center justify-center gap-2 font-black transition-all ${view === 'summary' ? 'bg-white text-red-600 shadow-sm' : 'text-slate-400'}`}><Sparkles size={16} /> AI SUMMARY</button>
+                                    <button onClick={() => {
+                                        setView("transcript");
+                                        trackEvent(GA_EVENTS.UI_GEN_VIEW, { view: 'transcript' });
+                                    }} className={`flex-1 py-3 text-xs md:text-sm  rounded-2xl flex items-center justify-center gap-2 font-black transition-all ${view === 'transcript' ? 'bg-white text-red-600 shadow-sm' : 'text-slate-400'}`}><FileText size={16} /> TRANSCRIPT</button>
                                 </div>
 
                                 {view === "transcript" && !isLoading && segments.length > 0 && (
                                     <div className="px-6 py-2 flex justify-end gap-2 border-b border-slate-50 animate-in slide-in-from-top-1">
-                                        <button onClick={() => setTranscriptMode("time")} className={`px-4 py-1.5 text-[10px] font-black rounded-lg transition-all ${transcriptMode === 'time' ? 'bg-red-600 text-white shadow-lg shadow-red-200' : 'bg-slate-100 text-slate-400'}`}>TIME</button>
-                                        <button onClick={() => setTranscriptMode("text")} className={`px-4 py-1.5 text-[10px] font-black rounded-lg transition-all ${transcriptMode === 'text' ? 'bg-red-600 text-white shadow-lg shadow-red-200' : 'bg-slate-100 text-slate-400'}`}>TEXT</button>
+                                        <button onClick={() => {
+                                            setTranscriptMode("time");
+                                            trackEvent(GA_EVENTS.UI_GEN_TRANS_MODE, { mode: 'time' });
+                                        }} className={`px-4 py-1.5 text-[10px] font-black rounded-lg transition-all ${transcriptMode === 'time' ? 'bg-red-600 text-white shadow-lg shadow-red-200' : 'bg-slate-100 text-slate-400'}`}>TIME</button>
+                                        <button onClick={() => {
+                                            setTranscriptMode("text");
+                                            trackEvent(GA_EVENTS.UI_GEN_TRANS_MODE, { mode: 'text' });
+                                        }} className={`px-4 py-1.5 text-[10px] font-black rounded-lg transition-all ${transcriptMode === 'text' ? 'bg-red-600 text-white shadow-lg shadow-red-200' : 'bg-slate-100 text-slate-400'}`}>TEXT</button>
                                     </div>
                                 )}
 
@@ -358,7 +334,10 @@ export default function AiSummarizerSection() {
                                                     <div className="text-center">
                                                         <p className="text-sm font-black uppercase tracking-widest leading-none mb-2">Request Failed</p>
                                                         <button
-                                                            onClick={() => startAiStreaming(fullText)}
+                                                            onClick={() => {
+                                                                trackEvent(GA_EVENTS.UI_TRANS_RETRY, { step: 'summary' });
+                                                                startAiStreaming(fullText);
+                                                            }}
                                                             className="text-[10px] font-bold text-red-500 hover:text-red-600 underline underline-offset-4 uppercase tracking-widest"
                                                         >
                                                             Click to retry summary
@@ -369,7 +348,11 @@ export default function AiSummarizerSection() {
                                                 <div className="space-y-4">
                                                     {aiReasoning && (
                                                         <div className="rounded-2xl border border-slate-100 border-dashed overflow-hidden">
-                                                            <button onClick={() => setIsReasoningExpanded(!isReasoningExpanded)} className="w-full flex items-center justify-between p-3 bg-slate-50 text-[10px] font-black text-slate-400 uppercase">
+                                                            <button onClick={() => {
+                                                                const newState = !isReasoningExpanded;
+                                                                setIsReasoningExpanded(newState);
+                                                                trackEvent(GA_EVENTS.UI_THINKING_TOGGLE, { is_open: newState });
+                                                            }} className="w-full flex items-center justify-between p-3 bg-slate-50 text-[10px] font-black text-slate-400 uppercase">
                                                                 <span>AI Thinking Process</span>{isReasoningExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                                                             </button>
                                                             {isReasoningExpanded && <div className="p-4 text-xs text-slate-400 italic whitespace-pre-wrap leading-relaxed">{aiReasoning}</div>}
@@ -415,30 +398,20 @@ export default function AiSummarizerSection() {
                 <div className="pt-12 flex flex-col items-center max-w-6xl mx-auto">
                     <span className="text-slate-400 mb-4 font-bold text-sm">Professional Creator Suite</span>
                     <div className="flex flex-wrap justify-center gap-6">
-                        <Link href="/" className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
+                        <Link href="/" onClick={() => trackEvent(GA_EVENTS.NAV_TOOL_CLICK, { tool: 'downloader' })} className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
                             <span className="text-2xl">📽️</span>
-                            <div className="text-left font-black tracking-tighter">
-                                <p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 01</p>
-                                <p className="text-sm font-black">Download Shorts</p>
-                            </div>
+                            <div className="text-left font-black tracking-tighter"><p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 01</p><p className="text-sm font-black">Download Shorts</p></div>
                         </Link>
-                        <Link href="/shorts-to-mp3" className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
+                        <Link href="/shorts-to-mp3" onClick={() => trackEvent(GA_EVENTS.NAV_TOOL_CLICK, { tool: 'mp3' })} className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
                             <span className="text-2xl">🎵</span>
-                            <div className="text-left font-black tracking-tighter">
-                                <p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 02</p>
-                                <p className="text-sm font-black">Extract MP3</p>
-                            </div>
+                            <div className="text-left font-black tracking-tighter"><p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 02</p><p className="text-sm font-black">Extract MP3</p></div>
                         </Link>
-                        <Link href="/video-to-script-converter" className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
+                        <Link href="/video-to-script-converter" onClick={() => trackEvent(GA_EVENTS.NAV_TOOL_CLICK, { tool: 'converter' })} className="px-6 py-2 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4">
                             <span className="text-2xl">🤖</span>
-                            <div className="text-left font-black tracking-tighter">
-                                <p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 03</p>
-                                <p className="text-sm font-black">Video to Script</p>
-                            </div>
+                            <div className="text-left font-black tracking-tighter"><p className="text-[8px] text-slate-400 uppercase mb-1 tracking-widest font-black">Tool 03</p><p className="text-sm font-black">Video to Script</p></div>
                         </Link>
                     </div>
                 </div>
-
             </div>
         </section>
     );

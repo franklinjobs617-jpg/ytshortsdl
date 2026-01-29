@@ -9,7 +9,6 @@ interface User {
     givenName?: string;
     picture: string;
     googleUserId: string;
-    credits: string;
 }
 
 // 订阅使用情况接口
@@ -26,15 +25,14 @@ interface AuthContextType {
     isLoggedIn: boolean;
     isSubscriber: boolean; // 是否是付费订阅用户
     usage: UsageData | null; // 详细的每月用量
-    credits: number; // 当前每日本地/账户点数 (用于 ZIP)
     isLoaded: boolean;
     isLoggingIn: boolean;
     login: () => void;
     logout: () => void;
-    checkQuota: (type: 'download' | 'extract' | 'summary') => Promise<boolean>;
-    consumeUsage: (type: 'download' | 'extract' | 'summary') => Promise<boolean>;
+    checkQuota: (type: 'download' | 'extract' | 'summary', count?: number) => Promise<boolean>;
+    consumeUsage: (type: 'download' | 'extract' | 'summary', count?: number) => Promise<boolean>;
     refreshUsage: () => Promise<void>;
-    deductCredit: () => Promise<boolean>;
+    completeSurvey: (data: any) => Promise<boolean>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -42,8 +40,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [usage, setUsage] = useState<UsageData | null>(null);
-    const [dbCredits, setDbCredits] = useState(0);
-    const [guestCredits, setGuestCredits] = useState(0);
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLoggingIn, setIsLoggingIn] = useState(false);
     const [tokenClient, setTokenClient] = useState<any>(null);
@@ -59,22 +55,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return fp;
     }, []);
 
-    // --- 2. 获取每日本地积分 (1分/天，不累计) ---
-    const getGuestDailyCredits = useCallback(() => {
-        if (typeof window === "undefined") return 1;
-        const today = new Date().toDateString();
-        const lastReset = localStorage.getItem("guest_reset_date");
-        const stored = localStorage.getItem("local_credits");
-
-        if (lastReset !== today) {
-            localStorage.setItem("guest_reset_date", today);
-            localStorage.setItem("local_credits", "1");
-            return 1;
-        }
-        return stored ? parseInt(stored) : 1;
-    }, []);
-
-    // --- 3. 获取/刷新每月配额使用情况 ---
+    // --- 2. 获取/刷新每月配额使用情况 ---
     const refreshUsage = useCallback(async () => {
         try {
             const savedUser = localStorage.getItem("yt_db_user");
@@ -97,7 +78,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     }, [getFingerprint]);
 
-    // --- 4. 登录同步逻辑 ---
+    // --- 3. 登录同步逻辑 ---
     const syncUserToDatabase = useCallback(async (accessToken: string) => {
         setIsLoggingIn(true);
         try {
@@ -111,7 +92,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 const data = await res.json();
                 const dbUser = data.user;
                 setUser(dbUser);
-                setDbCredits(parseInt(dbUser.credits || "0"));
                 localStorage.setItem("auth_token", accessToken);
                 localStorage.setItem("yt_db_user", JSON.stringify(dbUser));
                 // 登录后立即刷新用量表
@@ -124,7 +104,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     }, [refreshUsage]);
 
-    // --- 5. 初始化 ---
+    // --- 4. 初始化 ---
     useEffect(() => {
         const initialize = async () => {
             const savedToken = localStorage.getItem("auth_token");
@@ -134,12 +114,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 try {
                     const parsedUser = JSON.parse(savedUser);
                     setUser(parsedUser);
-                    setDbCredits(parseInt(parsedUser.credits || "0"));
                 } catch (e) {
                     localStorage.removeItem("auth_token");
                 }
             }
-            setGuestCredits(getGuestDailyCredits());
             await refreshUsage();
             setIsLoaded(true);
         };
@@ -164,10 +142,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         initialize();
         loadGoogleSDK();
-    }, [getGuestDailyCredits, syncUserToDatabase, refreshUsage]);
+    }, [syncUserToDatabase, refreshUsage]);
 
-    // --- 6. 消耗每月配额 (下载/解析/总结前调用) ---
-    const consumeUsage = async (type: 'download' | 'extract' | 'summary'): Promise<boolean> => {
+    // --- 5. 消耗每月配额 (支持批量) ---
+    const consumeUsage = async (type: 'download' | 'extract' | 'summary', count = 1): Promise<boolean> => {
         try {
             const res = await fetch('/api/usage/check-and-consume', {
                 method: 'POST',
@@ -175,7 +153,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 body: JSON.stringify({
                     userId: user?.id,
                     guestId: user ? undefined : getFingerprint(),
-                    type
+                    type,
+                    count,
+                    action: 'consume'
                 })
             });
 
@@ -190,57 +170,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     };
 
-    // --- 7. 消耗每日本地/账户积分 (ZIP打包时调用) ---
-    const deductCredit = async (): Promise<boolean> => {
-        if (guestCredits + dbCredits <= 0) return false;
-
-        if (guestCredits > 0) {
-            const newVal = guestCredits - 1;
-            setGuestCredits(newVal);
-            localStorage.setItem("local_credits", newVal.toString());
-            return true;
-        }
-
-        if (user) {
-            try {
-                const res = await fetch('/api/user/consume', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: user.email })
-                });
-                if (res.ok) {
-                    const updatedUser = await res.json();
-                    setDbCredits(parseInt(updatedUser.credits || "0"));
-                    localStorage.setItem("yt_db_user", JSON.stringify(updatedUser));
-                    return true;
-                }
-            } catch (e) {
-                return false;
-            }
-        }
-        return false;
-    };
-
     const login = () => {
         if (tokenClient) tokenClient.requestAccessToken();
     };
 
-
-    // 1. 检查剩余积分方法
-    const checkQuota = async (type: 'download' | 'extract' | 'summary'): Promise<boolean> => {
-        const res = await fetch('/api/usage/check-and-consume', {
-            method: 'POST',
-            body: JSON.stringify({
-                userId: user?.id,
-                guestId: user ? undefined : getFingerprint(),
-                type,
-                action: 'check'
-            })
-        });
-        if (res.ok) {
-            const data = await res.json();
-            setUsage(data.usage); // 同步一下最新的使用情况
-            return data.allowed;
+    // 6. 检查剩余额度 (支持批量)
+    const checkQuota = async (type: 'download' | 'extract' | 'summary', count = 1): Promise<boolean> => {
+        try {
+            const res = await fetch('/api/usage/check-and-consume', {
+                method: 'POST',
+                body: JSON.stringify({
+                    userId: user?.id,
+                    guestId: user ? undefined : getFingerprint(),
+                    type,
+                    count,
+                    action: 'check'
+                })
+            });
+            if (res.ok) {
+                const data = await res.json();
+                setUsage(data.usage); // 同步一下最新的使用情况
+                return data.allowed;
+            }
+        } catch (e) {
+            console.error("Check quota failed", e);
         }
         return false;
     };
@@ -248,11 +201,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const logout = () => {
         setUser(null);
         setUsage(null);
-        setDbCredits(0);
         localStorage.removeItem("auth_token");
         localStorage.removeItem("yt_db_user");
-        setGuestCredits(getGuestDailyCredits());
         refreshUsage();
+    };
+
+    const completeSurvey = async (surveyData: any): Promise<boolean> => {
+        if (!user) return false;
+        try {
+            const res = await fetch('/api/usage/survey-submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: user.id, surveyData })
+            });
+            if (res.ok) {
+                const data = await res.json();
+                setUsage(data.usage);
+                return true;
+            }
+        } catch (e) {
+            console.error("Survey submission failed", e);
+        }
+        return false;
     };
 
     return (
@@ -261,7 +231,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             isLoggedIn: !!user,
             isSubscriber: usage ? (usage.plan === 'PRO' || usage.plan === 'ELITE') : false,
             usage,
-            credits: guestCredits + dbCredits,
             isLoaded,
             isLoggingIn,
             login,
@@ -269,7 +238,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             consumeUsage,
             checkQuota,
             refreshUsage,
-            deductCredit
+            completeSurvey
         }}>
             {children}
         </AuthContext.Provider>
