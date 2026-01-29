@@ -63,7 +63,7 @@ const PricingTable = () => {
             monthlyPrice: "$0",
             yearlyPrice: "$0",
             features: [
-                { label: "Shorts Downloads", value: 1, included: true, bold: false },
+                { label: "Shorts Downloads", value: 3, included: true, bold: false },
                 { label: "Subtitle Extractions", value: 1, included: true, bold: false },
                 { label: "AI Script Generations", value: 1, included: true, bold: false },
                 { label: "4K Support", value: null, included: false, bold: false },

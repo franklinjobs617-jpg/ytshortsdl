@@ -333,7 +333,7 @@ export default function HeroSection() {
                                         <div key={idx} className={`group bg-white rounded-[40px] border border-slate-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col ${currentResults.length === 1 ? 'w-full max-w-md' : 'w-full'}`}>
                                             <div className="relative aspect-video overflow-hidden">
                                                 {video.status !== 'failed' ? (
-                                                    <><img src={video.thumbnail} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" /><div className="absolute top-4 right-4 bg-red-600 text-white text-[9px] font-black px-2.5 py-1 rounded shadow-lg uppercase tracking-tighter font-black font-black">HD Ready</div></>
+                                                    <><img src={video.thumbnail} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" /><div className="absolute top-4 right-4 bg-red-600 text-white text-[9px] font-black px-2.5 py-1 rounded shadow-lg uppercase tracking-tighter font-black font-black">Ready</div></>
                                                 ) : (
                                                     <div className="w-full h-full flex flex-col items-center justify-center bg-red-50 text-red-500 p-8 font-black text-[10px] italic"><AlertCircle size={32} className="mb-2" /> FAILED</div>
                                                 )}

@@ -10,6 +10,7 @@ import {
     MonitorPlay, TrendingUp, Menu, X, ArrowRight, LogOut, User
 } from 'lucide-react';
 import Image from 'next/image';
+import { PLAN_LIMITS } from '@/lib/limits';
 
 // --- Types & Config ---
 
@@ -66,12 +67,6 @@ const NAV_CONFIG: NavItemConfig[] = [
     { label: 'Pricing', href: '/pricing', type: 'link' },
 ];
 
-const CLIENT_PLAN_LIMITS = {
-    FREE: { download: 1, extract: 1, summary: 1 },
-    PRO: { download: 9999, extract: 150, summary: 300 },
-    ELITE: { download: 9999, extract: 9999, summary: 9999 }
-};
-
 // --- Sub Components ---
 
 const CreditsBadge = ({ usage, isLoggedIn, login }: any) => {
@@ -90,8 +85,8 @@ const CreditsBadge = ({ usage, isLoggedIn, login }: any) => {
     }, []);
 
     const creditsInfo = useMemo(() => {
-        const plan = (usage?.plan || 'FREE') as keyof typeof CLIENT_PLAN_LIMITS;
-        const limits = CLIENT_PLAN_LIMITS[plan] || CLIENT_PLAN_LIMITS.FREE;
+        const plan = (usage?.plan || 'FREE') as keyof typeof PLAN_LIMITS;
+        const limits = PLAN_LIMITS[plan] || PLAN_LIMITS.FREE;
 
         const getRemaining = (limit: number, used: number) => {
             if (limit > 9000) return '∞';
@@ -99,7 +94,7 @@ const CreditsBadge = ({ usage, isLoggedIn, login }: any) => {
         };
 
         const details = [
-            { key: 'download', label: 'Shorts Downloads', icon: <Download size={14} className="text-blue-500" />, value: getRemaining(limits.download, usage?.downloadCount || 0), isUnlimited: limits.download > 9000 },
+            { key: 'download', label: 'Shorts & Video Downloads', icon: <Download size={14} className="text-blue-500" />, value: getRemaining(limits.download, usage?.downloadCount || 0), isUnlimited: limits.download > 9000 },
             { key: 'extract', label: 'Audio & Script', icon: <FileText size={14} className="text-purple-500" />, value: getRemaining(limits.extract, usage?.extractionCount || 0), isUnlimited: limits.extract > 9000 },
             { key: 'summary', label: 'AI Summaries', icon: <BrainCircuit size={14} className="text-pink-500" />, value: getRemaining(limits.summary, usage?.summaryCount || 0), isUnlimited: limits.summary > 9000 },
         ];

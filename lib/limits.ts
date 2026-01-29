@@ -1,6 +1,6 @@
 export const PLAN_LIMITS = {
   FREE: {
-     download: 1,
+     download: 3,
     extract: 1,
     summary: 1,
     label: "Daily Free Plan"
