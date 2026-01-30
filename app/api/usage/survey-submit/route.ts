@@ -64,7 +64,11 @@ export async function POST(req: Request) {
         });
 
     } catch (error: any) {
-        console.error("Survey Reward Error:", error);
-        return NextResponse.json({ error: "Server Error" }, { status: 500 });
+        console.error("Survey Error Detail:", error); // 这会在服务器日志显示
+    return NextResponse.json({ 
+        error: "Server Error", 
+        detail: error.message, // 🚀 临时把具体错误传给前端
+        stack: error.stack     // 🚀 甚至传回堆栈
+    }, { status: 500 });
     }
 }
