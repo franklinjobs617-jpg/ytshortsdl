@@ -1,8 +1,7 @@
 // app/api/usage/survey-submit/route.ts
 
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
-
+import {prisma} from '@/lib/prisma';
 
 export async function POST(req: Request) {
     try {
@@ -12,57 +11,60 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        // 1. 检查该用户是否已经提交过问卷
-        const existingSurvey = await prisma.survey.findUnique({
+        // 1. 检查是否已提交过（防止刷奖）
+        const existing = await prisma.survey.findUnique({
             where: { userId: Number(userId) }
         });
 
-        if (existingSurvey) {
-            return NextResponse.json({ error: "Survey already submitted" }, { status: 400 });
+        if (existing) {
+            return NextResponse.json({ error: "Survey already completed" }, { status: 400 });
         }
 
-        // 2. 使用事务处理：保存问卷内容 + 赠送积分
-        // 我们假设赠送 10 个 Credits
-        const REWARD_POINTS = 10;
+        const REWARD_DOWNLOADS = 5;
 
+        // 2. 开启事务：保存数据 + 返还配额
         const result = await prisma.$transaction(async (tx) => {
-            // A. 创建问卷记录
+            // A. 保存精细化的问卷结果
             await tx.survey.create({
                 data: {
                     userId: Number(userId),
                     purpose: surveyData.purpose,
-                    source: surveyData.source,
-                    rating: surveyData.rating
+                    improvement: surveyData.improvement,
+                    payingFeature: surveyData.payingFeature,
+                    feedback: surveyData.feedback
                 }
             });
 
-            // B. 更新 User 表中的 credits (字符串存储需转换)
-            const user = await tx.user.findUnique({ where: { id: Number(userId) } });
-            const currentCredits = parseInt(user?.credits || "0", 10);
-            const newCredits = (currentCredits + REWARD_POINTS).toString();
-
-            const updatedUser = await tx.user.update({
-                where: { id: Number(userId) },
-                data: { credits: newCredits }
-            });
-
-            // C. 返回最新的用法数据 (同步给前端)
-            const usage = await tx.usage.findUnique({
+            // B. 操作 Usage 表：减少已下载计数 (等于增加剩余额度)
+            const currentUsage = await tx.usage.findUnique({
                 where: { userId: Number(userId) }
             });
 
-            return { usage, credits: updatedUser.credits };
+            if (!currentUsage) {
+                throw new Error("Usage record not found");
+            }
+
+            const updatedUsage = await tx.usage.update({
+                where: { userId: Number(userId) },
+                data: {
+                    // 将已使用次数减去 5
+                    downloadCount: {
+                        decrement: REWARD_DOWNLOADS
+                    }
+                }
+            });
+
+            return updatedUsage;
         });
 
         return NextResponse.json({ 
             success: true, 
-            usage: result.usage,
-            newCredits: result.credits,
-            message: `Success! +${REWARD_POINTS} credits added.` 
+            usage: result,
+            message: `Survey submitted! ${REWARD_DOWNLOADS} Free Downloads added.` 
         });
 
     } catch (error: any) {
-        console.error("Survey Submit Error:", error);
-        return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+        console.error("Survey Reward Error:", error);
+        return NextResponse.json({ error: "Server Error" }, { status: 500 });
     }
 }
