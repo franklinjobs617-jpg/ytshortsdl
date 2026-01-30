@@ -97,7 +97,7 @@ model Survey {
   userId        Int     @unique @map("user_id") // 每个用户只能填一次，用于防止刷积分
   purpose       String? // Q1: 职业/主要用途
   improvement   String? // Q2: 最迫切的改进
-  payingFeature String? // Q3: 愿意付费的功能
+  payingFeature String? @map("paying_feature") // Q3: 愿意付费的功能
   feedback      String? @db.Text // Q4: 简答题/吐槽
 
   createTime DateTime @default(now()) @map("create_time")
