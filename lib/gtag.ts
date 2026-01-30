@@ -54,6 +54,11 @@ export const GA_EVENTS = {
     NAV_TOOL_CLICK: 'nav_tool_click',           // 点击页面底部的其他工具链接
     NAV_AI_REMIX: 'nav_ai_remix_click',         // 在下载成功页点击“AI Remix”引流至 AI 生成器
     UI_AI_VIEW: 'ui_ai_script_view',            // 在首页下载列表点击“Transcript”打开抽屉
+
+    // === 问卷事件 ===
+    UI_SURVEY_VIEW: 'ui_survey_modal_view',   // 问卷弹出
+    UI_SURVEY_SUBMIT: 'ui_survey_submit',     // 提交问卷
+    UI_SURVEY_SKIP: 'ui_survey_skip',         // 关闭/跳过问卷
 } as const;
 
 /**

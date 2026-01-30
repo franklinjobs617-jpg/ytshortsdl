@@ -32,6 +32,7 @@ model User {
   // 关联支付表
   payments Pay[]
   usage    Usage?
+  survey   Survey?
 
   @@map("google_user")
 }
@@ -88,4 +89,18 @@ model Pay {
   user User? @relation(fields: [userId], references: [id])
 
   @@map("pay")
+}
+
+// 调查问卷模型
+model Survey {
+  id         Int      @id @default(autoincrement())
+  userId     Int      @unique @map("user_id") // 每个用户只能填一次，用于防止刷积分
+  purpose    String? // 使用目的：Content Creation, Learning...
+  source     String? // 来源：Google, TikTok...
+  rating     Int? // 评分：1-5
+  createTime DateTime @default(now()) @map("create_time")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("google_ytshort_survey")
 }

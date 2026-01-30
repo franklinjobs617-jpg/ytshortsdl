@@ -11,6 +11,7 @@ import { useAuth } from "@/lib/auth-context";
 import Link from "next/link";
 import TranscriptDrawer from "@/components/TranscriptDrawer";
 import SubscriptionModal from "@/components/SubscriptionModal";
+import SurveyModal from "@/components/SurveyModal";
 import { useToast } from "@/components/ToastContext";
 import { trackEvent, GA_EVENTS } from "@/lib/gtag";
 
@@ -27,8 +28,7 @@ const WORKER_URLS = [
 ];
 
 export default function HeroSection() {
-    // 🚀 从 useAuth 中获取登录状态和登录方法
-    const { checkQuota, consumeUsage, isLoggedIn, login, isLoggingIn } = useAuth();
+    const { consumeUsage, isLoggedIn, login, isLoggingIn, user } = useAuth();
 
     const [mode, setMode] = useState<"single" | "batch">("single");
     const [singleInputUrl, setSingleInputUrl] = useState("");
@@ -43,8 +43,9 @@ export default function HeroSection() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [selectedVideo, setSelectedVideo] = useState<any>(null);
+    const [isSurveyOpen, setIsSurveyOpen] = useState(false);
 
-    // 🚀 核心状态：记录登录成功后需要自动执行的任务
+    // 核心状态：记录登录成功后需要自动执行的任务
     const [pendingAction, setPendingAction] = useState<{
         type: 'download' | 'transcript' | 'batch_zip',
         video?: any,
@@ -59,11 +60,23 @@ export default function HeroSection() {
 
     const currentResults = mode === "single" ? singleResults : batchResults;
 
-    // 🚀 核心 Effect：监听登录成功并自动重试之前的操作
+    // 判断是否应该弹出问卷
+    const handleSuccessfulDownloadTrigger = () => {
+        // 只有登录用户且本地没有标记过“已做问卷”才触发
+        const hasDoneSurvey = localStorage.getItem(`survey_done_${user?.id}`);
+
+        if (isLoggedIn && !hasDoneSurvey) {
+            setTimeout(() => {
+                setIsSurveyOpen(true);
+                trackEvent(GA_EVENTS.UI_SURVEY_VIEW);
+            }, 2000);
+        }
+    };
+
+    // 核心 Effect：监听登录成功并自动重试之前的操作
     useEffect(() => {
         if (isLoggedIn && pendingAction) {
             if (pendingAction.type === 'download') {
-
                 downloadSingle(pendingAction.video, pendingAction.index!);
             } else if (pendingAction.type === 'transcript') {
                 handleOpenTranscript(pendingAction.video);
@@ -172,17 +185,6 @@ export default function HeroSection() {
         // 漏斗第 3 步：点击下载
         trackEvent(GA_EVENTS.F_DOWNLOAD_CLICK, { 'file_type': 'mp4', 'method': 'single' });
 
-        setActiveDownloads(prev => ({ ...prev, [index]: 0 }));
-        const canI = await checkQuota('download');
-        if (!canI) {
-            // 漏斗：支付拦截
-            trackEvent(GA_EVENTS.F_PAYWALL_VIEW, { 'trigger': 'single_download' });
-            setActiveDownloads(prev => { const n = { ...prev }; delete n[index]; return n; });
-
-            setIsModalOpen(true);
-            return;
-        }
-        // 🚀 修复点：直接使用 consumeUsage 进行扣费校验，不再先调用 checkQuota
         const consumeSuccess = await consumeUsage('download');
         if (!consumeSuccess) {
             trackEvent(GA_EVENTS.F_PAYWALL_VIEW, { 'trigger': 'single_download' });
@@ -190,6 +192,7 @@ export default function HeroSection() {
             return;
         }
 
+        setActiveDownloads(prev => ({ ...prev, [index]: 0 }));
         try {
             const blob = await downloadWithRetry(video, (p) => {
                 setActiveDownloads(prev => ({ ...prev, [index]: p }));
@@ -198,6 +201,10 @@ export default function HeroSection() {
             saveAs(blob, `${video.title.replace(/[\\/:*?"<>|]/g, '_')}.mp4`);
             addToast("Downloaded successfully", "success");
             trackEvent(GA_EVENTS.F_DOWNLOAD_SUCCESS, { 'file_type': 'mp4', 'method': 'single' });
+
+            // 下载成功后尝试触发问卷
+            handleSuccessfulDownloadTrigger();
+
         } catch (error: any) {
             addToast(error.message, "error");
         } finally {
@@ -222,7 +229,6 @@ export default function HeroSection() {
             'count': validLinksCount
         });
 
-        // 🚀 修复点：直接尝试扣除相应积分，不再先 checkQuota
         const consumeSuccess = await consumeUsage('download', validLinksCount);
         if (!consumeSuccess) {
             trackEvent(GA_EVENTS.F_PAYWALL_VIEW, { 'trigger': 'batch_zip_quota_insufficient' });
@@ -252,6 +258,9 @@ export default function HeroSection() {
                 saveAs(content, `batch_${Date.now()}.zip`);
                 addToast(`Batch ZIP success, used ${validLinksCount} downloads`, "success");
                 trackEvent(GA_EVENTS.F_DOWNLOAD_SUCCESS, { 'file_type': 'zip', 'method': 'batch' });
+
+                // 批量下载成功后同样尝试触发问卷
+                handleSuccessfulDownloadTrigger();
             }
         } catch (e: any) {
             addToast("ZIP failed", "error");
@@ -269,7 +278,6 @@ export default function HeroSection() {
             return;
         }
 
-        // 🚀 修复点：此处不再 checkQuota，具体扣费由 TranscriptDrawer 内部逻辑控制
         setSelectedVideo(video);
         setIsDrawerOpen(true);
     };
@@ -277,6 +285,9 @@ export default function HeroSection() {
     return (
         <>
             <SubscriptionModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
+            {/* 放置调查问卷组件 */}
+            <SurveyModal isOpen={isSurveyOpen} onClose={() => setIsSurveyOpen(false)} />
 
             <section className="relative py-12 md:py-24 text-center px-4">
                 <div className="glow-effect -z-10"></div>
