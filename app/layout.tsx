@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   verification: {
     other: {
       "saashub-verification": "dbxb8loh2q88",
+      "_foundr": "289d6c36028737fde5b41ffd2926f57c",
     },
   },
 };
@@ -30,7 +31,6 @@ export default function RootLayout({
       <Head>
         <meta name="color-scheme" content="light only" />
       </Head>
-
       <GoogleAnalytics gaId="G-Z6TQTL70L0" />
       <Script
         id="microsoft-clarity"
