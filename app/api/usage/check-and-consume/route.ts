@@ -43,15 +43,25 @@ export async function POST(req: NextRequest) {
         // 分支 2: 纯扣费逻辑 (action === 'consume')
         // ==========================================================
         if (action === 'consume') {
+            if ((currentCount + count) > maxLimit) {
+                return NextResponse.json({
+                    success: false,
+                    allowed: false,
+                    reason: "limit_reached",
+                    usage
+                }, { status: 403 }); // 返回 403 明确告知拒绝执行
+            }
+
             const updatedUsage = await prisma.usage.update({
                 where: { id: usage.id },
                 data: { [field]: { increment: count } }
             });
-            return NextResponse.json({ success: true, usage: updatedUsage });
+
+            return NextResponse.json({ success: true, allowed: true, usage: updatedUsage });
         }
 
         // ==========================================================
-        // 分支 3: 原有逻辑 - 查询并立即扣费
+        // 分支 3: 查询并立即扣费
         // ==========================================================
         if ((currentCount + count) > maxLimit) {
             return NextResponse.json({ allowed: false, reason: "limit_reached" }, { status: 403 });
