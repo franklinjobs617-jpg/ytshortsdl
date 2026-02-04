@@ -8,6 +8,14 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import Head from "next/head";
 import PayPalProviderWrapper from "@/components/PayPalProviderWrapper";
 import { ToastProvider } from "@/components/ToastContext";
+import Link from "next/link";
+import { Inter } from 'next/font/google';
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
 export const metadata: Metadata = {
   title: 'Free YouTube Shorts Downloader | HD MP4 & MP3 | AI Video to Script',
   description: 'Download YouTube Shorts videos and audio (MP4/MP3) instantly. Now featuring AI-powered video to script converter and viral script generator for creators.',
@@ -27,31 +35,35 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={inter.variable}>
       <Head>
         <meta name="color-scheme" content="light only" />
+        <link rel="preconnect" href="https://accounts.google.com" />
+        <link rel="preconnect" href="https://www.clarity.ms" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
       </Head>
-      <GoogleAnalytics gaId="G-Z6TQTL70L0" />
-      <Script
-        id="microsoft-clarity"
-        strategy="afterInteractive" // 在页面交互后加载，不影响首屏速度
-        dangerouslySetInnerHTML={{
-          __html: `
+
+      <body>
+        <Script src="https://accounts.google.com/gsi/client" strategy="lazyOnload" />
+        <GoogleAnalytics gaId="G-Z6TQTL70L0" />
+        <Script
+          id="microsoft-clarity"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `
                 (function(c,l,a,r,i,t,y){
                     c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
                     t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
                 })(window, document, "clarity", "script", "u5xi8vjmmq");
               `,
-        }}
-      />
-      <body>
-        <Script src="https://accounts.google.com/gsi/client" strategy="afterInteractive" />
+          }}
+        />
         <AuthProvider>
           <PayPalProviderWrapper>
             <ToastProvider>
               <Header />
-              <div className="w-full bg-gradient-to-r from-[#ff0000af] to-[#ff73004b] py-2.5 px-4 shadow-md font-sans">
+              <div className="w-full bg-gradient-to-r from-[#ff0000af] to-[#ff73004b] py-2.5 px-4 shadow-md font-sans min-h-11">
                 <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
 
                   <div className="flex items-center gap-3 text-white">
@@ -63,12 +75,11 @@ export default function RootLayout({
                     </p>
                   </div>
 
-                  <a href="https://removermarca.com/en?utm_source=ytshortsdl&utm_content=footer_bar"
+                  <Link href="https://removermarca.com/en?utm_source=ytshortsdl&utm_content=footer_bar"
                     target="_blank"
                     className="bg-white text-[#007bff] text-[13px] font-bold px-4 py-1.5 rounded-full shadow-sm hover:bg-blue-50 transition-colors whitespace-nowrap">
                     Try Free
-                  </a>
-
+                  </Link>
                 </div>
               </div>
               {children}

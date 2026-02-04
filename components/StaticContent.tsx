@@ -1,12 +1,68 @@
 import Link from "next/link"
 import Image from 'next/image'
-import { Wand2, ArrowRight, Quote, Sparkles, Check } from 'lucide-react'
+import { Wand2, ArrowRight, Quote, Sparkles, Check, Star } from 'lucide-react'
 export function StaticContent() {
+    const testimonials = [
+        {
+            id: 1,
+            name: "Andrés Alejo",
+            initials: "AA",
+            avatar: "/avatar/AndrésAlejo.jpg", // 如果有图片路径则放入
+            text: "This downloader is incredibly fast. I've tried many tools, but this one's clean interface and speed are on another level.",
+            date: "Jan 31, 2025",
+            source: "google"
+        },
+        {
+            id: 2,
+            name: "Steph B",
+            initials: "SB",
+            avatar: "/avatar/StephB.jpg",
+            text: "The amount of features available seems to be beyond what others offer. By far the most stacked AI tools for creators.",
+            date: "Jan 27, 2025",
+            source: "trustpilot"
+        },
+        {
+            id: 3,
+            name: "Jessica Suggs",
+            initials: "JS",
+            avatar: "/avatar/JessicaSuggs.jpg",
+            text: "Excellent tool for real estate content! I save hours of work by downloading and using the AI script remixed for my listings.",
+            date: "Jan 22, 2026",
+            source: "google"
+        },
+        {
+            id: 4,
+            name: "Mateusz Sebastian",
+            initials: "MS",
+            avatar: "/avatar/MateuszSebastian.jpg",
+            text: "Extremely useful tool which helped me coming back to regular posting on social media with consistent quality.",
+            date: "Jan 21, 2026",
+            source: "google"
+        },
+        {
+            id: 5,
+            name: "U SAT Autotech",
+            initials: "UA",
+            avatar: "/avatar/USATAutotech.jpg",
+            text: "Best service I've found so far. Simple, effective, and works every single time without annoying ads.",
+            date: "Jan 19, 2024",
+            source: "google"
+        },
+        {
+            id: 6,
+            name: "Ranking Rider",
+            initials: "RR",
+            avatar: "/avatar/RankingRider.jpg",
+            text: "Solid tool overall. The batch download feature is a lifesaver for my archival work.",
+            date: "Jan 16, 2026",
+            source: "google"
+        }
+    ];
     return (
         <>
             <section className="py-8 bg-white border-y border-slate-200/80">
-                <div className="container mx-auto px-6 max-w-4xl">
-                    <h2 className="font-bold text-2xl text-slate-800 mb-8 text-center md:text-left">
+                <div className="container mx-auto px-6 max-w-7xl">
+                    <h2 className="max-w-4xl mx-auto text-3xl font-black text-slate-900 mb-4 tracking-tighter">
                         Simple 3-Step Guide to Download YouTube Videos & Shorts
                     </h2>
                     <div className="pt-8">
@@ -47,6 +103,72 @@ export function StaticContent() {
                     </div>
                 </div>
             </section>
+
+            {/* --- 评论展示模块 --- */}
+            <section className="py-24 bg-slate-50">
+                <div className="container mx-auto px-6 max-w-6xl">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tighter">
+                            Join 50,000+ Creators Saving Hours Every Week
+                        </h2>
+                        <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">
+                            See why social media managers call our AI Suite their "secret weapon" for lightning-fast content repurposing.
+                        </p>
+                    </div>
+
+                    {/* 评论网格布局 */}
+                    <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+                        {testimonials.map((item) => (
+                            <div key={item.id} className="break-inside-avoid bg-white p-8 rounded-[32px] border border-slate-200/60 shadow-sm hover:shadow-xl transition-all duration-300">
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-center gap-3">
+                                        {item.avatar ? (
+                                            <div className="relative w-12 h-12 rounded-full overflow-hidden">
+                                                <Image src={item.avatar} alt={item.name} fill className="object-cover" />
+                                            </div>
+                                        ) : (
+                                            <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold text-lg border border-slate-200">
+                                                {item.initials}
+                                            </div>
+                                        )}
+                                        <div>
+                                            <h4 className="font-bold text-slate-900 leading-none">{item.name}</h4>
+                                        </div>
+                                    </div>
+                                    {/* 平台图标 - 模拟 Google 图标 */}
+                                    <div className="w-5 h-5 opacity-80">
+                                        {item.source === 'google' ? (
+                                            <svg viewBox="0 0 24 24" className="fill-current text-blue-500">
+                                                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" /><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" /><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05" /><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+                                            </svg>
+                                        ) : (
+                                            <Star size={20} className="text-green-500 fill-current" />
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* 星级 */}
+                                <div className="flex gap-0.5 mb-3 text-amber-400">
+                                    {[...Array(5)].map((_, i) => (
+                                        <Star key={i} size={18} fill="currentColor" />
+                                    ))}
+                                </div>
+
+                                {/* 评论内容 */}
+                                <p className="text-slate-600 text-sm leading-relaxed mb-4 font-medium">
+                                    {item.text}
+                                </p>
+
+                                {/* 日期 */}
+                                <div className="text-slate-400 text-xs font-bold uppercase tracking-wider">
+                                    {item.date}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
 
             <section id="features" className="py-24 bg-slate-100">
                 <div className="container max-w-6xl mx-auto px-6">

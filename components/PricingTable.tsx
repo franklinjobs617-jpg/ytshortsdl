@@ -74,7 +74,7 @@ const PricingTable = () => {
             monthlyPrice: "$0",
             yearlyPrice: "$0",
             features: [
-                { label: "Shorts Downloads", value: 3, included: true, bold: false },
+                { label: "SD Video & Shorts  Downloads", value: 3, included: true, bold: false },
                 { label: "Subtitle Extractions", value: 1, included: true, bold: false },
                 { label: "AI Script Generations", value: 1, included: true, bold: false },
                 { label: "4K Support", value: null, included: false, bold: false },
@@ -88,11 +88,11 @@ const PricingTable = () => {
             monthlyPrice: "$12.90",
             yearlyPrice: "$99",
             features: [
-                { label: "Downloads", value: "Unlimited", included: true, bold: true },
+                { label: "SD Video & Shorts Downloads", value: "Unlimited", included: true, bold: true },
+                { label: "4K Ultra Quality", value: 300, included: true, bold: true },
                 { label: "Extractions", value: 300, included: true, bold: true },
                 { label: "AI Scripting", value: 300, included: true, bold: true },
-                { label: "4K Ultra HD Quality", value: "Full", included: true, bold: false },
-                { label: "Ad-Free Experience", value: "Yes", included: true, bold: false },
+                { label: "Ad-Free Experience", value: "", included: true, bold: false },
             ],
             buttonText: "Upgrade Now",
             featured: true,
@@ -103,6 +103,7 @@ const PricingTable = () => {
             monthlyPrice: "$29.90",
             yearlyPrice: "$199",
             features: [
+                { label: "4K Ultra Quality", value: "Unlimited", included: true, bold: false },
                 { label: "All Features", value: "Unlimited", included: true, bold: false },
                 { label: "AI Scripting", value: "Unlimited", included: true, bold: false },
                 { label: "Priority API Access", value: "Yes", included: true, bold: false },
