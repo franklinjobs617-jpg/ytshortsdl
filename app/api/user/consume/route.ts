@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
     try {
@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
             data: { credits: (parseInt(user.credits || "0") - 1).toString() }
         });
         return NextResponse.json(updatedUser);
-    } catch (e) {
-        return NextResponse.json({ error: "Server error" }, { status: 500 });
+    } catch (error) {
+        return NextResponse.json({ error: "Server error,Try Later" }, { status: 500 });
     }
 }

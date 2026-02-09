@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import {
     LoaderCircle, Layers, Link as LinkIcon, Download,
-    FileArchive, FileText, AlertCircle, Plus, ClipboardPaste, X, Sparkles, Check, ChevronDown, Crown
+    FileArchive, FileText, Crown
 } from 'lucide-react';
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
@@ -15,7 +15,7 @@ import SurveyModal from "@/components/SurveyModal";
 import { useToast } from "@/components/ToastContext";
 import { trackEvent, GA_EVENTS } from "@/lib/gtag";
 import { useTranslations } from 'next-intl';
-
+import Image from "next/image";
 const WORKER_URLS = [
     "https://dry-water-d2f3.franke-4b7.workers.dev",
     "https://throbbing-breeze-b608.franke-4b7.workers.dev",
@@ -170,8 +170,6 @@ export default function HeroSection() {
                 delete newState[index];
                 return newState;
             });
-
-            setActiveDownloads(prev => { const n = { ...prev }; delete n[index]; return n; });
         }
     };
 
@@ -377,7 +375,8 @@ export default function HeroSection() {
                                         return (
                                             <div key={idx} className={`group bg-white rounded-[40px] border border-slate-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col ${currentResults.length === 1 ? 'w-full max-w-md' : 'w-full'}`}>
                                                 <div className="relative aspect-video overflow-hidden">
-                                                    <img src={video.thumbnail} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="" />
+                                                    <Image src={video.thumbnail} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={video.title || "Untitled Video"} width="400"
+                                                        height="225" unoptimized={true} />
                                                     <div className="absolute top-4 right-4 bg-red-600 text-white text-[9px] font-black px-2.5 py-1 rounded shadow-lg  tracking-tighter">{t('ready')}</div>
                                                 </div>
 
@@ -456,7 +455,7 @@ export default function HeroSection() {
                 </div>
 
                 <div className="pt-12 flex flex-col items-center">
-                    <span className="text-slate-400 mb-8 uppercase font-black tracking-[0.4em] text-[10px]">{t('professionalCreatorSuite')}</span>
+                    <span className="text-slate-400 mb-8  font-black tracking-[0.4em] text-[10px]">{t('professionalCreatorSuite')}</span>
                     <div className="flex flex-wrap justify-center gap-6">
                         <Link href="/shorts-to-mp3"
                             onClick={() => {
@@ -464,7 +463,7 @@ export default function HeroSection() {
                             }}
                             className="px-10 py-4 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:shadow-2xl transition-all flex items-center gap-4 group">
                             <span className="text-2xl group-hover:scale-110 transition-transform">🎵</span>
-                            <div className="text-left font-black tracking-tighter"><p className="text-[10px] text-slate-400 uppercase mb-1 tracking-widest font-black text-[8px]">{t('tool01')}</p><p className="text-sm font-black">{t('extractMp3')}</p></div>
+                            <div className="text-left font-black tracking-tighter"><p className="text-[10px] text-slate-400  mb-1 tracking-widest font-black text-[8px]">{t('tool01')}</p><p className="text-sm font-black">{t('extractMp3')}</p></div>
                         </Link>
                         <Link href="/video-to-script-converter"
                             onClick={() => {
@@ -472,7 +471,7 @@ export default function HeroSection() {
                             }}
                             className="px-10 py-4 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:shadow-2xl transition-all flex items-center gap-4 group">
                             <span className="text-2xl group-hover:scale-110 transition-transform">🤖</span>
-                            <div className="text-left font-black tracking-tighter"><p className="text-[10px] text-slate-400 uppercase mb-1 tracking-widest font-black text-[8px]">{t('tool02')}</p><p className="text-sm font-black">{t('videoToScript')}</p></div>
+                            <div className="text-left font-black tracking-tighter"><p className="text-[10px] text-slate-400  mb-1 tracking-widest font-black text-[8px]">{t('tool02')}</p><p className="text-sm font-black">{t('videoToScript')}</p></div>
                         </Link>
                         <Link href="/ai-script-generator"
                             onClick={() => {
@@ -480,7 +479,7 @@ export default function HeroSection() {
                             }}
                             className="px-10 py-4 bg-white border border-slate-200 rounded-3xl font-black text-slate-700 hover:text-red-600 hover:shadow-2xl transition-all flex items-center gap-4 group">
                             <span className="text-2xl group-hover:scale-110 transition-transform">✍️</span>
-                            <div className="text-left font-black tracking-tighter"><p className="text-[10px] text-slate-400 uppercase mb-1 tracking-widest font-black text-[8px]">{t('tool03')}</p><p className="text-sm font-black">{t('aiScriptGenerator')}</p></div>
+                            <div className="text-left font-black tracking-tighter"><p className="text-[10px] text-slate-400  mb-1 tracking-widest font-black text-[8px]">{t('tool03')}</p><p className="text-sm font-black">{t('aiScriptGenerator')}</p></div>
                         </Link>
                     </div>
                 </div>

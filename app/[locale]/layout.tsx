@@ -5,13 +5,11 @@ import Header from "@/components/Header";
 import { AuthProvider } from "@/lib/auth-context";
 import Footer from "@/components/Footer";
 import { GoogleAnalytics } from '@next/third-parties/google'
-import Head from "next/head";
 import PayPalProviderWrapper from "@/components/PayPalProviderWrapper";
 import { ToastProvider } from "@/components/ToastContext";
-import Link from "next/link";
 import { Inter } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
-import { getLocale, getMessages } from 'next-intl/server';
+import { getMessages } from 'next-intl/server';
 import Banner from '@/components/Banner';
 const inter = Inter({
   subsets: ['latin'],
@@ -41,20 +39,13 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
   const messages = await getMessages();
-  console.log('RootLayout locale:', locale);
-  console.log('Messages Sample:', JSON.stringify(messages).substring(0, 100));
-
-  const switchLanguage = (newLocale: string) => {
-
-
-  };
   return (
     <html lang={locale} suppressHydrationWarning className={inter.variable}>
 
 
 
       <body>
-        {/* <Script src="https://accounts.google.com/gsi/client" strategy="lazyOnload" />
+        <Script src="https://accounts.google.com/gsi/client" strategy="lazyOnload" />
         <GoogleAnalytics gaId="G-Z6TQTL70L0" />
         <Script
           id="microsoft-clarity"
@@ -68,7 +59,7 @@ export default async function RootLayout({
                 })(window, document, "clarity", "script", "u5xi8vjmmq");
               `,
           }}
-        /> */}
+        />
         <NextIntlClientProvider messages={messages} locale={locale}>
           <AuthProvider>
             <PayPalProviderWrapper>

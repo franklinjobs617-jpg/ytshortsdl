@@ -4,11 +4,13 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 const nextConfig: NextConfig = {
    images: {
     remotePatterns: [
-       {
+      {
         protocol: 'https',
-        hostname: 'media.theresanaiforthat.com',
-        port: '',
-        pathname: '/**', // 使用通配符匹配所有路径
+        hostname: '**', // 允许所有 HTTPS 域名的图片
+      },
+      {
+        protocol: 'http',
+        hostname: '**', // 允许所有 HTTP 域名的图片（如果需要）
       },
     ],
   },

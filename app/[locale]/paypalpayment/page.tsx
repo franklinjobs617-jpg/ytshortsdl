@@ -1,4 +1,4 @@
-import { Metadata, Viewport } from 'next';
+import { Metadata } from 'next';
 import PaypalStatus from '@/components/PaypalStatus';
 import { Suspense } from 'react'; // 🚀 必须引入
 

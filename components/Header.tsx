@@ -1,19 +1,31 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from 'react';
-import Link from 'next/link';
+import { usePathname, useRouter } from '@/i18n/routing';
 import { useAuth } from '@/lib/auth-context';
-import {
-    ChevronDown, Loader2, Gem, NotebookText,
-    Download, FileText, Music, Eraser, Image as ImageIcon,
-    MonitorPlay, TrendingUp, Menu, X, ArrowRight, LogOut, Sparkles,
-    Zap, BrainCircuit, Globe
-} from 'lucide-react';
-import Image from 'next/image';
 import { PLAN_LIMITS } from '@/lib/limits';
-import { useTranslations, useLocale } from 'next-intl';
-import { useParams } from 'next/navigation';
-import { useRouter, usePathname } from '@/i18n/routing';
+import {
+    ArrowRight,
+    BrainCircuit,
+    ChevronDown,
+    Download,
+    Eraser,
+    FileText,
+    Gem,
+    Image as ImageIcon,
+    Loader2,
+    LogOut,
+    Menu,
+    MonitorPlay,
+    Music,
+    NotebookText,
+    Sparkles,
+    TrendingUp,
+    X
+} from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 // --- Types & Config ---
 
@@ -26,7 +38,7 @@ type NavItemConfig = {
     items?: NavItemConfig[]; // For dropdowns
 };
 
-const getNavConfig = (t: any): NavItemConfig[] => [
+const getNavConfig = () => [
     {
         labelKey: 'creationAndAI',
         type: 'dropdown',
@@ -277,7 +289,7 @@ const Header = () => {
     const { user, isLoggedIn, login, logout, isLoggingIn, usage } = useAuth();
     const tHeader = useTranslations('header');
     const tCommon = useTranslations('common');
-    const NAV_CONFIG = getNavConfig(tHeader);
+    const NAV_CONFIG = getNavConfig();
 
     // Auth Dropdown State
     const [showProfileMenu, setShowProfileMenu] = useState(false);

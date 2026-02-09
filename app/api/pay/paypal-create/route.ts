@@ -1,7 +1,6 @@
 // app/api/pay/paypal-create/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { HttpsProxyAgent } from 'https-proxy-agent';
 
 export async function POST(req: NextRequest) {
     try {

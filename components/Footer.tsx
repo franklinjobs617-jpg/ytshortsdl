@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 // 1. 提取链接配置数组
-const getFooterLinks = (t: any) => [
+const getFooterLinks = () => [
     {
         titleKey: "coreTools",
         links: [
@@ -53,7 +53,7 @@ const getFooterLinks = (t: any) => [
 const Footer = () => {
     const t = useTranslations("footer");
     const currentYear = new Date().getFullYear();
-    const FOOTER_LINKS = getFooterLinks(t);
+    const FOOTER_LINKS = getFooterLinks();
 
     return (
         <footer className="bg-slate-800 text-slate-300">

@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useRef } from "react";
 import {
-    LoaderCircle, Link as LinkIcon, Download,
-    FileText, AlertCircle, X, Sparkles, Languages,
-    ClipboardPaste, Loader2, RefreshCcw, Check
+    Link as LinkIcon, Download,
+    FileText, X, Sparkles, Languages,
+    ClipboardPaste, Loader2, RefreshCcw
 } from 'lucide-react';
 import { saveAs } from "file-saver";
 import Link from "next/link";

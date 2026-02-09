@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import {
     Loader2, Link as LinkIcon, ShieldCheck,
-    FileText, Sparkles, Languages, RefreshCcw, ChevronDown, ChevronUp, AlertCircle
+    FileText, Sparkles, Languages, RefreshCcw, ChevronDown, ChevronUp
 } from 'lucide-react';
 import { saveAs } from "file-saver";
 import { useAuth } from '@/lib/auth-context';
@@ -106,7 +106,9 @@ export default function AiSummarizerSection() {
                         const delta = json.choices[0].delta;
                         if (delta.reasoning_content) setAiReasoning(p => p + delta.reasoning_content);
                         if (delta.content) setAiSummary(p => p + delta.content);
-                    } catch (e) { }
+                    } catch (e) {
+                        addToast("AI Summary generation failed, Try again later", "error");
+                    }
                 }
             }
             // 埋点：总结成功
@@ -214,7 +216,9 @@ export default function AiSummarizerSection() {
                 }
                 hasInited.current = true;
                 sessionStorage.removeItem('pending_remix_data');
-            } catch (e) { }
+            } catch (e) {
+                addToast("Invalid remix data, Try again later", "error");
+            }
         }
     }, [handleInitialExtract]);
 
@@ -265,7 +269,7 @@ export default function AiSummarizerSection() {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
                         <div className="lg:col-span-1 space-y-6 text-left">
                             <div className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
-                                <img src={videoData.thumbnail} className="w-full aspect-video object-cover" alt="" />
+                                <img src={videoData.thumbnail} className="w-full aspect-video object-cover" alt={videoData.title} />
                                 <div className="p-6">
                                     <h3 className="font-bold text-slate-800 mb-6 line-clamp-2 italic leading-snug tracking-tight">{videoData.title}</h3>
                                     <div className="flex items-center gap-2 text-slate-400 mb-2">
