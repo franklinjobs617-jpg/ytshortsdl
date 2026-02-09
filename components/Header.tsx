@@ -2,69 +2,71 @@
 
 import { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
 import {
     ChevronDown, Loader2, Gem, NotebookText,
     Download, FileText, Music, Eraser, Image as ImageIcon,
     MonitorPlay, TrendingUp, Menu, X, ArrowRight, LogOut, Sparkles,
-    Zap, BrainCircuit
+    Zap, BrainCircuit, Globe
 } from 'lucide-react';
 import Image from 'next/image';
 import { PLAN_LIMITS } from '@/lib/limits';
+import { useTranslations, useLocale } from 'next-intl';
+import { useParams } from 'next/navigation';
+import { useRouter, usePathname } from '@/i18n/routing';
 
 // --- Types & Config ---
 
 type NavItemConfig = {
-    label: string;
+    labelKey: string;
     href?: string;
     type?: 'link' | 'dropdown';
-    description?: string;
+    descriptionKey?: string;
     icon?: React.ReactNode;
     items?: NavItemConfig[]; // For dropdowns
 };
 
-const NAV_CONFIG: NavItemConfig[] = [
+const getNavConfig = (t: any): NavItemConfig[] => [
     {
-        label: 'Creation & AI',
+        labelKey: 'creationAndAI',
         type: 'dropdown',
         items: [
-            { label: 'AI Script Generator', href: '/ai-script-generator', icon: <Sparkles size={18} className="text-purple-600" />, description: 'Generate engaging scripts' },
-            { label: 'Script Converter', href: '/video-to-script-converter', icon: <FileText size={18} className="text-blue-600" />, description: 'Video to text scripts' },
+            { labelKey: 'aiScriptGenerator', href: '/ai-script-generator', icon: <Sparkles size={18} className="text-purple-600" />, descriptionKey: 'generateEngagingScripts' },
+            { labelKey: 'scriptConverter', href: '/video-to-script-converter', icon: <FileText size={18} className="text-blue-600" />, descriptionKey: 'videoToTextScripts' },
         ]
     },
     {
-        label: 'Downloader',
+        labelKey: 'downloader',
         type: 'dropdown',
         items: [
-            { label: 'Download Shorts', href: '/', icon: <Download size={18} className="text-red-600" />, description: 'Save Shorts in HD' },
-            { label: 'MP3 Audio', href: '/shorts-to-mp3', icon: <Music size={18} className="text-pink-600" />, description: 'Extract audio' },
-            { label: '4K Shorts Downloader', href: '/4k-shorts-downloader', icon: <MonitorPlay size={18} className="text-orange-600" />, description: 'High quality video' },
+            { labelKey: 'downloadShorts', href: '/', icon: <Download size={18} className="text-red-600" />, descriptionKey: 'saveShortsInHD' },
+            { labelKey: 'mp3Audio', href: '/shorts-to-mp3', icon: <Music size={18} className="text-pink-600" />, descriptionKey: 'extractAudio' },
+            { labelKey: '4kShortsDownloader', href: '/4k-shorts-downloader', icon: <MonitorPlay size={18} className="text-orange-600" />, descriptionKey: 'highQualityVideo' },
         ]
     },
     {
-        label: 'Utility',
+        labelKey: 'utility',
         type: 'dropdown',
         items: [
-            { label: 'Watermark Remover', href: '/no-watermark', icon: <Eraser size={18} className="text-teal-600" />, description: 'Clean videos' },
-            { label: 'Shorts Thumbnail', href: '/shorts-thumbnail-tool', icon: <ImageIcon size={18} className="text-indigo-600" />, description: 'Grab thumbnails' },
-            { label: 'Youtube Trend', href: '/trending', icon: <TrendingUp size={18} className="text-green-600" />, description: 'Viral content' },
+            { labelKey: 'watermarkRemover', href: '/no-watermark', icon: <Eraser size={18} className="text-teal-600" />, descriptionKey: 'cleanVideos' },
+            { labelKey: 'shortsThumbnail', href: '/shorts-thumbnail-tool', icon: <ImageIcon size={18} className="text-indigo-600" />, descriptionKey: 'grabThumbnails' },
+            { labelKey: 'youtubeTrend', href: '/trending', icon: <TrendingUp size={18} className="text-green-600" />, descriptionKey: 'viralContent' },
         ]
     },
     {
-        label: "Guide",
+        labelKey: 'guide',
         type: 'dropdown',
         items: [
-            { label: 'Chrome Extension', href: '/guide/chrome-extension', icon: <NotebookText size={18} className="text-red-600" />, description: 'Download Extension Guide' },
-            { label: 'iPhone Downloader', href: '/guide/iphone-downloader', icon: <NotebookText size={18} className="text-red-600" />, description: 'YouTube Shorts Downloader on iPhone' },
-            { label: 'Latest Shorts Tool', href: '/guide/latest-shorts-tool', icon: <NotebookText size={18} className="text-red-600" />, description: 'Latest Shorts Tool Guide' },
-            { label: 'Shorts To MP3 Tutorial', href: '/guide/shorts-to-mp3-tutorial', icon: <NotebookText size={18} className="text-red-600 " />, description: 'High-Quality Shorts MP3 Downloader Guide' },
-            { label: 'Shorts Without Watermark', href: '/guide/shorts-without-watermark', icon: <NotebookText size={18} className="text-red-600" />, description: 'Download Shorts Without Watermarks' },
-            { label: 'Best Shorts Downloader Apps', href: '/shorts-reuse-guide', icon: <NotebookText size={18} className="text-red-600" />, description: 'Best Creator\'s Essential Guide' },
-            { label: 'Shorts Creators Reddit Insights', href: '/shorts-creators-reddit-insights', icon: <NotebookText size={18} className="text-red-600" />, description: 'YT Shorts Downloader Reddit:' }
+            { labelKey: 'chromeExtension', href: '/guide/chrome-extension', icon: <NotebookText size={18} className="text-red-600" />, descriptionKey: 'downloadExtensionGuide' },
+            { labelKey: 'iphoneDownloader', href: '/guide/iphone-downloader', icon: <NotebookText size={18} className="text-red-600" />, descriptionKey: 'youtubeShortsDownloaderOnIphone' },
+            { labelKey: 'latestShortsTool', href: '/guide/latest-shorts-tool', icon: <NotebookText size={18} className="text-red-600" />, descriptionKey: 'latestShortsToolGuide' },
+            { labelKey: 'shortsToMp3Tutorial', href: '/guide/shorts-to-mp3-tutorial', icon: <NotebookText size={18} className="text-red-600 " />, descriptionKey: 'highQualityShortsMp3DownloaderGuide' },
+            { labelKey: 'shortsWithoutWatermark', href: '/guide/shorts-without-watermark', icon: <NotebookText size={18} className="text-red-600" />, descriptionKey: 'downloadShortsWithoutWatermarks' },
+            { labelKey: 'bestShortsDownloaderApps', href: '/shorts-reuse-guide', icon: <NotebookText size={18} className="text-red-600" />, descriptionKey: 'bestCreatorsEssentialGuide' },
+            { labelKey: 'shortsCreatorsRedditInsights', href: '/shorts-creators-reddit-insights', icon: <NotebookText size={18} className="text-red-600" />, descriptionKey: 'ytShortsDownloaderReddit' }
         ],
     },
-    { label: 'Pricing', href: '/pricing', type: 'link' },
+    { labelKey: 'pricing', href: '/pricing', type: 'link' },
 ];
 
 // --- Sub Components ---
@@ -73,6 +75,9 @@ const CreditsBadge = ({ usage, isLoggedIn, login }: any) => {
     const [showCreditsBubble, setShowCreditsBubble] = useState(false);
     const bubbleRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
+    const tHeader = useTranslations('header'); // 内部直接获取
+    const tCommon = useTranslations('common'); // 内部直接获取
+    const t = tHeader; // 保持兼容性
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -96,20 +101,20 @@ const CreditsBadge = ({ usage, isLoggedIn, login }: any) => {
         const details = [
             {
                 key: 'download',
-                label: 'Download Shorts & Video',
+                label: t('downloadShortsAndVideo'),
                 icon: <Download size={14} className="text-blue-500" />,
                 value: getRemaining(limits.download + ((usage as any)?.bonusDownloadQuota || 0), usage?.downloadCount || 0),
                 isUnlimited: limits.download > 9000
             },
             {
                 key: 'extract',
-                label: 'Extract Transcript',
+                label: t('extractTranscript'),
                 icon: <FileText size={14} className="text-purple-500" />,
                 value: getRemaining(limits.extract, usage?.extractionCount || 0), isUnlimited: limits.extract > 9000
             },
             {
                 key: 'summary',
-                label: 'AI Summaries',
+                label: t('aiSummaries'),
                 icon: <BrainCircuit size={14} className="text-pink-500" />,
                 value: getRemaining(limits.summary, usage?.summaryCount || 0),
                 isUnlimited: limits.summary > 9000
@@ -117,7 +122,7 @@ const CreditsBadge = ({ usage, isLoggedIn, login }: any) => {
         ];
         const isTotalUnlimited = details.some(d => d.isUnlimited);
         const totalRemaining = isTotalUnlimited
-            ? 'Unlimited Access'
+            ? t('unlimitedAccess')
             : details.reduce((sum, item) => sum + (item.value as number), 0); return { details, plan, totalRemaining };
     }, [usage]);
 
@@ -135,13 +140,13 @@ const CreditsBadge = ({ usage, isLoggedIn, login }: any) => {
             >
                 <Sparkles className="w-4 h-4 text-amber-600 fill-amber-500/20" />
                 <span className="text-sm font-bold tracking-tight whitespace-nowrap">
-                    {quotaInfo.totalRemaining + ' Left'}
+                    {quotaInfo.totalRemaining + ' ' + t('left')}
                 </span>
             </button>
 
             <div className={`absolute top-full right-0 mt-3 w-72 bg-white rounded-2xl shadow-xl shadow-slate-200/50 ring-1 ring-slate-100 p-0 transition-all duration-200 transform origin-top-right overflow-hidden ${showCreditsBubble ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'}`}>
                 <div className="bg-slate-50 p-4 border-b border-slate-100 flex justify-between items-center">
-                    <span className="text-[10px] font-black text-slate-400 tracking-widest uppercase">Daily Quota Status</span>
+                    <span className="text-[10px] font-black text-slate-400 tracking-widest uppercase">{t('dailyQuotaStatus')}</span>
                     <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${quotaInfo.plan !== 'FREE' ? 'bg-purple-100 text-purple-700 border-purple-200' : 'bg-slate-100 text-slate-600 border-slate-200'}`}>
                         <Sparkles size={10} fill="currentColor" /> {quotaInfo.plan}
                     </div>
@@ -171,28 +176,108 @@ const CreditsBadge = ({ usage, isLoggedIn, login }: any) => {
                             <div className="flex items-center gap-3 text-left relative z-10">
                                 <div className="p-1.5 bg-white/20 rounded-lg"><Gem size={18} /></div>
                                 <div className="flex flex-col">
-                                    <span className="text-xs font-bold leading-none mb-0.5">Upgrade to Pro</span>
-                                    <span className="text-[10px] opacity-80 font-medium">Remove limits & Ads</span>
+                                    <span className="text-xs font-bold leading-none mb-0.5">{tCommon('upgradeToPro')}</span>
+                                    <span className="text-[10px] opacity-80 font-medium">{tCommon('removeLimitsAndAds')}</span>
                                 </div>
                             </div>
                             <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all text-white/80" />
                         </button>
                     ) : (
-                        <button onClick={() => handleNavigation('/pricing')} className="w-full text-center text-[10px] text-slate-400 hover:text-slate-900 font-bold py-1">Manage Subscription</button>
+                        <button onClick={() => handleNavigation('/pricing')} className="w-full text-center text-[10px] text-slate-400 hover:text-slate-900 font-bold py-1">{tCommon('manageSubscription')}</button>
                     )}
                 </div>
             </div>
         </div>
     );
 };
+const languageSwitcherOptions = [{
+    code: 'en',
+    label: 'English',
+    icon: <Image src="/flags/en.svg" width={24} height={20} alt="English" />
+}, {
+    code: 'hi',
+    label: 'हिंदी',
+    icon: <Image src="/flags/hi.svg" width={24} height={20} alt="हिंदी" />
+}, {
+    code: 'es',
+    label: 'Español',
+    icon: <Image src="/flags/es.svg" width={24} height={20} alt="Español" />
+}]
+const LanguageSwitcher = () => {
+    const router = useRouter();
+    const pathname = usePathname();
+    const locale = useLocale();
+    const [showMenu, setShowMenu] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setShowMenu(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    const switchLanguage = (newLocale: string) => {
+        router.push(pathname, { locale: newLocale });
+        setShowMenu(false);
+    };
+
+
+    return (
+        <div className="relative" ref={menuRef}>
+            <button
+                onClick={() => setShowMenu(!showMenu)}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-all"
+            >
+                <>
+                    {languageSwitcherOptions.find(opt => opt.code === locale)?.icon || <Image src={"/flags/" + locale + ".svg"} width={24} height={20} className="mr-2" alt={locale} />}
+                    <span className="text-sm font-bold">{languageSwitcherOptions.find(opt => opt.code === locale)?.label || locale}</span>
+                </>
+
+                <ChevronDown size={14} className={`transition-transform ${showMenu ? 'rotate-180' : ''}`} />
+            </button>
+            {showMenu && (
+                <div className="absolute top-full right-0 mt-2 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden z-50 min-w-[120px]">
+                    <button
+                        onClick={() => switchLanguage('en')}
+                        className={`w-full flex text-left px-4 py-2 text-sm font-medium hover:bg-slate-50 transition-colors ${locale === 'en' ? 'bg-slate-50 text-red-600' : 'text-slate-600'}`}
+                    >
+                        <Image src="/flags/en.svg" width={24} height={20} className="mr-2" alt='English' />
+                        English
+                    </button>
+                    <button
+                        onClick={() => switchLanguage('hi')}
+                        className={`w-full flex text-left px-4 py-2 text-sm font-medium hover:bg-slate-50 transition-colors ${locale === 'hi' ? 'bg-slate-50 text-red-600' : 'text-slate-600'}`}
+                    >
+                        <Image src="/flags/hi.svg" width={28} height={20} className="mr-2" alt='हिंदी' />
+                        हिंदी
+                    </button>
+
+                    <button
+                        onClick={() => switchLanguage('es')}
+                        className={`w-full flex text-left px-4 py-2 text-sm font-medium hover:bg-slate-50 transition-colors ${locale === 'es' ? 'bg-slate-50 text-red-600' : 'text-slate-600'}`}
+                    >
+                        <Image src="/flags/es.svg" width={28} height={20} className="mr-2" alt='Español' />
+                        Español
+                    </button>
+                </div>
+            )}
+        </div>
+    );
+};
 
 const Header = () => {
     const pathname = usePathname();
-    const router = useRouter();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
     const { user, isLoggedIn, login, logout, isLoggingIn, usage } = useAuth();
+    const tHeader = useTranslations('header');
+    const tCommon = useTranslations('common');
+    const NAV_CONFIG = getNavConfig(tHeader);
 
     // Auth Dropdown State
     const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -252,7 +337,7 @@ const Header = () => {
                 <div className="p-1">
                     <Link href="/pricing" onClick={() => setShowProfileMenu(false)} className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg">
                         <Gem size={16} className="text-purple-500" />
-                        <span>Subscription</span>
+                        <span>{tCommon('subscription')}</span>
                     </Link>
                     <div className="h-[1px] bg-slate-100 my-1 mx-2" />
                     <button
@@ -260,7 +345,7 @@ const Header = () => {
                         className="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors text-left"
                     >
                         <LogOut size={16} />
-                        <span>Sign out</span>
+                        <span>{tCommon('signOut')}</span>
                     </button>
                 </div>
             </div>
@@ -295,7 +380,7 @@ const Header = () => {
                                 {item.type === 'dropdown' ? (
                                     <>
                                         <button className="flex items-center gap-1.5 px-3 py-2 font-bold text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-all">
-                                            {item.label}
+                                            {tHeader(item.labelKey)}
                                             <ChevronDown size={14} className="opacity-40 group-hover/nav:opacity-100 group-hover/nav:rotate-180 transition-all duration-200" />
                                         </button>
 
@@ -314,9 +399,11 @@ const Header = () => {
                                                             </div>
                                                             <div>
                                                                 <div className="text-sm font-bold text-slate-800 group-hover/item:text-red-600 transition-colors flex items-center gap-1">
-                                                                    {subItem.label}
+                                                                    {tHeader(subItem.labelKey)}
                                                                 </div>
-                                                                <p className="text-xs text-slate-500 font-medium mt-0.5 leading-snug">{subItem.description}</p>
+                                                                {subItem.descriptionKey && (
+                                                                    <p className="text-xs text-slate-500 font-medium mt-0.5 leading-snug">{tHeader(subItem.descriptionKey)}</p>
+                                                                )}
                                                             </div>
                                                         </Link>
                                                     ))}
@@ -329,7 +416,7 @@ const Header = () => {
                                         href={item.href || '#'}
                                         className={`block px-3 py-2 font-bold text-sm rounded-lg transition-all ${isActive(item.href!) ? 'text-red-600 bg-red-50' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'}`}
                                     >
-                                        {item.label}
+                                        {tHeader(item.labelKey)}
                                     </Link>
                                 )}
                             </div>
@@ -338,12 +425,13 @@ const Header = () => {
 
                     {/* Right Side Actions */}
                     <div className="hidden lg:flex items-center gap-4 pl-4 border-l border-slate-100">
+                        <LanguageSwitcher />
                         <CreditsBadge usage={usage} isLoggedIn={isLoggedIn} login={login} />
 
                         {isLoggedIn ? <UserProfileUI /> : (
                             <div className="flex items-center gap-2">
                                 <button onClick={login} className="text-sm font-bold text-slate-600 hover:text-slate-900 px-4 py-2 rounded-full hover:bg-slate-100 transition-colors">
-                                    Log in
+                                    {tCommon('login')}
                                 </button>
                                 <button
                                     onClick={login}
@@ -353,11 +441,11 @@ const Header = () => {
                                     {isLoggingIn ? (
                                         <>
                                             <Loader2 size={16} className="animate-spin" />
-                                            <span>Wait...</span>
+                                            <span>{tCommon('wait')}</span>
                                         </>
                                     ) : (
                                         <>
-                                            <span>Get Started</span>
+                                            <span>{tCommon('getStarted')}</span>
                                             <ArrowRight size={16} className="opacity-0 -translate-x-2 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300" />
                                         </>
                                     )}
@@ -405,13 +493,13 @@ const Header = () => {
                             </div>
                             <button onClick={logout} className="w-full flex items-center justify-center gap-2 p-2.5 bg-white border border-slate-200 rounded-xl text-red-600 font-bold hover:bg-red-50 transition-colors">
                                 <LogOut size={16} />
-                                Sign Out
+                                {tCommon('signOut')}
                             </button>
                         </div>
                     ) : (
                         <div className="grid grid-cols-2 gap-3">
-                            <button onClick={login} className="px-4 py-3 rounded-xl font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors">Log In</button>
-                            <button onClick={login} className="px-4 py-3 rounded-xl font-bold bg-slate-900 text-white hover:bg-black transition-colors">Sign Up</button>
+                            <button onClick={login} className="px-4 py-3 rounded-xl font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors">{tCommon('login')}</button>
+                            <button onClick={login} className="px-4 py-3 rounded-xl font-bold bg-slate-900 text-white hover:bg-black transition-colors">{tCommon('getStarted')}</button>
                         </div>
                     )}
 
@@ -422,14 +510,14 @@ const Header = () => {
                                 {item.type === 'dropdown' ? (
                                     <div className="py-2">
                                         <button
-                                            onClick={() => setMobileExpanded(mobileExpanded === item.label ? null : item.label)}
+                                            onClick={() => setMobileExpanded(mobileExpanded === item.labelKey ? null : item.labelKey)}
                                             className="w-full flex items-center justify-between py-2 text-left font-bold text-slate-800"
                                         >
-                                            {item.label}
-                                            <ChevronDown size={16} className={`transition-transform duration-300 ${mobileExpanded === item.label ? 'rotate-180' : ''}`} />
+                                            {tHeader(item.labelKey)}
+                                            <ChevronDown size={16} className={`transition-transform duration-300 ${mobileExpanded === item.labelKey ? 'rotate-180' : ''}`} />
                                         </button>
 
-                                        <div className={`overflow-hidden transition-all duration-300 ease-in-out ${mobileExpanded === item.label ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                                        <div className={`overflow-hidden transition-all duration-300 ease-in-out ${mobileExpanded === item.labelKey ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
                                             <div className="py-2 pl-2 space-y-1">
                                                 {item.items?.map((sub, sIdx) => (
                                                     <Link
@@ -439,7 +527,7 @@ const Header = () => {
                                                         className="flex items-center gap-3 p-2.5 rounded-xl active:bg-slate-50"
                                                     >
                                                         <div className="p-1.5 bg-slate-100 rounded-lg text-slate-600">{sub.icon}</div>
-                                                        <span className="text-sm font-bold text-slate-700">{sub.label}</span>
+                                                        <span className="text-sm font-bold text-slate-700">{tHeader(sub.labelKey)}</span>
                                                     </Link>
                                                 ))}
                                             </div>
@@ -451,7 +539,7 @@ const Header = () => {
                                         onClick={() => setIsDrawerOpen(false)}
                                         className="block py-3 font-bold text-slate-800 hover:text-red-600 transition-colors"
                                     >
-                                        {item.label}
+                                        {tHeader(item.labelKey)}
                                     </Link>
                                 )}
                             </div>

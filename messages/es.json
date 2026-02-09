@@ -1,0 +1,431 @@
+{
+  "common": {
+    "login": "Iniciar sesión",
+    "getStarted": "Empezar",
+    "wait": "Espere...",
+    "signOut": "Cerrar sesión",
+    "subscription": "Suscripción",
+    "manageSubscription": "Gestionar suscripción",
+    "upgradeToPro": "Mejorar a Pro",
+    "removeLimitsAndAds": "Eliminar límites y anuncios"
+  },
+  "header": {
+    "creationAndAI": "Creación e IA",
+    "downloader": "Descargador",
+    "utility": "Utilidades",
+    "guide": "Guía",
+    "pricing": "Precios",
+    "aiScriptGenerator": "Generador de Guiones IA",
+    "generateEngagingScripts": "Crea guiones atractivos",
+    "scriptConverter": "Convertidor de Guiones",
+    "videoToTextScripts": "Video a texto",
+    "downloadShorts": "Bajar Shorts de YouTube",
+    "saveShortsInHD": "Guardar Shorts en HD",
+    "mp3Audio": "Descargar MP3 YouTube Online",
+    "extractAudio": "Extraer audio",
+    "4kShortsDownloader": "YouTube MP4 Downloader",
+    "highQualityVideo": "Video de alta calidad",
+    "watermarkRemover": "Descargar Videos de X",
+    "cleanVideos": "Limpiar videos",
+    "shortsThumbnail": "Miniaturas de Shorts",
+    "grabThumbnails": "Obtener miniaturas",
+    "youtubeTrend": "Tendencias YouTube",
+    "viralContent": "Contenido viral",
+    "chromeExtension": "Extensión de Chrome",
+    "downloadExtensionGuide": "Guía de instalación",
+    "iphoneDownloader": "Descargar YouTube Videos",
+    "youtubeShortsDownloaderOnIphone": "Descargar YouTube Shorts en iPhone",
+    "latestShortsTool": "Herramienta de Shorts",
+    "latestShortsToolGuide": "Guía de herramientas recientes",
+    "shortsToMp3Tutorial": "YouTube to MP4 Tutorial",
+    "highQualityShortsMp3DownloaderGuide": "Guía YouTube a MP4",
+    "shortsWithoutWatermark": "Descargar Shorts sin Marca de Agua",
+    "downloadShortsWithoutWatermarks": "Shorts sin marcas",
+    "bestShortsDownloaderApps": "Apps para Descargar de YouTube",
+    "bestCreatorsEssentialGuide": "Guía Esencial para Creadores",
+    "shortsCreatorsRedditInsights": "Insights de Reddit",
+    "ytShortsDownloaderReddit": "YT Shorts Downloader Reddit:",
+    "left": "Restante",
+    "dailyQuotaStatus": "Estado de Cuota Diaria",
+    "downloadShortsAndVideo": "Bajar Shorts y Videos",
+    "extractTranscript": "Extraer Transcripción",
+    "aiSummaries": "Resúmenes IA",
+    "unlimitedAccess": "Acceso Ilimitado",
+    "loggingIn": "Iniciando sesión..."
+  },
+  "footer": {
+    "coreTools": "Herramientas Principales",
+    "downloadShorts": "Descargar YouTube Shorts Gratis",
+    "mp3Audio": "Descargar Música MP3 YouTube",
+    "videoToScriptConverter": "Convertidor YouTube MP3",
+    "aiScriptGenerator": "Generador de Guiones IA",
+    "youtubeTrend": "Tendencias YouTube",
+    "guide": "Guía",
+    "chromeExtension": "Extensión de Chrome",
+    "iphoneDownloader": "Descargar de YouTube MP3",
+    "latestShortsTool": "Herramienta de Shorts",
+    "shortsToMp3Tutorial": "YouTube to MP4 Tutorial",
+    "shortsWithoutWatermark": "Descargar Shorts de YouTube",
+    "bestShortsDownloaderApps": "Apps Descargar Video YouTube Gratis",
+    "shortsCreatorsRedditInsights": "Insights de Creadores",
+    "tools": "Herramientas",
+    "watermarkRemover": "Descargar Videos de X",
+    "4kShortsDownloader": "YouTube MP4 Downloader",
+    "shortsThumbnailTool": "Herramienta de Miniaturas",
+    "company": "Empresa",
+    "pricing": "Precios",
+    "addon": "Complemento",
+    "shortsReuseGuide": "Guía Descargar Video YouTube",
+    "support": "Soporte",
+    "aboutUs": "Sobre Nosotros",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfService": "Términos de Servicio",
+    "description": "El sitio #1 para bajar videos de youtube. Usa nuestro convertidor YouTube a MP4, permite descargar youtube shorts gratis y online. Rápido y seguro.",
+    "allRightsReserved": "Todos los derechos reservados."
+  },
+  "hero": {
+    "title": "Descargar YouTube Shorts Gratis :",
+    "aiCreatorSuite": "Suite de Creación IA",
+    "subtitle": "La mejor herramienta para bajar videos de youtube en línea. Soporta youtube to mp4, y permite descargar youtube shorts sin marca de agua al instante.",
+    "single": "Individual",
+    "batch": "Lotes (Máx 3)",
+    "pasteYouTubeLinkHere": "Enlace para descargar youtube shorts...",
+    "pasteUpTo3Links": "Pega hasta 3 enlaces (uno por línea)...",
+    "paste": "Pegar",
+    "parseVideo": "Descargar Video Gratis",
+    "wait": "Espere...",
+    "analyzingVideos": "ANALIZANDO VIDEOS...",
+    "readyToDownload": "LISTO PARA DESCARGAR",
+    "processingYourRequest": "PROCESANDO TU SOLICITUD",
+    "parsedViaOurHighSpeedNode": "PROCESADO VÍA NODO DE ALTA VELOCIDAD",
+    "downloadZip": "Descargar ZIP",
+    "ready": "Listo",
+    "unlock": "Desbloquear",
+    "loginToDownload": "Inicia sesión para descargar",
+    "freeDownload": "Descarga Gratis",
+    "script": "Guion",
+    "professionalCreatorSuite": "Suite Profesional para Creadores",
+    "tool01": "Herramienta 01",
+    "extractMp3": "Descargar MP3 YouTube Online",
+    "tool02": "Herramienta 02",
+    "videoToScript": "Video a Guion",
+    "tool03": "Herramienta 03",
+    "aiScriptGenerator": "Generador de Guiones IA"
+  },
+  "banner": {
+    "aiTool": "Herramienta IA",
+    "removeWatermark": "¡Descarga rápidamente subtítulos de YouTube con nuestra suite gratuita impulsada por IA!",
+    "tryFree": "Probar Gratis"
+  },
+  "toast": {
+    "downloadedSuccessfully": "Video descargado con éxito",
+    "parsedSuccessfully": "Procesado con éxito",
+    "pleaseTryAgain": "Por favor, inténtalo de nuevo",
+    "zipFailed": "Fallo en ZIP",
+    "batchZipSuccess": "ZIP por lotes exitoso",
+    "pleaseEnterAUrl": "Por favor, introduce una URL para descargar de YouTube"
+  },
+  "staticContent": {
+    "guide": {
+      "title": "Guía: Cómo Descargar YouTube Shorts Gratis",
+      "steps": [
+        {
+          "title": "1. Copia el Enlace",
+          "description": "Busca el video y copia la URL para guardar shorts de youtube en tu dispositivo."
+        },
+        {
+          "title": "2. Pega la URL",
+          "description": "Pega el enlace arriba para usar nuestro youtube mp4 downloader online."
+        },
+        {
+          "title": "3. Guardar MP4",
+          "description": "Pulsa el botón. Tu archivo (YouTube to MP4) se bajará totalmente gratis."
+        }
+      ]
+    },
+    "testimonials": {
+      "title": "Únete a +50,000 Creadores que Ahorran Tiempo",
+      "subtitle": "Descubre por qué los expertos usan este convertidor YouTube a MP4 como su herramienta favorita.",
+      "items": [
+        {
+          "name": "Andrés Alejo",
+          "text": "Este sitio es muy rápido. La mejor opción para descargar de YouTube mp3 y videos sin esperas.",
+          "date": "31 Ene, 2025"
+        },
+        {
+          "name": "Steph B",
+          "text": "Funciona perfecto. Puedo descargar youtube shorts gratis y usar el generador de guiones en un solo lugar.",
+          "date": "27 Ene, 2025"
+        },
+        {
+          "name": "Jessica Suggs",
+          "text": "Excelente para mi trabajo. Uso la función descargar videos de youtube a mp3 todos los días.",
+          "date": "22 Ene, 2026"
+        },
+        {
+          "name": "Mateusz Sebastian",
+          "text": "Herramienta útil. Me ayuda a bajar videos de youtube y convertir video youtube rápidamente.",
+          "date": "21 Ene, 2026"
+        },
+        {
+          "name": "U SAT Autotech",
+          "text": "El mejor servicio. Simple y efectivo para download youtube in mp4 sin complicaciones.",
+          "date": "19 Ene, 2024"
+        },
+        {
+          "name": "Ranking Rider",
+          "text": "Sólida herramienta. La opción de descargar videos youtube a mp4 en lote es genial.",
+          "date": "16 Ene, 2026"
+        }
+      ]
+    },
+    "features_speed": {
+      "title": "La Forma Más Rápida de Bajar Videos de YouTube",
+      "subtitle": "Nuestra promesa: Siempre más rápido que savefromnet y sssyoutube.",
+      "stat_value": "23%",
+      "stat_desc": "Tiempo de conversión más rápido para descargar youtube videos.",
+      "description": "Desarrollamos ShortsSync para mejorar la velocidad. Nuestro sistema permite descargar de youtube mp3 y mp4 mediante:",
+      "list": [
+        {
+          "label": "Procesamiento Prioritario:",
+          "content": "Procesamos tu enlace youtube to mp4 al instante."
+        },
+        {
+          "label": "Sin Anuncios Invasivos:",
+          "content": "Sin scripts pesados para una experiencia fluida de youtube mp4 downloader."
+        }
+      ],
+      "image_caption": "Confía en la velocidad."
+    },
+    "formats": {
+      "title": "Formatos: YouTube to MP4, MP3 y Alta Calidad",
+      "description": "Aseguramos la mejor calidad al descargar videos youtube gratis para tus redes sociales.",
+      "video_card": {
+        "title": "MP4 de Alta Calidad",
+        "content": "Descarga en estándar (YouTube to MP4). Ideal para descargar shorts youtube en HD."
+      },
+      "audio_card": {
+        "title": "Convertidor YouTube MP3",
+        "content": "Separa el audio con nuestro descargador musica youtube mp3 sin herramientas extra."
+      }
+    },
+    "why_online": {
+      "title": "¿Por qué usar este Descargador YouTube a MP3 Online?",
+      "description": "Seguridad y velocidad. La mejor opción para descargar videos de youtube a mp3:",
+      "points": [
+        {
+          "title": "Sin Instalación",
+          "content": "Sin malware. Solo una herramienta limpia para descargar video youtube gratis."
+        },
+        {
+          "title": "Compatibilidad Universal",
+          "content": "Funciona en iOS, Android y PC. Ideal para descargar youtube en mp3 en cualquier lugar."
+        },
+        {
+          "title": "Privacidad Garantizada",
+          "content": "Nunca almacenamos tus archivos al usar nuestro youtube wav converter."
+        }
+      ]
+    },
+    "ai_examples": {
+      "title": "Ejemplos de Contenido Generado por IA",
+      "subtitle": "Transforma transcripciones al descargar shorts de youtube en guiones virales.",
+      "steps": [
+        {
+          "title": "1. Pega el Enlace",
+          "desc": "Pega cualquier URL para descargar youtube short."
+        },
+        {
+          "title": "2. Extrae Guion",
+          "desc": "Convierte automáticamente el audio al descargar video yotube."
+        },
+        {
+          "title": "3. Descargar y Crear",
+          "desc": "Usa la IA para reescribir y download youtube as mp4."
+        }
+      ],
+      "transcript_label": "Transcripción Original",
+      "transcript_content": "\"Hoy voy a mostrarles este truco genial... solo cortas la parte superior... funciona siempre...\"",
+      "ai_script_label": "Guion Viral Optimizado",
+      "ai_script_content": "¡PARA de tirar tus botellas! 🛑 Truco genial de 5 segundos. 🍿 <br /><br /> 1️⃣ Corta la tapa.<br /> 2️⃣ Desliza.<br /> 3️⃣ Cierra.<br /><br /> ¡Boom! 🔒 ¡Sígueme para más! 🔥",
+      "cta_button": "Prueba el Generador IA",
+      "badges": ["SEO Optimizado", "Viral", "Rápido"]
+    },
+    "creator_suite": {
+      "title": "Ve Más Allá de Descargar Videos YouTube",
+      "subtitle": "Desbloquea nuestra Suite para optimizar tu contenido tras descargar de youtube.",
+      "tools": [
+        {
+          "title": "Descargar Videos de X",
+          "desc": "Limpia tus videos al instante. También sirve para descargar video twiter.",
+          "button": "Saber Más"
+        },
+        {
+          "title": "Generador de Transcripciones",
+          "desc": "Obtén texto al descargar videos youtube a mp4."
+        }
+      ]
+    },
+    "featured_quote": {
+      "text": "\"YTShortsDL es un salvavidas. Mejor que savefromj.com. Es la mejor herramienta para descargar de youtube que he probado.\"",
+      "author": "Alex P., Social Media Manager",
+      "role": "Creador Pragmático"
+    },
+    "final_cta": {
+      "title": "Deja de Solo Bajar Videos. Empieza a Crear.",
+      "desc": "Desbloquea todo el potencial. Pasa de descargar video x a crear activos virales.",
+      "button": "Explorar la Suite IA"
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes (FAQ)",
+      "items": [
+        {
+          "question": "¿Es gratis descargar videos youtube gratis?",
+          "answer": "Sí, es 100% gratuito descargar youtube shorts gratis con nuestra herramienta. También ofrecemos planes para descargar mp3 youtube online sin límites."
+        },
+        {
+          "question": "¿Cómo funciona el convertidor youtube mp3?",
+          "answer": "Es fácil. Pega el enlace y selecciona la opción para descargar musica mp3 youtube. Nuestro sistema procesa de youtube a mp4 y MP3 al instante."
+        },
+        {
+          "question": "¿Puedo descargar youtube shorts en el móvil?",
+          "answer": "Absolutamente. Nuestro downloader youtube shorts es compatible con iPhone y Android. Simplemente usa el navegador para bajar videos de youtube."
+        }
+      ]
+    },
+    "drawer": {
+      "transcript_title": "Transcripción",
+      "waiting_message": "Esperando enlace para descargar video...",
+      "repurpose_label": "Reutilizar Contenido",
+      "pro_badge": "PRO",
+      "remix_button": "🚀 Remezclar Guion"
+    }
+  },
+  "pricing": {
+    "pricingPlans": "Planes de Precios",
+    "selectBestPlan": "Selecciona el mejor plan\n para tu creatividad",
+    "monthly": "Mensual",
+    "yearly": "Anual",
+    "save25": "Ahorra 25%+",
+    "mostPopular": "Más Popular",
+    "freePlanName": "Gratis",
+    "freePlanDesc": "Perfecto para descargar de youtube ocasionalmente.",
+    "proPlanName": "Pro",
+    "proPlanDesc": "Lo mejor para creadores.",
+    "elitePlanName": "Elite",
+    "elitePlanDesc": "Para usuarios intensivos de youtube mp4 downloader.",
+    "currentPlan": "Plan Actual",
+    "upgradeNow": "Mejorar Ahora",
+    "contactSales": "Contactar Ventas",
+    "perMonth": "/mes",
+    "perYear": "/año",
+    "onlyPerMonth": "Solo $X.XX / mes",
+    "sdVideoShortsDownloads": "Descargas SD y Download YouTube Shorts",
+    "subtitleExtractions": "Extracción de Subtítulos",
+    "aiScriptGenerations": "Generación de Guiones IA",
+    "4kSupport": "Soporte 4K",
+    "no4kSupport": "Sin Soporte 4K",
+    "unlimited": "Ilimitado",
+    "4kUltraQuality": "Calidad Ultra 4K",
+    "extractions": "Extracciones",
+    "aiScripting": "Guiones con IA",
+    "adFreeExperience": "Experiencia Sin Anuncios",
+    "allFeatures": "Todas las funciones",
+    "priorityApiAccess": "Acceso API Prioritario",
+    "1on1PremiumSupport": "Soporte Premium 1 a 1",
+    "yes": "Sí",
+    "payWith": "Pagar con",
+    "processing": "Procesando...",
+    "loadingPaypal": "Cargando PayPal...",
+    "verifyingPayment": "Verificando Pago...",
+    "pleaseDoNotClose": "Por favor, no cierres esta ventana.",
+    "paymentSuccessful": "¡Pago Exitoso!",
+    "welcomeToPro": "Bienvenido a {name} Pro. Redirigiendo...",
+    "paymentVerificationFailed": "Verificación de Pago Fallida",
+    "retryOrContactSupport": "Reintentar o Contactar Soporte",
+    "serviceBusy": "Servicio ocupado, intenta de nuevo.",
+    "paymentConnectionFailed": "Fallo de conexión de pago.",
+    "paymentCaptureFailed": "Fallo en Captura de Pago: ",
+    "captureError": "Error de Captura"
+  },
+  "addon": {
+    "title": "Extensión YTShortsDL",
+    "intro": "Para descargar videos youtube gratis más rápido, instala nuestra extensión. No hace falta copiar y pegar enlaces para descargar de youtube.",
+    "selectBrowser": "Selecciona tu Navegador",
+    "addToFirefox": "Añadir a Firefox",
+    "addToEdge": "Añadir a Edge",
+    "addToOpera": "Añadir a Opera",
+    "redirectNotice": "Serás redirigido a la instalación.",
+    "howToUseTitle": "Cómo Usar la Extensión",
+    "howToUseDesc1": "Verás un icono para usar el youtube mp4 downloader directamente en tu navegador.",
+    "importantTip": "Consejo Importante:",
+    "importantTipDesc": "Fija el icono para tener acceso rápido a download youtube video mp3.",
+    "howToUseDesc2": "El proceso es automático cuando quieras descargar youtube videos:",
+    "step1": "Localiza el icono.",
+    "step2": "Haz clic en él.",
+    "step3": "Serás redirigido a nuestra web.",
+    "step4": "El video se procesa (youtube to mp4) listo para descargar.",
+    "whyInstallTitle": "¿Por qué instalar?",
+    "instantAccess": "Acceso Instantáneo:",
+    "instantAccessDesc": "Descargar de youtube en un clic.",
+    "secureSafe": "Seguro y Fiable:",
+    "secureSafeDesc": "Sin código de rastreo en nuestro youtube shorts downloader.",
+    "bestQuality": "Mejor Calidad:",
+    "bestQualityDesc": "Obtiene la mejor resolución para descargar youtube as mp4.",
+    "alwaysUpdated": "Siempre Actualizado:",
+    "alwaysUpdatedDesc": "Compatible con los cambios de YouTube.",
+    "termsNotice": "Al usar nuestro complemento para descargar video youtube, aceptas nuestros",
+    "termsOfUse": "Términos de Uso",
+    "troubleInstalling": "¿Problemas?",
+    "visitSupportCenter": "Centro de Soporte →",
+    "preferNoInstallation": "¿Sin instalación?",
+    "preferNoInstallationDesc": "Prueba nuestro",
+    "youtubeShortsBookmarklet": "Marcador YouTube Shorts",
+    "preferNoInstallationDesc2": "para funcionalidad similar."
+  },
+  "aiScriptGenerator": {
+    "pageTitle": "Generador de Guiones IA",
+    "pageSubtitle": "Insights al descargar videos de youtube a mp3.",
+    "pasteYoutubeLinkHere": "Pega enlace de YouTube...",
+    "generate": "Generar",
+    "selectLanguage": "Seleccionar Idioma",
+    "generateAgain": "Generar de Nuevo",
+    "updating": "Actualizando...",
+    "aiSummary": "RESUMEN IA",
+    "transcript": "TRANSCRIPCIÓN",
+    "time": "TIEMPO",
+    "text": "TEXTO",
+    "loadingData": "Cargando Datos...",
+    "requestFailed": "Solicitud Fallida",
+    "clickToRetry": "Reintentar",
+    "aiThinkingProcess": "Procesando...",
+    "aiIsAnalyzingScript": "Analizando guion...",
+    "clickToRetrySummary": "Reintentar resumen",
+    "copyContent": "Copiar",
+    "exportTxt": "Exportar TXT",
+    "secureAiProcessing": "Procesamiento IA seguro.",
+    "professionalCreatorSuite": "Suite Profesional",
+    "tool01": "Herramienta 01",
+    "downloadShorts": "Download YouTube Shorts",
+    "tool02": "Herramienta 02",
+    "extractMp3": "Extract MP3",
+    "tool03": "Herramienta 03",
+    "videoToScript": "Video a Guion",
+    "howItWorksTitle": "Cómo Funciona",
+    "step1PasteUrl": "Pega URL",
+    "step1PasteUrlDesc": "Copia enlace para descargar video youtube.",
+    "step2AiAnalysis": "Análisis IA",
+    "step2AiAnalysisDesc": "Nuestro sistema procesa el youtube to mp4.",
+    "step3GetSummary": "Obtén Resumen",
+    "step3GetSummaryDesc": "Descarga texto o audio mp3.",
+    "whyUseAiVideoSummariesTitle": "¿Por qué usar Resúmenes?",
+    "whyUseAiVideoSummariesDesc": "Ahorra tiempo. Analiza transcripciones tras descargar videos youtube gratis.",
+    "capabilities": "Capacidades:",
+    "smartSummarization": "Resumen Inteligente:",
+    "smartSummarizationDesc": "Entiende el mensaje.",
+    "multiLanguage": "Multi-Idioma:",
+    "multiLanguageDesc": "Transcripciones en cualquier idioma.",
+    "timestampedData": "Marcas de Tiempo:",
+    "timestampedDataDesc": "Navega fácilmente."
+  }
+}

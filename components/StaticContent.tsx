@@ -1,76 +1,35 @@
 import Link from "next/link"
 import Image from 'next/image'
 import { Wand2, ArrowRight, Quote, Sparkles, Check, Star } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+
 export function StaticContent() {
+    const t = useTranslations('staticContent');
+
+    // 结构化数据，用于循环渲染评论，内容从 JSON 中获取
     const testimonials = [
-        {
-            id: 1,
-            name: "Andrés Alejo",
-            initials: "AA",
-            avatar: "/avatar/AndrésAlejo.jpg", // 如果有图片路径则放入
-            text: "This downloader is incredibly fast. I've tried many tools, but this one's clean interface and speed are on another level.",
-            date: "Jan 31, 2025",
-            source: "google"
-        },
-        {
-            id: 2,
-            name: "Steph B",
-            initials: "SB",
-            avatar: "/avatar/StephB.jpg",
-            text: "The amount of features available seems to be beyond what others offer. By far the most stacked AI tools for creators.",
-            date: "Jan 27, 2025",
-            source: "trustpilot"
-        },
-        {
-            id: 3,
-            name: "Jessica Suggs",
-            initials: "JS",
-            avatar: "/avatar/JessicaSuggs.jpg",
-            text: "Excellent tool for real estate content! I save hours of work by downloading and using the AI script remixed for my listings.",
-            date: "Jan 22, 2026",
-            source: "google"
-        },
-        {
-            id: 4,
-            name: "Mateusz Sebastian",
-            initials: "MS",
-            avatar: "/avatar/MateuszSebastian.jpg",
-            text: "Extremely useful tool which helped me coming back to regular posting on social media with consistent quality.",
-            date: "Jan 21, 2026",
-            source: "google"
-        },
-        {
-            id: 5,
-            name: "U SAT Autotech",
-            initials: "UA",
-            avatar: "/avatar/USATAutotech.jpg",
-            text: "Best service I've found so far. Simple, effective, and works every single time without annoying ads.",
-            date: "Jan 19, 2024",
-            source: "google"
-        },
-        {
-            id: 6,
-            name: "Ranking Rider",
-            initials: "RR",
-            avatar: "/avatar/RankingRider.jpg",
-            text: "Solid tool overall. The batch download feature is a lifesaver for my archival work.",
-            date: "Jan 16, 2026",
-            source: "google"
-        }
+        { id: 1, initials: "AA", avatar: "/avatar/AndrésAlejo.jpg", source: "google", key: "items.0" },
+        { id: 2, initials: "SB", avatar: "/avatar/StephB.jpg", source: "trustpilot", key: "items.1" },
+        { id: 3, initials: "JS", avatar: "/avatar/JessicaSuggs.jpg", source: "google", key: "items.2" },
+        { id: 4, initials: "MS", avatar: "/avatar/MateuszSebastian.jpg", source: "google", key: "items.3" },
+        { id: 5, initials: "UA", avatar: "/avatar/USATAutotech.jpg", source: "google", key: "items.4" },
+        { id: 6, initials: "RR", avatar: "/avatar/RankingRider.jpg", source: "google", key: "items.5" }
     ];
+
     return (
         <>
             <section className="py-8 bg-white border-y border-slate-200/80">
                 <div className="container mx-auto px-6 max-w-7xl">
                     <h2 className="max-w-4xl mx-auto text-3xl font-black text-slate-900 mb-4 tracking-tighter">
-                        Simple 3-Step Guide to Download YouTube Videos & Shorts
+                        {t('guide.title')}
                     </h2>
                     <div className="pt-8">
                         <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0 relative">
+                            {/* Step 1 */}
                             <div className="flex-1 flex items-start space-x-4 md:flex-col md:space-x-0 md:items-center text-center">
                                 <div className="md:mt-4">
-                                    <h3 className="text-xl font-bold text-slate-800 mb-1">1. Copy YouTube Link</h3>
-                                    <p className="text-slate-600 text-left md:text-center">Find the YouTube Short video you need and copy its URL.</p>
+                                    <h3 className="text-xl font-bold text-slate-800 mb-1">{t('guide.steps.0.title')}</h3>
+                                    <p className="text-slate-600 text-left md:text-center">{t('guide.steps.0.description')}</p>
                                 </div>
                             </div>
 
@@ -80,10 +39,11 @@ export function StaticContent() {
                                 </svg>
                             </div>
 
+                            {/* Step 2 */}
                             <div className="flex-1 flex items-start space-x-4 md:flex-col md:space-x-0 md:items-center text-center">
                                 <div className="md:mt-4">
-                                    <h3 className="text-xl font-bold text-slate-800 mb-1">2. Paste URL Here</h3>
-                                    <p className="text-slate-600 text-left md:text-center">Paste the URL into the box above and click 'Parse' .</p>
+                                    <h3 className="text-xl font-bold text-slate-800 mb-1">{t('guide.steps.1.title')}</h3>
+                                    <p className="text-slate-600 text-left md:text-center">{t('guide.steps.1.description')}</p>
                                 </div>
                             </div>
 
@@ -93,10 +53,11 @@ export function StaticContent() {
                                 </svg>
                             </div>
 
+                            {/* Step 3 */}
                             <div className="flex-1 flex items-start space-x-4 md:flex-col md:space-x-0 md:items-center text-center">
                                 <div className="md:mt-4">
-                                    <h3 className="text-xl font-bold text-slate-800 mb-1">3. Download</h3>
-                                    <p className="text-slate-600 text-left md:text-center">Hit the button. The high-quality file is saved instantly to your device.</p>
+                                    <h3 className="text-xl font-bold text-slate-800 mb-1">{t('guide.steps.2.title')}</h3>
+                                    <p className="text-slate-600 text-left md:text-center">{t('guide.steps.2.description')}</p>
                                 </div>
                             </div>
                         </div>
@@ -104,19 +65,18 @@ export function StaticContent() {
                 </div>
             </section>
 
-            {/* --- 评论展示模块 --- */}
+            {/* Testimonials */}
             <section className="py-24 bg-slate-50">
                 <div className="container mx-auto px-6 max-w-6xl">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-4 tracking-tighter">
-                            Join 50,000+ Creators Saving Hours Every Week
+                            {t('testimonials.title')}
                         </h2>
                         <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">
-                            See why social media managers call our AI Suite their "secret weapon" for lightning-fast content repurposing.
+                            {t('testimonials.subtitle')}
                         </p>
                     </div>
 
-                    {/* 评论网格布局 */}
                     <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
                         {testimonials.map((item) => (
                             <div key={item.id} className="break-inside-avoid bg-white p-8 rounded-[32px] border border-slate-200/60 shadow-sm hover:shadow-xl transition-all duration-300">
@@ -124,7 +84,7 @@ export function StaticContent() {
                                     <div className="flex items-center gap-3">
                                         {item.avatar ? (
                                             <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                                                <Image src={item.avatar} alt={item.name} fill className="object-cover" />
+                                                <Image src={item.avatar} alt={t(`testimonials.${item.key}.name`)} fill className="object-cover" />
                                             </div>
                                         ) : (
                                             <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold text-lg border border-slate-200">
@@ -132,10 +92,9 @@ export function StaticContent() {
                                             </div>
                                         )}
                                         <div>
-                                            <h4 className="font-bold text-slate-900 leading-none">{item.name}</h4>
+                                            <h4 className="font-bold text-slate-900 leading-none">{t(`testimonials.${item.key}.name`)}</h4>
                                         </div>
                                     </div>
-                                    {/* 平台图标 - 模拟 Google 图标 */}
                                     <div className="w-5 h-5 opacity-80">
                                         {item.source === 'google' ? (
                                             <svg viewBox="0 0 24 24" className="fill-current text-blue-500">
@@ -146,22 +105,16 @@ export function StaticContent() {
                                         )}
                                     </div>
                                 </div>
-
-                                {/* 星级 */}
                                 <div className="flex gap-0.5 mb-3 text-amber-400">
                                     {[...Array(5)].map((_, i) => (
                                         <Star key={i} size={18} fill="currentColor" />
                                     ))}
                                 </div>
-
-                                {/* 评论内容 */}
                                 <p className="text-slate-600 text-sm leading-relaxed mb-4 font-medium">
-                                    {item.text}
+                                    {t(`testimonials.${item.key}.text`)}
                                 </p>
-
-                                {/* 日期 */}
                                 <div className="text-slate-400 text-xs font-bold uppercase tracking-wider">
-                                    {item.date}
+                                    {t(`testimonials.${item.key}.date`)}
                                 </div>
                             </div>
                         ))}
@@ -169,30 +122,30 @@ export function StaticContent() {
                 </div>
             </section>
 
-
+            {/* Features Speed */}
             <section id="features" className="py-24 bg-slate-100">
                 <div className="container max-w-6xl mx-auto px-6">
                     <div className="grid md:grid-cols-2 gap-16 items-center">
                         <div>
-                            <h2 className="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-5">The Fastest and Most<br />Secure Shorts Download Experience</h2>
-                            <h3 className="text-xl font-semibold text-slate-700 mb-8">Our promise: Always faster and more reliable than the competition.</h3>
+                            <h2 className="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-5">{t('features_speed.title')}</h2>
+                            <h3 className="text-xl font-semibold text-slate-700 mb-8">{t('features_speed.subtitle')}</h3>
                             <div className="flex items-center gap-6 mb-8 p-6 bg-white rounded-xl border-l-4 border-red-500">
-                                <strong className="text-3xl md:text-4xl font-extrabold font-poppins text-red-500">23%</strong>
-                                <p className="text-slate-600 font-medium leading-tight">Faster average conversion time than top competitors (e.g., Savetube & Y2mate).</p>
+                                <strong className="text-3xl md:text-4xl font-extrabold font-poppins text-red-500">{t('features_speed.stat_value')}</strong>
+                                <p className="text-slate-600 font-medium leading-tight">{t('features_speed.stat_desc')}</p>
                             </div>
-                            <p className="text-slate-600 leading-relaxed mb-6">We developed ShortsSync because other tools on the market were too slow or unreliable. Our custom protocol ensures maximum speed through:</p>
+                            <p className="text-slate-600 leading-relaxed mb-6">{t('features_speed.description')}</p>
                             <ul className="space-y-4">
                                 <li className="flex items-start">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" className="text-red-500 mt-1 mr-4" width="16" height="16" fill="currentColor">
                                         <path d="M256 0c17.7 0 32 14.3 32 32l0 128 64 0c15.8 0 28.5 11.2 31.4 26.6s-9.9 29.8-25.4 34.6l-224 80c-15.6 5.6-33.1 .5-42.5-12.4s-10.2-29.9-1.8-44.1l64-106.7L96 160c-15.8 0-28.5-11.2-31.4-26.6s9.9-29.8 25.4-34.6l224-80c15.6-5.6 33.1-.5 42.5 12.4s10.2 29.9 1.8 44.1L256 160 256 0z" />
                                     </svg>
-                                    <div><strong className="text-slate-800">Priority Link Parsing:</strong> We process your link instantly, with no waiting time.</div>
+                                    <div><strong className="text-slate-800">{t('features_speed.list.0.label')}</strong> {t('features_speed.list.0.content')}</div>
                                 </li>
                                 <li className="flex items-start">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="text-red-500 mt-1 mr-4" width="16" height="16" fill="currentColor">
                                         <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
                                     </svg>
-                                    <div><strong className="text-slate-800">Invasive Ad Blocking:</strong> No heavy ad scripts means a smoother experience for you.</div>
+                                    <div><strong className="text-slate-800">{t('features_speed.list.1.label')}</strong> {t('features_speed.list.1.content')}</div>
                                 </li>
                             </ul>
                         </div>
@@ -201,7 +154,7 @@ export function StaticContent() {
                             <div className="relative bg-white p-4 rounded-2xl shadow-2xl">
                                 <Image src="/Promise.webp" alt="A visual promise of speed and reliability" className="rounded-xl w-full transition-transform duration-500 group-hover:scale-105" width={400} height={400} />
                                 <div className="absolute -bottom-5 -right-5 bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-xl">
-                                    <figcaption className="text-sm text-slate-600 italic font-medium">Trust speed, not just promises.</figcaption>
+                                    <figcaption className="text-sm text-slate-600 italic font-medium">{t('features_speed.image_caption')}</figcaption>
                                 </div>
                             </div>
                         </div>
@@ -209,12 +162,13 @@ export function StaticContent() {
                 </div>
             </section>
 
+            {/* Formats */}
             <section className="py-24 bg-white">
                 <div className="container max-w-6xl mx-auto px-6 space-y-24">
                     <div className="grid md:grid-cols-1 gap-8 items-center">
                         <div className="text-left">
-                            <h2 className="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-5">Supported Formats:<br />MP4, MP3, and Quality</h2>
-                            <p className="text-slate-600 text-lg leading-relaxed mb-10">We don't just download; we ensure your videos meet all content repurposing requirements.</p>
+                            <h2 className="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-5">{t('formats.title')}</h2>
+                            <p className="text-slate-600 text-lg leading-relaxed mb-10">{t('formats.description')}</p>
                             <div className="grid sm:grid-cols-2 gap-8">
                                 <div className="bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-transparent transition-all duration-300 transform hover:-translate-y-2 hover:shadow-red-500/20 hover:border-red-500/30">
                                     <div className="w-16 h-16 mb-6 flex items-center justify-center bg-red-100 rounded-xl">
@@ -222,9 +176,9 @@ export function StaticContent() {
                                             <path d="M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 288c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128z" />
                                         </svg>
                                     </div>
-                                    <h3 className="text-2xl font-bold text-slate-800 mb-3">High-Quality MP4</h3>
+                                    <h3 className="text-2xl font-bold text-slate-800 mb-3">{t('formats.video_card.title')}</h3>
                                     <p className="text-slate-600 leading-relaxed">
-                                        Download in Standard . For higher quality, check our{" "}
+                                        {t('formats.video_card.content').split('check our')[0]}
                                         <Link href="/4k-shorts-downloader" className="text-red-500 font-semibold hover:underline">
                                             4K/8K Pro Options
                                         </Link>.
@@ -236,16 +190,18 @@ export function StaticContent() {
                                             <path d="M0 256a256 256 0 1 1 512 0 256 256 0 1 1 -512 0zM188.3 147.1c-7.6 4.2-12.3 12.3-12.3 20.9l0 176c0 8.7 4.7 16.7 12.3 20.9s16.8 4.1 24.3-.5l144-88c7.1-4.4 11.5-12.1 11.5-20.5s-4.4-16.1-11.5-20.5l-144-88c-7.4-4.5-16.7-4.7-24.3-.5z" />
                                         </svg>
                                     </div>
-                                    <h3 className="text-2xl font-bold text-slate-800 mb-3">MP3 Audio Extraction</h3>
-                                    <p className="text-slate-600 leading-relaxed">Instantly separate the audio track for remixes or sound design, without any extra conversion tools.</p>
+                                    <h3 className="text-2xl font-bold text-slate-800 mb-3">{t('formats.audio_card.title')}</h3>
+                                    <p className="text-slate-600 leading-relaxed">{t('formats.audio_card.content')}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    {/* Why Online Tool */}
                     <div className="grid md:grid-cols-2 gap-x-16 gap-y-10 items-center">
                         <div className="text-left">
-                            <h2 className="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-5">Why an Online Tool Over an<br />Extension or App?</h2>
-                            <p className="text-slate-600 text-lg leading-relaxed">Security, speed, and simplicity are key. Here's why our online tool is the future of content repurposing:</p>
+                            <h2 className="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-5">{t('why_online.title')}</h2>
+                            <p className="text-slate-600 text-lg leading-relaxed">{t('why_online.description')}</p>
                         </div>
                         <div className="bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-200/60">
                             <ul className="space-y-6">
@@ -256,8 +212,8 @@ export function StaticContent() {
                                         </svg>
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-lg text-slate-800">Zero Installation, Instant Start</h3>
-                                        <p className="text-slate-600 leading-relaxed mt-1">No malware or browser plugins. Just a clean, fast tool that works instantly.</p>
+                                        <h3 className="font-bold text-lg text-slate-800">{t('why_online.points.0.title')}</h3>
+                                        <p className="text-slate-600 leading-relaxed mt-1">{t('why_online.points.0.content')}</p>
                                     </div>
                                 </li>
                                 <li className="flex items-start">
@@ -267,8 +223,8 @@ export function StaticContent() {
                                         </svg>
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-lg text-slate-800">Universal Compatibility</h3>
-                                        <p className="text-slate-600 leading-relaxed mt-1">Works seamlessly on iOS, Android, PC, and Mac. No need for a dedicated app download.</p>
+                                        <h3 className="font-bold text-lg text-slate-800">{t('why_online.points.1.title')}</h3>
+                                        <p className="text-slate-600 leading-relaxed mt-1">{t('why_online.points.1.content')}</p>
                                     </div>
                                 </li>
                                 <li className="flex items-start">
@@ -278,8 +234,8 @@ export function StaticContent() {
                                         </svg>
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-lg text-slate-800">Guaranteed Privacy</h3>
-                                        <p className="text-slate-600 leading-relaxed mt-1">Server-side processing means we <strong>never</strong> touch, view, or store your files.</p>
+                                        <h3 className="font-bold text-lg text-slate-800">{t('why_online.points.2.title')}</h3>
+                                        <p className="text-slate-600 leading-relaxed mt-1">{t('why_online.points.2.content')}</p>
                                     </div>
                                 </li>
                             </ul>
@@ -288,50 +244,47 @@ export function StaticContent() {
                 </div>
             </section>
 
+            {/* AI Examples */}
             <section className="py-24 bg-slate-50 border-t border-slate-200">
                 <div className="container max-w-6xl mx-auto px-6">
                     <div className="text-center mb-4">
                         <h2 className="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-4">
-                            AI-Generated Content Examples
+                            {t('ai_examples.title')}
                         </h2>
                         <p className="text-lg text-slate-600 max-w-2xl mx-auto font-medium">
-                            See how our AI transforms raw YouTube transcripts into high-engagement, original scripts for your social media.
+                            {t('ai_examples.subtitle')}
                         </p>
                     </div>
                     <div className="container mx-auto p-6 max-w-4xl text-center">
                         <div className="grid md:grid-cols-3 gap-8">
                             <div>
                                 <div className="text-4xl mb-4">🔗</div>
-                                <h3 className="text-xl font-bold mb-2">1. Paste Link</h3>
-                                <p className="text-slate-600 text-sm">Paste any YouTube Shorts URL to start extraction.</p>
+                                <h3 className="text-xl font-bold mb-2">{t('ai_examples.steps.0.title')}</h3>
+                                <p className="text-slate-600 text-sm">{t('ai_examples.steps.0.desc')}</p>
                             </div>
                             <div>
                                 <div className="text-4xl mb-4">🤖</div>
-                                <h3 className="text-xl font-bold mb-2">2. Extract AI Script</h3>
-                                <p className="text-slate-600 text-sm">Automatically turn video audio into structured text scripts.
-                                </p>
+                                <h3 className="text-xl font-bold mb-2">{t('ai_examples.steps.1.title')}</h3>
+                                <p className="text-slate-600 text-sm">{t('ai_examples.steps.1.desc')}</p>
                             </div>
                             <div>
                                 <div className="text-4xl mb-4">🚀</div>
-                                <h3 className="text-xl font-bold mb-2">3. Remix & Download</h3>
-                                <p className="text-slate-600 text-sm">Use AI to rewrite and download your new content instantly.</p>
+                                <h3 className="text-xl font-bold mb-2">{t('ai_examples.steps.2.title')}</h3>
+                                <p className="text-slate-600 text-sm">{t('ai_examples.steps.2.desc')}</p>
                             </div>
                         </div>
                     </div>
                     <div className="relative grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-center gap-8 bg-white p-6 md:p-12 rounded-[40px] shadow-xl border border-slate-100">
-
-                        {/* 左侧：原始 Transcript */}
                         <div className="flex flex-col h-full">
                             <div className="flex items-center gap-2 mb-4 text-slate-400 font-black uppercase tracking-widest text-[10px]">
                                 <Quote size={12} />
-                                Raw YouTube Transcript
+                                {t('ai_examples.transcript_label')}
                             </div>
                             <div className="flex-1 p-6 bg-slate-50 rounded-3xl border border-slate-100 text-sm text-slate-500 leading-relaxed italic font-mono">
-                                "So today I'm going to show you this cool life hack with a plastic bottle. You just cut the top off and then you can use it to seal bags of rice or chips... it's really simple and works every time, you should definitely try it out at home..."
+                                {t('ai_examples.transcript_content')}
                             </div>
                         </div>
 
-                        {/* 中间：魔术棒图标 */}
                         <div className="flex flex-col items-center justify-center gap-2">
                             <div className="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg shadow-red-200 animate-pulse">
                                 <Wand2 size={24} />
@@ -339,59 +292,53 @@ export function StaticContent() {
                             <ArrowRight className="hidden md:block text-slate-300" />
                         </div>
 
-                        {/* 右侧：AI 改写后的 Script */}
                         <div className="flex flex-col h-full">
                             <div className="flex items-center gap-2 mb-4 text-red-600 font-black uppercase tracking-widest text-[10px]">
                                 <Sparkles size={12} fill="currentColor" />
-                                AI-Optimized Viral Script
+                                {t('ai_examples.ai_script_label')}
                             </div>
-                            <div className="flex-1 p-6 bg-red-50/50 rounded-3xl border border-red-100 text-sm text-slate-800 leading-relaxed font-bold shadow-inner">
-                                "STOP throwing away your plastic bottles! 🛑 Here is a genius 5-second hack to keep your snacks fresh forever. 🍿 <br /><br />
-                                1️⃣ Cut the cap section.<br />
-                                2️⃣ Slide it over your bag.<br />
-                                3️⃣ Twist the lid shut.<br /><br />
-                                Boom! Perfectly sealed. 🔒 Follow for more life-changing creator tips! 🔥"
-                            </div>
+                            <div
+                                className="flex-1 p-6 bg-red-50/50 rounded-3xl border border-red-100 text-sm text-slate-800 leading-relaxed font-bold shadow-inner"
+                                dangerouslySetInnerHTML={{ __html: t('ai_examples.ai_script_content') }}
+                            />
                         </div>
 
-                        {/* 底部补充说明，增强 Google 爬虫的增量价值识别 */}
                         <div className="md:col-span-3 mt-4 pt-4 border-t border-slate-100 text-center">
-
                             <div className="my-4 flex justify-center text-center">
                                 <Link
                                     href="/ai-script-generator"
                                     className="inline-flex items-center gap-3 px-10 py-5 bg-red-600 text-white font-black rounded-3xl hover:bg-red-500 hover:-translate-y-1 transition-all active:scale-95 group"
                                 >
                                     <Wand2 size={20} />
-                                    <span>Try AI Script Generator Now</span>
+                                    <span>{t('ai_examples.cta_button')}</span>
                                     <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                                 </Link>
-
                             </div>
                             <div className="inline-flex items-center gap-4 px-6 py-2 bg-slate-100 rounded-full text-xs font-bold text-slate-500">
                                 <span className="flex items-center gap-1 text-green-600">
-                                    <Check size={14} strokeWidth={3} /> SEO Optimized
+                                    <Check size={14} strokeWidth={3} /> {t('ai_examples.badges.0')}
                                 </span>
                                 <span className="flex items-center gap-1 text-green-600">
-                                    <Check size={14} strokeWidth={3} /> Re-hooked Intro
+                                    <Check size={14} strokeWidth={3} /> {t('ai_examples.badges.1')}
                                 </span>
                                 <span className="flex items-center gap-1 text-green-600">
-                                    <Check size={14} strokeWidth={3} /> High Readability
+                                    <Check size={14} strokeWidth={3} /> {t('ai_examples.badges.2')}
                                 </span>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </section>
+
+            {/* Creator Suite */}
             <section className="py-24 bg-slate-50 border-y border-slate-200/80">
                 <div className="container mx-auto px-6">
                     <div className="text-center mb-16 max-w-3xl mx-auto">
-                        <h2 className="text-3xl md:text-4xl font-bold font-poppins text-slate-900">Go Beyond Downloading with AI</h2>
-                        <p className="mt-4 text-lg text-slate-600 leading-relaxed">Unlock our Creator Suite to optimize and repurpose your content like never before.</p>
+                        <h2 className="text-3xl md:text-4xl font-bold font-poppins text-slate-900">{t('creator_suite.title')}</h2>
+                        <p className="mt-4 text-lg text-slate-600 leading-relaxed">{t('creator_suite.subtitle')}</p>
                     </div>
                     <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-200/60 divide-y divide-slate-200">
+                        {/* Tool 1 */}
                         <div className="p-8 grid md:grid-cols-[auto_1fr_auto] items-center gap-6 hover:bg-slate-50 transition-colors duration-300">
                             <div className="w-12 h-12 shrink-0 flex items-center justify-center bg-red-100 rounded-lg">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" className="text-2xl text-red-500" width="24" height="24" fill="currentColor">
@@ -399,16 +346,17 @@ export function StaticContent() {
                                 </svg>
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold text-slate-800 mb-1">AI Watermark Remover</h3>
-                                <p className="text-slate-600 leading-relaxed">Instantly remove watermarks for seamless cross-platform sharing.</p>
+                                <h3 className="text-xl font-bold text-slate-800 mb-1">{t('creator_suite.tools.0.title')}</h3>
+                                <p className="text-slate-600 leading-relaxed">{t('creator_suite.tools.0.desc')}</p>
                             </div>
                             <Link href="/no-watermark" className="px-5 py-2 text-center font-semibold text-slate-700 bg-slate-200 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-300 group flex items-center">
-                                Learn More{" "}
+                                {t('creator_suite.tools.0.button')}{" "}
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="ml-1 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" width="14" height="14" fill="currentColor">
                                     <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
                                 </svg>
                             </Link>
                         </div>
+                        {/* Tool 2 */}
                         <div className="p-8 grid md:grid-cols-[auto_1fr_auto] items-center gap-6 hover:bg-slate-50 transition-colors duration-300">
                             <div className="w-12 h-12 shrink-0 flex items-center justify-center bg-red-100 rounded-lg">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" className="text-2xl text-red-500" width="24" height="24" fill="currentColor">
@@ -416,13 +364,14 @@ export function StaticContent() {
                                 </svg>
                             </div>
                             <div>
-                                <h3 className="text-xl font-bold text-slate-800 mb-1">Transcript Generator</h3>
-                                <p className="text-slate-600 leading-relaxed">Get the full text of any Short for instant blog posts or captions.</p>
+                                <h3 className="text-xl font-bold text-slate-800 mb-1">{t('creator_suite.tools.1.title')}</h3>
+                                <p className="text-slate-600 leading-relaxed">{t('creator_suite.tools.1.desc')}</p>
                             </div>
                             <Link href="/pricing" className="px-5 py-2 text-center font-semibold text-slate-700 bg-slate-200 rounded-lg hover:bg-red-500 hover:text-white transition-all duration-300 group flex items-center">
-                                Get Transcript{" "}
+                                {t('creator_suite.tools.0.button')}{" "}
+
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="ml-1 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" width="14" height="14" fill="currentColor">
-                                    <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5-32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
+                                    <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
                                 </svg>
                             </Link>
                         </div>
@@ -430,6 +379,7 @@ export function StaticContent() {
                 </div>
             </section >
 
+            {/* Featured Quote */}
             <section className="py-24 bg-slate-50 border-y border-slate-200/80">
                 <div className="container max-w-4xl mx-auto px-6 text-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="text-5xl text-slate-300 inline-block" width="48" height="48" fill="currentColor">
@@ -437,89 +387,71 @@ export function StaticContent() {
                     </svg>
                     <blockquote className="mt-6">
                         <p className="text-xl md:text-2xl font-medium text-slate-800 italic leading-relaxed">
-                            "YTShortsDL is a lifesaver. The AI watermark remover saves me at least 2 hours every week. It's not an expense; it's an investment in my workflow."
+                            {t('featured_quote.text')}
                         </p>
                     </blockquote>
                     <figcaption className="mt-8">
-                        <p className="font-bold text-lg text-slate-900">Alex P., Social Media Manager</p>
-                        <p className="text-sm text-slate-500">Pragmatic Creator</p>
+                        <p className="font-bold text-lg text-slate-900">{t('featured_quote.author')}</p>
+                        <p className="text-sm text-slate-500">{t('featured_quote.role')}</p>
                     </figcaption>
                 </div>
             </section>
 
+            {/* Final CTA */}
             <section className="py-24">
                 <div className="container mx-auto px-6 text-center">
                     <div className="bg-linear-to-r from-slate-800 to-slate-900 text-white p-12 rounded-2xl shadow-2xl relative overflow-hidden">
                         <div className="absolute -top-1/4 -right-1/4 w-80 h-80 bg-red-500/20 rounded-full filter blur-3xl opacity-50"></div>
                         <div className="relative z-10">
-                            <h2 className="text-3xl md:text-4xl font-bold font-poppins text-white">Stop Just Downloading. Start Creating.</h2>
-                            <p className="mt-4 text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">Unlock the full potential of your content. Go from a simple video to a multi-platform asset with our AI-powered Creator Suite.</p>
+                            <h2 className="text-3xl md:text-4xl font-bold font-poppins text-white">{t('final_cta.title')}</h2>
+                            <p className="mt-4 text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">{t('final_cta.desc')}</p>
                             <Link href="/pricing" className="mt-10 inline-block bg-red-500 text-white font-bold text-lg px-10 py-4 rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-red-500/40">
-                                Explore the AI Suite
+                                {t('final_cta.button')}
                             </Link>
                         </div>
                     </div>
                 </div>
             </section>
 
+            {/* FAQ */}
             <section id="faq" className="py-24 border-t border-slate-200/80 bg-white">
-                <div className="container max-w-5xl mx-auto px-6  ">
-                    <h2 className="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-10">Frequently Asked Questions (FAQ)</h2>
+                <div className="container max-w-5xl mx-auto px-6">
+                    <h2 className="text-3xl md:text-4xl font-bold font-poppins text-slate-900 mb-10">{t('faq.title')}</h2>
                     <div className="space-y-4">
-                        <details className="bg-white p-6 rounded-lg group shadow-lg border border-slate-200/50 shadow-slate-200/50">
-                            <summary className="font-semibold text-lg text-slate-800 list-none flex justify-between items-center cursor-pointer">
-                                Is this YouTube Shorts Downloader completely free?
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="transition-transform duration-300 group-open:rotate-180" width="16" height="16" fill="currentColor">
-                                    <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-                                </svg>
-                            </summary>
-                            <p className="mt-4 text-slate-600 leading-relaxed">
-                                Yes, the core download functionality is <strong>100% free </strong>. We offer a paid subscription for premium features like 4K downloads and our AI Watermark Remover tool.
-                            </p>
-                        </details>
-                        <details className="bg-white p-6 rounded-lg group shadow-lg border border-slate-200/50 shadow-slate-200/50">
-                            <summary className="font-semibold text-lg text-slate-800 list-none flex justify-between items-center cursor-pointer">
-                                Will the YouTube watermark be preserved when I download?
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="transition-transform duration-300 group-open:rotate-180" width="16" height="16" fill="currentColor">
-                                    <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-                                </svg>
-                            </summary>
-                            <p className="mt-4 text-slate-600 leading-relaxed">
-                                The free download retains the watermark. We offer a premium, paid AI feature specifically designed to remove watermarks for seamless cross-platform sharing.{" "}
-                                <Link href="/no-watermark" className="text-red-500 font-semibold hover:underline">
-                                    Learn more here.
-                                </Link>
-                            </p>
-                        </details>
-                        <details className="bg-white p-6 rounded-lg group shadow-lg border border-slate-200/50 shadow-slate-200/50">
-                            <summary className="font-semibold text-lg text-slate-800 list-none flex justify-between items-center cursor-pointer">
-                                Is this tool safe to use?
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="transition-transform duration-300 group-open:rotate-180" width="16" height="16" fill="currentColor">
-                                    <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-                                </svg>
-                            </summary>
-                            <p className="mt-4 text-slate-600 leading-relaxed">Absolutely. We use secure, server-side processing methods. Your privacy is fully guaranteed, and we do not store your files or personal data.</p>
-                        </details>
+                        {[0, 1, 2].map((i) => (
+                            <details key={i} className="bg-white p-6 rounded-lg group shadow-lg border border-slate-200/50 shadow-slate-200/50">
+                                <summary className="font-semibold text-lg text-slate-800 list-none flex justify-between items-center cursor-pointer">
+                                    {t(`faq.items.${i}.question`)}
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="transition-transform duration-300 group-open:rotate-180" width="16" height="16" fill="currentColor">
+                                        <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                                    </svg>
+                                </summary>
+                                <p className="mt-4 text-slate-600 leading-relaxed">
+                                    {t(`faq.items.${i}.answer`)}
+                                </p>
+                            </details>
+                        ))}
                     </div>
                 </div>
             </section>
-            <div
-                className="fixed right-0 h-full w-full max-w-md bg-white shadow-2xl transform translate-x-full transition-transform z-[150]">
+
+            {/* Drawer */}
+            <div className="fixed right-0 h-full w-full max-w-md bg-white shadow-2xl transform translate-x-full transition-transform z-[150]">
                 <div className="p-6 border-b border-slate-100 flex items-center justify-between">
-                    <h2 className="text-lg font-black text-slate-900 tracking-tighter uppercase">Transcript</h2>
+                    <h2 className="text-lg font-black text-slate-900 tracking-tighter uppercase">{t('drawer.transcript_title')}</h2>
                     <button className="p-2 hover:bg-slate-100 rounded-full">✕</button>
                 </div>
                 <div className="grow overflow-y-auto p-6 scrollbar-thin">
-                    <div className="text-slate-500 text-sm">Waiting for video link...</div>
+                    <div className="text-slate-500 text-sm">{t('drawer.waiting_message')}</div>
                 </div>
                 <div className="p-6 border-t border-slate-100 bg-red-50/50">
                     <div className="flex items-center justify-between mb-3">
-                        <p className="text-[10px] font-black text-slate-800 uppercase tracking-widest">Repurpose Content</p>
-                        <span className="bg-red-600 text-white text-[8px] px-2 py-0.5 rounded-full font-bold">PRO FEATURE</span>
+                        <p className="text-[10px] font-black text-slate-800 uppercase tracking-widest">{t('drawer.repurpose_label')}</p>
+                        <span className="bg-red-600 text-white text-[8px] px-2 py-0.5 rounded-full font-bold">{t('drawer.pro_badge')}</span>
                     </div>
                     <Link href="/ai-script-generator"
                         className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-2xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-red-200 text-[12px] uppercase">
-                        🚀 One-Click Script Remix
+                        {t('drawer.remix_button')}
                     </Link>
                 </div>
             </div>

@@ -1,8 +1,16 @@
 import type { NextConfig } from "next";
-
+import createNextIntlPlugin from 'next-intl/plugin';
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 const nextConfig: NextConfig = {
    images: {
-    remotePatterns: [new URL('https://media.theresanaiforthat.com/featured-on-taaft.png?width=600')],
+    remotePatterns: [
+       {
+        protocol: 'https',
+        hostname: 'media.theresanaiforthat.com',
+        port: '',
+        pathname: '/**', // 使用通配符匹配所有路径
+      },
+    ],
   },
   async redirects() {
     return [
@@ -25,4 +33,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

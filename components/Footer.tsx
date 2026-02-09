@@ -1,55 +1,59 @@
+"use client";
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 // 1. 提取链接配置数组
-const FOOTER_LINKS = [
+const getFooterLinks = (t: any) => [
     {
-        title: "Core Tools",
+        titleKey: "coreTools",
         links: [
-            { label: "Download Shorts", href: "/" },
-            { label: 'MP3 Audio', href: '/shorts-to-mp3' },
-            { label: 'Video to Script Converter', href: '/video-to-script-converter' },
-            { label: 'AI Script Generator', href: '/ai-script-generator' },
-            { label: 'Youtube Trend', href: '/trending' },
+            { labelKey: "downloadShorts", href: "/" },
+            { labelKey: 'mp3Audio', href: '/shorts-to-mp3' },
+            { labelKey: 'videoToScriptConverter', href: '/video-to-script-converter' },
+            { labelKey: 'aiScriptGenerator', href: '/ai-script-generator' },
+            { labelKey: 'youtubeTrend', href: '/trending' },
         ],
     },
     {
-        title: "Guide",
-
+        titleKey: "guide",
         links: [
-            { label: 'Chrome Extension', href: '/guide/chrome-extension' },
-            { label: 'iPhone Downloader', href: '/guide/iphone-downloader' },
-            { label: 'Latest Shorts Tool', href: '/guide/latest-shorts-tool' },
-            { label: 'Shorts To MP3 Tutorial', href: '/guide/shorts-to-mp3-tutorial' },
-            { label: 'Shorts Without Watermark', href: '/guide/shorts-without-watermark' },
-            { label: 'Best Shorts Downloader Apps', href: '/shorts-reuse-guide' },
-            { label: 'Shorts Creators Reddit Insights', href: '/shorts-creators-reddit-insights' }
+            { labelKey: 'chromeExtension', href: '/guide/chrome-extension' },
+            { labelKey: 'iphoneDownloader', href: '/guide/iphone-downloader' },
+            { labelKey: 'latestShortsTool', href: '/guide/latest-shorts-tool' },
+            { labelKey: 'shortsToMp3Tutorial', href: '/guide/shorts-to-mp3-tutorial' },
+            { labelKey: 'shortsWithoutWatermark', href: '/guide/shorts-without-watermark' },
+            { labelKey: 'bestShortsDownloaderApps', href: '/shorts-reuse-guide' },
+            { labelKey: 'shortsCreatorsRedditInsights', href: '/shorts-creators-reddit-insights' }
         ],
     },
     {
-        title: "Tools",
+        titleKey: "tools",
         links: [
-            { label: "Watermark Remover", href: "/no-watermark" },
-            { label: "4K Shorts Downloader", href: "/4k-shorts-downloader" },
-            { label: "Shorts Thumbnail Tool", href: "/shorts-thumbnail-tool" },
+            { labelKey: "watermarkRemover", href: "/no-watermark" },
+            { labelKey: "4kShortsDownloader", href: "/4k-shorts-downloader" },
+            { labelKey: "shortsThumbnailTool", href: "/shorts-thumbnail-tool" },
         ],
     },
     {
-        title: "Company",
+        titleKey: "company",
         links: [
-            { label: "Pricing", href: "/pricing" },
-            { label: "Add-on", href: "/addon" },
-            { label: "Shorts Reuse Guide", href: "/shorts-reuse-guide" },
-            { label: "Support", href: "/support" },
-            { label: "About Us", href: "/about" },
-            { label: "Privacy Policy", href: "/privacy" },
-            { label: "Terms of Service", href: "/terms" },
+            { labelKey: "pricing", href: "/pricing" },
+            { labelKey: "addon", href: "/addon" },
+            { labelKey: "shortsReuseGuide", href: "/shorts-reuse-guide" },
+            { labelKey: "support", href: "/support" },
+            { labelKey: "aboutUs", href: "/about" },
+            { labelKey: "privacyPolicy", href: "/privacy" },
+            { labelKey: "termsOfService", href: "/terms" },
         ],
     },
 ];
 
 const Footer = () => {
+    const t = useTranslations("footer");
     const currentYear = new Date().getFullYear();
+    const FOOTER_LINKS = getFooterLinks(t);
 
     return (
         <footer className="bg-slate-800 text-slate-300">
@@ -62,8 +66,7 @@ const Footer = () => {
                             YTShorts<span className="text-red-500">dl</span>.net
                         </Link>
                         <p className="my-4 text-sm text-slate-500 leading-relaxed">
-                            The ultimate tool for creators to download, optimize, and repurpose their YouTube Shorts
-                            content. Fast, free, and built with passion.
+                            {t('description')}
                         </p>
                         <Link href="https://theresanaiforthat.com/ai/ytshortsdl-ai-creator-suite/?ref=featured&v=7340698" target="_blank" rel="nofollow" >
                             <Image width="300" height="50" src="https://media.theresanaiforthat.com/featured-on-taaft.png?width=600" alt="Featured on TAAFT" />
@@ -73,7 +76,7 @@ const Footer = () => {
                     {/* 循环渲染提取出的链接数组 */}
                     {FOOTER_LINKS.map((column, index) => (
                         <div key={index}>
-                            <h3 className="font-semibold text-white mb-4">{column.title}</h3>
+                            <h3 className="font-semibold text-white mb-4">{t(column.titleKey)}</h3>
                             <ul className="space-y-3">
                                 {column.links.map((link, linkIndex) => (
                                     <li key={linkIndex}>
@@ -81,7 +84,7 @@ const Footer = () => {
                                             href={link.href}
                                             className="hover:text-red-500 transition-colors text-sm"
                                         >
-                                            {link.label}
+                                            {t(link.labelKey)}
                                         </Link>
                                     </li>
                                 ))}
@@ -94,7 +97,7 @@ const Footer = () => {
                 {/* 底部信息栏 */}
                 <div className="mt-12 pt-8 border-t border-slate-700 flex flex-col sm:flex-row justify-between items-center">
                     <p className="text-sm text-slate-500">
-                        &copy; {currentYear} YTShortsdl.net. All rights reserved.
+                        &copy; {currentYear} YTShortsdl.net. {t('allRightsReserved')}
                     </p>
 
                     {/* 社交媒体图标 */}

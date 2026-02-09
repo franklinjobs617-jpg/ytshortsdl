@@ -1,0 +1,440 @@
+{
+  "common": {
+    "login": "Log in",
+    "getStarted": "Get Started",
+    "wait": "Wait...",
+    "signOut": "Sign out",
+    "subscription": "Subscription",
+    "manageSubscription": "Manage Subscription",
+    "upgradeToPro": "Upgrade to Pro",
+    "removeLimitsAndAds": "Remove limits & Ads"
+  },
+  "header": {
+    "creationAndAI": "Creation & AI",
+    "downloader": "Downloader",
+    "utility": "Utility",
+    "guide": "Guide",
+    "pricing": "Pricing",
+    "aiScriptGenerator": "AI Script Generator",
+    "generateEngagingScripts": "Generate engaging scripts",
+    "scriptConverter": "Script Converter",
+    "videoToTextScripts": "Video to text scripts",
+    "downloadShorts": "Download Shorts",
+    "saveShortsInHD": "Save Shorts in HD",
+    "mp3Audio": "MP3 Audio",
+    "extractAudio": "Extract audio",
+    "4kShortsDownloader": "4K Shorts Downloader",
+    "highQualityVideo": "High quality video",
+    "watermarkRemover": "Watermark Remover",
+    "cleanVideos": "Clean videos",
+    "shortsThumbnail": "Shorts Thumbnail",
+    "grabThumbnails": "Grab thumbnails",
+    "youtubeTrend": "Youtube Trend",
+    "viralContent": "Viral content",
+    "chromeExtension": "Chrome Extension",
+    "downloadExtensionGuide": "Download Extension Guide",
+    "iphoneDownloader": "iPhone Downloader",
+    "youtubeShortsDownloaderOnIphone": "YouTube Shorts Downloader on iPhone",
+    "latestShortsTool": "Latest Shorts Tool",
+    "latestShortsToolGuide": "Latest Shorts Tool Guide",
+    "shortsToMp3Tutorial": "Shorts To MP3 Tutorial",
+    "highQualityShortsMp3DownloaderGuide": "High-Quality Shorts MP3 Downloader Guide",
+    "shortsWithoutWatermark": "Shorts Without Watermark",
+    "downloadShortsWithoutWatermarks": "Download Shorts Without Watermarks",
+    "bestShortsDownloaderApps": "Best Shorts Downloader Apps",
+    "bestCreatorsEssentialGuide": "Best Creator's Essential Guide",
+    "shortsCreatorsRedditInsights": "Shorts Creators Reddit Insights",
+    "ytShortsDownloaderReddit": "YT Shorts Downloader Reddit:",
+    "left": "Left",
+    "dailyQuotaStatus": "Daily Quota Status",
+    "downloadShortsAndVideo": "Download Shorts & Video",
+    "extractTranscript": "Extract Transcript",
+    "aiSummaries": "AI Summaries",
+    "unlimitedAccess": "Unlimited Access",
+    "loggingIn": "Logging in..."
+  },
+  "footer": {
+    "coreTools": "Core Tools",
+    "downloadShorts": "Download Shorts",
+    "mp3Audio": "MP3 Audio",
+    "videoToScriptConverter": "Video to Script Converter",
+    "aiScriptGenerator": "AI Script Generator",
+    "youtubeTrend": "Youtube Trend",
+    "guide": "Guide",
+    "chromeExtension": "Chrome Extension",
+    "iphoneDownloader": "iPhone Downloader",
+    "latestShortsTool": "Latest Shorts Tool",
+    "shortsToMp3Tutorial": "Shorts To MP3 Tutorial",
+    "shortsWithoutWatermark": "Shorts Without Watermark",
+    "bestShortsDownloaderApps": "Best Shorts Downloader Apps",
+    "shortsCreatorsRedditInsights": "Shorts Creators Reddit Insights",
+    "tools": "Tools",
+    "watermarkRemover": "Watermark Remover",
+    "4kShortsDownloader": "4K Shorts Downloader",
+    "shortsThumbnailTool": "Shorts Thumbnail Tool",
+    "company": "Company",
+    "pricing": "Pricing",
+    "addon": "Add-on",
+    "shortsReuseGuide": "Shorts Reuse Guide",
+    "support": "Support",
+    "aboutUs": "About Us",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "description": "The ultimate tool for creators to download, optimize, and repurpose their YouTube Shorts content. Fast, free, and built with passion.",
+    "allRightsReserved": "All rights reserved."
+  },
+  "hero": {
+    "title": "Free YouTube Shorts Downloader :",
+    "aiCreatorSuite": "AI Creator Suite",
+    "subtitle": "Download Shorts and use AI to transform videos into viral scripts instantly.",
+    "single": "Single",
+    "batch": "Batch (Max 3)",
+    "pasteYouTubeLinkHere": "Paste YouTube link here...",
+    "pasteUpTo3Links": "Paste up to 3 links (one per line)...",
+    "paste": "Paste",
+    "parseVideo": "Parse Video",
+    "wait": "Wait...",
+    "analyzingVideos": "ANALYZING VIDEOS...",
+    "readyToDownload": "READY TO DOWNLOAD",
+    "processingYourRequest": "PROCESSING YOUR REQUEST",
+    "parsedViaOurHighSpeedNode": "PARSED VIA OUR HIGH-SPEED NODE",
+    "downloadZip": "Download ZIP",
+    "ready": "Ready",
+    "unlock": "Unlock",
+    "loginToDownload": "Login to Download",
+    "freeDownload": "Free Download",
+    "script": "Script",
+    "professionalCreatorSuite": "Professional Creator Suite",
+    "tool01": "Tool 01",
+    "extractMp3": "Extract MP3",
+    "tool02": "Tool 02",
+    "videoToScript": "Video to Script",
+    "tool03": "Tool 03",
+    "aiScriptGenerator": "AI Script Generator"
+  },
+  "banner": {
+    "aiTool": "AI Tool",
+    "removeWatermark": "Quickly download YouTube subtitles with our free AI-powered suite",
+    "tryFree": "Try Free"
+  },
+  "toast": {
+    "downloadedSuccessfully": "Downloaded successfully",
+    "parsedSuccessfully": "Parsed successfully",
+    "pleaseTryAgain": "Please Try Again",
+    "zipFailed": "ZIP failed",
+    "batchZipSuccess": "Batch ZIP success",
+    "pleaseEnterAUrl": "Please enter a URL"
+  }, 
+  "staticContent": {
+    "guide": {
+      "title": "Simple 3-Step Guide to Download YouTube Videos & Shorts",
+      "steps": [
+        {
+          "title": "1. Copy YouTube Link",
+          "description": "Find the YouTube Short video you need and copy its URL."
+        },
+        {
+          "title": "2. Paste URL Here",
+          "description": "Paste the URL into the box above and click 'Parse' ."
+        },
+        {
+          "title": "3. Download",
+          "description": "Hit the button. The high-quality file is saved instantly to your device."
+        }
+      ]
+    },
+    "testimonials": {
+      "title": "Join 50,000+ Creators Saving Hours Every Week",
+      "subtitle": "See why social media managers call our AI Suite their \"secret weapon\" for lightning-fast content repurposing.",
+      "items": [
+        {
+          "name": "Andrés Alejo",
+          "text": "This downloader is incredibly fast. I've tried many tools, but this one's clean interface and speed are on another level.",
+          "date": "Jan 31, 2025"
+        },
+        {
+          "name": "Steph B",
+          "text": "The amount of features available seems to be beyond what others offer. By far the most stacked AI tools for creators.",
+          "date": "Jan 27, 2025"
+        },
+        {
+          "name": "Jessica Suggs",
+          "text": "Excellent tool for real estate content! I save hours of work by downloading and using the AI script remixed for my listings.",
+          "date": "Jan 22, 2026"
+        },
+        {
+          "name": "Mateusz Sebastian",
+          "text": "Extremely useful tool which helped me coming back to regular posting on social media with consistent quality.",
+          "date": "Jan 21, 2026"
+        },
+        {
+          "name": "U SAT Autotech",
+          "text": "Best service I've found so far. Simple, effective, and works every single time without annoying ads.",
+          "date": "Jan 19, 2024"
+        },
+        {
+          "name": "Ranking Rider",
+          "text": "Solid tool overall. The batch download feature is a lifesaver for my archival work.",
+          "date": "Jan 16, 2026"
+        }
+      ]
+    },
+    "features_speed": {
+      "title": "The Fastest and Most Secure Shorts Download Experience",
+      "subtitle": "Our promise: Always faster and more reliable than the competition.",
+      "stat_value": "23%",
+      "stat_desc": "Faster average conversion time than top competitors (e.g., Savetube & Y2mate).",
+      "description": "We developed ShortsSync because other tools on the market were too slow or unreliable. Our custom protocol ensures maximum speed through:",
+      "list": [
+        {
+          "label": "Priority Link Parsing:",
+          "content": "We process your link instantly, with no waiting time."
+        },
+        {
+          "label": "Invasive Ad Blocking:",
+          "content": "No heavy ad scripts means a smoother experience for you."
+        }
+      ],
+      "image_caption": "Trust speed, not just promises."
+    },
+    "formats": {
+      "title": "Supported Formats: MP4, MP3, and Quality",
+      "description": "We don't just download; we ensure your videos meet all content repurposing requirements.",
+      "video_card": {
+        "title": "High-Quality MP4",
+        "content": "Download in Standard . For higher quality, check our 4K/8K Pro Options."
+      },
+      "audio_card": {
+        "title": "MP3 Audio Extraction",
+        "content": "Instantly separate the audio track for remixes or sound design, without any extra conversion tools."
+      }
+    },
+    "why_online": {
+      "title": "Why an Online Tool Over an Extension or App?",
+      "description": "Security, speed, and simplicity are key. Here's why our online tool is the future of content repurposing:",
+      "points": [
+        {
+          "title": "Zero Installation, Instant Start",
+          "content": "No malware or browser plugins. Just a clean, fast tool that works instantly."
+        },
+        {
+          "title": "Universal Compatibility",
+          "content": "Works seamlessly on iOS, Android, PC, and Mac. No need for a dedicated app download."
+        },
+        {
+          "title": "Guaranteed Privacy",
+          "content": "Server-side processing means we never touch, view, or store your files."
+        }
+      ]
+    },
+    "ai_examples": {
+      "title": "AI-Generated Content Examples",
+      "subtitle": "See how our AI transforms raw YouTube transcripts into high-engagement, original scripts for your social media.",
+      "steps": [
+        {
+          "title": "1. Paste Link",
+          "desc": "Paste any YouTube Shorts URL to start extraction."
+        },
+        {
+          "title": "2. Extract AI Script",
+          "desc": "Automatically turn video audio into structured text scripts."
+        },
+        {
+          "title": "3. Remix & Download",
+          "desc": "Use AI to rewrite and download your new content instantly."
+        }
+      ],
+      "transcript_label": "Raw YouTube Transcript",
+      "transcript_content": "\"So today I'm going to show you this cool life hack with a plastic bottle. You just cut the top off and then you can use it to seal bags of rice or chips... it's really simple and works every time, you should definitely try it out at home...\"",
+      "ai_script_label": "AI-Optimized Viral Script",
+      "ai_script_content": "STOP throwing away your plastic bottles! 🛑 Here is a genius 5-second hack to keep your snacks fresh forever. 🍿 <br /><br /> 1️⃣ Cut the cap section.<br /> 2️⃣ Slide it over your bag.<br /> 3️⃣ Twist the lid shut.<br /><br /> Boom! Perfectly sealed. 🔒 Follow for more life-changing creator tips! 🔥",
+      "cta_button": "Try AI Script Generator Now",
+      "badges": ["SEO Optimized", "Re-hooked Intro", "High Readability"]
+    },
+    "creator_suite": {
+      "title": "Go Beyond Downloading with AI",
+      "subtitle": "Unlock our Creator Suite to optimize and repurpose your content like never before.",
+      "tools": [
+        {
+          "title": "AI Watermark Remover",
+          "desc": "Instantly remove watermarks for seamless cross-platform sharing.",
+          "button": "Learn More"
+        },
+        {
+          "title": "Transcript Generator",
+          "desc": "Get the full text of any Short for instant blog posts or captions.",
+          "button": "Get Transcript"
+        }
+      ]
+    },
+    "featured_quote": {
+      "text": "\"YTShortsDL is a lifesaver. The AI watermark remover saves me at least 2 hours every week. It's not an expense; it's an investment in my workflow.\"",
+      "author": "Alex P., Social Media Manager",
+      "role": "Pragmatic Creator"
+    },
+    "final_cta": {
+      "title": "Stop Just Downloading. Start Creating.",
+      "desc": "Unlock the full potential of your content. Go from a simple video to a multi-platform asset with our AI-powered Creator Suite.",
+      "button": "Explore the AI Suite"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions (FAQ)",
+      "items": [
+        {
+          "question": "Is this YouTube Shorts Downloader completely free?",
+          "answer": "Yes, the core download functionality is 100% free . We offer a paid subscription for premium features like 4K downloads and our AI Watermark Remover tool."
+        },
+        {
+          "question": "Will the YouTube watermark be preserved when I download?",
+          "answer": "The free download retains the watermark. We offer a premium, paid AI feature specifically designed to remove watermarks for seamless cross-platform sharing. Learn more here."
+        },
+        {
+          "question": "Is this tool safe to use?",
+          "answer": "Absolutely. We use secure, server-side processing methods. Your privacy is fully guaranteed, and we do not store your files or personal data."
+        }
+      ]
+    },
+    "drawer": {
+      "transcript_title": "Transcript",
+      "waiting_message": "Waiting for video link...",
+      "repurpose_label": "Repurpose Content",
+      "pro_badge": "PRO FEATURE",
+      "remix_button": "🚀 One-Click Script Remix"
+    }
+  } ,
+
+
+
+
+
+
+
+
+  "pricing": {
+    "pricingPlans": "Pricing Plans",
+    "selectBestPlan": "Select the best plan for\n your creativity",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "save25": "Save 25%+",
+    "mostPopular": "Most Popular",
+    "freePlanName": "Free",
+    "freePlanDesc": "Perfect for occasional users.",
+    "proPlanName": "Pro",
+    "proPlanDesc": "Best for creators.",
+    "elitePlanName": "Elite",
+    "elitePlanDesc": "For MCNs & Power Users.",
+    "currentPlan": "Current Plan",
+    "upgradeNow": "Upgrade Now",
+    "contactSales": "Contact Sales",
+    "perMonth": "/mo",
+    "perYear": "/yr",
+    "onlyPerMonth": "Only $X.XX / month",
+    "sdVideoShortsDownloads": "SD Video & Shorts  Downloads",
+    "subtitleExtractions": "Subtitle Extractions",
+    "aiScriptGenerations": "AI Script Generations",
+    "4kSupport": "4K Support",
+    "no4kSupport": "No 4K Support",
+    "unlimited": "Unlimited",
+    "4kUltraQuality": "4K Ultra Quality",
+    "extractions": "Extractions",
+    "aiScripting": "AI Scripting",
+    "adFreeExperience": "Ad-Free Experience",
+    "allFeatures": "All Features",
+    "priorityApiAccess": "Priority API Access",
+    "1on1PremiumSupport": "1-on-1 Premium Support",
+    "yes": "Yes",
+    "payWith": "Pay with",
+    "processing": "Processing...",
+    "loadingPaypal": "Loading PayPal...",
+    "verifyingPayment": "Verifying Payment...",
+    "pleaseDoNotClose": "Please do not close this window.",
+    "paymentSuccessful": "Payment Successful!",
+    "welcomeToPro": "Welcome to {name} Pro. Redirecting...",
+    "paymentVerificationFailed": "Payment Verification Failed",
+    "retryOrContactSupport": "Retry or Contact Support",
+    "serviceBusy": "Service busy, please try again.",
+    "paymentConnectionFailed": "Payment connection failed.",
+    "paymentCaptureFailed": "Payment Capture Failed: ",
+    "captureError": "Capture Error"
+  },
+  "addon": {
+    "title": "YTShortsDL Browser Add-On",
+    "intro": "To download YouTube Shorts videos even faster, simply install our official add-on. Stop copying and pasting links manually—integrate the downloader directly into your browser.",
+    "selectBrowser": "Select Your Browser",
+    "addToFirefox": "Add to Firefox",
+    "addToEdge": "Add to Edge",
+    "addToOpera": "Add to Opera (Coming Soon)",
+    "redirectNotice": "You will be redirected to the official add-on installation page.",
+    "howToUseTitle": "How to Use the Add-On",
+    "howToUseDesc1": "Once you install the add-on, you will see an additional icon next to your browser's address bar. This small yet powerful tool connects your browsing experience directly to our high-speed conversion servers.",
+    "importantTip": "Important Tip:",
+    "importantTipDesc": "Please note that in some browsers (especially Chrome and Edge), new extensions are hidden by default. You may need to click the \"Puzzle Piece\" icon in your toolbar and pin the add-on icon to keep it permanently visible for easy access.",
+    "howToUseDesc2": "From then on, the process is completely automated. Every time you are watching a YouTube Shorts video that you wish to save:",
+    "step1": "Locate the SnapShorts icon in your toolbar.",
+    "step2": "Simply click on the add-on icon.",
+    "step3": "You will be instantly redirected to our website.",
+    "step4": "The video URL is automatically processed, and the video is converted to a high-quality MP4 file ready for download.",
+    "whyInstallTitle": "Why Install the Add-On?",
+    "instantAccess": "Instant Access:",
+    "instantAccessDesc": "No need to copy URL, open a new tab, paste, and click convert. It happens in one click.",
+    "secureSafe": "Secure & Safe:",
+    "secureSafeDesc": "Our extension is reviewed by browser stores and contains no tracking code.",
+    "bestQuality": "Best Quality:",
+    "bestQualityDesc": "Automatically fetches the highest resolution available for the Short.",
+    "alwaysUpdated": "Always Updated:",
+    "alwaysUpdatedDesc": "We maintain the add-on to ensure compatibility with the latest YouTube changes.",
+    "termsNotice": "As soon as the conversion is finished, you can download your converted YouTube Shorts video. By using our Add-On, you accept our",
+    "termsOfUse": "Terms of Use",
+    "troubleInstalling": "Having trouble installing or using the extension?",
+    "visitSupportCenter": "Visit Support Center →",
+    "preferNoInstallation": "Prefer no installation?",
+    "preferNoInstallationDesc": "If you prefer not to install an Add-On or are on a public computer, you can try our",
+    "youtubeShortsBookmarklet": "YouTube Shorts Bookmarklet",
+    "preferNoInstallationDesc2": "instead. It provides similar functionality without a permanent installation."
+  },
+  "aiScriptGenerator": {
+    "pageTitle": "YouTube video AI Script Generator",
+    "pageSubtitle": "Instant insights and transcripts powered by AI.",
+    "pasteYoutubeLinkHere": "Paste Youtube link here...",
+    "generate": "Generate",
+    "selectLanguage": "Select Language",
+    "generateAgain": "Generate Again",
+    "updating": "Updating...",
+    "aiSummary": "AI SUMMARY",
+    "transcript": "TRANSCRIPT",
+    "time": "TIME",
+    "text": "TEXT",
+    "loadingData": "Loading Data...",
+    "requestFailed": "Request Failed",
+    "clickToRetry": "Click to retry",
+    "aiThinkingProcess": "AI Thinking Process",
+    "aiIsAnalyzingScript": "AI is analyzing script...",
+    "clickToRetrySummary": "Click to retry summary",
+    "copyContent": "Copy Content",
+    "exportTxt": "Export TXT",
+    "secureAiProcessing": "Secure AI processing using Volcano Ark Engine.",
+    "professionalCreatorSuite": "Professional Creator Suite",
+    "tool01": "Tool 01",
+    "downloadShorts": "Download Shorts",
+    "tool02": "Tool 02",
+    "extractMp3": "Extract MP3",
+    "tool03": "Tool 03",
+    "videoToScript": "Video to Script",
+    "howItWorksTitle": "How It Works",
+    "step1PasteUrl": "Paste URL",
+    "step1PasteUrlDesc": "Copy any YouTube video or Shorts link.",
+    "step2AiAnalysis": "AI Analysis",
+    "step2AiAnalysisDesc": "Our system extracts and processes the transcript.",
+    "step3GetSummary": "Get Summary",
+    "step3GetSummaryDesc": "Download the text or read the key highlights.",
+    "whyUseAiVideoSummariesTitle": "Why Use AI Video Summaries?",
+    "whyUseAiVideoSummariesDesc": "Save hours of watching time. Our AI analyzes transcripts to give you key takeaways and actionable insights from any YouTube video in seconds. Perfect for students, researchers, and busy creators.",
+    "capabilities": "Capabilities:",
+    "smartSummarization": "Smart Summarization:",
+    "smartSummarizationDesc": "Understand the core message without watching the whole clip.",
+    "multiLanguage": "Multi-Language:",
+    "multiLanguageDesc": "Fetch transcripts in any language provided by the creator or auto-generated.",
+    "timestampedData": "Timestamped Data:",
+    "timestampedDataDesc": "Navigate easily with precise time-codes for every sentence."
+  }
+}
