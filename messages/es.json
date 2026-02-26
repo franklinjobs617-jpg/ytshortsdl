@@ -81,7 +81,13 @@
     "privacyPolicy": "Política de Privacidad",
     "termsOfService": "Términos de Servicio",
     "description": "El sitio #1 para bajar videos de youtube. Usa nuestro convertidor YouTube a MP4, permite descargar youtube shorts gratis y online. Rápido y seguro.",
-    "allRightsReserved": "Todos los derechos reservados."
+    "allRightsReserved": "Todos los derechos reservados.",
+     "partners": "Socios",
+    "removerMarca": "Eliminador de marcas de agua",
+    "connectTheDots": "Unir los puntos",
+    "ambigramGenerator": "Generador de ambigramas",
+    "genPrintable": "Generador de imprimibles"
+    
   },
   "hero": {
     "title": "Descargar YouTube Shorts Gratis :",

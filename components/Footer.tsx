@@ -34,6 +34,7 @@ const getFooterLinks = () => [
             { labelKey: "watermarkRemover", href: "/no-watermark" },
             { labelKey: "4kShortsDownloader", href: "/4k-shorts-downloader" },
             { labelKey: "shortsThumbnailTool", href: "/shorts-thumbnail-tool" },
+            // 修复：移除了多余的空对象 {}
         ],
     },
     {
@@ -48,6 +49,16 @@ const getFooterLinks = () => [
             { labelKey: "termsOfService", href: "/terms" },
         ],
     },
+    // 新增：友情链接/合作伙伴板块 (独立一列)
+    {
+        titleKey: "partners",
+        links: [
+            { labelKey: "removerMarca", href: "https://removermarca.com/?utm_source=ytshortsdl&utm_medium=referral", target: "_blank", rel: "noopener" },
+            { labelKey: "connectTheDots", href: "https://connectthedotsprintable.online/?utm_source=ytshortsdl&utm_medium=referral", target: "_blank", rel: "noopener" },
+            { labelKey: "ambigramGenerator", href: "https://www.ambigramgenerator.me/?utm_source=ytshortsdl&utm_medium=referral", target: "_blank", rel: "noopener" },
+            { labelKey: "genPrintable", href: "https://genprintable.com/?utm_source=ytshortsdl&utm_medium=referral", target: "_blank", rel: "noopener" },
+        ],
+    },
 ];
 
 const Footer = () => {
@@ -58,30 +69,37 @@ const Footer = () => {
     return (
         <footer className="bg-slate-800 text-slate-300">
             <div className="container mx-auto px-6 py-16">
-                <div className="grid md:grid-cols-5 gap-8">
+                {/* 调整了网格布局，适配新增的第6列（Logo + 5个链接列） */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8">
 
-                    {/* Logo 区域 - 保持独立样式 */}
-                    <div className="md:col-span-1">
+                    {/* Logo 区域 - 占据更宽的空间或保持独立 */}
+                    <div className="sm:col-span-2 md:col-span-3 lg:col-span-1">
                         <Link href="/" className="text-2xl font-bold text-white">
                             YTShorts<span className="text-red-500">dl</span>.net
                         </Link>
                         <p className="my-4 text-sm text-slate-500 leading-relaxed">
                             {t('description')}
                         </p>
-                        <Link href="https://theresanaiforthat.com/ai/ytshortsdl-ai-creator-suite/?ref=featured&v=7340698" target="_blank" rel="nofollow" >
-                            <Image width="300" height="50" src="https://media.theresanaiforthat.com/featured-on-taaft.png?width=600" alt="Featured on TAAFT" />
-                        </Link>
+                        <div className="flex flex-col gap-3">
+                            <Link href="https://theresanaiforthat.com/ai/ytshortsdl-ai-creator-suite/?ref=featured&v=7340698" target="_blank" rel="nofollow" >
+                                <Image width="300" height="50" src="https://media.theresanaiforthat.com/featured-on-taaft.png?width=600" alt="Featured on TAAFT" />
+                            </Link>
+                            <Link href="https://launchigniter.com/product/ytshortsdl-hd-mp4-mp3-batch-tools?ref=badge-ytshortsdl-hd-mp4-mp3-batch-tools" target="_blank">
+                                <Image src="https://launchigniter.com/api/badge/ytshortsdl-hd-mp4-mp3-batch-tools?theme=dark" alt="Featured on LaunchIgniter" width="150" height="55" />
+                            </Link>
+                        </div>
                     </div>
 
                     {/* 循环渲染提取出的链接数组 */}
                     {FOOTER_LINKS.map((column, index) => (
-                        <div key={index}>
+                        <div key={index} className="col-span-1">
                             <h3 className="font-semibold text-white mb-4">{t(column.titleKey)}</h3>
                             <ul className="space-y-3">
                                 {column.links.map((link, linkIndex) => (
                                     <li key={linkIndex}>
                                         <Link
                                             href={link.href}
+                                            target={'target' in link ? link.target : "_self"}
                                             className="hover:text-red-500 transition-colors text-sm"
                                         >
                                             {t(link.labelKey)}
@@ -112,7 +130,6 @@ const Footer = () => {
     );
 };
 
-// 提取社交图标为子组件，保持主逻辑清爽
 const SocialIcon = ({ type }: { type: 'twitter' | 'youtube' | 'github' }) => {
     const icons = {
         twitter: "M459.4 151.7c.3 4.5 .3 9.1 .3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.5 24.8 1.5 49.5 0 94.9-16.8 131.2-44.8-46.2-.9-85.3-31.2-98.7-72.9 6.5 1.2 13 1.7 19.9 1.7 9.5 0 18.9-1.3 27.8-3.7-48.3-9.7-84.7-52.5-84.7-103 0-1.1 .5-2.2 .8-3.2 14.4 7.8 30.6 12.8 47.9 13.2-28.5-18.8-47.1-51.5-47.1-88 0-19.4 5.3-37.4 14.5-53.1 52.3 63.8 130.4 105.6 218.4 110-1.8-8.1-2.7-16.5-2.7-25 0-57.9 47.1-105 105.3-105 30.3 0 57.6 12.7 76.6 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.3-24.4 45.3-46.1 58.2 21.2-2.3 41.6-8.1 60.5-16.2-14.2 20.8-32.1 39.4-52.6 54.3z",

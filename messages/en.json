@@ -81,7 +81,12 @@
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
     "description": "The ultimate tool for creators to download, optimize, and repurpose their YouTube Shorts content. Fast, free, and built with passion.",
-    "allRightsReserved": "All rights reserved."
+    "allRightsReserved": "All rights reserved.",
+    "partners": "Partners",
+    "removerMarca": "Watermark Remover",
+    "connectTheDots": "Connect The Dots",
+    "ambigramGenerator": "Ambigram Generator",
+    "genPrintable": "Printables Generator"
   },
   "hero": {
     "title": "Free YouTube Shorts Downloader :",
