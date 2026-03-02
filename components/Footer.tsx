@@ -84,9 +84,7 @@ const Footer = () => {
                             <Link href="https://theresanaiforthat.com/ai/ytshortsdl-ai-creator-suite/?ref=featured&v=7340698" target="_blank" rel="nofollow" >
                                 <Image width="300" height="50" src="https://media.theresanaiforthat.com/featured-on-taaft.png?width=600" alt="Featured on TAAFT" />
                             </Link>
-                            <Link href="https://launchigniter.com/product/ytshortsdl-hd-mp4-mp3-batch-tools?ref=badge-ytshortsdl-hd-mp4-mp3-batch-tools" target="_blank">
-                                <Image src="https://launchigniter.com/api/badge/ytshortsdl-hd-mp4-mp3-batch-tools?theme=dark" alt="Featured on LaunchIgniter" width="150" height="55" />
-                            </Link>
+
                         </div>
                     </div>
 
