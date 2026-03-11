@@ -14,7 +14,8 @@ export default function PayPalProviderWrapper({
     const paypalOptions = {
         clientId: clientId,
         currency: "USD",
-        intent: "capture",
+        "vault": "true",       
+        "intent": "subscription" // 【建议修改点 2】明确意图为订阅
     };
 
     return (
