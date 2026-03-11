@@ -49,7 +49,7 @@ const PricingTable = () => {
     const handleVerifyPayPal = async () => {
         setVerificationStatus('loading');
         try {
-            const res = await fetch(`https://api.removermarca.com/prod-api/paypal/retUrl${window.location.search}`);
+            const res = await fetch(`https://api.ytshortsdl.net/prod-api/paypal/retUrl${window.location.search}`);
             const data = await res.json();
             if (data.code === 0) {
                 // 🚀 埋点：支付校验成功
@@ -204,7 +204,7 @@ const PricingTable = () => {
     const paypalOptions: ReactPayPalScriptOptions = {
         clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "test",
         currency: "USD",
-        intent: "capture",
+        vault: true,
         components: "buttons", // Only load buttons
     };
 
@@ -286,74 +286,62 @@ const PricingTable = () => {
                                             </button>
                                         ) : (
                                             <PayPalButtons
-                                                fundingSource="paypal"
-                                                style={{
-                                                    layout: "vertical",
-                                                    shape: "rect",
-                                                    borderRadius: 12,
-                                                    height: 48,
-                                                    label: 'pay'
-                                                }}
-                                                forceReRender={[isYearly, plan.name]}
-                                                createOrder={async (data, actions) => {
-                                                    if (!isLoggedIn) {
-                                                        login();
-                                                        throw new Error("Please login first");
-                                                    }
-
-                                                    // 🚀 埋点：点击支付（PayPal）
-                                                    trackEvent(GA_EVENTS.F_PAY_CLICK, {
-                                                        method: 'paypal_smart',
-                                                        plan: plan.name,
-                                                        cycle: isYearly ? 'yearly' : 'monthly'
+                                            fundingSource="paypal"
+                                            style={{
+                                                layout: "vertical",
+                                                shape: "rect",
+                                                borderRadius: 12,
+                                                height: 48,
+                                                label: isYearly || plan.name !== "Free" ? 'subscribe' : 'pay' // 订阅显示为 Subscribe
+                                            }}
+                                            forceReRender={[isYearly, plan.name]}
+                                            
+                                            // 【关键修改 1】：如果是订阅计划，使用 createSubscription
+                                            createSubscription={async (data, actions) => {
+                                                if (!isLoggedIn) { login(); throw new Error("Login required"); }
+                                                
+                                                const typeString = `plan_${plan.name.toLowerCase()}_${isYearly ? 'yearly' : 'monthly'}`;
+                                                
+                                                const response = await fetch("/api/pay/paypal-smart-create-subscription", { // 注意这里调用订阅接口
+                                                    method: "POST",
+                                                    headers: { "Content-Type": "application/json" },
+                                                    body: JSON.stringify({
+                                                        type: typeString,
+                                                        googleUserId: user?.googleUserId || user?.id,
+                                                        email: user?.email,
+                                                        userId: user?.id
+                                                    })
+                                                });
+                                                const res = await response.json();
+                                                return res.data; // 返回 I-XXXX
+                                            }}
+                                        
+                                            // 【关键修改 2】：处理回调
+                                            onApprove={async (data, actions) => {
+                                                // 订阅模式下 data 会包含 subscriptionID
+                                                if (data.subscriptionID) {
+                                                    console.log("Subscription Success:", data.subscriptionID);
+                                                    setVerificationStatus('success');
+                                                    setTimeout(() => window.location.href = "/", 2000);
+                                                } else {
+                                                    // 一次性支付走 capture 逻辑
+                                                    const res = await fetch("/api/pay/paypal-smart-capture", {
+                                                        method: "POST",
+                                                        headers: { "Content-Type": "application/json" },
+                                                        body: JSON.stringify({ orderId: data.orderID })
                                                     });
-
-                                                    const typeString = `plan_${plan.name.toLowerCase()}_${isYearly ? 'yearly' : 'monthly'}`;
-                                                    try {
-                                                        const response = await fetch("/api/pay/paypal-smart-create", {
-                                                            method: "POST",
-                                                            headers: { "Content-Type": "application/json" },
-                                                            body: JSON.stringify({
-                                                                type: typeString,
-                                                                googleUserId: user?.googleUserId || user?.id,
-                                                                email: user?.email,
-                                                                userId: user?.id
-                                                            })
-                                                        });
-                                                        const res = await response.json();
-                                                        if (res.code === 200 && res.data) {
-                                                            return res.data;
-                                                        } else {
-                                                            throw new Error(res.msg);
-                                                        }
-                                                    } catch (err: any) {
-                                                        trackEvent(GA_EVENTS.ERR_PARSE, { context: 'paypal_create', msg: err.message });
-                                                        throw err;
+                                                    const result = await res.json();
+                                                    if (result.code === 200) {
+                                                        setVerificationStatus('success');
+                                                        setTimeout(() => window.location.href = "/", 2000);
                                                     }
-                                                }}
-                                                onApprove={async (data, actions) => {
-                                                    try {
-                                                        const response = await fetch("/api/pay/paypal-smart-capture", {
-                                                            method: "POST",
-                                                            headers: { "Content-Type": "application/json" },
-                                                            body: JSON.stringify({ orderId: data.orderID })
-                                                        });
-                                                        const res = await response.json();
-                                                        if (res.code === 200) {
-                                                            // 🚀 埋点：支付成功（PayPal Capture）
-                                                            trackEvent(GA_EVENTS.F_PAY_SUCCESS, { method: 'paypal_smart' });
-                                                            setVerificationStatus('success');
-                                                            setTimeout(() => window.location.reload(), 2000);
-                                                        } else {
-                                                            trackEvent(GA_EVENTS.ERR_PARSE, { context: 'paypal_capture', msg: res.msg });
-                                                            alert("Payment Capture Failed: " + res.msg);
-                                                        }
-                                                    } catch (err: any) {
-                                                        trackEvent(GA_EVENTS.ERR_PARSE, { context: 'paypal_capture_exception', msg: err.message });
-                                                        alert("Capture Error");
-                                                    }
-                                                }}
-                                            />
+                                                }
+                                            }}
+                                            onError={(err) => {
+                                                console.error("PayPal Error:", err);
+                                                setVerificationStatus('error');
+                                            }}
+                                        />
                                         )}
                                     </div>
                                 </div>
