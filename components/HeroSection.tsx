@@ -338,22 +338,22 @@ export default function HeroSection() {
                         </div>
                     </div>
 
+                    {/* Adsterra Native Banner - 常驻展现位 (加载即显) */}
+                    <div className="max-w-4xl mx-auto mb-8 p-4 bg-slate-50/50 rounded-3xl border border-slate-100 overflow-hidden">
+                        <p className="text-[10px] text-slate-300 mb-2 font-black tracking-widest text-center uppercase">Recommended for you</p>
+                        <Script
+                            id="adsterra-native"
+                            src="https://drainalmost.com/6a46fda8016a534f3b62de2444535bd0/invoke.js"
+                            strategy="lazyOnload"
+                        />
+                        <div id="container-6a46fda8016a534f3b62de2444535bd0" className="min-h-[100px]"></div>
+                    </div>
+
                     {/* Results Container */}
                     {(isLoading || currentResults.length > 0) && (
                         <div ref={resultsRef} className="mt-8 text-left animate-in fade-in slide-in-from-bottom-10 duration-700 scroll-mt-24">
 
-                            {/* Adsterra Native Banner - 结果页首屏黄金位 */}
-                            {!isLoading && currentResults.length > 0 && (
-                                <div className="mb-8 p-4 bg-slate-50/50 rounded-3xl border border-slate-100 overflow-hidden">
-                                    <p className="text-[10px] text-slate-300 mb-2 font-black tracking-widest text-center uppercase">Recommended for you</p>
-                                    <Script
-                                        id="adsterra-native"
-                                        src="https://drainalmost.com/6a46fda8016a534f3b62de2444535bd0/invoke.js"
-                                        strategy="lazyOnload"
-                                    />
-                                    <div id="container-6a46fda8016a534f3b62de2444535bd0" className="min-h-[100px]"></div>
-                                </div>
-                            )}
+
 
                             <div className="flex flex-col md:flex-row justify-between items-end md:items-center mb-10 border-b border-slate-200 pb-8 gap-6">
                                 <div className="w-full flex items-center gap-5">
