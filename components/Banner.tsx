@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Script from 'next/script';
+import AdBanner from './AdBanner';
 
 export default function Banner() {
   const t = useTranslations('banner');
@@ -31,14 +32,16 @@ export default function Banner() {
       </div>
       {/* Adsterra Native Banner - 常驻展现位 (加载即显) */}
       <div className='w-full flex-row items-center justify-center mx-auto max-w-7xl text-center p-4'>
-        <div className="max-w-4xl mx-auto mb-8 p-4 bg-slate-50/50 rounded-3xl border border-slate-100 overflow-hidden">
-          <p className="text-[10px] text-slate-300 mb-2 font-black tracking-widest text-center uppercase">Recommended for you</p>
-          <Script
-            id="adsterra-native"
-            src="https://drainalmost.com/6a46fda8016a534f3b62de2444535bd0/invoke.js"
-            strategy="lazyOnload"
-          />
-          <div id="container-6a46fda8016a534f3b62de2444535bd0" className="min-h-[100px]"></div>
+        <div className="mb-10 flex flex-col items-center w-full">
+          {/* 桌面端：显示 728x90 大横幅 */}
+          <div className="hidden md:block">
+            <AdBanner id="fffa357e93366b970334fe20a8f410e0" width={728} height={90} format="iframe" />
+          </div>
+
+          {/* 移动端：显示 320x50 小横幅 (保证不撑破页面，不遮挡按钮) */}
+          <div className="block md:hidden">
+            <AdBanner id="bb1cafc2b48c50800926add813a36e32" width={320} height={50} format="iframe" />
+          </div>
         </div>
       </div>
     </div>
