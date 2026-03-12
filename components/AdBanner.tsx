@@ -44,7 +44,7 @@ export default function AdBanner({ id, height, width, format }: AdBannerProps) {
 
     return (
         <div
-            className="flex justify-center items-center my-8 overflow-hidden"
+            className="flex justify-center items-center my-2 overflow-hidden"
             style={{ minHeight: height }}
             ref={containerRef}
         />

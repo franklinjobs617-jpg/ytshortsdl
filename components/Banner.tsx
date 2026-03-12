@@ -31,8 +31,8 @@ export default function Banner() {
         </div>
       </div>
       {/* Adsterra Native Banner - 常驻展现位 (加载即显) */}
-      <div className='w-full flex-row items-center justify-center mx-auto max-w-7xl text-center p-4'>
-        <div className="mb-10 flex flex-col items-center w-full">
+      <div className='w-full flex-row items-center justify-center mx-auto max-w-7xl text-center '>
+        <div className=" flex flex-col items-center w-full">
           {/* 桌面端：显示 728x90 大横幅 */}
           <div className="hidden md:block">
             <AdBanner id="fffa357e93366b970334fe20a8f410e0" width={728} height={90} format="iframe" />
