@@ -46,15 +46,26 @@ export default async function RootLayout({
 
       <body>
         {/* Adsterra Ads - 全站收益保障 */}
-        <Script 
+
+        {/* Popunder 仅在 PC 端加载 (防误触、防移动端拦截) */}
+        <Script
           id="adsterra-popunder"
-          src="https://drainalmost.com/0a/62/bf/0a62bfff0f2f7832c52bfcef3f7519bc.js" 
-          strategy="lazyOnload" 
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof window !== 'undefined' && window.innerWidth > 768) {
+                var s = document.createElement('script');
+                s.src = 'https://drainalmost.com/0a/62/bf/0a62bfff0f2f7832c52bfcef3f7519bc.js';
+                document.body.appendChild(s);
+              }
+            `,
+          }}
         />
-        <Script 
+
+        <Script
           id="adsterra-social-bar"
-          src="https://drainalmost.com/9f/85/8e/9f858ecfb6c04ab2061e50b52c6116da.js" 
-          strategy="lazyOnload" 
+          src="https://drainalmost.com/9f/85/8e/9f858ecfb6c04ab2061e50b52c6116da.js"
+          strategy="lazyOnload"
         />
 
         <Script src="https://accounts.google.com/gsi/client" strategy="lazyOnload" />
