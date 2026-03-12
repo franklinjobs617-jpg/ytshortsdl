@@ -52,11 +52,6 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               if (typeof window !== 'undefined' && window.innerWidth > 768) {
-                // 1. Popunder 脚本
-                var s1 = document.createElement('script');
-                s1.src = 'https://drainalmost.com/0a/62/bf/0a62bfff0f2f7832c52bfcef3f7519bc.js';
-                document.body.appendChild(s1);
-
                 // 2. Social Bar 脚本
                 var s2 = document.createElement('script');
                 s2.src = 'https://drainalmost.com/9f/85/8e/9f858ecfb6c04ab2061e50b52c6116da.js';
