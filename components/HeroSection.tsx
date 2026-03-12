@@ -16,6 +16,8 @@ import { useToast } from "@/components/ToastContext";
 import { trackEvent, GA_EVENTS } from "@/lib/gtag";
 import { useTranslations } from 'next-intl';
 import Image from "next/image";
+import Script from "next/script";
+import AdBanner from "./AdBanner";
 const WORKER_URLS = [
     "https://dry-water-d2f3.franke-4b7.workers.dev",
     "https://throbbing-breeze-b608.franke-4b7.workers.dev",
@@ -339,6 +341,20 @@ export default function HeroSection() {
                     {/* Results Container */}
                     {(isLoading || currentResults.length > 0) && (
                         <div ref={resultsRef} className="mt-8 text-left animate-in fade-in slide-in-from-bottom-10 duration-700 scroll-mt-24">
+
+                            {/* Adsterra Native Banner - 结果页首屏黄金位 */}
+                            {!isLoading && currentResults.length > 0 && (
+                                <div className="mb-8 p-4 bg-slate-50/50 rounded-3xl border border-slate-100 overflow-hidden">
+                                    <p className="text-[10px] text-slate-300 mb-2 font-black tracking-widest text-center uppercase">Recommended for you</p>
+                                    <Script
+                                        id="adsterra-native"
+                                        src="https://drainalmost.com/6a46fda8016a534f3b62de2444535bd0/invoke.js"
+                                        strategy="lazyOnload"
+                                    />
+                                    <div id="container-6a46fda8016a534f3b62de2444535bd0" className="min-h-[100px]"></div>
+                                </div>
+                            )}
+
                             <div className="flex flex-col md:flex-row justify-between items-end md:items-center mb-10 border-b border-slate-200 pb-8 gap-6">
                                 <div className="w-full flex items-center gap-5">
                                     <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-red-600 text-white text-xl font-black shadow-lg">
@@ -454,8 +470,22 @@ export default function HeroSection() {
                     )}
                 </div>
 
-                <div className="pt-12 flex flex-col items-center">
+                <div className="pt-4 flex flex-col items-center">
                     <span className="text-slate-400 mb-8  font-black tracking-[0.4em] text-[10px]">{t('professionalCreatorSuite')}</span>
+
+                    {/* Adsterra Banner - 响应式横幅位：根据屏幕宽度自动切换尺寸 */}
+                    <div className="mb-10 flex flex-col items-center w-full">
+                        {/* 桌面端：显示 728x90 大横幅 */}
+                        <div className="hidden md:block">
+                            <AdBanner id="fffa357e93366b970334fe20a8f410e0" width={728} height={90} format="iframe" />
+                        </div>
+
+                        {/* 移动端：显示 320x50 小横幅 (保证不撑破页面，不遮挡按钮) */}
+                        <div className="block md:hidden">
+                            <AdBanner id="bb1cafc2b48c50800926add813a36e32" width={320} height={50} format="iframe" />
+                        </div>
+                    </div>
+
                     <div className="flex flex-wrap justify-center gap-6">
                         <Link href="/shorts-to-mp3"
                             onClick={() => {

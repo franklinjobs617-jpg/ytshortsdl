@@ -45,8 +45,33 @@ export default async function RootLayout({
 
 
       <body>
+        {/* Adsterra Ads - 全站收益保障 */}
+        <Script 
+          id="adsterra-popunder"
+          src="https://drainalmost.com/0a/62/bf/0a62bfff0f2f7832c52bfcef3f7519bc.js" 
+          strategy="lazyOnload" 
+        />
+        <Script 
+          id="adsterra-social-bar"
+          src="https://drainalmost.com/9f/85/8e/9f858ecfb6c04ab2061e50b52c6116da.js" 
+          strategy="lazyOnload" 
+        />
+
         <Script src="https://accounts.google.com/gsi/client" strategy="lazyOnload" />
         <GoogleAnalytics gaId="G-Z6TQTL70L0" />
+        <Script
+          id="service-worker"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                  navigator.serviceWorker.register('/sw.js').catch(() => {});
+                });
+              }
+            `,
+          }}
+        />
         <Script
           id="microsoft-clarity"
           strategy="lazyOnload"

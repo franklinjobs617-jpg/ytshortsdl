@@ -55,7 +55,7 @@ const PricingTable = () => {
                 // 🚀 埋点：支付校验成功
                 trackEvent(GA_EVENTS.F_PAY_SUCCESS, { method: 'paypal', type: 'url_verify' });
                 setVerificationStatus('success');
-                setTimeout(() => window.location.href = "/", 2000);
+                setTimeout(() => window.location.href = "/", 4000);
             } else {
                 // 🚀 埋点：支付校验失败
                 trackEvent(GA_EVENTS.ERR_PARSE, { context: 'paypal_verify', msg: data.msg });

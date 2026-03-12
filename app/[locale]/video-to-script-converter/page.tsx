@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
-import VideoToScriptToolSection from '@/components/VideoToScriptToolSection'; // 假设你的工具组件已重命名
+import VideoToScriptToolSection from '@/components/VideoToScriptToolSection';
+import AdBanner from '@/components/AdBanner';
 import { FileText, Zap, Languages, CheckCircle, AlertTriangle } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -35,6 +36,9 @@ export default function VideoToScriptConverterPage() {
         <main>
             {/* 假设 Mp3ToolSection 已被重构为更通用的工具组件 */}
             <VideoToScriptToolSection />
+
+            {/* Adsterra 300x250 Banner - 补充收益位 */}
+            <AdBanner id="b45c5f74be84f9d9b790c966c91424c4" width={300} height={250} format="iframe" />
 
             <section id="why-use-converter" className="py-16  bg-white">
                 <div className="container mx-auto px-6 max-w-6xl">
