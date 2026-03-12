@@ -51,8 +51,7 @@ export default async function RootLayout({
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              if (typeof window !== 'undefined' && window.innerWidth > 768) {
-                // 2. Social Bar 脚本
+              if (typeof window !== 'undefined') {
                 var s2 = document.createElement('script');
                 s2.src = 'https://drainalmost.com/9f/85/8e/9f858ecfb6c04ab2061e50b52c6116da.js';
                 document.body.appendChild(s2);
