@@ -17,7 +17,6 @@ import { trackEvent, GA_EVENTS } from "@/lib/gtag";
 import { useTranslations } from 'next-intl';
 import Image from "next/image";
 import Script from "next/script";
-import AdBanner from "./AdBanner";
 const WORKER_URLS = [
     "https://dry-water-d2f3.franke-4b7.workers.dev",
     "https://throbbing-breeze-b608.franke-4b7.workers.dev",
@@ -475,20 +474,6 @@ export default function HeroSection() {
 
                 <div className="pt-4 flex flex-col items-center">
                     <span className="text-slate-400 mb-8  font-black tracking-[0.4em] text-[10px]">{t('professionalCreatorSuite')}</span>
-
-                    {/* Adsterra Banner - 响应式横幅位：根据屏幕宽度自动切换尺寸 */}
-                    <div className="mb-10 flex flex-col items-center w-full">
-                        {/* 桌面端：显示 728x90 大横幅 */}
-                        <div className="hidden md:block">
-                            <AdBanner id="fffa357e93366b970334fe20a8f410e0" width={728} height={90} format="iframe" />
-                        </div>
-
-                        {/* 移动端：显示 320x50 小横幅 (保证不撑破页面，不遮挡按钮) */}
-                        <div className="block md:hidden">
-                            <AdBanner id="bb1cafc2b48c50800926add813a36e32" width={320} height={50} format="iframe" />
-                        </div>
-                    </div>
-
                     <div className="flex flex-wrap justify-center gap-6">
                         <Link href="/shorts-to-mp3"
                             onClick={() => {
