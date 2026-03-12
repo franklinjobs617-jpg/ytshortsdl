@@ -215,7 +215,10 @@ export default function HeroSection() {
         if (mode === "single") setSingleResults([]);
         else setBatchResults([]);
 
-        setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+        // 优化点：仅在 PC 端自动跳转到结果区，手机端禁止跳转防止“乱跳”
+        if (typeof window !== 'undefined' && window.innerWidth > 768) {
+            setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+        }
 
         try {
             const token = localStorage.getItem('google_access_token');
