@@ -46,7 +46,7 @@ export default async function RootLayout({
 
       <body>
         <Script
-          id="adsterra-pc-only-ads"
+          id="adsterra-ads"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
@@ -56,11 +56,10 @@ export default async function RootLayout({
                   var s1 = document.createElement('script');
                   s1.src = 'https://drainalmost.com/0a/62/bf/0a62bfff0f2f7832c52bfcef3f7519bc.js';
                   document.body.appendChild(s1);
-
-                  var s2 = document.createElement('script');
-                  s2.src = 'https://drainalmost.com/9f/85/8e/9f858ecfb6c04ab2061e50b52c6116da.js';
-                  document.body.appendChild(s2);
                 }
+                var s2 = document.createElement('script');
+                s2.src = 'https://drainalmost.com/9f/85/8e/9f858ecfb6c04ab2061e50b52c6116da.js';
+                document.body.appendChild(s2);
               })();
             `,
           }}
