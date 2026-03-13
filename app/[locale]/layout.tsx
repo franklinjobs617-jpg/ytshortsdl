@@ -45,17 +45,23 @@ export default async function RootLayout({
 
 
       <body>
-        {/* Adsterra Ads - 仅在 PC 端加载变现脚本，保证手机端极致纯净 */}
         <Script
           id="adsterra-pc-only-ads"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              if (typeof window !== 'undefined') {
-                var s2 = document.createElement('script');
-                s2.src = 'https://drainalmost.com/9f/85/8e/9f858ecfb6c04ab2061e50b52c6116da.js';
-                document.body.appendChild(s2);
-              }
+              (function() {
+                var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent);
+                if (!isMobile) {
+                  var s1 = document.createElement('script');
+                  s1.src = 'https://drainalmost.com/0a/62/bf/0a62bfff0f2f7832c52bfcef3f7519bc.js';
+                  document.body.appendChild(s1);
+
+                  var s2 = document.createElement('script');
+                  s2.src = 'https://drainalmost.com/9f/85/8e/9f858ecfb6c04ab2061e50b52c6116da.js';
+                  document.body.appendChild(s2);
+                }
+              })();
             `,
           }}
         />
