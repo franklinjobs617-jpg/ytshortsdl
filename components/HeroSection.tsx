@@ -135,7 +135,7 @@ export default function HeroSection() {
 
         const consumeSuccess = await consumeUsage('download');
         if (!consumeSuccess) {
-            // 如果配额不足，移除 Loading 状态并弹出订阅窗
+
             setActiveDownloads(prev => {
                 const newState = { ...prev };
                 delete newState[index];
@@ -143,7 +143,6 @@ export default function HeroSection() {
             });
 
             trackEvent(GA_EVENTS.F_PAYWALL_VIEW, { 'trigger': 'quota_insufficient' });
-
             setIsModalOpen(true);
             return;
         }
@@ -157,7 +156,6 @@ export default function HeroSection() {
             addToast(tToast('downloadedSuccessfully'), "success");
             handleSuccessfulDownloadTrigger();
         } catch (error: any) {
-            // 出错时也要记得移除 Loading 状态
             setActiveDownloads(prev => {
                 const newState = { ...prev };
                 delete newState[index];
@@ -338,17 +336,6 @@ export default function HeroSection() {
                                 </button>
                             </div>
                         </div>
-                    </div>
-
-                    {/* Adsterra Native Banner - 常驻展现位 (加载即显) */}
-                    <div className="max-w-4xl mx-auto mb-8 p-4 bg-slate-50/50 rounded-3xl border border-slate-100 overflow-hidden">
-                        <p className="text-[10px] text-slate-300 mb-2 font-black tracking-widest text-center uppercase">Recommended for you</p>
-                        <Script
-                            id="adsterra-native"
-                            src="https://drainalmost.com/6a46fda8016a534f3b62de2444535bd0/invoke.js"
-                            strategy="lazyOnload"
-                        />
-                        <div id="container-6a46fda8016a534f3b62de2444535bd0" className="min-h-[100px]"></div>
                     </div>
 
                     {/* Results Container */}

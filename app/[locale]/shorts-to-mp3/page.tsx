@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import Mp3ToolSection from '@/components/Mp3ToolSection';
-import AdBanner from '@/components/AdBanner';
 export const metadata: Metadata = {
     title: 'ShortsSync | Free YouTube Shorts to MP3 Downloader',
     description: 'Use the best YouTube Shorts Audio Downloader tool to convert any Shorts video to MP3 or M4A instantly. Simple, fast, and high-quality audio extraction.',
@@ -33,9 +32,6 @@ export default function ShortsToMp3() {
     return (
         <main>
             <Mp3ToolSection />
-
-            {/* Adsterra 300x250 Banner - 侧边补充收益位 */}
-            <AdBanner id="b45c5f74be84f9d9b790c966c91424c4" width={300} height={250} format="iframe" />
 
             <section id="why-dedicated-tool" className="py-16 sm:py-20 bg-white">
                 <div className="container mx-auto px-6">

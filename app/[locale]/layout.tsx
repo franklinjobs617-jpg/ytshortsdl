@@ -45,26 +45,6 @@ export default async function RootLayout({
 
 
       <body>
-        <Script
-          id="adsterra-ads"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent);
-                if (!isMobile) {
-                  var s1 = document.createElement('script');
-                  s1.src = 'https://drainalmost.com/0a/62/bf/0a62bfff0f2f7832c52bfcef3f7519bc.js';
-                  document.body.appendChild(s1);
-                }
-                var s2 = document.createElement('script');
-                s2.src = 'https://drainalmost.com/9f/85/8e/9f858ecfb6c04ab2061e50b52c6116da.js';
-                document.body.appendChild(s2);
-              })();
-            `,
-          }}
-        />
-
         <Script src="https://accounts.google.com/gsi/client" strategy="lazyOnload" />
         <GoogleAnalytics gaId="G-Z6TQTL70L0" />
         <Script
