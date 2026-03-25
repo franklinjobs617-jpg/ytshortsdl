@@ -45,6 +45,10 @@ export default async function RootLayout({
 
 
       <body>
+      <Script
+        src="https://d3u598arehftfk.cloudfront.net/prebid_hb_38595_39363.js"
+        strategy="afterInteractive"
+      />
         <Script src="https://accounts.google.com/gsi/client" strategy="lazyOnload" />
         <GoogleAnalytics gaId="G-Z6TQTL70L0" />
         <Script
