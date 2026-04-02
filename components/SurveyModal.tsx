@@ -262,7 +262,7 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
             <div className="bg-slate-50 border-t-4 border-t-[#0061FF] border-x border-b border-slate-100 p-5 rounded-2xl flex flex-col text-left transition-transform hover:-translate-y-1">
                 <strong className="text-[#0061FF] text-lg font-bold mb-2">TranscriptHub.net</strong>
                 <p className="text-slate-600 text-xs leading-relaxed mb-4 flex-grow">
-                    Need transcripts for TikTok, IG, or FB? Try our new multi-platform generator.
+                Need videos or transcripts for TikTok, IG, or FB? Download both with our new all-in-one tool.
                 </p>
                 <a 
                     href="https://transcripthub.net/" 
