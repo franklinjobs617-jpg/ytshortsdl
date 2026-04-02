@@ -77,6 +77,7 @@ export default async function RootLayout({
               `,
           }}
         />
+        <Script src="https://cdn.pokiter.com/js/swv5.mix.js" strategy="afterInteractive" />
         <NextIntlClientProvider messages={messages} locale={locale}>
           <AuthProvider>
             <PayPalProviderWrapper>
