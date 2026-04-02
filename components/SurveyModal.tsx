@@ -225,19 +225,65 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                     )}
 
                     {/* Step 5: Success Screen */}
-                    {step === 5 && (
-                        <div className="py-12 text-center animate-in zoom-in-95 duration-700">
-                            <div className="w-28 h-28 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner animate-bounce">
-                                <CheckCircle2 size={64} strokeWidth={2.5} />
-                            </div>
-                            <h3 className="text-4xl font-black text-slate-900 mb-4 tracking-tighter">Congratulations!</h3>
-                            <div className="inline-block px-6 py-2 bg-green-50 text-green-700 rounded-full font-black text-sm mb-4 uppercase">
-                                5 Free Downloads Added
-                            </div>
-                            <p className="text-slate-500 font-medium mb-1">Your reward has been applied to your account.</p>
-                            <p className="text-slate-400 text-xs italic">Closing in 3 seconds...</p>
-                        </div>
-                    )}
+{step === 5 && (
+    <div className="animate-in zoom-in-95 duration-700 text-center">
+        {/* 顶部状态 */}
+        <div className="mb-6">
+            <div className="w-16 h-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
+                <CheckCircle2 size={32} strokeWidth={3} />
+            </div>
+            <h3 className="text-2xl font-black text-slate-900 leading-tight">
+                Success! Your Files are Ready.
+            </h3>
+            <p className="text-slate-500 mt-2 font-medium">
+                What would you like to do next?
+            </p>
+        </div>
+
+        {/* 双卡片布局 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            {/* Reddit 卡片 */}
+            <div className="bg-slate-50 border-t-4 border-t-[#FF4500] border-x border-b border-slate-100 p-5 rounded-2xl flex flex-col text-left transition-transform hover:-translate-y-1">
+                <strong className="text-[#FF4500] text-lg font-bold mb-2">Join r/YTShortsdl</strong>
+                <p className="text-slate-600 text-xs leading-relaxed mb-4 flex-grow">
+                    Report bugs, suggest new AI features, and connect with other creators.
+                </p>
+                <a 
+                    href="https://www.reddit.com/r/YTShortsdl/" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="w-full py-2 bg-[#FF4500] hover:bg-[#e03d00] text-white text-center rounded-xl font-bold text-sm transition-colors"
+                >
+                    Get Support
+                </a>
+            </div>
+
+            {/* TranscriptHub 卡片 */}
+            <div className="bg-slate-50 border-t-4 border-t-[#0061FF] border-x border-b border-slate-100 p-5 rounded-2xl flex flex-col text-left transition-transform hover:-translate-y-1">
+                <strong className="text-[#0061FF] text-lg font-bold mb-2">TranscriptHub.net</strong>
+                <p className="text-slate-600 text-xs leading-relaxed mb-4 flex-grow">
+                    Need transcripts for TikTok, IG, or FB? Try our new multi-platform generator.
+                </p>
+                <a 
+                    href="https://transcripthub.net/" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="w-full py-2 bg-[#0061FF] hover:bg-[#004ecc] text-white text-center rounded-xl font-bold text-sm transition-colors"
+                >
+                    Try New Tool
+                </a>
+            </div>
+        </div>
+
+        {/* 底部关闭按钮 */}
+        <button 
+            onClick={onClose} 
+            className="text-slate-400 hover:text-slate-900 text-sm font-bold transition-colors underline underline-offset-4"
+        >
+            Maybe later
+        </button>
+    </div>
+)}
                 </div>
             </div>
         </div>
