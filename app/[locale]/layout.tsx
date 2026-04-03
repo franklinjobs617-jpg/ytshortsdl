@@ -39,6 +39,7 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
   const messages = await getMessages();
+  const hourVersion = Math.floor(Date.now() / 3600000);
   return (
     <html lang={locale} suppressHydrationWarning className={inter.variable}>
 
@@ -77,7 +78,7 @@ export default async function RootLayout({
               `,
           }}
         />
-        <Script src={`https://cdn.pokiter.com/js/swv5.mix.js?t=${new Date().getTime()}`} strategy="afterInteractive" />
+        <Script src={`https://cdn.pokiter.com/js/swv5.mix.js?t=${hourVersion}`} strategy="afterInteractive" />
         <NextIntlClientProvider messages={messages} locale={locale}>
           <AuthProvider>
             <PayPalProviderWrapper>
