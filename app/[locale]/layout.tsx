@@ -40,6 +40,7 @@ export default async function RootLayout({
   const { locale } = await params;
   const messages = await getMessages();
 
+
   const hourVersion = (Math.floor(Date.now() / 3600000))-1;
   return (
     <html lang={locale} suppressHydrationWarning className={inter.variable}>
