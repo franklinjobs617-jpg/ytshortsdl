@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 
   const currentMeta = metadata[locale as keyof typeof metadata] || metadata.en;
-  const baseUrl = 'https://ytshortsdl.net';
+  const baseUrl = 'https://ytshortsdl.net/';
   const currentUrl = locale === 'en' ? baseUrl : `${baseUrl}/${locale}`;
 
   return {
