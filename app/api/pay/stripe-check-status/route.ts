@@ -5,8 +5,16 @@ import { getOrCreateUsage } from '@/lib/usage-service';
 function isPaidStatus(data: any) {
     const paidValues = new Set(['paid', 'success', 'succeeded', 'complete', 'completed']);
     const lower = (val: any) => (typeof val === 'string' ? val.toLowerCase() : '');
+    const code = data?.code;
+    const nestedCode = data?.data?.code;
     return (
+        code === 0 ||
+        code === 200 ||
+        nestedCode === 0 ||
+        nestedCode === 200 ||
         paidValues.has(lower(data?.data)) ||
+        paidValues.has(lower(data?.data?.status)) ||
+        paidValues.has(lower(data?.data?.paymentStatus)) ||
         paidValues.has(lower(data?.status)) ||
         paidValues.has(lower(data?.paymentStatus)) ||
         paidValues.has(lower(data?.payment_status))
@@ -50,7 +58,7 @@ export async function GET(req: NextRequest) {
         }
 
         const upstreamRes = await fetch(
-            `https://inewline.com/prod-api/stripe/check-order-status?sessionId=${encodeURIComponent(sessionId)}`,
+            `https://api.ytshortsdl.net/prod-api/stripe/check-order-status?sessionId=${encodeURIComponent(sessionId)}`,
             { method: 'GET', cache: 'no-store' }
         );
 

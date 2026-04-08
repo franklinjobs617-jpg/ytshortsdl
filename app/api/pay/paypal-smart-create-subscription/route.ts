@@ -5,7 +5,7 @@ export async function POST(request: Request) {
     // 1. 获取前端传来的参数 (type, googleUserId, email 等)
     const body = await request.json();
 
-    const javaBackendUrl = "https://api.connectthedotsprintable.online/prod-api/paypal/smart/create-subscription";
+    const javaBackendUrl = "https://api.ytshortsdl.net/prod-api/paypal/smart/create-subscription";
 
     const response = await fetch(javaBackendUrl, {
       method: "POST",

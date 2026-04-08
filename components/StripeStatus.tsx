@@ -34,7 +34,9 @@ export default function StripeStatus() {
 
             if (response.ok && data?.paid) {
                 setStatus("success");
-                setTimeout(() => router.push("/"), 2000);
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 2000);
                 return "SUCCESS";
             }
 
@@ -119,7 +121,7 @@ export default function StripeStatus() {
                             <CheckCircle2 size={52} strokeWidth={2.8} />
                         </div>
                         <h2 className="text-3xl font-black tracking-tight text-slate-900">Payment Confirmed</h2>
-                        <p className="text-sm text-slate-500">Everything looks good. Redirecting you now…</p>
+                        <p className="text-sm text-slate-500">Everything looks good. Redirecting you now...</p>
                     </div>
                 )}
 

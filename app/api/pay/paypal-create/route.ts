@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
                 type: type,        
                 businessType: "4", // 4 代表 PayPal 业务
                 amount: amountValue,
-                remark: `PayPal | Plan: ${planName} | Credits: ${creditAmount}`,
+                remark: `PayPal | Plan: ${planName} | Quota: ${creditAmount}`,
                 timestamp: Date.now().toString(),
                 ip: req.headers.get('x-forwarded-for')?.split(',')[0] || '127.0.0.1'
             }   

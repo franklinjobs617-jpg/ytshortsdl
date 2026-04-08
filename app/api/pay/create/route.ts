@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
                 businessType: "ytshorts", // 代表 Stripe 业务
                 amount: amountValue,
                 // 在备注里记录套餐详细信息，方便人工对账
-                remark: `Plan: ${planName} | PriceID: ${stripePriceId} | Credits: ${creditAmount}`,
+                remark: `Plan: ${planName} | PriceID: ${stripePriceId} | Quota: ${creditAmount}`,
                 timestamp: Date.now().toString()
             }
         });

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Check, X, ChevronDown, Loader2, CreditCard, CheckCircle2, AlertCircle, RefreshCcw } from "lucide-react";
+import { Check, X, Loader2, CheckCircle2, AlertCircle, RefreshCcw } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
-import { PayPalScriptProvider, PayPalButtons, ReactPayPalScriptOptions } from "@paypal/react-paypal-js";
+import { PayPalButtons } from "@paypal/react-paypal-js";
 import { trackEvent, GA_EVENTS } from "@/lib/gtag"; // 🚀 引入
 
 interface Feature {
@@ -22,6 +22,22 @@ interface Plan {
     buttonText: string;
     featured: boolean;
 }
+
+const isPaySuccess = (payload: any) => {
+    const code = payload?.code;
+    const status = (payload?.status || payload?.data?.status || "").toString().toLowerCase();
+    const paidStatus = (payload?.paymentStatus || payload?.data?.paymentStatus || "").toString().toLowerCase();
+
+    return (
+        code === 0 ||
+        code === 200 ||
+        status === "success" ||
+        status === "succeeded" ||
+        status === "completed" ||
+        paidStatus === "paid" ||
+        paidStatus === "succeeded"
+    );
+};
 
 const PricingTable = () => {
     const [isYearly, setIsYearly] = useState(false);
@@ -51,7 +67,7 @@ const PricingTable = () => {
         try {
             const res = await fetch(`https://api.ytshortsdl.net/prod-api/paypal/retUrl${window.location.search}`);
             const data = await res.json();
-            if (data.code === 0) {
+            if (isPaySuccess(data)) {
                 // 🚀 埋点：支付校验成功
                 trackEvent(GA_EVENTS.F_PAY_SUCCESS, { method: 'paypal', type: 'url_verify' });
                 setVerificationStatus('success');
@@ -201,13 +217,6 @@ const PricingTable = () => {
         );
     }
 
-    const paypalOptions: ReactPayPalScriptOptions = {
-        clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "test",
-        currency: "USD",
-        vault: true,
-        components: "buttons", // Only load buttons
-    };
-
     return (
         <div className="py-6 px-4 sm:px-6 lg:px-8 bg-white text-slate-900 font-sans antialiased">
             <div className="max-w-7xl mx-auto flex flex-col items-center">
@@ -279,7 +288,7 @@ const PricingTable = () => {
 
                                     {/* PayPal Direct Button */}
                                     <div className="w-full h-12 relative z-0 mt-3">
-                                        {!setLoadingPlan ? (
+                                        {loadingPlan === plan.name && payProvider === 'paypal' ? (
                                             <button disabled className="w-full h-12 rounded-xl font-bold flex items-center justify-center gap-2 bg-[#ffc439] opacity-50 cursor-not-allowed text-slate-900 border border-transparent shadow-sm">
                                                 <Loader2 className="animate-spin w-4 h-4" />
                                                 <span className="text-sm italic">Loading PayPal...</span>
@@ -292,32 +301,44 @@ const PricingTable = () => {
                                                 shape: "rect",
                                                 borderRadius: 12,
                                                 height: 48,
-                                                label: isYearly || plan.name !== "Free" ? 'subscribe' : 'pay' // 订阅显示为 Subscribe
+                                                label: "subscribe"
                                             }}
                                             forceReRender={[isYearly, plan.name]}
+                                            disabled={loadingPlan !== null}
                                             
                                             // 【关键修改 1】：如果是订阅计划，使用 createSubscription
-                                            createSubscription={async (data, actions) => {
+                                            createSubscription={async () => {
                                                 if (!isLoggedIn) { login(); throw new Error("Login required"); }
-                                                
-                                                const typeString = `plan_${plan.name.toLowerCase()}_${isYearly ? 'yearly' : 'monthly'}`;
-                                                
-                                                const response = await fetch("/api/pay/paypal-smart-create-subscription", { // 注意这里调用订阅接口
-                                                    method: "POST",
-                                                    headers: { "Content-Type": "application/json" },
-                                                    body: JSON.stringify({
-                                                        type: typeString,
-                                                        googleUserId: user?.googleUserId || user?.id,
-                                                        email: user?.email,
-                                                        userId: user?.id
-                                                    })
-                                                });
-                                                const res = await response.json();
-                                                return res.data; // 返回 I-XXXX
+
+                                                setLoadingPlan(plan.name);
+                                                setPayProvider('paypal');
+
+                                                try {
+                                                    const typeString = `plan_${plan.name.toLowerCase()}_${isYearly ? 'yearly' : 'monthly'}`;
+
+                                                    const response = await fetch("/api/pay/paypal-smart-create-subscription", {
+                                                        method: "POST",
+                                                        headers: { "Content-Type": "application/json" },
+                                                        body: JSON.stringify({
+                                                            type: typeString,
+                                                            googleUserId: user?.googleUserId || user?.id,
+                                                            email: user?.email,
+                                                            userId: user?.id
+                                                        })
+                                                    });
+                                                    const res = await response.json();
+                                                    if (!response.ok || !res?.data) {
+                                                        throw new Error(res?.msg || "Failed to create PayPal subscription");
+                                                    }
+                                                    return res.data;
+                                                } finally {
+                                                    setLoadingPlan(null);
+                                                    setPayProvider(null);
+                                                }
                                             }}
                                         
                                             // 【关键修改 2】：处理回调
-                                            onApprove={async (data, actions) => {
+                                            onApprove={async (data) => {
                                                 // 订阅模式下 data 会包含 subscriptionID
                                                 if (data.subscriptionID) {
                                                     console.log("Subscription Success:", data.subscriptionID);
@@ -331,9 +352,11 @@ const PricingTable = () => {
                                                         body: JSON.stringify({ orderId: data.orderID })
                                                     });
                                                     const result = await res.json();
-                                                    if (result.code === 200) {
+                                                    if (isPaySuccess(result)) {
                                                         setVerificationStatus('success');
                                                         setTimeout(() => window.location.href = "/", 2000);
+                                                    } else {
+                                                        setVerificationStatus('error');
                                                     }
                                                 }
                                             }}

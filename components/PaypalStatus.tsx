@@ -4,6 +4,21 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Loader2, CheckCircle2, AlertCircle, RefreshCcw, ArrowLeft } from 'lucide-react';
 
+const isPaySuccess = (payload: any) => {
+    const code = payload?.code;
+    const status = (payload?.status || payload?.data?.status || '').toString().toLowerCase();
+    const paidStatus = (payload?.paymentStatus || payload?.data?.paymentStatus || '').toString().toLowerCase();
+    return (
+        code === 0 ||
+        code === 200 ||
+        status === 'success' ||
+        status === 'succeeded' ||
+        status === 'completed' ||
+        paidStatus === 'paid' ||
+        paidStatus === 'succeeded'
+    );
+};
+
 export default function PaypalStatus() {
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -33,9 +48,11 @@ export default function PaypalStatus() {
             const response = await fetch(`${API_URL}?${queryStr}`);
             const data = await response.json();
 
-            if (data.code === 0 || data.status === 'success') {
+            if (isPaySuccess(data)) {
                 setStatus('success');
-                setTimeout(() => router.push('/'), 3000);
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 3000);
                 return 'SUCCESS';
             }
             return 'PENDING';
