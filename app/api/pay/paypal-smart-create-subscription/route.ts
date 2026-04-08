@@ -15,9 +15,15 @@ export async function POST(request: Request) {
       body: JSON.stringify(body),
     });
 
-    const data = await response.json();
+    const rawText = await response.text();
+    let data: unknown = null;
+    try {
+      data = rawText ? JSON.parse(rawText) : null;
+    } catch {
+      data = { code: response.status, msg: rawText || "Invalid upstream response", data: null };
+    }
 
-    return NextResponse.json(data);
+    return NextResponse.json(data, { status: response.status });
 
   } catch (error) {
     console.error("Error creating PayPal subscription proxy:", error);

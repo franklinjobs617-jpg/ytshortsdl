@@ -42,7 +42,6 @@ const isPaySuccess = (payload: any) => {
 const PricingTable = () => {
     const [isYearly, setIsYearly] = useState(false);
     const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
-    const [payProvider, setPayProvider] = useState<'stripe' | 'paypal' | null>(null);
     const { user, isLoggedIn, login } = useAuth();
 
     // --- 🚀 新增：支付回调校验状态 ---
@@ -142,7 +141,6 @@ const PricingTable = () => {
         });
 
         setLoadingPlan(plan.name);
-        setPayProvider('stripe');
 
         try {
             const typeString = `plan_${plan.name.toLowerCase()}_${isYearly ? 'yearly' : 'monthly'}`;
@@ -170,7 +168,6 @@ const PricingTable = () => {
             alert("Payment connection failed.");
         } finally {
             setLoadingPlan(null);
-            setPayProvider(null);
         }
     };
 
@@ -288,12 +285,6 @@ const PricingTable = () => {
 
                                     {/* PayPal Direct Button */}
                                     <div className="w-full h-12 relative z-0 mt-3">
-                                        {loadingPlan === plan.name && payProvider === 'paypal' ? (
-                                            <button disabled className="w-full h-12 rounded-xl font-bold flex items-center justify-center gap-2 bg-[#ffc439] opacity-50 cursor-not-allowed text-slate-900 border border-transparent shadow-sm">
-                                                <Loader2 className="animate-spin w-4 h-4" />
-                                                <span className="text-sm italic">Loading PayPal...</span>
-                                            </button>
-                                        ) : (
                                             <PayPalButtons
                                             fundingSource="paypal"
                                             style={{
@@ -309,9 +300,6 @@ const PricingTable = () => {
                                             // 【关键修改 1】：如果是订阅计划，使用 createSubscription
                                             createSubscription={async () => {
                                                 if (!isLoggedIn) { login(); throw new Error("Login required"); }
-
-                                                setLoadingPlan(plan.name);
-                                                setPayProvider('paypal');
 
                                                 try {
                                                     const typeString = `plan_${plan.name.toLowerCase()}_${isYearly ? 'yearly' : 'monthly'}`;
@@ -331,9 +319,9 @@ const PricingTable = () => {
                                                         throw new Error(res?.msg || "Failed to create PayPal subscription");
                                                     }
                                                     return res.data;
-                                                } finally {
-                                                    setLoadingPlan(null);
-                                                    setPayProvider(null);
+                                                } catch (error: any) {
+                                                    alert(error?.message || "Failed to start PayPal subscription");
+                                                    throw error;
                                                 }
                                             }}
                                         
@@ -365,7 +353,6 @@ const PricingTable = () => {
                                                 setVerificationStatus('error');
                                             }}
                                         />
-                                        )}
                                     </div>
                                 </div>
                             )}
