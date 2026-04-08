@@ -55,8 +55,11 @@ const PricingTable = () => {
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const payerId = urlParams.get('PayerID');
+        const token = urlParams.get('token');
+        const subscriptionId = urlParams.get('subscription_id');
+        const baToken = urlParams.get('ba_token');
 
-        if (payerId) {
+        if (payerId || token || subscriptionId || baToken) {
             handleVerifyPayPal();
         }
     }, []);
@@ -318,7 +321,21 @@ const PricingTable = () => {
                                                     if (!response.ok || !res?.data) {
                                                         throw new Error(res?.msg || "Failed to create PayPal subscription");
                                                     }
-                                                    return res.data;
+
+                                                    // Backend compatibility:
+                                                    // 1) Smart subscription: returns "I-XXXX" (recommended for PayPalButtons)
+                                                    // 2) Legacy flow: returns approval URL, then we redirect directly
+                                                    const payload = String(res.data);
+                                                    if (payload.startsWith("I-")) {
+                                                        return payload;
+                                                    }
+
+                                                    if (payload.startsWith("http://") || payload.startsWith("https://")) {
+                                                        window.location.href = payload;
+                                                        return "__redirect__";
+                                                    }
+
+                                                    throw new Error("Unexpected PayPal subscription response");
                                                 } catch (error: any) {
                                                     alert(error?.message || "Failed to start PayPal subscription");
                                                     throw error;
