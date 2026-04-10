@@ -50,6 +50,7 @@ export default function SubscriptionModal({
 
     // --- Stripe 支付逻辑 ---
     const handleStripePayment = async (plan: Plan) => {
+        if (loadingPlan) return;
         if (!isLoggedIn) {
             login();
             return;

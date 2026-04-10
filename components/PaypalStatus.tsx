@@ -36,9 +36,10 @@ export default function PaypalStatus() {
         const payerId = searchParams.get('PayerID');
         const token = searchParams.get('token');
         const subId = searchParams.get('subscription_id');
+        const baToken = searchParams.get('ba_token');
 
         // 兼容订阅 ID 检查
-        if (!payerId && !token && !subId) {
+        if (!payerId && !token && !subId && !baToken) {
             setStatus('error');
             setErrorMsg("Missing transaction identifiers.");
             return 'FAILURE';

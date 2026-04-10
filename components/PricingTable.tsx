@@ -60,7 +60,10 @@ const PricingTable = () => {
         const baToken = urlParams.get('ba_token');
 
         if (payerId || token || subscriptionId || baToken) {
-            handleVerifyPayPal();
+            const pathParts = window.location.pathname.split('/').filter(Boolean);
+            const locale = ['en', 'hi', 'es'].includes(pathParts[0]) ? `/${pathParts[0]}` : '';
+            window.location.href = `${locale}/paypalpayment${window.location.search}`;
+            return;
         }
     }, []);
 
@@ -134,6 +137,7 @@ const PricingTable = () => {
 
     // --- Stripe Logic ---
     const handleStripePayment = async (plan: Plan) => {
+        if (loadingPlan) return;
         if (!isLoggedIn) { login(); return; }
 
         // 🚀 埋点：点击支付（Stripe）
