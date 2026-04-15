@@ -26,7 +26,15 @@ export const metadata: Metadata = {
 export default function PricingPage() {
     return (
         <main>
-            <PricingTable />
+            {/* <PricingTable /> */}
+
+            <div className='container mx-auto px-4 py-30 text-center'>
+                <h1 className='text-3xl font-bold mb-4'>Pricing Plans</h1>
+                <p className='text-lg mb-6'>Our pricing plans are coming soon! Stay tuned for updates.</p>
+                <a href='/' className='text-blue-500 hover:underline bg-black px-4 py-2 rounded text-white hover:bg-gray-800 transition-colors duration-300'>
+                    Back to Home
+                </a>
+            </div>
         </main>
     );
 }

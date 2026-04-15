@@ -23,29 +23,7 @@ export async function POST(req: NextRequest) {
         }
 
         const data = await backendRes.json();
-
-        // Log locally for debugging/tracking
-        try {
-            await prisma.pay.create({
-                data: {
-                    userId: userId || "",
-                    googleUserId: googleUserId || "",
-                    email: email || "",
-                    orderNo: `SMART_${Date.now()}`,
-                    checkoutUrl: "SMART_BUTTON",
-                    status: "1", // Pending
-                    type: type,
-                    businessType: "4", // PayPal
-                    amount: "0.00", // We might not know exact amount here easily without parsing type map again, optional
-                    remark: `Smart Button Init | ${data.data || 'No ID'}`,
-                    timestamp: Date.now().toString(),
-                    ip: req.headers.get('x-forwarded-for')?.split(',')[0] || '127.0.0.1'
-                }
-            });
-        } catch (e) {
-            console.error("Failed to log smart order to local DB", e);
-            // Non-blocking, continue
-        }
+        console.log(data)
 
         return NextResponse.json(data);
 

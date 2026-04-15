@@ -23,6 +23,7 @@ export async function POST(request: Request) {
       data = { code: response.status, msg: rawText || "Invalid upstream response", data: null };
     }
 
+    console.log("PayPal subscription proxy response:");
     return NextResponse.json(data, { status: response.status });
 
   } catch (error) {
