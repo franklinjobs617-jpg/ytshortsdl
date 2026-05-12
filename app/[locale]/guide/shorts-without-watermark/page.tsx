@@ -1,6 +1,7 @@
 
 import { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: 'How Creators Legally Download Shorts Without Watermarks 2025',
@@ -90,9 +91,9 @@ export default function ShortsWithoutWatermark() {
                                 </p>
                                 <p className="text-slate-700 leading-relaxed">
                                     If you often need to strip the audio for a podcast or background music track, our
-                                    specialized <a href="https://ytshortsdl.net/shorts-to-mp3"
+                                    specialized <Link href="https://ytshortsdl.net/shorts-to-mp3"
                                         className="text-red-600 hover:text-red-700 font-bold hover:underline">Shorts to MP3
-                                        Downloader</a> can streamline your workflow significantly.
+                                        Downloader</Link> can streamline your workflow significantly.
                                 </p>
                             </section>
 
@@ -104,10 +105,10 @@ export default function ShortsWithoutWatermark() {
                                 <p className="text-slate-700 leading-relaxed mb-4">
                                     The core principle is clear: You must be the original copyright holder to download and
                                     reuse the video. Downloading third-party content violates YouTube’s terms and
-                                    international copyright law. We strongly advise reviewing the official <a href="#"
+                                    international copyright law. We strongly advise reviewing the official <Link href="#"
                                         target="_blank" rel="nofollow noopener"
                                         className="text-red-600 hover:text-red-700 font-bold hover:underline">YouTube Copyright
-                                        Policy</a> and guidelines from the EFF to maintain compliance.
+                                        Policy</Link> and guidelines from the EFF to maintain compliance.
                                 </p>
                                 <p className="text-slate-700 leading-relaxed mb-6">
                                     Our service is engineered to support <strong>creators, not infringers.</strong>
@@ -200,8 +201,8 @@ export default function ShortsWithoutWatermark() {
                                             the watermark from a competitor's video?</dt>
                                         <dd className="text-slate-700 pl-4 border-l-2 border-slate-200">A: No. Our service is
                                             strictly for content you own. Doing so is copyright infringement and violates
-                                            our <a href="https://ytshortsdl.net/terms"
-                                                className="text-red-600 hover:underline">Terms of Service</a>.</dd>
+                                            our <Link href="https://ytshortsdl.net/terms"
+                                                className="text-red-600 hover:underline">Terms of Service</Link>.</dd>
                                     </div>
                                     <div>
                                         <dt className="font-bold text-slate-900 mb-2 text-lg">Q: Does removing the watermark
@@ -219,10 +220,10 @@ export default function ShortsWithoutWatermark() {
                                 <p className="text-white/90 mb-8 text-lg max-w-2xl mx-auto">Test the power of our AI-optimized
                                     downloads and experience the fastest, cleanest service built by creators, for creators.
                                 </p>
-                                <a href="https://ytshortsdl.net/"
+                                <Link href="https://ytshortsdl.net/"
                                     className="inline-block bg-white text-red-600 font-bold py-3 px-8 rounded-lg shadow-md hover:bg-slate-100 transition-transform hover:scale-105">
                                     Start Optimizing Your Shorts Now on the Homepage
-                                </a>
+                                </Link>
                             </div>
                         </div>
 

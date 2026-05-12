@@ -1,5 +1,6 @@
 
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: 'Support & Help Center | YTShortsDL.net',
@@ -128,8 +129,8 @@ export default function Privacy() {
                                 <div className="bg-red-50 border border-red-100 p-6 rounded-lg text-center md:text-left">
                                     <p className="text-lg text-slate-800">
                                         <strong className="block md:inline mb-2 md:mb-0">Support Email:</strong>
-                                        <a href="mailto:support@ytshortsdl.net"
-                                            className="font-bold text-red-600 hover:text-red-700 underline text-xl md:ml-2">support@ytshortsdl.net</a>
+                                        <Link href="mailto:support@ytshortsdl.net"
+                                            className="font-bold text-red-600 hover:text-red-700 underline text-xl md:ml-2">support@ytshortsdl.net</Link>
                                     </p>
                                     <p className="text-slate-500 text-sm mt-2">(Please allow 24-48 hours for a response.)</p>
                                 </div>

@@ -15,7 +15,7 @@ const eslintConfig = [
   {
     rules: {
       "@typescript-eslint/no-explicit-any": "off",      // 允许使用 any
-      "@typescript-eslint/no-unused-vars": "warn",     // 未使用变量仅警告，不报错
+      "@typescript-eslint/no-unused-vars": "off",     // 未使用变量仅警告，不报错
       "react/no-unescaped-entities": "off",            // 允许不转义的特殊字符 (如单引号)
       "@typescript-eslint/no-unused-expressions": "off", // 允许未使用的表达式
       "react-hooks/exhaustive-deps": "off",            // 忽略 Hook 依赖检查

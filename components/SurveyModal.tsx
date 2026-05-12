@@ -5,7 +5,7 @@ import { X, Gift, CheckCircle2, Loader2, Sparkles, ChevronRight, ArrowLeft } fro
 import { useAuth } from '@/lib/auth-context';
 import { trackEvent, GA_EVENTS } from '@/lib/gtag';
 import { useToast } from "@/components/ToastContext";
-
+import Link from 'next/link';
 interface SurveyModalProps {
     isOpen: boolean;
     onClose: () => void;
@@ -248,14 +248,14 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 <p className="text-slate-600 text-xs leading-relaxed mb-4 flex-grow">
                     Report bugs, suggest new AI features, and connect with other creators.
                 </p>
-                <a 
+                <Link 
                     href="https://www.reddit.com/r/YTShortsdl/" 
                     target="_blank" 
                     rel="noreferrer"
                     className="w-full py-2 bg-[#FF4500] hover:bg-[#e03d00] text-white text-center rounded-xl font-bold text-sm transition-colors"
                 >
                     Get Support
-                </a>
+                </Link>
             </div>
 
             {/* TranscriptHub 卡片 */}
@@ -264,14 +264,14 @@ export default function SurveyModal({ isOpen, onClose }: SurveyModalProps) {
                 <p className="text-slate-600 text-xs leading-relaxed mb-4 flex-grow">
                 Need videos or transcripts for TikTok, IG, or FB? Download both with our new all-in-one tool.
                 </p>
-                <a 
+                <Link 
                     href="https://transcripthub.net/" 
                     target="_blank" 
                     rel="noreferrer"
                     className="w-full py-2 bg-[#0061FF] hover:bg-[#004ecc] text-white text-center rounded-xl font-bold text-sm transition-colors"
                 >
                     Try New Tool
-                </a>
+                </Link>
             </div>
         </div>
 
