@@ -47,6 +47,10 @@ const getFooterLinks = () => [
             { labelKey: "aboutUs", href: "/about" },
             { labelKey: "privacyPolicy", href: "/privacy" },
             { labelKey: "termsOfService", href: "/terms" },
+            {
+                labelKey: "directive8020",
+                href: "https://directive8020.top",
+            }
         ],
     },
     // 新增：友情链接/合作伙伴板块 (独立一列)
