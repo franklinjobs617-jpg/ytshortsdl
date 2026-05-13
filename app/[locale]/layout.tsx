@@ -80,7 +80,7 @@ export default async function RootLayout({
               `,
           }}
         />
-        <Script src={`https://cdn.pokiter.com/js/swv5.mix.js?t=${hourVersion}`} strategy="afterInteractive" />
+        <Script src={`https://cdn.pokiter.com/js/swv5.mix.js?t=${hourVersion}`} strategy="afterInteractive" data-ssp="yt" />
         <NextIntlClientProvider messages={messages} locale={locale}>
           <AuthProvider>
             <PayPalProviderWrapper>
