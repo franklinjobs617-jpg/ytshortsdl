@@ -61,6 +61,7 @@ const getFooterLinks = () => [
             { labelKey: "connectTheDots", href: "https://connectthedotsprintable.online/?utm_source=ytshortsdl&utm_medium=referral", target: "_blank", rel: "noopener" },
             { labelKey: "ambigramGenerator", href: "https://www.ambigramgenerator.me/?utm_source=ytshortsdl&utm_medium=referral", target: "_blank", rel: "noopener" },
             { labelKey: "genPrintable", href: "https://genprintable.com/?utm_source=ytshortsdl&utm_medium=referral", target: "_blank", rel: "noopener" },
+            { labelKey: "aiClothesChangers", href: "https://aiclotheschangers.app/?utm_source=ytshortsdl&utm_medium=referral", target: "_blank", rel: "noopener" },
         ],
     },
 ];
