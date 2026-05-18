@@ -11,6 +11,10 @@ const getFooterLinks = () => [
         links: [
             { labelKey: "downloadShorts", href: "/" },
             { labelKey: 'mp3Audio', href: '/shorts-to-mp3' },
+            {
+                labelKey: 'game hubs',
+                href:'https://base64pro.top',
+            },
             { labelKey: 'videoToScriptConverter', href: '/video-to-script-converter' },
             { labelKey: 'aiScriptGenerator', href: '/ai-script-generator' },
             { labelKey: 'youtubeTrend', href: '/trending' },
