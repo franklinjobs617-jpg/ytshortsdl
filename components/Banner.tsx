@@ -18,7 +18,7 @@ export default function Banner() {
               {t('removeWatermark')}
             </p>
           </div>
-          <Link href="https://enjoy4game.com/?utm_source=ytshortsdl&utm_content=footer_bar"
+          <Link href="https://base64pro.top/?utm_source=ytshortsdl&utm_content=top_banner"
             target="_blank"
             className="bg-white text-orange-600 text-[11px] sm:text-[13px] font-black px-4 py-1 rounded-full shadow-md hover:bg-slate-50 transition-all active:scale-95 whitespace-nowrap">
             {t('tryFree')}

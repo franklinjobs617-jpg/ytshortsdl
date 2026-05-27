@@ -120,9 +120,9 @@
     "aiScriptGenerator": "AI Script Generator"
   },
   "banner": {
-    "aiTool": "AI Tool",
-    "removeWatermark": "Quickly download YouTube subtitles with our free AI-powered suite",
-    "tryFree": "Try Free"
+    "aiTool": "Game Guide",
+    "removeWatermark": "Before you buy or play, check the guide first.",
+    "tryFree": "Check Guides"
   },
   "toast": {
     "downloadedSuccessfully": "Downloaded successfully",
