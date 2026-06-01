@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Loans Made Easy | SoFi Official Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sofi-navy: #1E1656; /* 精准提取自官网深蓝 */
+            --sofi-teal: #00A3C4; /* 精准提取自官网亮青色 */
+            --sofi-light: #F7F9FC;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #242424;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 官方按钮样式复刻 */
+        .btn-official {
+            background-color: var(--sofi-teal);
+            color: #ffffff;
+            font-weight: 700;
+            border-radius: 9999px; /* 官方是全圆角 */
+            transition: all 0.2s ease;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .btn-official:hover {
+            background-color: #008ba6;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 163, 196, 0.3);
+        }
+
+        /* 互动选项卡样式 */
+        .selector-btn {
+            border: 1px solid #D1D5DB;
+            background-color: #ffffff;
+            color: #4B5563;
+            transition: all 0.2s;
+        }
+        .selector-btn:hover { border-color: var(--sofi-teal); }
+        .selector-btn.active {
+            border-color: var(--sofi-teal);
+            background-color: #F0FAFC;
+            color: var(--sofi-navy);
+            font-weight: 700;
+            box-shadow: 0 0 0 1px var(--sofi-teal);
+        }
+
+        /* 官方输入滑块样式 */
+        input[type=range] {
+            -webkit-appearance: none; width: 100%; background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; height: 24px; width: 24px;
+            border-radius: 50%; background: #ffffff;
+            border: 2px solid var(--sofi-teal);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            cursor: pointer; margin-top: -10px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%; height: 4px; cursor: pointer;
+            background: #E5E7EB; border-radius: 2px;
+        }
+
+        /* 隐藏类 */
+        .hidden-ui { display: none !important; }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .tp-green { color: #00B67A; }
+    </style>
+</head>
+<body class="pb-24 lg:pb-0">
+
+    <!-- 1. 极简 Header -->
+    <header class="w-full bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-1">
+                <!-- SoFi Logo 字体模拟 -->
+                <span class="text-3xl font-black tracking-tighter" style="color: var(--sofi-navy);">SoFi</span>
+                <div class="w-2 h-2 rounded-full mt-2" style="background-color: var(--sofi-teal);"></div>
+            </div>
+            <div class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-600">
+                <span class="hover:text-black cursor-pointer">Products</span>
+                <span class="hover:text-black cursor-pointer">Rates</span>
+                <span class="hover:text-black cursor-pointer">Resources</span>
+            </div>
+            <a href="YOUR_OFFER_LINK_HERE" class="btn-official px-6 py-2 text-sm shadow-sm">View Your Rate</a>
+        </div>
+    </header>
+
+    <!-- 2. Hero Section: 完美复刻官方海军蓝背景 -->
+    <section class="w-full relative px-6 py-12 lg:py-20" style="background-color: var(--sofi-navy);">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            
+            <!-- 左侧：文案与权威背书 -->
+            <div class="lg:col-span-7 flex flex-col text-white">
+                <p class="text-xs font-bold tracking-[0.15em] uppercase text-yellow-400 mb-4">Personal Loans</p>
+                
+                <!-- 复刻截图标题 -->
+                <h1 class="text-4xl md:text-5xl lg:text-[64px] font-extrabold leading-[1.05] tracking-tight mb-6">
+                    <span style="color: var(--sofi-teal);">Low rates. No fees required.</span> <br>
+                    Personal loans made easy online.
+                </h1>
+                
+                <p class="text-lg md:text-xl font-normal leading-relaxed mb-8 max-w-lg opacity-90">
+                    Get funds as soon as the same day you sign‡ with our quick, easy application process.
+                </p>
+
+                <!-- NerdWallet 奖章 (极强的信任转化元素) -->
+                <div class="bg-white rounded-lg p-4 flex items-center gap-4 w-max shadow-lg mb-8 text-black">
+                    <div class="border-r border-gray-200 pr-4">
+                        <p class="text-[10px] font-bold text-green-700 uppercase leading-tight">Best-Of<br>Awards<br><span class="text-lg">2026</span></p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-lg leading-tight" style="color: #00824D;">Best Personal Loan</p>
+                        <p class="text-sm font-medium text-gray-600">Excellent Credit</p>
+                    </div>
+                </div>
+                
+                <p class="text-sm font-semibold flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Checking your rate will not affect your credit score†.
+                </p>
+            </div>
+
+            <!-- 右侧：高转化互动预审卡片 (The Hook) -->
+            <div class="lg:col-span-5 relative z-10 w-full max-w-md mx-auto">
+                <div class="bg-white rounded-2xl p-8 shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
+                    
+                    <div id="calculator-step">
+                        <h3 class="text-2xl font-extrabold text-gray-900 mb-2">Check Eligibility</h3>
+                        <p class="text-sm text-gray-500 mb-8">See your options in 60 seconds.</p>
+
+                        <!-- 交互 1：借款金额 -->
+                        <div class="mb-8">
+                            <div class="flex justify-between items-end mb-4">
+                                <label class="text-xs font-bold text-gray-500 uppercase tracking-widest">I want to borrow</label>
+                                <span class="text-3xl font-extrabold text-gray-900" id="amount-text">$25,000</span>
+                            </div>
+                            <div class="relative pt-1 pb-2">
+                                <!-- 自定义滑块填充色 -->
+                                <div class="absolute left-0 top-1 h-1 rounded-l-full pointer-events-none" style="background-color: var(--sofi-teal);" id="slider-fill"></div>
+                                <input type="range" min="5000" max="100000" step="1000" value="25000" id="loan-slider" class="relative z-10">
+                            </div>
+                            <div class="flex justify-between text-xs font-medium text-gray-400">
+                                <span>$5k</span><span>$100k</span>
+                            </div>
+                        </div>
+
+                        <!-- 交互 2：微承诺按钮 (复刻官网 Screenshot 2 的用途) -->
+                        <div class="mb-8">
+                            <label class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3 block">Loan Purpose</label>
+                            <div class="grid grid-cols-2 gap-2" id="purpose-btns">
+                                <button onclick="selectOption(this)" class="selector-btn w-full py-3 px-2 rounded-lg text-sm font-semibold active">Debt Consolidation</button>
+                                <button onclick="selectOption(this)" class="selector-btn w-full py-3 px-2 rounded-lg text-sm font-semibold">Home Improvement</button>
+                                <button onclick="selectOption(this)" class="selector-btn w-full py-3 px-2 rounded-lg text-sm font-semibold">Major Purchase</button>
+                                <button onclick="selectOption(this)" class="selector-btn w-full py-3 px-2 rounded-lg text-sm font-semibold">Other</button>
+                            </div>
+                        </div>
+
+                        <button onclick="processData()" class="btn-official w-full py-4 text-lg shadow-md hover:shadow-lg w-full">
+                            Find My Rate
+                        </button>
+                    </div>
+
+                    <!-- 处理动画 -->
+                    <div id="loading-step" class="hidden-ui text-center py-10">
+                        <div class="inline-block w-12 h-12 border-4 border-gray-100 border-t-[#00A3C4] rounded-full animate-spin mb-4"></div>
+                        <h4 class="text-lg font-bold text-gray-900 mb-2">Analyzing your profile...</h4>
+                        <p class="text-sm text-gray-500">Checking current lender rates</p>
+                    </div>
+
+                    <!-- 最终转化按钮 -->
+                    <div id="final-step" class="hidden-ui text-center fade-in">
+                        <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <h4 class="text-2xl font-extrabold text-gray-900 mb-2">Great News!</h4>
+                        <p class="text-sm text-gray-600 mb-6">Based on your selections, you may qualify for our lowest rates. No credit score impact to view offers.</p>
+                        
+                        <!-- 【替换此处为你真实的 Affiliate Link】 -->
+                        <a href="YOUR_OFFER_LINK_HERE" class="btn-official w-full py-4 text-lg shadow-xl uppercase tracking-wide">
+                            View Official Rates ➔
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 官方图标特征带 (1:1 提取自官网 Screenshot 1) -->
+    <section class="w-full bg-[var(--sofi-navy)] py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-white">
+                <div class="w-10 h-10 rounded-full bg-[#00A3C4] flex items-center justify-center mb-4">
+                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                </div>
+                <h4 class="font-bold text-base mb-2">Low monthly payments</h4>
+                <p class="text-sm text-white/70 leading-relaxed font-light">Save big by consolidating high-rate debt to one fixed payment.</p>
+            </div>
+            <div class="text-white">
+                <div class="w-10 h-10 rounded-full bg-[#00A3C4] flex items-center justify-center mb-4">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h4 class="font-bold text-base mb-2">Get $5K to $100K</h4>
+                <p class="text-sm text-white/70 leading-relaxed font-light">Get funds as soon as the same day you sign‡ or we can pay off your credit card directly.</p>
+            </div>
+            <div class="text-white">
+                <div class="w-10 h-10 rounded-full bg-[#00A3C4] flex items-center justify-center mb-4">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h4 class="font-bold text-base mb-2">Direct Pay^</h4>
+                <p class="text-sm text-white/70 leading-relaxed font-light">We'll pay your credit card lender so you don't have to.</p>
+            </div>
+            <div class="text-white">
+                <div class="w-10 h-10 rounded-full bg-[#00A3C4] flex items-center justify-center mb-4">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
+                </div>
+                <h4 class="font-bold text-base mb-2">See rates now</h4>
+                <p class="text-sm text-white/70 leading-relaxed font-light">No impact to your credit score.† No commitment.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Trustpilot 官方评论区复刻 (Screenshot 2) -->
+    <section class="w-full bg-[#F9FAFB] py-20 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <div class="flex justify-center items-center gap-2 mb-2">
+                    <span class="text-2xl font-bold text-gray-900">Rated 4.8 / 5 based on 10,785 reviews</span>
+                </div>
+                <div class="flex justify-center items-center gap-1 font-bold text-lg">
+                    <span class="tp-green">★ Trustpilot</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Review Card 1 -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex tp-green text-sm mb-3">★★★★★</div>
+                    <h4 class="font-bold text-gray-900 mb-2">I got paid 2 days early...</h4>
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">The loan process was incredibly smooth. Checked my rate, signed the documents, and the funds were in my account almost immediately to consolidate my cards.</p>
+                    <p class="text-xs text-gray-400 font-medium">Ronald Renfro, 4 days ago</p>
+                </div>
+                <!-- Review Card 2 -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex tp-green text-sm mb-3">★★★★★</div>
+                    <h4 class="font-bold text-gray-900 mb-2">This company is helpful!</h4>
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">The customer service representative guided me through my home improvement loan. Zero hidden fees and exact transparency on my monthly payments.</p>
+                    <p class="text-xs text-gray-400 font-medium">Adriyanna Odum, April 22</p>
+                </div>
+                <!-- Review Card 3 -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex tp-green text-sm mb-3">★★★★★</div>
+                    <h4 class="font-bold text-gray-900 mb-2">My fav bank ✌️</h4>
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">Soft pull to see my rates was a huge plus. It allowed me to shop around without hurting my credit, and SoFi had the best rate by far.</p>
+                    <p class="text-xs text-gray-400 font-medium">Mary A., April 20</p>
+                </div>
+            </div>
+            
+            <p class="text-center text-[10px] text-gray-400 mt-8 max-w-4xl mx-auto leading-relaxed">
+                The savings and experiences of members herein may not be representative of the experiences of all members. Savings are not guaranteed and will vary, based on your unique situation and other factors.
+            </p>
+        </div>
+    </section>
+
+    <!-- 5. 底部合规与提示 -->
+    <footer class="bg-white py-12 px-6 border-t border-gray-200 text-center">
+        <p class="text-[10px] text-gray-500 font-medium max-w-4xl mx-auto leading-relaxed mb-6">
+            †To check the rates and terms you qualify for, SoFi conducts a soft credit pull that will not affect your credit score. However, if you choose a product and continue your application, we will request your full credit report from one or more consumer reporting agencies, which is considered a hard credit pull and may affect your credit.
+        </p>
+        <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">
+            © 2024 Independent Promotional Partner Portal
+        </p>
+    </footer>
+
+    <!-- 6. 移动端“吸金”浮动按钮 -->
+    <div class="lg:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t border-gray-200 p-4 z-50 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
+        <!-- 【替换此处为你真实的 Affiliate Link】 -->
+        <a href="YOUR_OFFER_LINK_HERE" class="btn-official w-full py-4 text-base shadow-lg tracking-wide">
+            View Your Rate ➔
+        </a>
+        <p class="text-[10px] text-center font-bold text-gray-500 mt-2">
+            No Impact to Credit Score†
+        </p>
+    </div>
+
+    <!-- 前端交互逻辑 -->
+    <script>
+        // 1. 金额滑块逻辑 (原生滑动色彩填充)
+        const slider = document.getElementById('loan-slider');
+        const amountText = document.getElementById('amount-text');
+        const sliderFill = document.getElementById('slider-fill');
+
+        function updateSlider() {
+            const val = parseInt(slider.value);
+            amountText.innerText = '$' + val.toLocaleString();
+            // 计算百分比以填充青色背景
+            const min = parseInt(slider.min);
+            const max = parseInt(slider.max);
+            const percent = ((val - min) / (max - min)) * 100;
+            sliderFill.style.width = percent + '%';
+        }
+        
+        slider.addEventListener('input', updateSlider);
+        updateSlider(); // 初始化
+
+        // 2. 目的按钮单选逻辑
+        function selectOption(btn) {
+            const buttons = document.querySelectorAll('#purpose-btns .selector-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        // 3. 模拟审核动画逻辑
+        function processData() {
+            document.getElementById('calculator-step').classList.add('hidden-ui');
+            document.getElementById('loading-step').classList.remove('hidden-ui');
+            document.getElementById('loading-step').classList.add('fade-in');
+
+            // 1.5秒后显示通过，并展示最终官方链接
+            setTimeout(() => {
+                document.getElementById('loading-step').classList.add('hidden-ui');
+                document.getElementById('final-step').classList.remove('hidden-ui');
+            }, 1800);
+        }
+    </script>
+</body>
+</html>

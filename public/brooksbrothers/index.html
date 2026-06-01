@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Spend & Save Event | Brooks Brothers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #F9F8F6; 
+            color: #111;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .font-serif-elegant { font-family: 'Playfair Display', serif; }
+
+        .brand-logo-script {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 3.5rem;
+            color: #0b1e36;
+            line-height: 1;
+        }
+
+        .text-brooks-navy { color: #0b1e36; }
+        .bg-brooks-navy { background-color: #0b1e36; }
+
+        /* 视频容器与覆盖层 */
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
+        .video-container video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: contrast(1.1) brightness(0.9);
+        }
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(11,30,54,0.1), rgba(11,30,54,0.3));
+        }
+
+        .discount-tier-box {
+            border: 1px solid rgba(11, 30, 54, 0.1);
+            background-color: white;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .discount-tier-box:hover {
+            border-color: #0b1e36;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(11, 30, 54, 0.08);
+        }
+
+        /* CONTINUE 按钮优化 */
+        .btn-official {
+            background-color: #0b1e36;
+            color: #ffffff;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 22px 40px;
+            width: 100%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #0b1e36;
+        }
+        .btn-official:hover {
+            background-color: #16355d;
+            box-shadow: 0 15px 30px rgba(11, 30, 54, 0.2);
+        }
+        .btn-official::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+            transform: skewX(-25deg);
+            animation: shine 4s infinite;
+        }
+        @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+
+        .highlight-text { color: #8B1E1E; }
+
+        /* 评论卡片微调 */
+        .review-card {
+            background: #ffffff;
+            border: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+        .review-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- 顶部极简通知栏 -->
+    <div class="w-full bg-[#0b1e36] text-white py-2 text-[10px] tracking-[0.2em] uppercase text-center font-bold">
+        VIP Access: Exclusive Tiered Savings Activation
+    </div>
+
+    <!-- 主展示区 -->
+    <div class="flex flex-col lg:flex-row min-h-[90vh]">
+        
+        <!-- ================= 左侧：动态视觉大片 (Video Hook) ================= -->
+        <div class="w-full lg:w-1/2 relative h-[55vh] lg:h-auto border-r border-gray-100">
+            <div class="video-container">
+                <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1594938291221-94f18cbb5660?auto=format&fit=crop&w=1200&q=80">
+                    <source src="./video/2026-0415_HP-HERO_occasion-shop_sm-md-lg_2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-overlay"></div>
+            </div>
+            
+            <div class="absolute bottom-10 left-10 text-white z-10 hidden lg:block">
+                <p class="font-serif-elegant italic text-2xl drop-shadow-lg">Established 1818.</p>
+                <p class="text-[10px] uppercase tracking-[0.3em] font-bold opacity-80 mt-2">The Standard of Excellence</p>
+            </div>
+        </div>
+
+        <!-- ================= 右侧：转化区 (The Offer) ================= -->
+        <div class="w-full lg:w-1/2 flex flex-col justify-center p-8 sm:p-12 lg:p-20 xl:p-28 bg-[#F9F8F6]">
+            
+            <div class="mb-10 text-center lg:text-left">
+                <h1 class="brand-logo-script mb-2">Brooks Brothers</h1>
+                <div class="flex items-center justify-center lg:justify-start gap-2">
+                    <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Offer Status: Active</p>
+                </div>
+            </div>
+
+            <div class="mb-10 text-center lg:text-left">
+                <h2 class="font-serif-elegant text-4xl lg:text-5xl text-brooks-navy mb-6 leading-tight">
+                    The Spring <br><span class="italic text-gray-500">Spend & Save</span> Event.
+                </h2>
+                <p class="text-gray-600 text-sm lg:text-base leading-relaxed max-w-lg mx-auto lg:mx-0">
+                    Discover masterfully crafted American style. For a limited time, our most prestigious tiered savings event is open for registration.
+                </p>
+            </div>
+
+            <!-- 阶梯折扣可视化 -->
+            <div class="mb-8">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="discount-tier-box p-5 text-center">
+                        <span class="font-serif-elegant text-2xl text-brooks-navy block mb-1">20% OFF</span>
+                        <span class="text-[9px] uppercase tracking-wider text-gray-400 font-bold">$200+ Order</span>
+                    </div>
+                    <div class="discount-tier-box p-5 text-center">
+                        <span class="font-serif-elegant text-2xl text-brooks-navy block mb-1">30% OFF</span>
+                        <span class="text-[9px] uppercase tracking-wider text-gray-400 font-bold">$500+ Order</span>
+                    </div>
+                    <div class="discount-tier-box p-5 text-center border-b-2 border-brooks-navy shadow-lg">
+                        <span class="font-serif-elegant text-2xl text-brooks-navy block mb-1">40% OFF</span>
+                        <span class="text-[9px] uppercase tracking-wider text-gray-400 font-bold">$1,000+ Order</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 核心Hook -->
+            <div class="mb-10 bg-white p-6 border-l-4 border-brooks-navy shadow-sm">
+                <h4 class="font-serif-elegant text-2xl text-brooks-navy mb-1">Plus, an <span class="highlight-text italic">Extra 10% Off</span>*</h4>
+                <p class="text-[11px] text-gray-500 uppercase tracking-widest font-bold">New Customer Welcome Voucher Included</p>
+            </div>
+
+            <div class="w-full max-w-md mx-auto lg:mx-0">
+                <!-- 【替换此处为你的 Offer 链接】 -->
+                <a href="YOUR_OFFER_LINK_HERE" class="btn-official">
+                    CONTINUE TO UNLOCK
+                </a>
+                
+                <div class="mt-6 flex items-center justify-center lg:justify-start gap-4 text-[9px] uppercase tracking-[0.2em] text-gray-400 font-bold">
+                    <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"></path></svg> Secure Link</span>
+                    <span>|</span>
+                    <span>Limited Time Only</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= 下方：用户反馈区 (Social Proof) ================= -->
+    <section class="py-20 px-6 lg:px-12 bg-white border-t border-gray-100">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h3 class="font-serif-elegant text-3xl text-brooks-navy mb-2">The Standard of Excellence</h3>
+                <p class="text-gray-400 text-xs uppercase tracking-widest">Real Stories from our Global Community</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 评论 1 -->
+                <div class="review-card p-8 rounded-sm">
+                    <div class="flex text-brooks-navy text-sm mb-4">★★★★★</div>
+                    <p class="font-serif-elegant text-xl mb-4 leading-tight">"Unbeatable quality."</p>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8 italic">
+                        "I've been a Brooks Brothers customer for 15 years. Their non-iron shirts are a daily essential. The Spend & Save event is the perfect time to stock up on staples."
+                    </p>
+                    <div class="flex items-center gap-3 border-t pt-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center font-bold text-brooks-navy text-xs">RW</div>
+                        <div>
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-black">Robert W.</p>
+                            <p class="text-[9px] text-green-600 font-bold uppercase">Verified Gentleman</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 评论 2 -->
+                <div class="review-card p-8 rounded-sm">
+                    <div class="flex text-brooks-navy text-sm mb-4">★★★★★</div>
+                    <p class="font-serif-elegant text-xl mb-4 leading-tight">"The perfect fit."</p>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8 italic">
+                        "The tailoring on my new suit is impeccable right off the rack. Combining the tiered discount with the extra 10% welcome offer was an incredible value."
+                    </p>
+                    <div class="flex items-center gap-3 border-t pt-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center font-bold text-brooks-navy text-xs">SM</div>
+                        <div>
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-black">Sandra M.</p>
+                            <p class="text-[9px] text-green-600 font-bold uppercase">Verified Customer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 评论 3 -->
+                <div class="review-card p-8 rounded-sm">
+                    <div class="flex text-brooks-navy text-sm mb-4">★★★★★</div>
+                    <p class="font-serif-elegant text-xl mb-4 leading-tight">"Heritage style."</p>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8 italic">
+                        "There is nothing like the classic Brooks trench coat. It feels expensive and timeless. This promotion made it so easy to invest in a piece I'll have forever."
+                    </p>
+                    <div class="flex items-center gap-3 border-t pt-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center font-bold text-brooks-navy text-xs">TL</div>
+                        <div>
+                            <p class="text-[10px] font-bold uppercase tracking-widest text-black">Thomas L.</p>
+                            <p class="text-[9px] text-green-600 font-bold uppercase">Verified Member</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部行动唤起 -->
+            <div class="mt-20 text-center">
+                <a href="YOUR_OFFER_LINK_HERE" class="inline-block text-brooks-navy font-bold text-sm border-b-2 border-brooks-navy pb-1 hover:text-gray-600 transition-colors uppercase tracking-widest">
+                    Access My Personal Invitation ➔
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部合规 -->
+    <footer class="bg-gray-50 py-12 px-6 text-center border-t border-gray-100">
+        <p class="text-[10px] text-gray-400 leading-relaxed max-w-4xl mx-auto uppercase tracking-widest">
+            This is an independent promotional portal. *The extra 10% discount is valid for new email subscribers only. Tiered savings of up to 40% are subject to official Brooks Brothers Terms & Conditions. We may earn a commission on qualifying sessions.
+        </p>
+        <div class="mt-6 flex justify-center gap-6 text-[9px] font-bold text-gray-300 uppercase tracking-widest">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+            <a href="#">Contact Us</a>
+        </div>
+    </footer>
+
+</body>
+</html>-center items-center gap-2 mb-2">
+                    <span class="text-2xl font-bold text-gray-900">Rated 4.8 / 5 based on 10,785 reviews</span>
+                </div>
+                <div class="flex justify-center items-center gap-1 font-bold text-lg">
+                    <span class="tp-green">★ Trustpilot</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Review Card 1 -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex tp-green text-sm mb-3">★★★★★</div>
+                    <h4 class="font-bold text-gray-900 mb-2">I got paid 2 days early...</h4>
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">The loan process was incredibly smooth. Checked my rate, signed the documents, and the funds were in my account almost immediately to consolidate my cards.</p>
+                    <p class="text-xs text-gray-400 font-medium">Ronald Renfro, 4 days ago</p>
+                </div>
+                <!-- Review Card 2 -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex tp-green text-sm mb-3">★★★★★</div>
+                    <h4 class="font-bold text-gray-900 mb-2">This company is helpful!</h4>
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">The customer service representative guided me through my home improvement loan. Zero hidden fees and exact transparency on my monthly payments.</p>
+                    <p class="text-xs text-gray-400 font-medium">Adriyanna Odum, April 22</p>
+                </div>
+                <!-- Review Card 3 -->
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex tp-green text-sm mb-3">★★★★★</div>
+                    <h4 class="font-bold text-gray-900 mb-2">My fav bank ✌️</h4>
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">Soft pull to see my rates was a huge plus. It allowed me to shop around without hurting my credit, and SoFi had the best rate by far.</p>
+                    <p class="text-xs text-gray-400 font-medium">Mary A., April 20</p>
+                </div>
+            </div>
+            
+            <p class="text-center text-[10px] text-gray-400 mt-8 max-w-4xl mx-auto leading-relaxed">
+                The savings and experiences of members herein may not be representative of the experiences of all members. Savings are not guaranteed and will vary, based on your unique situation and other factors.
+            </p>
+        </div>
+    </section>
+
+    <!-- 5. 底部合规与提示 -->
+    <footer class="bg-white py-12 px-6 border-t border-gray-200 text-center">
+        <p class="text-[10px] text-gray-500 font-medium max-w-4xl mx-auto leading-relaxed mb-6">
+            †To check the rates and terms you qualify for, SoFi conducts a soft credit pull that will not affect your credit score. However, if you choose a product and continue your application, we will request your full credit report from one or more consumer reporting agencies, which is considered a hard credit pull and may affect your credit.
+        </p>
+        <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">
+            © 2024 Independent Promotional Partner Portal
+        </p>
+    </footer>
+
+    <!-- 6. 移动端“吸金”浮动按钮 -->
+    <div class="lg:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t border-gray-200 p-4 z-50 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
+        <!-- 【替换此处为你真实的 Affiliate Link】 -->
+        <a href="YOUR_OFFER_LINK_HERE" class="btn-official w-full py-4 text-base shadow-lg tracking-wide">
+            View Your Rate ➔
+        </a>
+        <p class="text-[10px] text-center font-bold text-gray-500 mt-2">
+            No Impact to Credit Score†
+        </p>
+    </div>
+
+    <!-- 前端交互逻辑 -->
+    <script>
+        // 1. 金额滑块逻辑 (原生滑动色彩填充)
+        const slider = document.getElementById('loan-slider');
+        const amountText = document.getElementById('amount-text');
+        const sliderFill = document.getElementById('slider-fill');
+
+        function updateSlider() {
+            const val = parseInt(slider.value);
+            amountText.innerText = '$' + val.toLocaleString();
+            // 计算百分比以填充青色背景
+            const min = parseInt(slider.min);
+            const max = parseInt(slider.max);
+            const percent = ((val - min) / (max - min)) * 100;
+            sliderFill.style.width = percent + '%';
+        }
+        
+        slider.addEventListener('input', updateSlider);
+        updateSlider(); // 初始化
+
+        // 2. 目的按钮单选逻辑
+        function selectOption(btn) {
+            const buttons = document.querySelectorAll('#purpose-btns .selector-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        // 3. 模拟审核动画逻辑
+        function processData() {
+            document.getElementById('calculator-step').classList.add('hidden-ui');
+            document.getElementById('loading-step').classList.remove('hidden-ui');
+            document.getElementById('loading-step').classList.add('fade-in');
+
+            // 1.5秒后显示通过，并展示最终官方链接
+            setTimeout(() => {
+                document.getElementById('loading-step').classList.add('hidden-ui');
+                document.getElementById('final-step').classList.remove('hidden-ui');
+            }, 1800);
+        }
+    </script>
+</body>
+</html>
