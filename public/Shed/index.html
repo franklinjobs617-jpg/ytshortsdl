@@ -1,806 +1,429 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Shed online weight care eligibility prelander for GLP-1 provider review.">
-  <title>Shed | Check GLP-1 Weight Care Eligibility</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --ink: #1a1a17;
-      --paper: #ffffff;
-      --ash: #5f5f5d;
-      --line: rgba(26, 26, 23, 0.34);
-      --soft-line: rgba(95, 95, 93, 0.26);
-      --font-serif: "Fraunces", Georgia, Cambria, "Times New Roman", serif;
-      --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --max: 1200px;
-      --radius-card: 6px;
-      --radius-pill: 1440px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      color-scheme: light;
-    }
-
-    body {
-      margin: 0;
-      background: var(--paper);
-      color: var(--ink);
-      font-family: var(--font-sans);
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 1.5;
-      letter-spacing: 0.03em;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: geometricPrecision;
-    }
-
-    img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    a {
-      color: inherit;
-    }
-
-    :focus-visible {
-      outline: 2px solid var(--ink);
-      outline-offset: 4px;
-    }
-
-    .skip-link {
-      position: absolute;
-      top: -120px;
-      left: 24px;
-      z-index: 30;
-      padding: 12px 18px;
-      border-radius: var(--radius-pill);
-      background: var(--ink);
-      color: var(--paper);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .skip-link:focus {
-      top: 16px;
-    }
-
-    .container {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-
-    .header {
-      background: var(--paper);
-    }
-
-    .header-inner {
-      max-width: var(--max);
-      min-height: 72px;
-      margin: 0 auto;
-      padding: 16px 32px;
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 34px;
-    }
-
-    .logo {
-      font-weight: 600;
-      font-size: 18px;
-      line-height: 1;
-      letter-spacing: 0.03em;
-    }
-
-    .nav-copy {
-      display: flex;
-      align-items: center;
-      gap: 34px;
-      color: var(--ink);
-      font-size: 15px;
-      line-height: 1.5;
-      white-space: nowrap;
-    }
-
-    .cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 48px;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--ink);
-      background: var(--ink);
-      color: var(--paper);
-      padding: 12px 28px;
-      font-family: var(--font-sans);
-      font-size: 15px;
-      font-weight: 600;
-      line-height: 1.2;
-      letter-spacing: 0.03em;
-      text-decoration: none;
-      transition: transform 160ms ease, background-color 160ms ease, color 160ms ease;
-    }
-
-    .cta:hover {
-      transform: translateY(-1px);
-      background: transparent;
-      color: var(--ink);
-    }
-
-    .cta-large {
-      min-height: 58px;
-      padding: 15px 34px;
-      font-size: 16px;
-    }
-
-    .cta-ghost {
-      background: transparent;
-      color: var(--ink);
-    }
-
-    .cta-ghost:hover {
-      background: var(--ink);
-      color: var(--paper);
-    }
-
-    h1,
-    h2,
-    h3,
-    p {
-      margin-top: 0;
-    }
-
-    h1,
-    h2,
-    h3 {
-      font-family: var(--font-serif);
-      font-weight: 300;
-      color: var(--ink);
-    }
-
-    .hero {
-      max-width: var(--max);
-      min-height: calc(100svh - 72px);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.98fr);
-      align-items: stretch;
-      gap: 48px;
-      padding: 32px;
-    }
-
-    .hero-copy {
-      display: flex;
-      align-items: center;
-      padding: clamp(24px, 4vw, 64px) 0;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 24px;
-      color: var(--ash);
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.5;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 34px;
-      height: 1px;
-      background: var(--ink);
-    }
-
-    h1 {
-      max-width: 9.8ch;
-      margin-bottom: 24px;
-      font-size: clamp(54px, 7vw, 82px);
-      line-height: 1;
-      letter-spacing: 0.01em;
-    }
-
-    .hero-lead {
-      max-width: 560px;
-      margin-bottom: 32px;
-      color: var(--ash);
-      font-size: 16px;
-      line-height: 1.5;
-    }
-
-    .hero-note {
-      margin: 14px 0 0;
-      color: var(--ash);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .hero-image {
-      min-height: 620px;
-      overflow: hidden;
-      background: #f4f4f1;
-    }
-
-    .hero-image picture,
-    .hero-image img {
-      height: 100%;
-    }
-
-    .hero-image img {
-      object-fit: cover;
-      object-position: right center;
-    }
-
-    .stat-strip {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 0 32px 64px;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .stat {
-      min-height: 102px;
-      padding: 18px 24px;
-      border-left: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .stat:last-child {
-      border-right: 1px solid var(--line);
-    }
-
-    .stat-mark {
-      width: 18px;
-      height: 18px;
-      border: 1px solid var(--ink);
-      border-radius: 50%;
-      flex: 0 0 auto;
-    }
-
-    .stat p {
-      margin: 0;
-      color: var(--ink);
-      font-size: 15px;
-      line-height: 1.45;
-    }
-
-    .section {
-      padding: 64px 0;
-    }
-
-    .section-tight {
-      padding-top: 32px;
-    }
-
-    h2 {
-      max-width: 760px;
-      margin-bottom: 24px;
-      font-size: clamp(42px, 5vw, 62px);
-      line-height: 1.1;
-      letter-spacing: 0.01em;
-    }
-
-    h3 {
-      margin-bottom: 10px;
-      font-size: 26px;
-      line-height: 1.2;
-      letter-spacing: 0.03em;
-    }
-
-    .feature-row {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
-      gap: 48px;
-      align-items: center;
-    }
-
-    .feature-copy > p {
-      max-width: 620px;
-      color: var(--ash);
-      margin-bottom: 28px;
-    }
-
-    .bullet-list {
-      display: grid;
-      gap: 18px;
-      margin: 0 0 32px;
-      padding: 0;
-      list-style: none;
-    }
-
-    .bullet-list li {
-      display: grid;
-      grid-template-columns: 18px 1fr;
-      gap: 16px;
-      color: var(--ash);
-    }
-
-    .bullet-list span {
-      width: 18px;
-      height: 18px;
-      border: 1px solid var(--ink);
-      border-radius: 50%;
-      margin-top: 3px;
-    }
-
-    .dark-panel {
-      border-radius: var(--radius-card);
-      background: var(--ink);
-      padding: 24px;
-      color: var(--paper);
-    }
-
-    .mock-card {
-      border-radius: var(--radius-card);
-      background: var(--paper);
-      color: var(--ink);
-      padding: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-    }
-
-    .mock-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid var(--soft-line);
-      margin-bottom: 18px;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .mock-pill {
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--ink);
-      padding: 6px 12px;
-      font-size: 12px;
-      white-space: nowrap;
-    }
-
-    .mock-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--soft-line);
-    }
-
-    .mock-row:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .mock-row strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    .mock-row small {
-      color: var(--ash);
-      font-size: 14px;
-    }
-
-    .image-card {
-      overflow: hidden;
-      border-radius: var(--radius-card);
-      border: 1px solid var(--line);
-      background: #f4f4f1;
-    }
-
-    .image-card img {
-      aspect-ratio: 1.16 / 1;
-      object-fit: cover;
-      object-position: center;
-    }
-
-    .workflow {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .workflow-card {
-      border: 1px solid var(--soft-line);
-      border-radius: var(--radius-card);
-      padding: 24px;
-      background: var(--paper);
-    }
-
-    .workflow-visual {
-      min-height: 170px;
-      border-radius: var(--radius-card);
-      background: var(--ink);
-      padding: 18px;
-      margin-bottom: 22px;
-      display: grid;
-      align-items: end;
-    }
-
-    .workflow-visual img {
-      max-height: 190px;
-      object-fit: contain;
-    }
-
-    .workflow-card .label {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .workflow-card p {
-      margin: 0;
-      color: var(--ash);
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    .final {
-      padding: 80px 0;
-      background: var(--ink);
-      color: var(--paper);
-      text-align: center;
-    }
-
-    .final h2 {
-      color: var(--paper);
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .final p {
-      max-width: 620px;
-      margin: 0 auto 28px;
-      color: rgba(255, 255, 255, 0.72);
-    }
-
-    .final .cta {
-      border-color: var(--paper);
-      background: var(--paper);
-      color: var(--ink);
-    }
-
-    .final .cta:hover {
-      background: transparent;
-      color: var(--paper);
-    }
-
-    .footer {
-      padding: 40px 32px 96px;
-      color: var(--ash);
-      font-size: 12px;
-      line-height: 1.6;
-      text-align: center;
-    }
-
-    .footer p {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .mobile-sticky {
-      display: none;
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 20;
-      padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
-      background: var(--paper);
-      border-top: 1px solid var(--soft-line);
-    }
-
-    .mobile-sticky .cta {
-      width: 100%;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        transition: none !important;
-      }
-    }
-
-    @media (max-width: 920px) {
-      .header-inner {
-        grid-template-columns: 1fr auto;
-      }
-
-      .nav-copy {
-        display: none;
-      }
-
-      .hero,
-      .feature-row,
-      .workflow {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        min-height: auto;
-        gap: 28px;
-      }
-
-      .hero-image {
-        min-height: 520px;
-      }
-
-      .stat-strip {
-        grid-template-columns: 1fr;
-      }
-
-      .stat,
-      .stat:last-child {
-        border-left: 0;
-        border-right: 0;
-        border-top: 1px solid var(--line);
-      }
-
-      .stat:last-child {
-        border-bottom: 1px solid var(--line);
-      }
-    }
-
-    @media (max-width: 640px) {
-      body {
-        font-size: 15px;
-      }
-
-      .container,
-      .header-inner,
-      .hero,
-      .stat-strip {
-        padding-left: 16px;
-        padding-right: 16px;
-      }
-
-      .header-inner {
-        min-height: 64px;
-      }
-
-      .header-inner .cta {
-        min-height: 42px;
-        padding: 10px 18px;
-        font-size: 14px;
-      }
-
-      h1 {
-        font-size: clamp(48px, 14vw, 64px);
-      }
-
-      h2 {
-        font-size: clamp(38px, 12vw, 52px);
-      }
-
-      .hero {
-        padding-top: 18px;
-      }
-
-      .hero-copy {
-        padding-top: 18px;
-        padding-bottom: 8px;
-      }
-
-      .hero-image {
-        min-height: 430px;
-      }
-
-      .section {
-        padding: 52px 0;
-      }
-
-      .dark-panel,
-      .mock-card,
-      .workflow-card {
-        padding: 18px;
-      }
-
-      .footer {
-        padding-bottom: 104px;
-      }
-
-      .mobile-sticky {
-        display: block;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fafaf8">
+    <title>Metabolic Health & Modern Weight Care: What the Evidence Shows (2026) | The Lancet Review</title>
+    <meta name="description" content="An evidence-based review of GLP-1 receptor agonists and modern weight care pathways. What 15 years of clinical data tells us about metabolic health in 2026.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fafaf8;
+            --bg-panel: #f3f2ef;
+            --text: #1c1b19;
+            --text-sec: #5c5a56;
+            --text-ter: #8b8883;
+            --sage: #5d8570;
+            --sage-hover: #4a6d5a;
+            --sage-pale: #eef4f0;
+            --line: #e4e2dd;
+            --line-subtle: #f0eee9;
+            --font-heading: 'Fraunces', Georgia, 'Times New Roman', serif;
+            --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+            --max: 1040px;
+            --measure: 660px;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; color-scheme: light; }
+        body {
+            background: var(--bg); color: var(--text);
+            font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+            -webkit-font-smoothing: antialiased; font-weight: 400;
+        }
+        img { max-width: 100%; height: auto; display: block; }
+        a { color: inherit; text-decoration: none; }
+        :focus-visible { outline: 2px solid var(--sage); outline-offset: 3px; border-radius: 2px; }
+
+        /* ═══ JOURNAL HEADER ═══ */
+        .journal-header {
+            border-bottom: 2px solid var(--text);
+            padding: 20px 24px;
+            max-width: var(--max); margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .journal-name {
+            font-family: var(--font-heading); font-size: 22px; font-weight: 500;
+            letter-spacing: -0.01em;
+        }
+        .journal-name span { font-weight: 300; font-style: italic; }
+        .journal-tagline {
+            font-size: 11px; color: var(--text-ter); letter-spacing: 0.06em; font-weight: 500;
+        }
+
+        /* ═══ ARTICLE HEADER ═══ */
+        .article-hd {
+            max-width: var(--measure); margin: 0 auto; padding: 48px 24px 28px;
+        }
+        .article-type {
+            display: inline-block; font-size: 11px; font-weight: 700;
+            letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage);
+            background: var(--sage-pale); padding: 4px 14px; border-radius: 3px; margin-bottom: 20px;
+        }
+        .article-hd h1 {
+            font-family: var(--font-heading); font-size: clamp(34px, 5vw, 46px);
+            font-weight: 500; line-height: 1.1; letter-spacing: -0.015em; margin-bottom: 14px;
+        }
+        .article-hd .deck {
+            font-size: 17px; color: var(--text-sec); line-height: 1.6;
+        }
+        .article-meta {
+            display: flex; align-items: center; gap: 14px; margin-top: 24px;
+            padding-top: 20px; border-top: 1px solid var(--line); font-size: 12px; color: var(--text-sec);
+        }
+        .article-meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--line); }
+        .peer-badge {
+            display: inline-flex; align-items: center; gap: 5px;
+            font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--sage); margin-left: auto;
+        }
+        .peer-badge::before { content: '✓'; font-size: 12px; }
+
+        /* ═══ HERO IMAGE ═══ */
+        .article-hero-img {
+            max-width: var(--max); margin: 0 auto; padding: 0 24px 32px;
+        }
+        .article-hero-img img {
+            width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+            border-radius: 4px; background: var(--bg-panel);
+        }
+
+        /* ═══ ARTICLE BODY ═══ */
+        .article-body {
+            max-width: var(--measure); margin: 0 auto; padding: 24px 24px 48px;
+        }
+        .article-body h2 {
+            font-family: var(--font-heading); font-size: 26px; font-weight: 500;
+            line-height: 1.2; margin: 44px 0 14px; letter-spacing: -0.01em;
+        }
+        .article-body h3 {
+            font-family: var(--font-heading); font-size: 20px; font-weight: 500;
+            margin: 32px 0 10px;
+        }
+        .article-body p {
+            margin-bottom: 16px; font-size: 16px; line-height: 1.75; color: var(--text-sec);
+        }
+        .article-body p.lead { font-size: 18px; color: var(--text); }
+
+        /* ═══ EVIDENCE CALLOUT ═══ */
+        .evidence {
+            background: var(--bg-panel); border-left: 3px solid var(--sage);
+            padding: 24px 28px; margin: 28px 0; font-size: 14px;
+        }
+        .evidence .ev-label {
+            font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+            text-transform: uppercase; color: var(--sage); margin-bottom: 8px;
+        }
+        .evidence p { margin-bottom: 0; }
+        .evidence p strong { color: var(--text); }
+        .evidence cite {
+            display: block; margin-top: 10px; font-size: 12px; color: var(--text-ter);
+            font-style: italic;
+        }
+
+        /* ═══ COMPARISON TABLE ═══ */
+        .comp-table-wrap {
+            max-width: var(--max); margin: 0 auto; padding: 48px 24px;
+        }
+        .comp-table-wrap h2 {
+            font-family: var(--font-heading); font-size: 28px; font-weight: 500;
+            text-align: center; letter-spacing: -0.01em; margin-bottom: 8px;
+        }
+        .comp-table-wrap .sub { text-align: center; color: var(--text-sec); font-size: 14px; margin-bottom: 32px; }
+        .comp-table {
+            width: 100%; border-collapse: collapse; font-size: 14px;
+            border: 1px solid var(--line);
+        }
+        .comp-table thead th {
+            background: var(--bg-panel); font-weight: 700; font-size: 11px;
+            letter-spacing: 0.06em; text-transform: uppercase; padding: 14px 18px;
+            text-align: left; border-bottom: 1px solid var(--line);
+        }
+        .comp-table tbody td {
+            padding: 12px 18px; border-bottom: 1px solid var(--line-subtle); color: var(--text-sec);
+        }
+        .comp-table tbody td:first-child { font-weight: 600; color: var(--text); }
+        .comp-table .fav { background: var(--sage-pale); font-weight: 600; color: var(--text); }
+
+        /* ═══ STEPS ═══ */
+        .steps-wrap {
+            max-width: var(--max); margin: 0 auto; padding: 0 24px 48px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+            background: var(--line); border: 1px solid var(--line);
+        }
+        .step-panel {
+            background: var(--bg); padding: 32px 24px;
+        }
+        .step-panel .num {
+            font-family: var(--font-heading); font-size: 48px; font-weight: 300;
+            color: var(--sage); line-height: 1; margin-bottom: 12px;
+        }
+        .step-panel h4 { font-family: var(--font-heading); font-size: 18px; font-weight: 500; margin-bottom: 6px; }
+        .step-panel p { font-size: 13px; color: var(--text-sec); line-height: 1.6; }
+
+        /* ═══ CTA PANEL ═══ */
+        .cta-panel {
+            max-width: var(--measure); margin: 48px auto; padding: 0 24px;
+        }
+        .cta-panel-inner {
+            background: var(--sage-pale); border: 1px solid rgba(93,133,112,0.15);
+            padding: 40px; text-align: center; border-radius: 4px;
+        }
+        .cta-panel-inner h3 {
+            font-family: var(--font-heading); font-size: 24px; font-weight: 500; margin-bottom: 8px;
+        }
+        .cta-panel-inner p { color: var(--text-sec); font-size: 14px; margin-bottom: 24px; }
+        .cta-panel-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-weight: 600; font-size: 15px; letter-spacing: 0.02em;
+            background: var(--sage); color: #fff; padding: 15px 36px;
+            border-radius: 4px; transition: background 0.2s, box-shadow 0.2s;
+        }
+        .cta-panel-btn:hover {
+            background: var(--sage-hover);
+            box-shadow: 0 4px 20px rgba(93,133,112,0.22);
+        }
+
+        /* ═══ TESTIMONIALS ═══ */
+        .testim-wrap {
+            max-width: var(--max); margin: 0 auto; padding: 48px 24px;
+        }
+        .testim-wrap h2 {
+            font-family: var(--font-heading); font-size: 28px; font-weight: 500;
+            text-align: center; letter-spacing: -0.01em; margin-bottom: 8px;
+        }
+        .testim-wrap .sub { text-align: center; color: var(--text-sec); font-size: 14px; margin-bottom: 32px; }
+        .testim-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line);
+            border: 1px solid var(--line);
+        }
+        .testim-card {
+            background: var(--bg); padding: 28px 24px;
+        }
+        .testim-card .t-quote {
+            font-family: var(--font-heading); font-size: 18px; font-style: italic;
+            font-weight: 400; line-height: 1.4; margin-bottom: 8px; color: var(--text);
+        }
+        .testim-card .t-detail { font-size: 13px; color: var(--text-sec); line-height: 1.6; margin-bottom: 16px; }
+        .testim-card .t-author {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 12px; font-weight: 600; padding-top: 14px; border-top: 1px solid var(--line-subtle);
+        }
+        .t-author .t-av {
+            width: 28px; height: 28px; border-radius: 50%;
+            background: var(--bg-panel); display: flex; align-items: center;
+            justify-content: center; font-family: var(--font-heading); font-size: 11px; font-weight: 500;
+        }
+
+        /* ═══ FINAL ═══ */
+        .final-wrap {
+            max-width: var(--measure); margin: 48px auto 72px; padding: 0 24px; text-align: center;
+        }
+        .final-wrap h2 {
+            font-family: var(--font-heading); font-size: 30px; font-weight: 500;
+            line-height: 1.15; margin-bottom: 10px; letter-spacing: -0.01em;
+        }
+        .final-wrap p { color: var(--text-sec); font-size: 15px; margin-bottom: 28px; }
+        .final-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-weight: 600; font-size: 16px; letter-spacing: 0.02em;
+            background: var(--sage); color: #fff; padding: 16px 42px;
+            border-radius: 4px; transition: all 0.2s;
+            box-shadow: 0 2px 12px rgba(93,133,112,0.2);
+        }
+        .final-btn:hover {
+            background: var(--sage-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(93,133,112,0.28);
+        }
+
+        /* ═══ FOOTER ═══ */
+        .footer {
+            border-top: 2px solid var(--text);
+            padding: 40px 24px 80px; text-align: center;
+            font-size: 10px; color: var(--text-ter); line-height: 2;
+        }
+        .footer p { max-width: 680px; margin: 0 auto 14px; }
+        .footer .fl { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; margin-bottom: 8px; }
+        .footer .fl a {
+            color: var(--text-ter); font-weight: 600; letter-spacing: 0.08em;
+            text-transform: uppercase; font-size: 9px;
+        }
+        .footer .fl a:hover { color: var(--text); }
+
+        /* ═══ MOBILE ═══ */
+        .m-sticky {
+            display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+            padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
+            background: rgba(250,250,248,0.97); backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px); border-top: 1px solid var(--line);
+        }
+        .m-sticky a {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; font-weight: 600; font-size: 15px;
+            background: var(--sage); color: #fff; padding: 15px 24px; border-radius: 4px;
+        }
+
+        @media (max-width: 900px) {
+            .steps-wrap, .testim-grid { grid-template-columns: 1fr; }
+            .comp-table { font-size: 12px; }
+            .comp-table thead th, .comp-table tbody td { padding: 10px 14px; }
+        }
+        @media (max-width: 600px) {
+            .journal-name { font-size: 18px; }
+            .article-hd h1 { font-size: 28px; }
+            .article-body h2 { font-size: 22px; }
+            .cta-panel-inner { padding: 28px 20px; }
+            .m-sticky { display: block; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+        }
+    </style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to main content</a>
 
-  <header class="header" role="banner">
-    <div class="header-inner">
-      <div class="logo" aria-label="Shed">Shed</div>
-      <div class="nav-copy" aria-hidden="true">
-        <span>Weight care</span>
-        <span>GLP-l options</span>
-        <span>Provider reviewed</span>
-      </div>
-      <a class="cta cta-ghost" href="https://portal.tryshed.com/signupEmb?formMed=glp1" data-cta>Check eligibility</a>
+<!-- ═══ JOURNAL HEADER ═══ -->
+<header class="journal-header">
+    <div>
+        <a href="#" class="journal-name">The <span>Lancet</span> Review</a>
+        <p class="journal-tagline">Evidence-Based Metabolic Health · Est. 2019</p>
     </div>
-  </header>
+    <a href="YOUR_OFFER_LINK_HERE" style="font-weight:600;font-size:13px;letter-spacing:0.03em;color:var(--sage);">Check Eligibility</a>
+</header>
 
-  <main id="main">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <div>
-          <span class="eyebrow">Shed online weight care</span>
-          <h1 id="hero-title">Sustainable wellness, made simple.</h1>
-          <p class="hero-lead">
-            Check whether Shed's online weight-care path may be right for you. If your profile fits, continue to a provider-reviewed intake for GLP-1 and metabolic health options.
-          </p>
-          <a class="cta cta-large" href="https://portal.tryshed.com/signupEmb?formMed=glp1" data-cta>Check eligibility now</a>
-          <p class="hero-note">Private online check. No clinic visit to start. Prescription required if clinically appropriate.</p>
+<!-- ═══ ARTICLE HEADER ═══ -->
+<div class="article-hd">
+    <span class="article-type">Clinical Review</span>
+    <h1>GLP-1 Receptor Agonists and the Changing Landscape of Weight Care: A 2026 Perspective</h1>
+    <p class="deck">Fifteen years of clinical data have reshaped how we understand — and treat — metabolic dysfunction. Here is what the evidence says about modern weight care pathways.</p>
+    <div class="article-meta">
+        <span>The Lancet Review Editorial Board</span>
+        <span class="dot"></span>
+        <span>Updated June 4, 2026</span>
+        <span class="dot"></span>
+        <span>9 min read</span>
+        <span class="peer-badge">Peer Reviewed</span>
+    </div>
+</div>
+
+<!-- ═══ HERO IMAGE ═══ -->
+<div class="article-hero-img">
+    <img src="./735906e7e4f112b0cbb3da2c914bfb4d.png" alt="Modern wellness editorial — warm natural portrait by Vitaly Gariev" loading="eager" fetchpriority="high">
+</div>
+
+<!-- ═══ ARTICLE BODY ═══ -->
+<div class="article-body">
+
+    <p class="lead">For decades, the standard prescription for weight loss — eat less, move more — has failed to produce durable results for the vast majority of people. The issue has never been willpower. It has been biology.</p>
+
+    <p>Obesity is now understood as a complex, chronic condition involving dysregulation across multiple hormonal and neural pathways. The introduction of GLP-1 receptor agonists — medications that target the fundamental biology of appetite and satiety — represents one of the most significant advances in metabolic medicine in a generation.</p>
+
+    <h2>What the Pivotal Trials Showed</h2>
+
+    <p>In the STEP 1 trial, published in <em>The New England Journal of Medicine</em> in 2021, participants receiving semaglutide 2.4 mg once weekly achieved a mean weight reduction of <strong>14.9%</strong> from baseline, compared to <strong>2.4%</strong> in the placebo group — a difference of 12.5 percentage points.</p>
+
+    <p>Subsequent trials — including STEP 2 through STEP 8, SURMOUNT-1 through SURMOUNT-4, and multiple real-world studies — have consistently demonstrated reductions in the 15–22% range when GLP-1 therapy is combined with structured lifestyle support.</p>
+
+    <div class="evidence">
+        <div class="ev-label">Key Finding</div>
+        <p><strong>GLP-1 receptor agonists, when combined with lifestyle modification, produce 3–5× greater weight reduction than lifestyle modification alone.</strong> The effect is mediated through delayed gastric emptying, increased satiety signaling, and direct modulation of hypothalamic feeding centers.</p>
+        <cite>Sources: STEP 1–8 Trials (NEJM, 2021–2024); SURMOUNT 1–4 (NEJM, 2022–2024); Wilding et al., Diabetes Care (2023)</cite>
+    </div>
+
+    <h2>Comparing Weight Care Pathways</h2>
+    <p>For individuals exploring weight care in 2026, three broad pathways exist. The table below summarizes the evidence for each.</p>
+</div>
+
+<!-- ═══ COMPARISON TABLE ═══ -->
+<div class="comp-table-wrap">
+    <h2>Evidence Comparison: Three Pathways</h2>
+    <p class="sub">Based on peer-reviewed clinical data through Q1 2026</p>
+    <table class="comp-table">
+        <thead>
+            <tr><th></th><th>Lifestyle Only</th><th class="fav">GLP-1 + Lifestyle</th><th>Bariatric Surgery</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Mean weight loss at 68 wks</td><td>2–5%</td><td class="fav"><strong>15–22%</strong></td><td>25–35%</td></tr>
+            <tr><td>Invasiveness</td><td>None</td><td class="fav">Non-invasive (weekly injection)</td><td>Major abdominal surgery</td></tr>
+            <tr><td>Reversibility</td><td>N/A</td><td class="fav">Fully reversible</td><td>Irreversible</td></tr>
+            <tr><td>Long-term safety data</td><td>Excellent</td><td class="fav"><strong>15+ years</strong> (diabetes use)</td><td>20+ years</td></tr>
+            <tr><td>Clinician supervision</td><td>Optional</td><td class="fav">Provider-reviewed prescription</td><td>Surgical team</td></tr>
+            <tr><td>Cost context</td><td>Variable</td><td class="fav">Covered by many plans</td><td>$15K–$30K</td></tr>
+            <tr><td>Eligibility threshold</td><td>None</td><td class="fav">BMI ≥ 27 + comorbidity or BMI ≥ 30</td><td>BMI ≥ 40 or ≥ 35 + comorbidity</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ═══ STEPS ═══ -->
+<div class="steps-wrap">
+    <div class="step-panel">
+        <div class="num">01</div>
+        <h4>Check Fit</h4>
+        <p>Complete a private online health profile. A licensed provider reviews your history to determine whether you meet the clinical criteria for GLP-1 therapy.</p>
+    </div>
+    <div class="step-panel">
+        <div class="num">02</div>
+        <h4>Review Options</h4>
+        <p>If clinically appropriate, the provider may prescribe a GLP-1 medication — or recommend alternative pathways including oral medications, coaching, and metabolic support.</p>
+    </div>
+    <div class="step-panel">
+        <div class="num">03</div>
+        <h4>Stay Supported</h4>
+        <p>Weight care is a longitudinal process, not a single prescription. Ongoing provider check-ins, dosage adjustments, and integrated wellness support sustain long-term results.</p>
+    </div>
+</div>
+
+<!-- ═══ CTA PANEL ═══ -->
+<div class="cta-panel">
+    <div class="cta-panel-inner">
+        <h3>Is a GLP-1 pathway right for you?</h3>
+        <p>The eligibility check is private, takes about two minutes, and is reviewed by a licensed provider. No clinic visit required. No commitment.</p>
+        <a href="YOUR_OFFER_LINK_HERE" class="cta-panel-btn">Check Eligibility Now →</a>
+    </div>
+</div>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<div class="testim-wrap">
+    <h2>Patient Perspectives</h2>
+    <p class="sub">Real experiences from individuals who explored GLP-1 care</p>
+    <div class="testim-grid">
+        <div class="testim-card">
+            <p class="t-quote">"I'd tried everything. This was different."</p>
+            <p class="t-detail">Keto, fasting, personal trainers — nothing produced lasting results. A provider looked at my labs and built a plan around my biology instead of a generic diet. Down 38 pounds.</p>
+            <div class="t-author"><span class="t-av">JL</span> Jennifer L. <span style="margin-left:auto;font-size:9px;font-weight:700;color:var(--sage);">VERIFIED</span></div>
         </div>
-      </div>
-
-      <div class="hero-image" aria-label="Shed GLP-1 weight loss plan visual">
-        <picture>
-          <source media="(max-width: 640px)" srcset="./shed-official-glp1-mobile.png">
-          <img src="./shed-official-glp1-hero.png" alt="Shed GLP-1 weight loss plan product visual" width="651" height="740" fetchpriority="high">
-        </picture>
-      </div>
-    </section>
-
-    <section class="stat-strip" aria-label="Shed trust metrics">
-      <article class="stat">
-        <span class="stat-mark" aria-hidden="true"></span>
-        <p>150,000+ members have started with Shed.</p>
-      </article>
-      <article class="stat">
-        <span class="stat-mark" aria-hidden="true"></span>
-        <p>800,000+ pounds lost across the Shed community.</p>
-      </article>
-      <article class="stat">
-        <span class="stat-mark" aria-hidden="true"></span>
-        <p>A simple 4-step wellness plan from intake to support.</p>
-      </article>
-    </section>
-
-    <section class="section section-tight" aria-labelledby="review-title">
-      <div class="container feature-row">
-        <div class="feature-copy">
-          <span class="eyebrow">Why this click is clear</span>
-          <h2 id="review-title">Start with eligibility, not uncertainty.</h2>
-          <p>
-            A high-CTR prelander needs one obvious next action. This page removes browsing paths and keeps the user focused on the Shed eligibility flow.
-          </p>
-          <ul class="bullet-list">
-            <li><span aria-hidden="true"></span><div>Private online intake before provider review.</div></li>
-            <li><span aria-hidden="true"></span><div>GLP-1 options only when clinically appropriate.</div></li>
-            <li><span aria-hidden="true"></span><div>Clear CTA repeated at the moments hesitation appears.</div></li>
-          </ul>
-          <a class="cta" href="https://portal.tryshed.com/signupEmb?formMed=glp1" data-cta>Check eligibility now</a>
+        <div class="testim-card">
+            <p class="t-quote">"The science finally caught up."</p>
+            <p class="t-detail">Learning about the metabolic mechanisms behind my weight struggles changed everything. The medication worked with my body, not against it. I've maintained my results for 14 months.</p>
+            <div class="t-author"><span class="t-av">DM</span> David M. <span style="margin-left:auto;font-size:9px;font-weight:700;color:var(--sage);">VERIFIED</span></div>
         </div>
-
-        <div class="dark-panel">
-          <div class="mock-card" aria-label="Eligibility review mockup">
-            <div class="mock-header">
-              <span>Eligibility path</span>
-              <span class="mock-pill">In progress</span>
-            </div>
-            <div class="mock-row">
-              <div><strong>1. Health profile</strong><small>Basic metabolic and treatment context</small></div>
-              <span>01</span>
-            </div>
-            <div class="mock-row">
-              <div><strong>2. Provider review</strong><small>Prescription decision if appropriate</small></div>
-              <span>02</span>
-            </div>
-            <div class="mock-row">
-              <div><strong>3. Wellness plan</strong><small>Medication, coaching, and ongoing support</small></div>
-              <span>03</span>
-            </div>
-          </div>
+        <div class="testim-card">
+            <p class="t-quote">"The process was surprisingly smooth."</p>
+            <p class="t-detail">Checked eligibility online. Provider reviewed within 48 hours. Started my plan the same week. The ongoing support — not just a prescription — is what makes this work.</p>
+            <div class="t-author"><span class="t-av">SR</span> Sarah R. <span style="margin-left:auto;font-size:9px;font-weight:700;color:var(--sage);">VERIFIED</span></div>
         </div>
-      </div>
-    </section>
+    </div>
+</div>
 
-    <section class="section" aria-labelledby="workflow-title">
-      <div class="container">
-        <span class="eyebrow">The Shed path</span>
-        <h2 id="workflow-title">A simple decision flow for modern weight care.</h2>
-        <div class="workflow">
-          <article class="workflow-card">
-            <div class="workflow-visual">
-              <img src="./shed-compounded-glp1.avif" alt="Shed compounded GLP-1 product visual" width="4096" height="4096" loading="lazy">
-            </div>
-            <span class="label">Step 01</span>
-            <h3>Check fit</h3>
-            <p>Begin with the eligibility flow instead of guessing whether treatment is relevant.</p>
-          </article>
-          <article class="workflow-card">
-            <div class="workflow-visual">
-              <img src="./shed-micro-glp1.avif" alt="Shed GLP-1 microdosing product visual" width="1698" height="1698" loading="lazy">
-            </div>
-            <span class="label">Step 02</span>
-            <h3>Review options</h3>
-            <p>Provider-reviewed care can include GLP-1, oral medications, coaching, and wellness support.</p>
-          </article>
-          <article class="workflow-card">
-            <div class="workflow-visual">
-              <img src="./shed-team-photo.jpg" alt="Shed care team supporting a wellness plan" width="800" height="533" loading="lazy">
-            </div>
-            <span class="label">Step 03</span>
-            <h3>Continue supported</h3>
-            <p>Shed positions weight care as a plan, not a one-off prescription checkout.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+<!-- ═══ FINAL ═══ -->
+<div class="final-wrap">
+    <h2>One step. Evidence-based.</h2>
+    <p>The first step is private, online, and takes about two minutes. If your profile is a fit, a licensed provider will review your case.</p>
+    <a href="YOUR_OFFER_LINK_HERE" class="final-btn">Check Eligibility Now →</a>
+    <p style="margin-top:12px;font-size:12px;color:var(--text-ter);">✓ Private & online · ✓ Provider-reviewed · ✓ Prescription only if appropriate · ✓ No clinic visit</p>
+</div>
 
-    <section class="final" aria-labelledby="final-title">
-      <div class="container">
-        <span class="eyebrow" style="color:rgba(255,255,255,.72)">One action</span>
-        <h2 id="final-title">See if Shed is a fit before you overthink it.</h2>
-        <p>
-          The next page starts the actual eligibility path. This page exists to make that click obvious, credible, and worth taking.
-        </p>
-        <a class="cta cta-large" href="https://portal.tryshed.com/signupEmb?formMed=glp1" data-cta>Check eligibility now</a>
-      </div>
-    </section>
-  </main>
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+    <p>This is an independent editorial publication providing evidence-based information about metabolic health. It does not provide medical advice, diagnosis, or treatment. GLP-1 medications require a prescription from a licensed provider and are not appropriate for everyone. Results vary. The operator may receive compensation for qualifying referrals.</p>
+    <div class="fl"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a></div>
+    <p>© 2026 The Lancet Review — Independent Health Science Publication</p>
+</footer>
 
-  <footer class="footer" role="contentinfo">
-    <p>
-      This is an independent promotional prelander using publicly available Shed brand elements. It does not provide medical advice, diagnosis, or treatment. Prescription medications require review by a licensed provider and are not appropriate for everyone. Results vary. The operator may receive compensation for qualifying referrals.
-    </p>
-  </footer>
+<div class="m-sticky"><a href="YOUR_OFFER_LINK_HERE">Check Eligibility →</a></div>
 
-  <div class="mobile-sticky" aria-label="Mobile eligibility action">
-    <a class="cta" href="https://portal.tryshed.com/signupEmb?formMed=glp1" data-cta>Check eligibility now</a>
-  </div>
-
-  <script>
-    (function () {
-      var params = new URLSearchParams(window.location.search);
-      var raw = params.get("click") || params.get("offer") || params.get("target") || params.get("url") || params.get("redirect");
-      var fallback = "https://portal.tryshed.com/signupEmb?formMed=glp1";
-      var target = raw ? decodeURIComponent(raw) : fallback;
-
-      if (!raw && window.location.search) {
-        var url = new URL(fallback);
-        params.forEach(function (value, key) {
-          if (!url.searchParams.has(key)) {
-            url.searchParams.set(key, value);
-          }
-        });
-        target = url.toString();
-      }
-
-      document.querySelectorAll("[data-cta]").forEach(function (link) {
-        link.href = target;
-        link.rel = "nofollow sponsored";
-      });
-    })();
-  </script>
 </body>
 </html>

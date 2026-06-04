@@ -3,446 +3,463 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exclusive Tiered Savings | Private Clothier Event</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        display: ['Syne', 'sans-serif'],
-                        body: ['DM Sans', 'sans-serif'],
-                    },
-                    colors: {
-                        espresso: '#1a1110',
-                        rose: { DEFAULT: '#c4a0a0', light: '#d4b8b8', muted: '#b8958a' },
-                        cream: '#fdf8f4',
-                        charcoal: '#231917',
-                        blush: '#e8d5d0',
-                        sage: '#8b9d83',
-                    },
-                    animation: {
-                        'reveal': 'reveal 0.8s cubic-bezier(0.16,1,0.3,1) forwards',
-                        'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
-                        'shimmer': 'shimmer 3s ease-in-out infinite',
-                        'float': 'float 5s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        reveal: { from: { opacity:'0', transform:'translateY(30px)' }, to: { opacity:'1', transform:'translateY(0)' } },
-                        pulseSubtle: { '0%,100%': { opacity:'0.5' }, '50%': { opacity:'1' } },
-                        shimmer: { '0%,100%': { opacity:'0.5' }, '50%': { opacity:'1' } },
-                        float: { '0%,100%': { transform:'translateY(0px)' }, '50%': { transform:'translateY(-8px)' } },
-                    }
-                }
-            }
-        }
-    </script>
+    <meta name="theme-color" content="#ffffff">
+    <title>The Summer Investment Edit — 6 Pieces That Define 2026 | NO. 14</title>
+    <meta name="description" content="An unfiltered look at the pieces worth your money this season. No logos. No trends. Just extraordinary craftsmanship that outlasts the calendar.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #fdf8f4; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        :root {
+            --bg: #ffffff;
+            --ink: #111111;
+            --soft: #666666;
+            --light: #999999;
+            --line: #e5e5e5;
+            --red: #c43333;
+            --red-hover: #a02222;
+            --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+            --font-ui: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; color-scheme: light; }
+        body {
+            background: var(--bg); color: var(--ink);
+            font-family: var(--font-ui); font-size: 15px; line-height: 1.6;
+            -webkit-font-smoothing: antialiased; font-weight: 400;
+        }
+        img { display: block; max-width: 100%; height: auto; }
+        a { color: inherit; text-decoration: none; }
+        :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 
-        .dark-gradient { background: linear-gradient(180deg, #1a1110 0%, #231917 100%); }
+        /* ═══ TOP STRIP ═══ */
+        .top-strip {
+            background: var(--ink); color: #fff; font-size: 10px; font-weight: 500;
+            text-align: center; padding: 10px 16px; letter-spacing: 0.15em; text-transform: uppercase;
+        }
+        .top-strip em { font-style: normal; color: #ff6b6b; font-weight: 700; }
 
-        .text-outline {
-            -webkit-text-stroke: 1px rgba(196,160,160,0.25);
-            color: transparent;
+        /* ═══ HEADER ═══ */
+        .header {
+            position: sticky; top: 0; z-index: 50;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+        }
+        .header-inner {
+            max-width: 1240px; margin: 0 auto; padding: 16px 32px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .logo {
+            font-family: var(--font-display); font-size: 28px; font-weight: 700;
+            letter-spacing: 0.06em; text-transform: uppercase;
+        }
+        .logo sup { font-size: 11px; font-weight: 400; letter-spacing: 0.2em; margin-left: 2px; color: var(--soft); }
+        .header-cta {
+            font-family: var(--font-ui); font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+            text-transform: uppercase; border-bottom: 2px solid var(--ink); padding-bottom: 4px;
+            transition: all 0.2s;
+        }
+        .header-cta:hover { color: var(--red); border-color: var(--red); }
+
+        /* ═══ HERO — FULL-WIDTH IMAGE ═══ */
+        .hero-full {
+            position: relative; width: 100%; height: 85vh; min-height: 550px;
+            overflow: hidden; background: #1a1a1a;
+        }
+        .hero-full img {
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.85;
+        }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column; justify-content: flex-end; padding: 64px;
+            background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%);
+        }
+        .hero-overlay .issue {
+            font-family: var(--font-ui); font-size: 10px; font-weight: 700;
+            letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.6);
+            margin-bottom: 12px;
+        }
+        .hero-overlay h1 {
+            font-family: var(--font-display); font-size: clamp(42px, 7vw, 80px);
+            font-weight: 600; line-height: 0.95; color: #fff; max-width: 800px;
+            letter-spacing: -0.01em;
+        }
+        .hero-overlay h1 i { font-style: italic; }
+        .hero-overlay .hero-cta-line {
+            margin-top: 28px; display: flex; align-items: center; gap: 16px;
+        }
+        .hero-overlay .hero-cta-btn {
+            display: inline-flex; align-items: center; gap: 12px;
+            font-family: var(--font-ui); font-size: 12px; font-weight: 700;
+            letter-spacing: 0.12em; text-transform: uppercase; color: #fff;
+            border: 1.5px solid rgba(255,255,255,0.5); padding: 14px 32px;
+            transition: all 0.3s;
+        }
+        .hero-overlay .hero-cta-btn:hover {
+            background: #fff; color: var(--ink); border-color: #fff;
+        }
+        .hero-overlay .hero-cta-btn .arrow {
+            display: inline-block; transition: transform 0.3s;
+        }
+        .hero-overlay .hero-cta-btn:hover .arrow { transform: translateX(5px); }
+
+        /* ═══ SECTION TITLE ═══ */
+        .sec-title {
+            text-align: center; padding: 72px 24px 48px;
+            max-width: 640px; margin: 0 auto;
+        }
+        .sec-title .eyebrow {
+            font-family: var(--font-ui); font-size: 10px; font-weight: 700;
+            letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft);
+            margin-bottom: 14px;
+        }
+        .sec-title h2 {
+            font-family: var(--font-display); font-size: clamp(32px, 5vw, 48px);
+            font-weight: 600; line-height: 1.08; letter-spacing: -0.01em;
+        }
+        .sec-title h2 i { font-style: italic; }
+
+        /* ═══ GALLERY GRID ═══ */
+        .gallery {
+            max-width: 1240px; margin: 0 auto; padding: 0 24px 64px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;
+        }
+        .gallery-item {
+            position: relative; overflow: hidden; cursor: pointer;
+            aspect-ratio: 3 / 4; background: #f5f5f5;
+        }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.25,0.1,0.25,1);
+        }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-item .cap {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 28px 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+            color: #fff; opacity: 0; transition: opacity 0.35s;
+        }
+        .gallery-item:hover .cap { opacity: 1; }
+        .gallery-item .cap h4 {
+            font-family: var(--font-display); font-size: 20px; font-weight: 600; margin-bottom: 4px;
+        }
+        .gallery-item .cap .price {
+            font-family: var(--font-ui); font-size: 13px; font-weight: 600; letter-spacing: 0.03em;
+        }
+        .gallery-item .cap .price s { opacity: 0.4; margin-right: 8px; font-weight: 400; }
+        .gallery-item .tag {
+            position: absolute; top: 16px; left: 16px;
+            font-family: var(--font-ui); font-size: 9px; font-weight: 800;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            padding: 5px 12px; border-radius: 2px;
+        }
+        .tag-editor { background: #fff; color: var(--ink); }
+        .tag-selling { background: var(--red); color: #fff; }
+        .tag-limited { background: var(--ink); color: #fff; }
+
+        /* ═══ FEATURE SPLIT ═══ */
+        .feature-split {
+            max-width: 1240px; margin: 0 auto; padding: 64px 24px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+        }
+        .feature-split img {
+            width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+        }
+        .feature-split .copy h3 {
+            font-family: var(--font-display); font-size: 36px; font-weight: 600;
+            line-height: 1.1; margin-bottom: 18px; letter-spacing: -0.01em;
+        }
+        .feature-split .copy p {
+            font-size: 15px; color: var(--soft); line-height: 1.8; margin-bottom: 24px;
+        }
+        .feature-split .copy .inline-cta {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-family: var(--font-ui); font-size: 11px; font-weight: 700;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            border-bottom: 2px solid var(--ink); padding-bottom: 4px;
+            transition: all 0.2s;
+        }
+        .feature-split .copy .inline-cta:hover { color: var(--red); border-color: var(--red); }
+
+        /* ═══ QUOTE ═══ */
+        .quote-block {
+            max-width: 800px; margin: 48px auto; padding: 0 24px;
+        }
+        .quote-block blockquote {
+            font-family: var(--font-display); font-size: clamp(24px, 3.5vw, 32px);
+            font-weight: 500; font-style: italic; line-height: 1.35;
+            text-align: center; padding: 40px 0; border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+        .quote-block cite {
+            display: block; text-align: center; margin-top: 16px;
+            font-family: var(--font-ui); font-size: 11px; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase; font-style: normal;
+            color: var(--soft);
         }
 
-        .tier-card {
-            background: #ffffff; border: 1px solid rgba(26,17,16,0.06);
-            transition: all 0.45s cubic-bezier(0.25,0.1,0.25,1);
+        /* ═══ TIER BAR ═══ */
+        .tier-bar {
+            max-width: 840px; margin: 64px auto; padding: 0 24px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
         }
-        .tier-card:hover {
-            border-color: #c4a0a0; transform: translateY(-8px);
-            box-shadow: 0 28px 56px rgba(26,17,16,0.06);
+        .tier-bar .tier {
+            text-align: center; padding: 28px 20px; border: 1px solid var(--line);
         }
-        .tier-card.featured {
-            border-color: #c4a0a0;
-            box-shadow: 0 16px 40px rgba(26,17,16,0.05);
+        .tier-bar .tier .pct {
+            font-family: var(--font-display); font-size: 40px; font-weight: 700; line-height: 1;
+        }
+        .tier-bar .tier .lbl {
+            font-family: var(--font-ui); font-size: 10px; font-weight: 600;
+            letter-spacing: 0.12em; text-transform: uppercase; color: var(--soft); margin-top: 6px;
+        }
+        .tier-bar .tier.best { border-color: var(--ink); position: relative; }
+        .tier-bar .tier.best::before {
+            content: 'MOST POPULAR'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+            font-family: var(--font-ui); font-size: 8px; font-weight: 800;
+            letter-spacing: 0.15em; background: var(--ink); color: #fff;
+            padding: 4px 14px; white-space: nowrap;
         }
 
-        .btn-dark {
-            background: #1a1110; color: #fdf8f4; font-weight: 600;
-            letter-spacing: 0.18em; text-transform: uppercase;
-            transition: all 0.4s cubic-bezier(0.25,0.1,0.25,1);
-            position: relative; overflow: hidden;
+        /* ═══ CENTER CTA ═══ */
+        .center-cta {
+            text-align: center; padding: 64px 24px; max-width: 600px; margin: 0 auto;
         }
-        .btn-dark:hover {
-            background: #c4a0a0; color: #1a1110; transform: translateY(-3px);
-            box-shadow: 0 24px 48px rgba(26,17,16,0.15);
+        .center-cta h3 {
+            font-family: var(--font-display); font-size: 36px; font-weight: 600;
+            line-height: 1.12; margin-bottom: 12px;
         }
-        .btn-dark::after {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
-            transform: skewX(-20deg); animation: shine 5s infinite;
+        .center-cta p { color: var(--soft); font-size: 15px; margin-bottom: 28px; }
+        .center-cta .big-cta {
+            display: inline-flex; align-items: center; gap: 14px;
+            font-family: var(--font-ui); font-size: 14px; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            background: var(--ink); color: #fff; padding: 18px 48px;
+            transition: all 0.3s;
         }
-        @keyframes shine { 0% { left: -100%; } 25% { left: 200%; } 100% { left: 200%; } }
+        .center-cta .big-cta:hover { background: var(--red); }
 
+        /* ═══ REVIEWS ═══ */
+        .reviews {
+            max-width: 1240px; margin: 0 auto; padding: 48px 24px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+        }
         .review-card {
-            background: #ffffff; border: 1px solid rgba(26,17,16,0.05);
-            transition: all 0.4s ease;
+            padding: 32px 28px; border: 1px solid var(--line);
         }
-        .review-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 48px rgba(26,17,16,0.06);
+        .review-card .stars { color: #d4a853; font-size: 12px; letter-spacing: 3px; margin-bottom: 16px; }
+        .review-card .headline {
+            font-family: var(--font-display); font-size: 21px; font-weight: 600;
+            font-style: italic; margin-bottom: 10px; line-height: 1.25;
+        }
+        .review-card .body { font-size: 13px; color: var(--soft); line-height: 1.7; margin-bottom: 18px; }
+        .review-card .reviewer {
+            display: flex; align-items: center; gap: 10px;
+            font-family: var(--font-ui); font-size: 11px; font-weight: 600;
+            letter-spacing: 0.06em; text-transform: uppercase;
+        }
+        .review-card .reviewer .av {
+            width: 30px; height: 30px; border-radius: 50%;
+            background: #f0f0f0; display: flex; align-items: center;
+            justify-content: center; font-size: 10px; font-weight: 700; color: var(--soft);
         }
 
-        .video-container {
-            position: relative; width: 100%; height: 100%;
-            overflow: hidden; background-color: #1a1110;
+        /* ═══ FINAL ═══ */
+        .final {
+            text-align: center; padding: 80px 24px; background: var(--ink); color: #fff;
         }
-        .video-container video {
-            position: absolute; top: 50%; left: 50%;
-            min-width: 100%; min-height: 100%; width: auto; height: auto;
-            transform: translate(-50%,-50%); object-fit: cover;
+        .final h2 {
+            font-family: var(--font-display); font-size: clamp(34px, 6vw, 56px);
+            font-weight: 600; line-height: 1.06; margin-bottom: 10px;
+        }
+        .final h2 i { font-style: italic; color: #ff6b6b; }
+        .final p { color: rgba(255,255,255,0.5); font-size: 15px; margin-bottom: 32px; }
+        .final .final-cta {
+            display: inline-flex; align-items: center; gap: 14px;
+            font-family: var(--font-ui); font-size: 13px; font-weight: 700;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            background: transparent; color: #fff;
+            border: 1.5px solid rgba(255,255,255,0.4);
+            padding: 18px 48px; transition: all 0.3s;
+        }
+        .final .final-cta:hover { background: #fff; color: var(--ink); border-color: #fff; }
+
+        /* ═══ FOOTER ═══ */
+        .footer {
+            background: var(--ink); color: rgba(255,255,255,0.3);
+            font-size: 10px; text-align: center; padding: 40px 24px 80px;
+            line-height: 2; border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .footer .fl { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 8px; }
+        .footer .fl a {
+            color: rgba(255,255,255,0.25); font-weight: 600; letter-spacing: 0.1em;
+            text-transform: uppercase; font-size: 9px;
+        }
+        .footer .fl a:hover { color: rgba(255,255,255,0.5); }
+
+        /* ═══ MOBILE ═══ */
+        .m-sticky {
+            display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+            padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
+            background: rgba(255,255,255,0.97); backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px); border-top: 1px solid var(--line);
+        }
+        .m-sticky a {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; font-family: var(--font-ui); font-size: 12px; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            background: var(--ink); color: #fff; padding: 16px 24px;
         }
 
-        .faq-answer { max-height:0; overflow:hidden; transition:max-height 0.4s cubic-bezier(0.4,0,0.2,1),padding 0.4s ease; }
-        .faq-answer.open { max-height:200px; padding-top:0.75rem; padding-bottom:0.75rem; }
-
-        .hot-pick-card {
-            background: #ffffff; border: 1px solid rgba(26,17,16,0.06);
-            transition: all 0.4s cubic-bezier(0.25,0.1,0.25,1);
+        @media (max-width: 900px) {
+            .hero-full { height: 60vh; min-height: 400px; }
+            .hero-overlay { padding: 32px; }
+            .hero-overlay h1 { font-size: 34px; }
+            .gallery { grid-template-columns: 1fr 1fr; }
+            .feature-split { grid-template-columns: 1fr; gap: 32px; }
+            .reviews { grid-template-columns: 1fr; }
         }
-        .hot-pick-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(26,17,16,0.08); }
-
-        .glass-badge { background: rgba(26,17,16,0.85); backdrop-filter: blur(12px); }
+        @media (max-width: 550px) {
+            .hero-full { height: 55vh; min-height: 320px; }
+            .hero-overlay h1 { font-size: 28px; }
+            .gallery { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
+            .tier-bar { grid-template-columns: 1fr; max-width: 300px; }
+            .m-sticky { display: block; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+        }
     </style>
 </head>
-<body class="font-body min-h-screen flex flex-col">
+<body>
 
-    <!-- 🔔 Top Bar with Countdown -->
-    <div class="w-full bg-espresso text-cream py-2.5 text-[10px] tracking-[0.22em] uppercase text-center font-semibold flex items-center justify-center gap-3 flex-wrap">
-        <span>Private Sale Access</span>
-        <span class="hidden sm:inline text-cream/20">|</span>
-        <span class="text-rose-light">Limited-Time Tiered Event</span>
-        <span class="hidden sm:inline text-cream/20">|</span>
-        <span>Ends in <span class="text-cream font-bold font-mono" id="countdown">02:14:08</span></span>
+<!-- ═══ TOP STRIP ═══ -->
+<div class="top-strip">Private Archive Sale &nbsp;·&nbsp; <em>Tiered Savings 20–40% Off</em> &nbsp;·&nbsp; Limited Engagement</div>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header">
+    <div class="header-inner">
+        <a href="#" class="logo">Nº<sup>14</sup></a>
+        <a href="YOUR_OFFER_LINK_HERE" class="header-cta">Shop the Edit</a>
     </div>
+</header>
 
-    <!-- 🔲 Hero Layout -->
-    <div class="flex flex-col lg:flex-row min-h-[88vh]">
-
-        <!-- Left: Video -->
-        <div class="w-full lg:w-1/2 relative h-[50vh] lg:h-auto">
-            <div class="video-container">
-                <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1594938291221-94f18cbb5660?auto=format&fit=crop&w=1200&q=80">
-                    <source src="./video/2026-0415_HP-HERO_occasion-shop_sm-md-lg_2.mp4" type="video/mp4">
-                </video>
-                <div class="absolute inset-0 bg-espresso/25"></div>
-            </div>
-            <div class="absolute bottom-8 left-8 text-cream z-10 hidden lg:block">
-                <p class="font-display text-xs uppercase tracking-[0.3em] font-semibold opacity-50 mb-1">Since 1818</p>
-                <p class="font-display text-2xl font-bold tracking-tight">Modern American <span class="text-rose-light italic">Heritage</span></p>
-            </div>
-
-            <!-- VIP Badge -->
-            <div class="absolute top-5 left-5 z-10">
-                <div class="glass-badge text-cream text-[9px] font-bold uppercase tracking-[0.25em] py-2 px-4 rounded-full border border-cream/10 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-rose animate-pulse-subtle"></span>
-                    VIP Early Access
-                </div>
-            </div>
-        </div>
-
-        <!-- Right: Offer -->
-        <div class="w-full lg:w-1/2 flex flex-col justify-center p-8 sm:p-12 lg:p-16 xl:p-24 bg-cream relative overflow-hidden">
-            <!-- Decorative accent -->
-            <div class="absolute top-0 right-0 w-[250px] h-[250px] bg-rose/3 rounded-full blur-[100px] pointer-events-none"></div>
-
-            <div class="relative z-10">
-                <!-- Brand -->
-                <div class="mb-12 text-center lg:text-left">
-                    <h1 class="font-display text-3xl font-bold tracking-[0.05em] text-espresso uppercase">ATELIER</h1>
-                    <div class="flex items-center justify-center lg:justify-start gap-2 mt-2">
-                        <span class="w-1.5 h-1.5 bg-sage rounded-full"></span>
-                        <p class="text-[10px] uppercase tracking-[0.25em] text-espresso/30 font-semibold">Private Clothier · Event Active</p>
-                    </div>
-                </div>
-
-                <!-- Headline -->
-                <div class="mb-10 text-center lg:text-left">
-                    <h2 class="font-display text-[2.5rem] lg:text-[3.2rem] leading-[1.05] font-bold text-espresso mb-6 tracking-tight">
-                        The End of Season <br>
-                        <span class="text-outline">Private Archive</span> Sale.
-                    </h2>
-                    <p class="text-espresso/40 text-sm lg:text-base leading-relaxed max-w-md mx-auto lg:mx-0 font-light">
-                        A curated selection of timeless pieces, available at exceptional value. Our most significant tiered savings event of the season is now open for registration.
-                    </p>
-                </div>
-
-                <!-- Tiered Discount -->
-                <div class="mb-8">
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <div class="tier-card p-5 text-center">
-                            <span class="font-display text-[1.6rem] font-bold text-espresso block mb-1">20% OFF</span>
-                            <span class="text-[8px] uppercase tracking-[0.2em] text-espresso/25 font-semibold">Orders $200+</span>
-                        </div>
-                        <div class="tier-card p-5 text-center">
-                            <span class="font-display text-[1.6rem] font-bold text-espresso block mb-1">30% OFF</span>
-                            <span class="text-[8px] uppercase tracking-[0.2em] text-espresso/25 font-semibold">Orders $500+</span>
-                        </div>
-                        <div class="tier-card featured p-5 text-center border-b-2 border-rose relative overflow-hidden">
-                            <div class="absolute top-3 right-3 bg-rose text-white text-[7px] font-black uppercase tracking-[0.2em] py-0.5 px-2">Best Value</div>
-                            <span class="font-display text-[1.6rem] font-bold text-espresso block mb-1">40% OFF</span>
-                            <span class="text-[8px] uppercase tracking-[0.2em] text-espresso/25 font-semibold">Orders $1,000+</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bonus -->
-                <div class="mb-10 bg-white p-6 border-l-[3px] border-rose">
-                    <h4 class="font-display text-xl font-bold text-espresso mb-1">Plus, an Additional <span class="text-rose italic">10% Welcome Credit</span>*</h4>
-                    <p class="text-[9px] uppercase tracking-[0.2em] text-espresso/25 font-semibold">Activated on your first purchase</p>
-                </div>
-
-                <!-- Stock indicator -->
-                <div class="mb-6 flex items-center gap-3 text-[10px] font-semibold text-espresso/35 uppercase tracking-[0.15em]">
-                    <div class="flex items-center gap-2">
-                        <span class="flex gap-0.5">
-                            <span class="w-1.5 h-4 bg-rose/60 rounded-full"></span>
-                            <span class="w-1.5 h-3 bg-rose/40 rounded-full"></span>
-                            <span class="w-1.5 h-2 bg-rose/20 rounded-full"></span>
-                        </span>
-                        Limited inventory at each tier
-                    </div>
-                </div>
-
-                <!-- CTA -->
-                <div class="w-full max-w-md mx-auto lg:mx-0">
-                    <a href="YOUR_OFFER_LINK_HERE" class="btn-dark w-full py-5 text-sm font-semibold flex items-center justify-center gap-2">
-                        Continue to Unlock
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </a>
-                    <div class="mt-5 flex items-center justify-center lg:justify-start gap-4 text-[8px] uppercase tracking-[0.2em] text-espresso/20 font-semibold">
-                        <span class="flex items-center gap-1"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"></path></svg> Secure Access</span>
-                        <span>·</span>
-                        <span>Limited Engagement</span>
-                    </div>
-                </div>
-            </div>
+<!-- ═══ HERO — FULL BLEED ═══ -->
+<section class="hero-full" aria-label="Summer 2026 editorial">
+    <img src="images/hero-red-jacket.jpg" alt="Dramatic editorial fashion — man in red jacket and black suit by K Studios">
+    <div class="hero-overlay">
+        <span class="issue">Issue Nº 14 · Summer 2026 · The Investment Edit</span>
+        <h1>Style that <i>lasts</i> longer than the season.</h1>
+        <div class="hero-cta-line">
+            <a href="YOUR_OFFER_LINK_HERE" class="hero-cta-btn">Explore the Collection <span class="arrow">→</span></a>
         </div>
     </div>
+</section>
 
-    <!-- 📊 Live Stats -->
-    <section class="py-12 px-4 bg-white border-y border-espresso/5">
-        <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div class="animate-reveal">
-                <div class="font-display text-2xl md:text-3xl font-bold text-espresso mb-1">2,400+</div>
-                <p class="text-espresso/25 text-[10px] uppercase tracking-[0.15em] font-semibold">VIP Slots Claimed Today</p>
-            </div>
-            <div class="animate-reveal" style="animation-delay:0.1s">
-                <div class="font-display text-2xl md:text-3xl font-bold text-espresso mb-1">47%</div>
-                <p class="text-espresso/25 text-[10px] uppercase tracking-[0.15em] font-semibold">Average Savings</p>
-            </div>
-            <div class="animate-reveal" style="animation-delay:0.2s">
-                <div class="font-display text-2xl md:text-3xl font-bold text-espresso mb-1">4.9/5</div>
-                <p class="text-espresso/25 text-[10px] uppercase tracking-[0.15em] font-semibold">Patron Satisfaction</p>
-            </div>
-            <div class="animate-reveal" style="animation-delay:0.3s">
-                <div class="font-display text-2xl md:text-3xl font-bold text-espresso mb-1">200+</div>
-                <p class="text-espresso/25 text-[10px] uppercase tracking-[0.15em] font-semibold">Years of Craft</p>
-            </div>
-        </div>
-    </section>
+<!-- ═══ SECTION TITLE ═══ -->
+<div class="sec-title">
+    <span class="eyebrow">The Summer Investment Edit</span>
+    <h2>Six pieces. <i>Zero compromises.</i></h2>
+</div>
 
-    <!-- 📰 Press / Magazine Badges -->
-    <section class="py-10 px-4 bg-cream border-b border-espresso/5">
-        <p class="text-center text-espresso/15 text-[10px] uppercase tracking-[0.3em] font-bold mb-6">As Featured In</p>
-        <div class="flex flex-wrap items-center justify-center gap-8 md:gap-14">
-            <span class="text-espresso/12 font-display text-xl md:text-2xl font-bold tracking-[0.3em] uppercase hover:text-espresso/20 transition-colors">VOGUE</span>
-            <span class="text-espresso/12 font-display text-xl md:text-2xl font-bold italic hover:text-espresso/20 transition-colors">GQ</span>
-            <span class="text-espresso/12 font-body text-lg md:text-xl font-bold tracking-tight uppercase hover:text-espresso/20 transition-colors">Esquire</span>
-            <span class="text-espresso/12 font-display text-xl md:text-2xl font-bold tracking-[0.1em] hover:text-espresso/20 transition-colors">HARPER'S BAZAAR</span>
-            <span class="text-espresso/12 font-body text-lg md:text-xl font-bold uppercase tracking-[0.15em] hover:text-espresso/20 transition-colors">MR PORTER</span>
-        </div>
-    </section>
+<!-- ═══ GALLERY ═══ -->
+<div class="gallery">
+    <div class="gallery-item">
+        <span class="tag tag-editor">Editor's Pick</span>
+        <img src="images/tailored-suit.jpg" alt="Tailored black suit — studio shot by Alexander Naglestad" loading="lazy">
+        <div class="cap"><h4>The Wool Suit</h4><span class="price"><s>$998</s> $598</span></div>
+    </div>
+    <div class="gallery-item">
+        <span class="tag tag-selling">Best Seller</span>
+        <img src="images/dress-shirts.jpg" alt="Gray button-up shirt — studio by Benjamin R." loading="lazy">
+        <div class="cap"><h4>The Non-Iron Shirt</h4><span class="price"><s>$128</s> $89</span></div>
+    </div>
+    <div class="gallery-item">
+        <span class="tag tag-limited">Low Stock</span>
+        <img src="images/trench-coat.jpg" alt="Trench coat on city street — editorial by GlassesShop" loading="lazy">
+        <div class="cap"><h4>The Heritage Trench</h4><span class="price"><s>$498</s> $398</span></div>
+    </div>
+    <div class="gallery-item">
+        <img src="images/leather-loafers.jpg" alt="Brown leather dress shoes — by David Lezcano" loading="lazy">
+        <div class="cap"><h4>The Hand-Stitched Loafer</h4><span class="price"><s>$425</s> $298</span></div>
+    </div>
+    <div class="gallery-item">
+        <img src="images/linen-blazer.jpg" alt="Brown blazer with denim — by Dieter Blom" loading="lazy">
+        <div class="cap"><h4>The Unstructured Blazer</h4><span class="price"><s>$498</s> $348</span></div>
+    </div>
+    <div class="gallery-item">
+        <img src="images/chinos-smart-casual.jpg" alt="Editorial street style with green pants" loading="lazy">
+        <div class="cap"><h4>The Garment-Dyed Chino</h4><span class="price"><s>$168</s> $128</span></div>
+    </div>
+</div>
 
-    <!-- 🔥 Hot Picks Showcase -->
-    <section class="py-16 md:py-24 px-4 bg-white">
-        <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-14">
-                <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-rose">Editor's Selection</span>
-                <h2 class="font-display text-2xl md:text-3xl font-bold text-espresso mt-3">This Season's Most Coveted</h2>
-            </div>
+<!-- ═══ FEATURE SPLIT ═══ -->
+<div class="feature-split">
+    <img src="images/studio-suit-feature.jpg" alt="Black suit studio detail — Alexander Naglestad" loading="lazy">
+    <div class="copy">
+        <h3>Not fast fashion. <i>Forever</i> fashion.</h3>
+        <p>Every piece in this edit is made in workshops that have been refining their craft for decades — some for over a century. Italian-milled wool. Japanese selvedge. Scottish cashmere. The construction methods — half-canvas suiting, Goodyear welting — are the same ones used on garments that cost three times as much. No logo tax. No department-store markup. Just the garment.</p>
+        <a href="YOUR_OFFER_LINK_HERE" class="inline-cta">Browse Full Collection →</a>
+    </div>
+</div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="hot-pick-card group">
-                    <div class="h-56 relative overflow-hidden">
-                        <img src="./video/card-01-suit.jpg" alt="Tailored Wool Suit" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
-                        <div class="absolute inset-0 bg-gradient-to-t from-espresso/30 via-transparent to-transparent"></div>
-                        <div class="absolute top-3 left-3 bg-espresso text-cream text-[8px] font-bold uppercase tracking-[0.2em] py-1 px-3">Hot Pick</div>
-                    </div>
-                    <div class="p-5">
-                        <h4 class="font-display font-bold text-espresso mb-1">Tailored Wool Suit</h4>
-                        <p class="text-espresso/35 text-xs font-light mb-3">Italian-milled fabric · Half-canvas construction</p>
-                        <div class="flex items-center justify-between">
-                            <span class="font-bold text-rose text-sm">40% OFF</span>
-                            <span class="text-espresso/20 text-[9px] uppercase tracking-[0.1em]">Limited Run</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="hot-pick-card group">
-                    <div class="h-56 relative overflow-hidden">
-                        <img src="./video/card-02-shirt.jpg" alt="Non-Iron Dress Shirt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
-                        <div class="absolute inset-0 bg-gradient-to-t from-espresso/20 via-transparent to-transparent"></div>
-                    </div>
-                    <div class="p-5">
-                        <h4 class="font-display font-bold text-espresso mb-1">Non-Iron Dress Shirt</h4>
-                        <p class="text-espresso/35 text-xs font-light mb-3">Signature Supima® cotton · 6 fits</p>
-                        <div class="flex items-center justify-between">
-                            <span class="font-bold text-rose text-sm">30% OFF</span>
-                            <span class="text-espresso/20 text-[9px] uppercase tracking-[0.1em]">Best Seller</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="hot-pick-card group">
-                    <div class="h-56 relative overflow-hidden">
-                        <img src="./video/card-03-trench.jpg" alt="Heritage Trench Coat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
-                        <div class="absolute inset-0 bg-gradient-to-t from-espresso/30 via-transparent to-transparent"></div>
-                        <div class="absolute top-3 right-3 bg-rose text-white text-[8px] font-bold uppercase tracking-[0.2em] py-1 px-3">Low Stock</div>
-                    </div>
-                    <div class="p-5">
-                        <h4 class="font-display font-bold text-espresso mb-1">Heritage Trench Coat</h4>
-                        <p class="text-espresso/35 text-xs font-light mb-3">Water-repellent cotton · Timeless silhouette</p>
-                        <div class="flex items-center justify-between">
-                            <span class="font-bold text-rose text-sm">20% OFF</span>
-                            <span class="text-espresso/20 text-[9px] uppercase tracking-[0.1em]">Almost Gone</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- ═══ QUOTE ═══ -->
+<div class="quote-block">
+    <blockquote>"Twelve years of collecting. The shirting remains unmatched — this is precisely when I refresh my wardrobe. The tiered pricing makes it effortless to invest."</blockquote>
+    <cite>— Robert W., Patron since 2012</cite>
+</div>
 
-            <div class="text-center mt-10">
-                <a href="YOUR_OFFER_LINK_HERE" class="btn-dark inline-flex items-center gap-2 px-10 py-4 text-xs font-semibold">
-                    Explore Full Collection →
-                </a>
-            </div>
-        </div>
-    </section>
+<!-- ═══ TIER BAR ═══ -->
+<div class="tier-bar">
+    <div class="tier"><div class="pct">20%</div><div class="lbl">Off · Orders $200+</div></div>
+    <div class="tier best"><div class="pct">30%</div><div class="lbl">Off · Orders $500+</div></div>
+    <div class="tier"><div class="pct">40%</div><div class="lbl">Off · Orders $1,000+</div></div>
+</div>
 
-    <!-- 💬 Reviews -->
-    <section class="py-20 px-6 lg:px-12 bg-cream">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-14">
-                <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-rose">Global Community</span>
-                <h3 class="font-display text-2xl lg:text-3xl font-bold text-espresso mt-3">The Standard of <span class="italic text-rose">Refinement</span></h3>
-            </div>
+<!-- ═══ CENTER CTA ═══ -->
+<div class="center-cta">
+    <h3>Your invitation, <i>should you want it.</i></h3>
+    <p>Private access. Tiered savings. An extra 10% welcome credit for new customers.</p>
+    <a href="YOUR_OFFER_LINK_HERE" class="big-cta">Unlock My Savings →</a>
+</div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="review-card p-8">
-                    <div class="flex text-espresso text-xs mb-5">★★★★★</div>
-                    <p class="font-display text-xl font-bold text-espresso mb-4 leading-tight">"Uncompromising quality."</p>
-                    <p class="text-espresso/40 text-sm leading-relaxed mb-6 font-light italic">"Fifteen years of collecting their tailored pieces. The shirting remains unmatched — this event is precisely when I refresh my seasonal wardrobe."</p>
-                    <div class="flex items-center gap-3 border-t border-espresso/5 pt-5">
-                        <div class="w-9 h-9 bg-espresso/5 flex items-center justify-center font-display font-bold text-espresso text-[10px]">RW</div>
-                        <div><p class="text-[9px] font-bold uppercase tracking-[0.15em] text-espresso">Robert W.</p><p class="text-[8px] text-rose font-semibold uppercase">Verified Patron</p></div>
-                    </div>
-                </div>
-                <div class="review-card p-8">
-                    <div class="flex text-espresso text-xs mb-5">★★★★★</div>
-                    <p class="font-display text-xl font-bold text-espresso mb-4 leading-tight">"A perfect silhouette."</p>
-                    <p class="text-espresso/40 text-sm leading-relaxed mb-6 font-light italic">"My new suit fits as though it were cut for me alone. Combining the tiered rate with the welcome credit made this an extraordinary value proposition."</p>
-                    <div class="flex items-center gap-3 border-t border-espresso/5 pt-5">
-                        <div class="w-9 h-9 bg-espresso/5 flex items-center justify-center font-display font-bold text-espresso text-[10px]">SM</div>
-                        <div><p class="text-[9px] font-bold uppercase tracking-[0.15em] text-espresso">Sandra M.</p><p class="text-[8px] text-rose font-semibold uppercase">Verified Client</p></div>
-                    </div>
-                </div>
-                <div class="review-card p-8">
-                    <div class="flex text-espresso text-xs mb-5">★★★★★</div>
-                    <p class="font-display text-xl font-bold text-espresso mb-4 leading-tight">"Timeless design."</p>
-                    <p class="text-espresso/40 text-sm leading-relaxed mb-6 font-light italic">"The heritage trench coat is a forever piece. It reads expensive, wears beautifully, and this promotion made it effortless to invest in lasting style."</p>
-                    <div class="flex items-center gap-3 border-t border-espresso/5 pt-5">
-                        <div class="w-9 h-9 bg-espresso/5 flex items-center justify-center font-display font-bold text-espresso text-[10px]">TL</div>
-                        <div><p class="text-[9px] font-bold uppercase tracking-[0.15em] text-espresso">Thomas L.</p><p class="text-[8px] text-rose font-semibold uppercase">Verified Member</p></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ═══ REVIEWS ═══ -->
+<div class="reviews">
+    <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="headline">"A perfect silhouette."</p>
+        <p class="body">The suit arrived and fit as though it were cut for me alone. Combining the tiered rate with the welcome credit made this an extraordinary value.</p>
+        <div class="reviewer"><span class="av">SM</span> Sandra M. <span style="margin-left:auto;font-size:9px;color:var(--red);">VERIFIED</span></div>
+    </div>
+    <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="headline">"Uncompromising quality."</p>
+        <p class="body">Fifteen years of collecting their tailored pieces. The shirting is still unmatched — crisp, comfortable, remarkably durable.</p>
+        <div class="reviewer"><span class="av">RW</span> Robert W. <span style="margin-left:auto;font-size:9px;color:var(--red);">VERIFIED</span></div>
+    </div>
+    <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="headline">"A forever trench."</p>
+        <p class="body">The heritage trench coat is a forever piece. It reads expensive, wears beautifully, and this promotion made it effortless.</p>
+        <div class="reviewer"><span class="av">TL</span> Thomas L. <span style="margin-left:auto;font-size:9px;color:var(--red);">VERIFIED</span></div>
+    </div>
+</div>
 
-    <!-- ❓ FAQ -->
-    <section class="py-20 px-4 bg-white">
-        <div class="max-w-3xl mx-auto">
-            <div class="text-center mb-12">
-                <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-rose">Quick Answers</span>
-                <h2 class="font-display text-2xl md:text-3xl font-bold text-espresso mt-3">Frequently Asked Questions.</h2>
-            </div>
-            <div class="space-y-3">
-                <div class="review-card overflow-hidden">
-                    <button class="w-full px-6 py-5 flex items-center justify-between text-left" onclick="toggleFAQ(this)">
-                        <span class="font-semibold text-espresso/70 text-sm pr-4">How do the tiered discounts work?</span>
-                        <svg class="w-5 h-5 text-rose shrink-0 transition-transform duration-300 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="faq-answer px-6"><p class="text-espresso/45 text-sm leading-relaxed font-light">Your discount is automatically calculated at checkout based on your order subtotal. Spend $200+ for 20% off, $500+ for 30% off, or $1,000+ for 40% off. The additional 10% welcome credit is applied on top for first-time customers.</p></div>
-                </div>
-                <div class="review-card overflow-hidden">
-                    <button class="w-full px-6 py-5 flex items-center justify-between text-left" onclick="toggleFAQ(this)">
-                        <span class="font-semibold text-espresso/70 text-sm pr-4">When does the sale end?</span>
-                        <svg class="w-5 h-5 text-rose shrink-0 transition-transform duration-300 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="faq-answer px-6"><p class="text-espresso/45 text-sm leading-relaxed font-light">This is a limited-time event. The countdown timer above reflects the current remaining duration. Due to the exclusive nature of this private sale, access may close earlier if inventory thresholds are reached.</p></div>
-                </div>
-                <div class="review-card overflow-hidden">
-                    <button class="w-full px-6 py-5 flex items-center justify-between text-left" onclick="toggleFAQ(this)">
-                        <span class="font-semibold text-espresso/70 text-sm pr-4">Can I combine this with other promotions?</span>
-                        <svg class="w-5 h-5 text-rose shrink-0 transition-transform duration-300 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="faq-answer px-6"><p class="text-espresso/45 text-sm leading-relaxed font-light">The tiered savings event is exclusive and cannot be combined with other promotional codes. However, the additional 10% welcome credit for new customers stacks on top of your tiered discount for maximum value.</p></div>
-                </div>
-                <div class="review-card overflow-hidden">
-                    <button class="w-full px-6 py-5 flex items-center justify-between text-left" onclick="toggleFAQ(this)">
-                        <span class="font-semibold text-espresso/70 text-sm pr-4">Is there free shipping?</span>
-                        <svg class="w-5 h-5 text-rose shrink-0 transition-transform duration-300 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-                    </button>
-                    <div class="faq-answer px-6"><p class="text-espresso/45 text-sm leading-relaxed font-light">Complimentary shipping is included on all orders $200 and above. For orders below that threshold, a flat-rate shipping fee applies. Express and overnight options are available at checkout for an additional fee.</p></div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ═══ FINAL ═══ -->
+<section class="final">
+    <h2>The edit <i>awaits.</i></h2>
+    <p>30 seconds. No commitment. Just this season's best pieces at the year's best prices.</p>
+    <a href="YOUR_OFFER_LINK_HERE" class="final-cta">Unlock Tiered Savings →</a>
+</section>
 
-    <!-- 🎯 Style Quiz Teaser -->
-    <section class="py-16 px-4 dark-gradient relative overflow-hidden">
-        <div class="absolute inset-0 opacity-5" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.5) 10px, rgba(255,255,255,0.5) 11px);"></div>
-        <div class="max-w-2xl mx-auto text-center relative z-10">
-            <span class="text-rose-light text-[10px] font-bold uppercase tracking-[0.25em] mb-6 block">Discover Your Style</span>
-            <h2 class="font-display text-2xl md:text-3xl font-bold text-cream mb-4">Not sure where to start?</h2>
-            <p class="text-cream/40 text-sm mb-8 max-w-md mx-auto font-light leading-relaxed">Take our 30-second style quiz to get personalized recommendations curated for your aesthetic.</p>
-            <a href="YOUR_OFFER_LINK_HERE" class="inline-flex items-center gap-2 bg-transparent border border-rose/40 text-rose-light font-semibold text-xs uppercase tracking-[0.2em] px-8 py-4 hover:bg-rose/10 transition-all">
-                Begin Style Quiz →
-            </a>
-        </div>
-    </section>
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+    <p>This is an independent editorial publication. Tiered savings are subject to the official brand's terms. *Welcome credit for new subscribers only. We may receive compensation on qualifying sessions.</p>
+    <div class="fl"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a></div>
+    <p>© 2026 Nº 14 — Independent Style Publication</p>
+</footer>
 
-    <!-- 🎯 Final CTA -->
-    <section class="py-16 px-4 bg-cream text-center">
-        <div class="max-w-2xl mx-auto">
-            <span class="text-rose text-[11px] font-bold uppercase tracking-[0.25em] animate-pulse-subtle inline-block mb-8">Private Access Closing Soon</span>
-            <h2 class="font-display text-[2rem] md:text-3xl font-bold text-espresso mb-6">Your personal invitation <br><span class="italic text-rose">awaits.</span></h2>
-            <a href="YOUR_OFFER_LINK_HERE" class="btn-dark inline-flex items-center gap-3 px-12 py-5 text-sm font-semibold">
-                Unlock My Tiered Savings →
-            </a>
-        </div>
-    </section>
+<div class="m-sticky"><a href="YOUR_OFFER_LINK_HERE">Unlock Tiered Savings →</a></div>
 
-    <!-- Footer -->
-    <footer class="bg-charcoal py-14 px-6 text-center">
-        <p class="text-[9px] text-cream/15 leading-relaxed max-w-3xl mx-auto uppercase tracking-[0.15em] font-light">
-            This is an independent promotional portal. *Welcome credit valid for new subscribers only. Tiered savings are subject to the official brand's terms and conditions. We may receive compensation on qualifying sessions.
-        </p>
-        <div class="mt-8 flex justify-center gap-8 text-[8px] font-semibold text-cream/10 uppercase tracking-[0.2em]">
-            <a href="#" class="hover:text-cream/30 transition-colors">Privacy</a>
-            <a href="#" class="hover:text-cream/30 transition-colors">Terms</a>
-            <a href="#" class="hover:text-cream/30 transition-colors">Contact</a>
-        </div>
-    </footer>
-
-    <script>
-        // Countdown
-        (function(){const e=document.getElementById('countdown');if(!e)return;let t=2*3600+14*60+8;function n(){const h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;e.textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;if(t>0){t--;setTimeout(n,1e3)}}n();})();
-
-        // FAQ
-        function toggleFAQ(b){const a=b.nextElementSibling,i=b.querySelector('.faq-icon'),o=a.classList.contains('open');document.querySelectorAll('.faq-answer.open').forEach(e=>e.classList.remove('open'));document.querySelectorAll('.faq-icon').forEach(e=>e.style.transform='rotate(0deg)');if(!o){a.classList.add('open');i.style.transform='rotate(180deg)';}}
-    </script>
 </body>
 </html>

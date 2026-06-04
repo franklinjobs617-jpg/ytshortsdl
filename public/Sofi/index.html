@@ -1,578 +1,926 @@
 <!DOCTYPE html>
-<html lang="en" style="color-scheme: light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <title>Find Your Best Loan Rate | Exclusive Financial Partner</title>
-    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <meta name="theme-color" content="#fefdfb">
+    <title>Home Renovation in 2026? The Smart Way to Finance Your Project | Modern Homestead</title>
+    <meta name="description" content="A no-nonsense guide to financing your home renovation — comparing HELOCs, personal loans, and cash-out refinancing. Find the option that fits your timeline and budget.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-                    },
-                    colors: {
-                        navy: { DEFAULT: '#0c2764', hover: '#091e50', light: '#14347a' },
-                        inkwell: '#0f172b',
-                        'slate-ink': '#1d293d',
-                        'pencil-graphite': '#314158',
-                        'muted-slate': '#45556c',
-                        'distant-mist': '#62748e',
-                        'frost-border': '#e2e8f0',
-                        'silver-whisper': '#c3c6cb',
-                        'paper-white': '#ffffff',
-                        'cloud-mist': '#f1f5f9',
-                        'success': '#059669',
-                        'warning': '#d97706',
-                    },
-                    borderRadius: { DEFAULT: '12px', sm: '8px', md: '12px', lg: '16px', xl: '20px', full: '9999px' },
-                    boxShadow: { card: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -4px' },
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #ffffff; -webkit-font-smoothing: antialiased; }
+        :root {
+            --bg: #fefdfb;
+            --bg-alt: #f7f4ef;
+            --bg-warm: #faf7f2;
+            --text: #1c1a18;
+            --text-muted: #5c5855;
+            --text-light: #8a8580;
+            --accent: #c67b5c;
+            --accent-hover: #a85d43;
+            --accent-subtle: #fdf0ea;
+            --border: #e8e3dc;
+            --border-light: #f0ece6;
+            --success: #4a8c6f;
+            --star: #d4a853;
+            --radius-sm: 4px;
+            --radius: 8px;
+            --radius-lg: 12px;
+            --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+            --max-width: 1100px;
+            --max-text: 680px;
+        }
 
-        *:focus-visible { outline: 2px solid #0c2764; outline-offset: 2px; border-radius: 4px; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .skip-link { position: absolute; top: -100px; left: 16px; background: #0c2764; color: #fff; padding: 8px 16px; border-radius: 12px; z-index: 1000; font-weight: 600; font-size: 14px; transition: top 0.2s; }
-        .skip-link:focus { top: 8px; }
+        html { scroll-behavior: smooth; color-scheme: light; }
 
-        /* ═══ Buttons ═══ */
-        .btn-primary {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            background: #0c2764; color: #fff; font-weight: 700; font-size: 16px;
-            border-radius: 12px; padding: 14px 32px; border: none; cursor: pointer;
-            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-            touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        img { display: block; max-width: 100%; height: auto; }
+        a { color: inherit; text-decoration-thickness: 1px; }
+
+        :focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        /* ═══════════════ Top Bar ═══════════════ */
+        .top-bar {
+            background: var(--text);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 500;
+            text-align: center;
+            padding: 10px 16px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .top-bar span { opacity: 0.7; }
+        .top-bar strong { opacity: 1; font-weight: 600; }
+
+        /* ═══════════════ Header ═══════════════ */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(254,253,251,0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+        .header-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .header-brand {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.01em;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .header-brand span { color: var(--accent); font-style: italic; }
+        .header-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            padding: 10px 20px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+            white-space: nowrap;
+        }
+        .header-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+        /* ═══════════════ Article Meta ═══════════════ */
+        .article-header {
+            max-width: var(--max-text);
+            margin: 0 auto;
+            padding: 48px 24px 20px;
+        }
+        .article-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        .article-eyebrow::before {
+            content: '';
+            width: 28px;
+            height: 1px;
+            background: var(--accent);
+        }
+        .article-title {
+            font-family: var(--font-serif);
+            font-size: clamp(36px, 5vw, 52px);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.015em;
+            color: var(--text);
+            margin-bottom: 18px;
+        }
+        .article-subtitle {
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            font-weight: 400;
+            max-width: 600px;
+        }
+        .article-byline {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-light);
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .byline-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--accent);
+        }
+        .byline-info strong { color: var(--text); font-weight: 600; display: block; }
+        .byline-info span { font-size: 12px; color: var(--text-light); }
+        .byline-badge {
+            margin-left: auto;
+            background: var(--accent-subtle);
+            color: var(--accent);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border-radius: 100px;
+        }
+
+        /* ═══════════════ Hero Image ═══════════════ */
+        .hero-image-wrap {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px 16px;
+        }
+        .hero-image {
+            width: 100%;
+            aspect-ratio: 16 / 7;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            background: var(--bg-alt);
+        }
+
+        /* ═══════════════ Article Body ═══════════════ */
+        .article-body {
+            max-width: var(--max-text);
+            margin: 0 auto;
+            padding: 32px 24px 48px;
+        }
+        .article-body h2 {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--text);
+            margin: 48px 0 16px;
+            letter-spacing: -0.01em;
+        }
+        .article-body h3 {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--text);
+            margin: 36px 0 12px;
+        }
+        .article-body p {
+            margin-bottom: 18px;
+            color: var(--text);
+            font-size: 17px;
+            line-height: 1.75;
+        }
+        .article-body p + p { color: var(--text-muted); }
+        .article-body ul {
+            list-style: none;
+            margin: 20px 0 28px;
+            display: grid;
+            gap: 14px;
+        }
+        .article-body ul li {
+            position: relative;
+            padding-left: 28px;
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .article-body ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.6;
+        }
+
+        /* ═══════════════ Pull Quote ═══════════════ */
+        .pull-quote {
+            margin: 36px 0;
+            padding: 28px 32px;
+            border-left: 3px solid var(--accent);
+            background: var(--bg-warm);
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+        .pull-quote blockquote {
+            font-family: var(--font-serif);
+            font-size: 20px;
+            font-style: italic;
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.5;
+            margin: 0;
+        }
+        .pull-quote cite {
+            display: block;
+            margin-top: 12px;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-style: normal;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        /* ═══════════════ In-Article Card ═══════════════ */
+        .insight-card {
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 28px 32px;
+            margin: 32px 0;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 18px;
+            align-items: center;
+        }
+        .insight-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius);
+            background: var(--accent-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+        .insight-card p { margin: 0; font-size: 15px; }
+        .insight-card strong { color: var(--text); }
+
+        /* ═══════════════ Comparison Table ═══════════════ */
+        .compare-section {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+        .compare-section h2 {
+            font-family: var(--font-serif);
+            font-size: 30px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+        .compare-section .compare-sub {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-bottom: 36px;
+        }
+        .compare-table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            background: #fff;
+        }
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            min-width: 600px;
+        }
+        .compare-table thead th {
+            background: var(--bg-warm);
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+        }
+        .compare-table thead th:first-child { border-radius: var(--radius-lg) 0 0 0; }
+        .compare-table thead th:last-child { border-radius: 0 var(--radius-lg) 0 0; }
+        .compare-table tbody td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-muted);
+        }
+        .compare-table tbody tr:last-child td { border-bottom: none; }
+        .compare-table tbody td:first-child { font-weight: 600; color: var(--text); }
+        .compare-table .highlight-col {
+            background: var(--accent-subtle);
+            font-weight: 600;
+            color: var(--text);
+        }
+        .compare-table .check { color: var(--success); font-weight: 700; }
+        .compare-table .pill {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 100px;
+            background: var(--accent-subtle);
+            color: var(--accent);
+        }
+
+        /* ═══════════════ Rate Check CTA Block ═══════════════ */
+        .cta-block {
+            max-width: 700px;
+            margin: 56px auto;
+            padding: 40px 48px;
+            background: var(--text);
+            color: #fff;
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+        .cta-block h3 {
+            font-family: var(--font-serif);
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+        .cta-block p {
+            color: rgba(255,255,255,0.7);
+            font-size: 15px;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+        .cta-block .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            font-size: 17px;
+            padding: 16px 40px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            box-shadow: 0 4px 20px rgba(198,123,92,0.3);
+        }
+        .cta-block .cta-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(198,123,92,0.4);
+        }
+        .cta-block .cta-note {
+            margin-top: 14px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.45);
+        }
+
+        /* ═══════════════ Stats Strip ═══════════════ */
+        .stats-strip {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 48px 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        .stat-item {
+            background: var(--bg);
+            padding: 28px 24px;
+            text-align: center;
+        }
+        .stat-value {
+            font-family: var(--font-serif);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 4px;
+            letter-spacing: -0.02em;
+        }
+        .stat-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-light);
+        }
+
+        /* ═══════════════ Testimonials ═══════════════ */
+        .testimonials-section {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+        .testimonials-section h2 {
+            font-family: var(--font-serif);
+            font-size: 30px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+        .testimonials-sub {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-bottom: 36px;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .testimonial-card {
+            background: #fff;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+        .testimonial-card:hover {
+            border-color: var(--border);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+            transform: translateY(-3px);
+        }
+        .testimonial-stars { color: var(--star); font-size: 14px; margin-bottom: 14px; letter-spacing: 2px; }
+        .testimonial-card blockquote {
+            font-family: var(--font-serif);
+            font-size: 18px;
+            font-style: italic;
+            font-weight: 500;
+            color: var(--text);
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+        .testimonial-card .body-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+        .testimonial-card .author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-light);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .testimonial-card .author-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-weight: 700;
+            font-size: 12px;
+            color: var(--accent);
+        }
+        .verified-tag {
+            display: inline-block;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--success);
+            margin-left: auto;
+        }
+
+        /* ═══════════════ Bottom CTA ═══════════════ */
+        .bottom-cta {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+            text-align: center;
+        }
+        .bottom-cta-inner {
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 48px 32px;
+        }
+        .bottom-cta h2 {
+            font-family: var(--font-serif);
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+        }
+        .bottom-cta .sub {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 28px;
+        }
+        .bottom-cta .cta-btn-large {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            font-size: 18px;
+            padding: 18px 48px;
+            border-radius: var(--radius);
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+            box-shadow: 0 4px 24px rgba(198,123,92,0.25);
+        }
+        .bottom-cta .cta-btn-large:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+        .bottom-cta .guarantee {
+            margin-top: 18px;
+            font-size: 13px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* ═══════════════ Footer ═══════════════ */
+        .site-footer {
+            background: var(--text);
+            color: rgba(255,255,255,0.5);
+            font-size: 11px;
+            text-align: center;
+            padding: 40px 24px 64px;
+            line-height: 1.8;
+        }
+        .site-footer p { max-width: 700px; margin: 0 auto 16px; }
+        .site-footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .site-footer .footer-links a {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-size: 10px;
+            transition: color 0.2s;
+        }
+        .site-footer .footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+        /* ═══════════════ Mobile Sticky ═══════════════ */
+        .mobile-sticky {
+            display: none;
+            position: fixed;
+            left: 0; right: 0; bottom: 0;
+            z-index: 50;
+            padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
+            background: rgba(254,253,251,0.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid var(--border);
+        }
+        .mobile-sticky .cta-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 15px 24px;
+            border-radius: var(--radius);
             text-decoration: none;
         }
-        .btn-primary:hover { background: #091e50; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(12,39,100,0.3); }
-        .btn-primary:active { transform: translateY(0); }
-        @media (prefers-reduced-motion: reduce) { .btn-primary { transition: none; } .btn-primary:hover { transform: none; } }
 
-        .btn-primary-lg {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            background: #0c2764; color: #fff; font-weight: 800; font-size: 18px;
-            border-radius: 12px; padding: 18px 48px; border: none; cursor: pointer;
-            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-            touch-action: manipulation; -webkit-tap-highlight-color: transparent;
-            text-decoration: none; letter-spacing: -0.01em;
+        /* ═══════════════ Responsive ═══════════════ */
+        @media (max-width: 768px) {
+            .header-brand { font-size: 18px; }
+            .header-cta { font-size: 11px; padding: 8px 14px; }
+            .article-title { font-size: 30px; }
+            .article-subtitle { font-size: 16px; }
+            .article-body h2 { font-size: 24px; }
+            .article-body p { font-size: 16px; }
+            .hero-image { aspect-ratio: 16 / 10; }
+            .stats-strip { grid-template-columns: 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .compare-section { padding: 36px 16px; }
+            .cta-block { margin: 40px 16px; padding: 32px 24px; }
+            .cta-block h3 { font-size: 22px; }
+            .insight-card { grid-template-columns: 1fr; text-align: center; }
+            .insight-icon { margin: 0 auto; }
+            .bottom-cta-inner { padding: 32px 20px; }
+            .bottom-cta h2 { font-size: 26px; }
+            .mobile-sticky { display: block; }
         }
-        .btn-primary-lg:hover { background: #091e50; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(12,39,100,0.35); }
-        .btn-primary-lg:active { transform: translateY(0); }
-        @media (prefers-reduced-motion: reduce) { .btn-primary-lg { transition: none; } .btn-primary-lg:hover { transform: none; } }
-
-        .btn-outline {
-            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-            background: #fff; color: #0f172b; font-weight: 500; font-size: 14px;
-            border: 1px solid #e2e8f0; cursor: pointer; border-radius: 12px; padding: 10px 16px;
-            transition: border-color 0.2s, background 0.2s;
-            touch-action: manipulation; -webkit-tap-highlight-color: transparent;
-        }
-        .btn-outline:hover { border-color: #0c2764; background: #f8fafc; }
-        .btn-outline.active { border-color: #0c2764; background: #eef2ff; color: #0c2764; font-weight: 600; }
-        @media (prefers-reduced-motion: reduce) { .btn-outline { transition: none; } }
-
-        /* ═══ Cards ═══ */
-        .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; }
-        .card-hover { transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s; }
-        .card-hover:hover { border-color: #c3c6cb; box-shadow: rgba(0,0,0,0.1) 0px 10px 15px -3px; transform: translateY(-3px); }
-        @media (prefers-reduced-motion: reduce) { .card-hover { transition: none; } .card-hover:hover { transform: none; } }
-
-        /* ═══ Calculator Slider ═══ */
-        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; cursor: pointer; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 24px; width: 24px; border-radius: 50%; background: #fff; border: 2px solid #0c2764; box-shadow: rgba(0,0,0,0.1) 0px 4px 8px; cursor: pointer; margin-top: -10px; }
-        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: #e2e8f0; border-radius: 2px; }
-        .slider-fill { position: absolute; left: 0; top: 0; height: 4px; border-radius: 2px 0 0 2px; background: #0c2764; pointer-events: none; }
-
-        /* ═══ FAQ ═══ */
-        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), padding 0.35s; }
-        .faq-answer.open { max-height: 260px; padding-top: 0.75rem; padding-bottom: 0.75rem; }
-        @media (prefers-reduced-motion: reduce) { .faq-answer { transition: none; } }
-
-        /* ═══ Animations ═══ */
-        @media (prefers-reduced-motion: no-preference) {
-            .fade-in { animation: fadeIn 0.4s ease-out forwards; }
-            @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-            .pulse-urgent { animation: pulseUrgent 2s ease-in-out infinite; }
-            @keyframes pulseUrgent { 0%,100% { box-shadow: 0 0 0 0 rgba(12,39,100,0.4); } 50% { box-shadow: 0 0 0 16px rgba(12,39,100,0); } }
+        @media (max-width: 480px) {
+            .article-title { font-size: 26px; }
+            .article-body h2 { font-size: 22px; }
+            .pull-quote { padding: 20px; }
+            .pull-quote blockquote { font-size: 17px; }
         }
 
-        /* ═══ Tabular ═══ */
-        .tabular-nums { font-variant-numeric: tabular-nums; }
-
-        /* ═══ Comparison table ═══ */
-        .comparison-table td { padding: 14px 20px; }
-        .comparison-table td:first-child { font-weight: 600; color: #0f172b; }
-        .comparison-table th { padding: 14px 20px; }
-
-        /* ═══ Success pill ═══ */
-        .pill-success { background: #ecfdf5; color: #059669; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; border-radius: 9999px; padding: 3px 12px; }
-
-        /* ═══ Background accent ═══ */
-        .bg-navy-section { background: #0c2764; }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
-<body class="font-sans text-inkwell antialiased">
+<body>
 
-    <a href="#main-content" class="skip-link">Skip to main content</a>
+<!-- ═══════════════ Top Bar ═══════════════ -->
+<div class="top-bar" role="status" aria-live="polite">
+    <span>Special Feature</span> &nbsp;·&nbsp; <strong>June 2026</strong> &nbsp;·&nbsp; Homeowners saved an average of <strong>$4,200</strong> by comparing options
+</div>
 
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- 🔔 URGENCY TOP BAR                          -->
-    <!-- ═══════════════════════════════════════════ -->
-    <div class="bg-navy text-white py-2.5 text-[11px] font-semibold text-center flex items-center justify-center gap-3 flex-wrap tracking-tight" role="status" aria-live="polite">
-        <span class="opacity-80">🔥 Exclusive Partner Portal</span>
-        <span class="hidden sm:inline opacity-20" aria-hidden="true">|</span>
-        <span>Rates as low as <strong class="tabular-nums text-white">6.99% APR</strong></span>
-        <span class="hidden sm:inline opacity-20" aria-hidden="true">|</span>
-        <span class="text-red-300">⏱ Offer ends in <strong class="tabular-nums text-white text-[13px]" id="countdown" aria-live="polite">03:47:22</strong></span>
+<!-- ═══════════════ Header ═══════════════ -->
+<header class="header" role="banner">
+    <div class="header-inner">
+        <a href="#" class="header-brand" aria-label="Modern Homestead — Homepage">Modern <span>Homestead</span></a>
+        <a href="YOUR_OFFER_LINK_HERE" class="header-cta">Check My Rate →</a>
+    </div>
+</header>
+
+<!-- ═══════════════ Article Header ═══════════════ -->
+<div class="article-header">
+    <span class="article-eyebrow">Home Finance · June 2026</span>
+    <h1 class="article-title">Planning a Renovation? Here's What Smart Homeowners Are Doing Differently in 2026.</h1>
+    <p class="article-subtitle">Renovation costs have shifted. So have financing rates. We break down the numbers so you can make a decision with confidence — not guesswork.</p>
+    <div class="article-byline">
+        <div class="byline-avatar" aria-hidden="true">MH</div>
+        <div class="byline-info">
+            <strong>Modern Homestead Editorial</strong>
+            <span>Updated June 4, 2026 · 6 min read</span>
+        </div>
+        <span class="byline-badge">✓ Fact-Checked</span>
+    </div>
+</div>
+
+<!-- ═══════════════ Hero Image ═══════════════ -->
+<div class="hero-image-wrap">
+    <img
+        src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80"
+        alt="Bright modern kitchen renovation with warm wood tones and natural light"
+        class="hero-image"
+        loading="eager"
+        fetchpriority="high"
+    >
+</div>
+
+<!-- ═══════════════ Article Body ═══════════════ -->
+<article class="article-body">
+
+    <p>If you've priced a kitchen remodel or a bathroom update lately, you already know: <strong>renovation costs are not what they were three years ago.</strong> Material prices have stabilized from their pandemic peaks, but labor remains tight in most markets — and that means quotes come in higher than most people expect.</p>
+
+    <p>That reality has changed <em>how</em> homeowners pay for renovations. The days of automatically reaching for a HELOC are fading. More homeowners are comparing multiple financing paths — and some are landing on options they hadn't considered before.</p>
+
+    <h2>The Three Ways Most People Finance a Renovation Right Now</h2>
+
+    <p>Broadly, renovation financing falls into three buckets. Each has tradeoffs — and the "best" one depends almost entirely on your timeline, your equity, and how much you need.</p>
+
+    <h3>1. Home Equity Line of Credit (HELOC)</h3>
+    <p>The traditional choice. You borrow against your home's value, typically at a variable rate. Rates have been running between 7.5% and 9.5% for qualified borrowers in 2026. The application process takes 2–6 weeks, requires an appraisal, and comes with closing costs that can range from 2% to 5% of the loan amount.</p>
+
+    <h3>2. Cash-Out Refinance</h3>
+    <p>You refinance your entire mortgage for more than you currently owe and take the difference in cash. This made sense when mortgage rates were under 4%. At current rates in the mid-6% range, it's a harder equation to make work — especially if you locked in a low rate during 2020–2021.</p>
+
+    <h3>3. Unsecured Personal Loan</h3>
+    <p>No home equity required. No appraisal. No closing costs. Fixed rates typically range from 6.99% to 25.99% depending on your credit profile. Funding can arrive as soon as the same day after approval. This option has grown significantly in popularity for mid-sized renovations — roughly $25,000 to $75,000 — where the speed and simplicity outweigh the potentially higher rate.</p>
+
+    <div class="pull-quote">
+        <blockquote>"For a $40,000 kitchen remodel, I closed my HELOC application after four weeks of paperwork and went with a fixed-rate loan instead. Funded in two days. No lien on the house. The rate difference was less than 1%."</blockquote>
+        <cite>— Homeowner, Austin TX</cite>
     </div>
 
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- 📰 HEADER                                  -->
-    <!-- ═══════════════════════════════════════════ -->
-    <header class="w-full bg-white/95 backdrop-blur-sm sticky top-0 z-50 border-b border-frost-border" role="banner">
-        <div class="max-w-[1200px] mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" class="text-[28px] font-extrabold text-navy tracking-tight no-underline" translate="no" aria-label="Aureus — Go to homepage">Aureus</a>
-            <a href="YOUR_OFFER_LINK_HERE" class="btn-primary text-[13px] font-bold px-5 py-2.5">View Your Rate →</a>
-        </div>
-    </header>
+    <h2>What the Numbers Actually Look Like</h2>
+    <p>Let's put real figures on the table. On a $40,000 renovation financed over 5 years:</p>
 
-    <main id="main-content">
+    <ul>
+        <li><strong>HELOC at 8.5% variable</strong> — roughly $821/month, plus $800–$2,000 in closing costs. Rate can shift quarterly.</li>
+        <li><strong>Personal loan at 9.99% fixed</strong> — roughly $849/month. No closing costs. No lien. Funds in 1–3 days.</li>
+        <li><strong>Credit cards at 22%</strong> — nearly $1,100/month minimum, and that assumes you stop using the card entirely.</li>
+    </ul>
 
-        <!-- ═══════════════════════════════════════════ -->
-        <!-- ✨ HERO + CALCULATOR                       -->
-        <!-- ═══════════════════════════════════════════ -->
-        <section class="w-full relative px-6 py-12 lg:py-20 bg-white overflow-hidden" aria-labelledby="hero-heading">
-            <div class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-                <!-- Left: Copy -->
-                <div class="lg:col-span-7 flex flex-col text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 mb-5 bg-red-50 text-red-700 text-[11px] font-bold uppercase tracking-[0.15em] px-4 py-1.5 rounded-full mx-auto lg:mx-0">
-                        <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span> Limited-Time Offer Active
-                    </div>
-                    <h1 id="hero-heading" class="text-[44px] lg:text-[58px] font-extrabold leading-[1.06] tracking-tight mb-5 text-inkwell" style="text-wrap: balance">
-                        Low Rates.<br>
-                        <span class="text-navy">Zero Hidden Fees.</span>
-                    </h1>
-                    <p class="text-[18px] text-pencil-graphite mb-6 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                        Get funded <strong class="text-inkwell">as soon as the same day</strong> you're approved. Takes 60 seconds — <span class="text-success font-semibold">won't affect your credit score.</span>
-                    </p>
+    <p>The monthly difference between the HELOC and the personal loan? <strong>About $28.</strong> For many homeowners, that's a reasonable premium to pay for speed, certainty, and not putting a second lien on the property.</p>
 
-                    <!-- Trust bullets -->
-                    <div class="flex flex-wrap justify-center lg:justify-start gap-2.5 mb-6">
-                        <span class="flex items-center gap-1.5 text-[13px] font-semibold text-muted-slate bg-green-50 border border-green-100 rounded-full px-4 py-2">
-                            <svg class="w-3.5 h-3.5 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                            No origination fees
-                        </span>
-                        <span class="flex items-center gap-1.5 text-[13px] font-semibold text-muted-slate bg-green-50 border border-green-100 rounded-full px-4 py-2">
-                            <svg class="w-3.5 h-3.5 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                            Same-day funding
-                        </span>
-                        <span class="flex items-center gap-1.5 text-[13px] font-semibold text-muted-slate bg-green-50 border border-green-100 rounded-full px-4 py-2">
-                            <svg class="w-3.5 h-3.5 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                            No prepayment penalty
-                        </span>
-                    </div>
-
-                    <!-- Award badge + rating -->
-                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-4">
-                        <div class="bg-white border border-frost-border px-4 py-3 shadow-sm inline-flex items-center gap-3">
-                            <span class="block w-2 h-full bg-navy rounded-full shrink-0"></span>
-                            <div class="text-left">
-                                <p class="text-[9px] font-bold text-success uppercase">🏆 Award Winner 2026</p>
-                                <p class="text-[15px] font-extrabold text-inkwell leading-tight">Best Personal Loan</p>
-                                <p class="text-[11px] font-medium text-distant-mist">Excellent Credit Tier</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-1.5">
-                            <span class="flex text-navy text-sm" aria-label="4.8 out of 5 stars">★★★★★</span>
-                            <span class="text-[13px] font-bold text-inkwell">4.8/5</span>
-                            <span class="text-[11px] text-distant-mist">(10,000+ reviews)</span>
-                        </div>
-                    </div>
-
-                    <p class="text-[12px] font-semibold flex items-center justify-center lg:justify-start gap-1.5 text-distant-mist">
-                        <svg class="w-4 h-4 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Checking your rate will <strong class="text-inkwell">never affect your credit score.</strong>
-                    </p>
-                </div>
-
-                <!-- Right: Calculator -->
-                <div class="lg:col-span-5 relative w-full max-w-[420px] mx-auto">
-                    <div class="bg-white border-2 border-frost-border shadow-card" role="region" aria-label="Loan rate calculator">
-
-                        <div id="calculator-step" class="p-7">
-                            <h2 class="text-[20px] font-bold text-inkwell mb-1">Get Your Rate in 60 Seconds</h2>
-                            <p class="text-[13px] text-distant-mist mb-7">No credit impact. No commitment.</p>
-
-                            <!-- Amount slider -->
-                            <div class="mb-7">
-                                <div class="flex justify-between items-end mb-3">
-                                    <label for="loan-slider" class="text-[11px] font-bold text-distant-mist uppercase tracking-[0.1em]">Desired Amount</label>
-                                    <output for="loan-slider" class="text-[32px] font-extrabold text-navy tabular-nums tracking-tight" id="amount-text">$25,000</output>
-                                </div>
-                                <div class="relative pt-1 pb-2">
-                                    <div class="slider-fill" id="slider-fill" style="width:21%"></div>
-                                    <input type="range" id="loan-slider" name="loan-amount" min="5000" max="100000" step="1000" value="25000" inputmode="numeric" aria-label="Select your desired loan amount between $5,000 and $100,000">
-                                </div>
-                                <div class="flex justify-between text-[10px] font-medium text-silver-whisper tabular-nums mt-1">
-                                    <span>$5,000</span><span>$100,000</span>
-                                </div>
-                            </div>
-
-                            <!-- Purpose -->
-                            <fieldset class="mb-7 border-0 p-0">
-                                <legend class="text-[11px] font-bold text-distant-mist uppercase tracking-[0.1em] mb-3">Purpose</legend>
-                                <div class="grid grid-cols-2 gap-2" id="purpose-btns" role="radiogroup" aria-label="Loan purpose">
-                                    <button type="button" onclick="selectOption(this)" class="btn-outline active" role="radio" aria-checked="true">Debt Consolidation</button>
-                                    <button type="button" onclick="selectOption(this)" class="btn-outline" role="radio" aria-checked="false">Home Improvement</button>
-                                    <button type="button" onclick="selectOption(this)" class="btn-outline" role="radio" aria-checked="false">Major Purchase</button>
-                                    <button type="button" onclick="selectOption(this)" class="btn-outline" role="radio" aria-checked="false">Other</button>
-                                </div>
-                            </fieldset>
-
-                            <button type="button" onclick="processData()" class="btn-primary-lg w-full pulse-urgent">
-                                🔍 Find My Best Rate Now
-                            </button>
-                        </div>
-
-                        <!-- Loading -->
-                        <div id="loading-step" class="hidden text-center py-14 px-8" role="status" aria-live="polite" aria-label="Curating your options">
-                            <div class="inline-block w-10 h-10 border-[3px] border-frost-border border-t-navy rounded-full animate-spin mb-4" aria-hidden="true"></div>
-                            <p class="text-[18px] font-bold text-inkwell mb-2">Curating your options…</p>
-                            <p class="text-[13px] text-distant-mist">Scanning current market rates</p>
-                        </div>
-
-                        <!-- Result -->
-                        <div id="final-step" class="hidden text-center p-7 fade-in" role="status" aria-live="polite" aria-label="Pre-qualification result">
-                            <div class="w-14 h-14 bg-green-100 text-success rounded-full flex items-center justify-center mx-auto mb-4" aria-hidden="true">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                            </div>
-                            <p class="text-[22px] font-extrabold text-inkwell mb-2">🎉 Excellent — You're Pre-Qualified!</p>
-                            <p class="text-[13px] text-distant-mist mb-2">Based on your profile, you qualify for our <strong class="text-success">most competitive rates.</strong></p>
-                            <p class="text-[11px] font-bold text-red-500 mb-5">⚠️ This pre-qualification expires in <span class="tabular-nums" id="expire-timer">14:59</span></p>
-                            <a href="YOUR_OFFER_LINK_HERE" class="btn-primary-lg w-full no-underline">
-                                View Official Rates →
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ═══════════════════════════════════════════ -->
-        <!-- 📊 LIVE STATS                             -->
-        <!-- ═══════════════════════════════════════════ -->
-        <section class="py-14 px-4 bg-cloud-mist border-y border-frost-border" aria-labelledby="stats-heading">
-            <h2 id="stats-heading" class="sr-only">Our Impact</h2>
-            <div class="max-w-[1200px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                <div><div class="text-[36px] font-extrabold text-navy mb-1 tabular-nums">1.2M+</div><p class="text-[12px] uppercase tracking-[0.12em] font-bold text-distant-mist">Customers Funded</p></div>
-                <div><div class="text-[36px] font-extrabold text-navy mb-1 tabular-nums">$45B+</div><p class="text-[12px] uppercase tracking-[0.12em] font-bold text-distant-mist">In Loans Originated</p></div>
-                <div><div class="text-[36px] font-extrabold text-navy mb-1 tabular-nums">4.8/5</div><p class="text-[12px] uppercase tracking-[0.12em] font-bold text-distant-mist">Customer Rating</p></div>
-                <div><div class="text-[36px] font-extrabold text-navy mb-1 tabular-nums">6.99%</div><p class="text-[12px] uppercase tracking-[0.12em] font-bold text-distant-mist">Lowest APR</p></div>
-            </div>
-        </section>
-
-        <!-- ═══════════════════════════════════════════ -->
-        <!-- 📰 AS FEATURED IN                         -->
-        <!-- ═══════════════════════════════════════════ -->
-        <section class="py-10 px-4 bg-white border-b border-frost-border" aria-labelledby="press-heading">
-            <h2 id="press-heading" class="text-center text-[11px] uppercase tracking-[0.25em] font-bold text-silver-whisper mb-7">As Featured In</h2>
-            <div class="flex flex-wrap items-center justify-center gap-10 md:gap-14">
-                <span class="text-silver-whisper font-extrabold text-[20px] tracking-tight">Forbes</span>
-                <span class="text-silver-whisper font-bold text-[20px] italic">Bloomberg</span>
-                <span class="text-silver-whisper font-extrabold text-[16px] tracking-tight">THE WALL STREET JOURNAL</span>
-                <span class="text-silver-whisper font-bold text-[20px] tracking-tight">CNBC</span>
-                <span class="text-silver-whisper font-extrabold text-[20px]">NERDWALLET</span>
-            </div>
-        </section>
-
-        <!-- ═══════════════════════════════════════════ -->
-        <!-- 🔍 COMPARISON TABLE                       -->
-        <!-- ═══════════════════════════════════════════ -->
-        <section class="py-20 md:py-24 px-4 bg-white" aria-labelledby="comparison-heading">
-            <div class="max-w-[1000px] mx-auto">
-                <div class="text-center mb-12">
-                    <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-navy">Why Our Partner Wins</span>
-                    <h2 id="comparison-heading" class="text-[36px] md:text-[40px] font-extrabold text-inkwell mt-3" style="text-wrap: balance">Compare & Save <span class="text-navy">Thousands</span></h2>
-                </div>
-                <div class="overflow-x-auto border-2 border-frost-border" role="table" aria-label="Rate comparison">
-                    <table class="w-full bg-white text-[15px] comparison-table">
-                        <thead>
-                            <tr class="border-b-2 border-frost-border bg-cloud-mist/50">
-                                <th class="text-left py-4 px-5 font-bold text-inkwell"></th>
-                                <th class="text-center py-4 px-5 font-extrabold text-navy uppercase tracking-tight border-l-2 border-frost-border bg-navy/5">✅ Our Partner</th>
-                                <th class="text-center py-4 px-5 text-distant-mist font-semibold uppercase tracking-tight border-l border-frost-border">Credit Cards</th>
-                                <th class="text-center py-4 px-5 text-distant-mist font-semibold uppercase tracking-tight border-l border-frost-border">Traditional Banks</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-muted-slate">
-                            <tr class="border-b border-frost-border/50">
-                                <td class="py-4 px-5 font-semibold text-inkwell">Average APR</td>
-                                <td class="text-center py-4 px-5 font-extrabold text-navy border-l-2 border-frost-border/50 tabular-nums bg-navy/[0.02]">6.99% – 25.99%</td>
-                                <td class="text-center py-4 px-5 border-l border-frost-border/50 tabular-nums">16.99% – 29.99%</td>
-                                <td class="text-center py-4 px-5 border-l border-frost-border/50 tabular-nums">8.99% – 35.99%</td>
-                            </tr>
-                            <tr class="border-b border-frost-border/50 bg-cloud-mist/30">
-                                <td class="py-4 px-5 font-semibold text-inkwell">Origination Fee</td>
-                                <td class="text-center py-4 px-5 font-extrabold text-success border-l-2 border-frost-border/50 bg-navy/[0.02]">$0</td>
-                                <td class="text-center py-4 px-5 border-l border-frost-border/50">3% – 5%</td>
-                                <td class="text-center py-4 px-5 border-l border-frost-border/50">1% – 8%</td>
-                            </tr>
-                            <tr class="border-b border-frost-border/50">
-                                <td class="py-4 px-5 font-semibold text-inkwell">Funding Speed</td>
-                                <td class="text-center py-4 px-5 font-extrabold text-success border-l-2 border-frost-border/50 bg-navy/[0.02]">⚡ Same Day</td>
-                                <td class="text-center py-4 px-5 border-l border-frost-border/50">3–7 Days</td>
-                                <td class="text-center py-4 px-5 border-l border-frost-border/50">5–14 Days</td>
-                            </tr>
-                            <tr class="border-b border-frost-border/50 bg-cloud-mist/30">
-                                <td class="py-4 px-5 font-semibold text-inkwell">Prepayment Penalty</td>
-                                <td class="text-center py-4 px-5 font-extrabold text-success border-l-2 border-frost-border/50 bg-navy/[0.02]">None</td>
-                                <td class="text-center py-4 px-5 border-l border-frost-border/50">N/A</td>
-                                <td class="text-center py-4 px-5 border-l border-frost-border/50">Often 2% – 5%</td>
-                            </tr>
-                            <tr>
-                                <td class="py-4 px-5 font-semibold text-inkwell">Credit Check</td>
-                                <td class="text-center py-4 px-5 font-extrabold text-success border-l-2 border-frost-border/50 bg-navy/[0.02]">Soft Pull ✅</td>
-                                <td class="text-center py-4 px-5 border-l border-frost-border/50">Hard Pull ❌</td>
-                                <td class="text-center py-4 px-5 border-l border-frost-border/50">Hard Pull ❌</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="text-center mt-8">
-                    <a href="YOUR_OFFER_LINK_HERE" class="btn-primary-lg no-underline">🔒 Lock In Your Rate Now →</a>
-                    <p class="text-[12px] font-semibold text-distant-mist mt-3">Takes 60 seconds · Won't affect your credit score</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ═══════════════════════════════════════════ -->
-        <!-- 🏆 FEATURE RIBBON (Navy)                  -->
-        <!-- ═══════════════════════════════════════════ -->
-        <section class="w-full bg-navy-section py-16 relative overflow-hidden" aria-labelledby="features-heading">
-            <div class="absolute inset-0 opacity-[0.03]" style="background-image:radial-gradient(circle,#fff 1px,transparent 1px);background-size:20px 20px" aria-hidden="true"></div>
-            <h2 id="features-heading" class="sr-only">Key Benefits</h2>
-            <div class="max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
-                <div class="text-white">
-                    <div class="w-11 h-11 bg-white/10 rounded-md flex items-center justify-center mb-4" aria-hidden="true">
-                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
-                    </div>
-                    <h3 class="text-[18px] font-bold mb-2">Predictable Payments</h3>
-                    <p class="text-[13px] text-white/55 leading-relaxed">Fixed monthly payments that fit your budget. No surprises, ever.</p>
-                </div>
-                <div class="text-white">
-                    <div class="w-11 h-11 bg-white/10 rounded-md flex items-center justify-center mb-4" aria-hidden="true">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <h3 class="text-[18px] font-bold mb-2">$5K to $100K</h3>
-                    <p class="text-[13px] text-white/55 leading-relaxed">⚡ Same-day funding available. We can pay creditors directly.</p>
-                </div>
-                <div class="text-white">
-                    <div class="w-11 h-11 bg-white/10 rounded-md flex items-center justify-center mb-4" aria-hidden="true">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                    </div>
-                    <h3 class="text-[18px] font-bold mb-2">Direct Pay</h3>
-                    <p class="text-[13px] text-white/55 leading-relaxed">We handle credit card payoffs — you don't lift a finger.</p>
-                </div>
-                <div class="text-white">
-                    <div class="w-11 h-11 bg-white/10 rounded-md flex items-center justify-center mb-4" aria-hidden="true">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
-                    </div>
-                    <h3 class="text-[18px] font-bold mb-2">Instant Rate Check</h3>
-                    <p class="text-[13px] text-white/55 leading-relaxed">No credit impact. No commitment. Just transparency.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ═══════════════════════════════════════════ -->
-        <!-- 🛡️ SECURITY BAR                           -->
-        <!-- ═══════════════════════════════════════════ -->
-        <section class="py-10 px-4 bg-white border-b border-frost-border" aria-labelledby="security-heading">
-            <div class="max-w-[900px] mx-auto text-center">
-                <h2 id="security-heading" class="text-[11px] uppercase tracking-[0.2em] font-bold text-silver-whisper mb-7">Bank-Level Security & Compliance</h2>
-                <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10">
-                    <span class="flex items-center gap-2 text-[12px] font-semibold text-distant-mist"><svg class="w-4 h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg> 256-bit SSL</span>
-                    <span class="flex items-center gap-2 text-[12px] font-semibold text-distant-mist"><svg class="w-4 h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg> SOC 2 Type II</span>
-                    <span class="flex items-center gap-2 text-[12px] font-semibold text-distant-mist"><svg class="w-4 h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg> CCPA & GDPR</span>
-                    <span class="flex items-center gap-2 text-[12px] font-semibold text-distant-mist"><svg class="w-4 h-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Accredited Business</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- ═══════════════════════════════════════════ -->
-        <!-- 💬 CUSTOMER REVIEWS                       -->
-        <!-- ═══════════════════════════════════════════ -->
-        <section class="w-full bg-cloud-mist py-20" aria-labelledby="reviews-heading">
-            <div class="max-w-[1200px] mx-auto px-6">
-                <div class="text-center mb-12">
-                    <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-navy">Trusted by Thousands</span>
-                    <div class="flex justify-center items-center gap-2 mt-3 mb-2">
-                        <span class="flex text-navy text-lg">★★★★★</span>
-                        <span class="text-[36px] font-extrabold text-inkwell tabular-nums">4.8 / 5</span>
-                    </div>
-                    <p class="text-[14px] text-distant-mist">Based on 10,000+ verified reviews</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    <article class="card card-hover p-7">
-                        <div class="flex text-navy text-base mb-4" aria-label="5 stars">★★★★★</div>
-                        <blockquote>
-                            <p class="text-[20px] font-bold text-inkwell mb-3">"Funded in 24 hours."</p>
-                            <p class="text-[14px] text-muted-slate leading-relaxed mb-5">The application was remarkably smooth. Checked my rate, reviewed the terms, funds arrived next morning. Exceptional experience.</p>
-                        </blockquote>
-                        <div class="flex items-center gap-3 border-t border-frost-border pt-5">
-                            <div class="w-9 h-9 bg-navy/10 rounded-full flex items-center justify-center font-extrabold text-navy text-[11px]" aria-hidden="true">RR</div>
-                            <div><p class="text-[10px] font-bold uppercase tracking-[0.08em] text-inkwell">Ronald R.</p><p class="text-[10px] text-distant-mist"><span class="pill-success">Verified</span> · 4 days ago</p></div>
-                        </div>
-                    </article>
-                    <article class="card card-hover p-7">
-                        <div class="flex text-navy text-base mb-4" aria-label="5 stars">★★★★★</div>
-                        <blockquote>
-                            <p class="text-[20px] font-bold text-inkwell mb-3">"Genuinely helpful."</p>
-                            <p class="text-[14px] text-muted-slate leading-relaxed mb-5">The advisor walked me through my renovation loan step by step. Complete clarity on fees and monthly payments.</p>
-                        </blockquote>
-                        <div class="flex items-center gap-3 border-t border-frost-border pt-5">
-                            <div class="w-9 h-9 bg-navy/10 rounded-full flex items-center justify-center font-extrabold text-navy text-[11px]" aria-hidden="true">AO</div>
-                            <div><p class="text-[10px] font-bold uppercase tracking-[0.08em] text-inkwell">Adriyanna O.</p><p class="text-[10px] text-distant-mist"><span class="pill-success">Verified</span> · April 22</p></div>
-                        </div>
-                    </article>
-                    <article class="card card-hover p-7">
-                        <div class="flex text-navy text-base mb-4" aria-label="5 stars">★★★★★</div>
-                        <blockquote>
-                            <p class="text-[20px] font-bold text-inkwell mb-3">"Soft pull was key."</p>
-                            <p class="text-[14px] text-muted-slate leading-relaxed mb-5">Being able to browse rates without affecting my credit gave me confidence. Most competitive terms by far.</p>
-                        </blockquote>
-                        <div class="flex items-center gap-3 border-t border-frost-border pt-5">
-                            <div class="w-9 h-9 bg-navy/10 rounded-full flex items-center justify-center font-extrabold text-navy text-[11px]" aria-hidden="true">MA</div>
-                            <div><p class="text-[10px] font-bold uppercase tracking-[0.08em] text-inkwell">Mary A.</p><p class="text-[10px] text-distant-mist"><span class="pill-success">Verified</span> · April 20</p></div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- ═══════════════════════════════════════════ -->
-        <!-- ❓ FAQ                                    -->
-        <!-- ═══════════════════════════════════════════ -->
-        <section class="py-20 px-4 bg-white" aria-labelledby="faq-heading">
-            <div class="max-w-[800px] mx-auto">
-                <div class="text-center mb-12">
-                    <span class="text-[11px] font-bold uppercase tracking-[0.2em] text-navy">Common Questions</span>
-                    <h2 id="faq-heading" class="text-[32px] md:text-[36px] font-extrabold text-inkwell mt-3" style="text-wrap: balance">Everything you need to know.</h2>
-                </div>
-                <div class="space-y-3">
-                    <div class="card overflow-hidden">
-                        <button class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-cloud-mist/50 transition-colors" onclick="toggleFAQ(this)" aria-expanded="false" aria-label="Will checking my rate affect my credit score?">
-                            <span class="font-semibold text-inkwell text-[15px] pr-4">Will checking my rate affect my credit score?</span>
-                            <svg class="w-5 h-5 text-navy shrink-0 transition-transform duration-300 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true" style="transform-origin:center"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-                        </button>
-                        <div class="faq-answer px-6" role="region"><p class="text-[14px] text-muted-slate leading-relaxed">No — checking your rate triggers only a soft credit inquiry, visible to you alone with <strong class="text-inkwell">zero impact</strong> on your credit score. A hard inquiry only occurs with your explicit consent if you choose to formally apply.</p></div>
-                    </div>
-                    <div class="card overflow-hidden">
-                        <button class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-cloud-mist/50 transition-colors" onclick="toggleFAQ(this)" aria-expanded="false" aria-label="How fast can I receive the funds?">
-                            <span class="font-semibold text-inkwell text-[15px] pr-4">How fast can I receive the funds?</span>
-                            <svg class="w-5 h-5 text-navy shrink-0 transition-transform duration-300 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true" style="transform-origin:center"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-                        </button>
-                        <div class="faq-answer px-6" role="region"><p class="text-[14px] text-muted-slate leading-relaxed">Many customers receive funds <strong class="text-inkwell">as soon as the same business day</strong> after approval. Timing depends on your bank's processing schedule, but we prioritize speed at every step.</p></div>
-                    </div>
-                    <div class="card overflow-hidden">
-                        <button class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-cloud-mist/50 transition-colors" onclick="toggleFAQ(this)" aria-expanded="false" aria-label="Are there any hidden fees?">
-                            <span class="font-semibold text-inkwell text-[15px] pr-4">Are there any hidden fees?</span>
-                            <svg class="w-5 h-5 text-navy shrink-0 transition-transform duration-300 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true" style="transform-origin:center"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-                        </button>
-                        <div class="faq-answer px-6" role="region"><p class="text-[14px] text-muted-slate leading-relaxed">Absolutely not. <strong class="text-success">Zero origination fees, zero prepayment penalties, and zero late fees.</strong> The rate you see is the rate you get — complete transparency from application to final payment.</p></div>
-                    </div>
-                    <div class="card overflow-hidden">
-                        <button class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-cloud-mist/50 transition-colors" onclick="toggleFAQ(this)" aria-expanded="false" aria-label="What can I use the loan for?">
-                            <span class="font-semibold text-inkwell text-[15px] pr-4">What can I use the loan for?</span>
-                            <svg class="w-5 h-5 text-navy shrink-0 transition-transform duration-300 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true" style="transform-origin:center"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-                        </button>
-                        <div class="faq-answer px-6" role="region"><p class="text-[14px] text-muted-slate leading-relaxed">Our loans are versatile — popular uses include debt consolidation, home renovations, major purchases, medical expenses, and life events like weddings. The funds are yours to use as you see fit.</p></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ═══════════════════════════════════════════ -->
-        <!-- 🎯 FINAL CTA (URGENT)                     -->
-        <!-- ═══════════════════════════════════════════ -->
-        <section class="py-20 px-4 bg-cloud-mist relative overflow-hidden" aria-labelledby="cta-heading">
-            <div class="max-w-[700px] mx-auto text-center relative z-10">
-                <span class="inline-block text-[13px] font-bold uppercase tracking-[0.2em] text-red-600 bg-red-50 border border-red-200 rounded-full px-5 py-2 mb-8 animate-pulse">
-                    ⏱ Limited Time Rate — Expiring Soon
-                </span>
-                <h2 id="cta-heading" class="text-[48px] md:text-[56px] font-extrabold text-inkwell mb-5 leading-[1.05]" style="text-wrap: balance">
-                    Your best rate<br><span class="text-navy">is waiting.</span>
-                </h2>
-                <p class="text-[18px] text-pencil-graphite mb-8 max-w-md mx-auto">
-                    ⚡ Takes 60 seconds. No credit impact. Zero commitment.
-                </p>
-                <a href="YOUR_OFFER_LINK_HERE" class="btn-primary-lg no-underline shadow-lg pulse-urgent text-[20px] px-16 py-5">
-                    🔒 View My Personalized Rate →
-                </a>
-                <p class="text-[12px] font-bold text-distant-mist mt-4">✓ Your rate is locked for 30 days after pre-qualification</p>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- 📝 FOOTER                                  -->
-    <!-- ═══════════════════════════════════════════ -->
-    <footer class="bg-navy py-14 px-6 text-center" role="contentinfo">
-        <p class="text-[10px] text-white/25 max-w-[700px] mx-auto leading-relaxed mb-7">
-            Checking your rate triggers a soft credit inquiry, visible only to you. A hard inquiry may be performed with your consent upon formal application. All loans subject to credit approval. Terms and conditions apply. This is an independent promotional partner portal. We may receive compensation on qualifying sessions.
-        </p>
-        <div class="flex justify-center gap-8 text-[9px] font-bold text-white/15 uppercase tracking-[0.18em]">
-            <a href="#" class="hover:text-white/40 transition-colors no-underline">Privacy</a>
-            <a href="#" class="hover:text-white/40 transition-colors no-underline">Terms</a>
-            <a href="#" class="hover:text-white/40 transition-colors no-underline">Contact</a>
-        </div>
-        <p class="text-[10px] text-white/15 uppercase tracking-[0.15em] font-semibold mt-8">© 2024 Independent Promotional Partner Portal</p>
-    </footer>
-
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- 📱 MOBILE STICKY CTA                        -->
-    <!-- ═══════════════════════════════════════════ -->
-    <div class="lg:hidden fixed bottom-0 left-0 w-full bg-white/98 backdrop-blur-xl border-t-2 border-navy/10 p-4 z-50" style="padding-bottom: calc(1rem + env(safe-area-inset-bottom))">
-        <a href="YOUR_OFFER_LINK_HERE" class="btn-primary-lg w-full py-4 text-[15px] font-bold tracking-tight shadow-lg flex items-center justify-center gap-2 no-underline pulse-urgent">
-            View My Personalized Rate →
-        </a>
+    <div class="insight-card">
+        <div class="insight-icon" aria-hidden="true">💡</div>
+        <p><strong>Did you know?</strong> Checking your personal loan rate triggers a <strong>soft credit inquiry only</strong> — it won't affect your credit score. A hard inquiry only happens if you choose to formally apply. This means you can browse rates with zero downside.</p>
     </div>
 
-    <!-- ═══════════════════════════════════════════ -->
-    <!-- SCRIPTS                                     -->
-    <!-- ═══════════════════════════════════════════ -->
-    <script>
-        // Countdown
-        (function(){var e=document.getElementById('countdown');if(!e)return;var t=3*3600+47*60+22;function n(){var h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;e.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');if(t>0){t--;setTimeout(n,1e3)}}n();})();
+</article>
 
-        // Slider
-        var slider=document.getElementById('loan-slider'),amountText=document.getElementById('amount-text'),sliderFill=document.getElementById('slider-fill');
-        function updateSlider(){var v=parseInt(slider.value);amountText.innerText='$'+v.toLocaleString();var p=((v-parseInt(slider.min))/(parseInt(slider.max)-parseInt(slider.min)))*100;sliderFill.style.width=p+'%';}
-        slider.addEventListener('input',updateSlider);updateSlider();
+<!-- ═══════════════ Comparison Table ═══════════════ -->
+<section class="compare-section" aria-labelledby="compare-title">
+    <h2 id="compare-title">Renovation Financing at a Glance</h2>
+    <p class="compare-sub">Side-by-side comparison of the three main paths</p>
+    <div class="compare-table-wrap" role="table" aria-label="Financing options comparison">
+        <table class="compare-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="highlight-col"><span class="pill">Editor's Pick</span> Personal Loan</th>
+                    <th>HELOC</th>
+                    <th>Credit Cards</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Typical APR</td>
+                    <td class="highlight-col"><strong>6.99% – 25.99%</strong> (fixed)</td>
+                    <td>7.5% – 9.5% (variable)</td>
+                    <td>18% – 29% (variable)</td>
+                </tr>
+                <tr>
+                    <td>Closing Costs</td>
+                    <td class="highlight-col check">$0</td>
+                    <td>2% – 5% of loan</td>
+                    <td>N/A</td>
+                </tr>
+                <tr>
+                    <td>Funding Speed</td>
+                    <td class="highlight-col check">⚡ As soon as same day</td>
+                    <td>2 – 6 weeks</td>
+                    <td>Instant (limit permitting)</td>
+                </tr>
+                <tr>
+                    <td>Home Equity Required</td>
+                    <td class="highlight-col check">None</td>
+                    <td>Yes — typically 15–20%</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Prepayment Penalty</td>
+                    <td class="highlight-col check">None</td>
+                    <td>Often 2% – 5%</td>
+                    <td>N/A</td>
+                </tr>
+                <tr>
+                    <td>Credit Check</td>
+                    <td class="highlight-col check">Soft pull (no impact) ✅</td>
+                    <td>Hard pull ❌</td>
+                    <td>Hard pull ❌</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
 
-        // Purpose selector
-        function selectOption(b){var g=document.getElementById('purpose-btns');g.querySelectorAll('.btn-outline').forEach(function(x){x.classList.remove('active');x.setAttribute('aria-checked','false');});b.classList.add('active');b.setAttribute('aria-checked','true');}
+<!-- ═══════════════ Rate Check CTA ═══════════════ -->
+<div class="cta-block">
+    <h3>See What Rate You Qualify For</h3>
+    <p>Takes 60 seconds. No impact on your credit score. No commitment required.</p>
+    <a href="YOUR_OFFER_LINK_HERE" class="cta-btn">🔍 Check My Rate Now →</a>
+    <p class="cta-note">Your rate is locked for 30 days after pre-qualification</p>
+</div>
 
-        // Process
-        function processData(){document.getElementById('calculator-step').classList.add('hidden');var l=document.getElementById('loading-step');l.classList.remove('hidden');l.classList.add('fade-in');setTimeout(function(){l.classList.add('hidden');var f=document.getElementById('final-step');f.classList.remove('hidden');f.classList.add('fade-in');
-        // Start expiry countdown
-        var et=14*60+59,ee=document.getElementById('expire-timer');
-        function tickExpire(){var h=Math.floor(et/3600),m=Math.floor((et%3600)/60),s=et%60;ee.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');if(et>0){et--;setTimeout(tickExpire,1e3)}}
-        tickExpire();
-        },1800);}
+<!-- ═══════════════ Stats ═══════════════ -->
+<div class="stats-strip" aria-label="Key statistics">
+    <div class="stat-item">
+        <div class="stat-value">$4,200</div>
+        <div class="stat-label">Average Savings vs. Credit Cards</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-value">1–3 Days</div>
+        <div class="stat-label">Typical Funding Timeline</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-value">87%</div>
+        <div class="stat-label">Would Recommend to a Friend</div>
+    </div>
+</div>
 
-        // FAQ
-        function toggleFAQ(b){var a=b.nextElementSibling,i=b.querySelector('.faq-icon'),o=a.classList.contains('open');document.querySelectorAll('.faq-answer.open').forEach(function(x){x.classList.remove('open')});document.querySelectorAll('.faq-icon').forEach(function(x){x.style.transform='rotate(0deg)'});document.querySelectorAll('[aria-expanded="true"]').forEach(function(x){x.setAttribute('aria-expanded','false')});if(!o){a.classList.add('open');i.style.transform='rotate(180deg)';b.setAttribute('aria-expanded','true');}}
-    </script>
+<!-- ═══════════════ Testimonials ═══════════════ -->
+<section class="testimonials-section" aria-labelledby="testimonials-title">
+    <h2 id="testimonials-title">What Homeowners Are Saying</h2>
+    <p class="testimonials-sub">Real experiences from people who compared their options</p>
+    <div class="testimonials-grid">
+        <article class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>"Paid off in 18 months."</blockquote>
+            <p class="body-text">We borrowed $30,000 for a full bathroom renovation. Fixed payment, no surprises. Paid it off early with zero penalty. The whole process took two days from application to funding.</p>
+            <div class="author">
+                <span class="author-avatar" aria-hidden="true">JW</span>
+                James W.
+                <span class="verified-tag">Verified</span>
+            </div>
+        </article>
+        <article class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>"Saved us from a HELOC headache."</blockquote>
+            <p class="body-text">We started a HELOC application and gave up after three weeks of paperwork and an appraisal that came in low. Switched to a fixed-rate loan and had funds in 48 hours. The kitchen is done now.</p>
+            <div class="author">
+                <span class="author-avatar" aria-hidden="true">SP</span>
+                Sarah P.
+                <span class="verified-tag">Verified</span>
+            </div>
+        </article>
+        <article class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>"Transparent from day one."</blockquote>
+            <p class="body-text">What I appreciated most: the rate I was quoted was the rate I got. No bait-and-switch, no hidden fees. They even handled paying off my credit cards directly so I could focus on the reno.</p>
+            <div class="author">
+                <span class="author-avatar" aria-hidden="true">MT</span>
+                Michael T.
+                <span class="verified-tag">Verified</span>
+            </div>
+        </article>
+    </div>
+</section>
+
+<!-- ═══════════════ Bottom CTA ═══════════════ -->
+<section class="bottom-cta">
+    <div class="bottom-cta-inner">
+        <h2>Ready to see your numbers?</h2>
+        <p class="sub">No credit impact. No commitment. Just a rate you can compare.</p>
+        <a href="YOUR_OFFER_LINK_HERE" class="cta-btn-large">🔍 Check My Personalized Rate →</a>
+        <p class="guarantee">✓ Takes 60 seconds &nbsp;·&nbsp; ✓ No credit score impact &nbsp;·&nbsp; ✓ Rate locked for 30 days</p>
+    </div>
+</section>
+
+<!-- ═══════════════ Footer ═══════════════ -->
+<footer class="site-footer" role="contentinfo">
+    <p>
+        This is an independent editorial publication providing general information about home renovation financing options. Checking your rate triggers a soft credit inquiry only, visible to you alone. A hard inquiry may be performed with your consent upon formal application. All loans are subject to credit approval. Terms and conditions apply. We may receive compensation on qualifying sessions.
+    </p>
+    <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+    </div>
+    <p>© 2026 Modern Homestead — Independent Editorial Publication</p>
+</footer>
+
+<!-- ═══════════════ Mobile Sticky CTA ═══════════════ -->
+<div class="mobile-sticky" aria-label="Check your rate">
+    <a href="YOUR_OFFER_LINK_HERE" class="cta-btn">🔍 Check My Personalized Rate →</a>
+</div>
+
 </body>
 </html>
