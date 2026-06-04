@@ -91,7 +91,7 @@ export default function TaskbarHeroPromoModal({ isBlocked = false }: { isBlocked
                                     <span className="h-3 w-3 rounded-full bg-amber-400" />
                                     <span className="h-3 w-3 rounded-full bg-emerald-400" />
                                 </div>
-                                <span className="text-[10px] font-black uppercase tracking-[0.18em] text-white/45">Guide HUD</span>
+                                <span className="hidden text-[10px] font-black uppercase tracking-[0.18em] text-white/45 sm:inline">Guide HUD</span>
                             </div>
 
                             <div className="flex items-start gap-4">
@@ -149,7 +149,7 @@ export default function TaskbarHeroPromoModal({ isBlocked = false }: { isBlocked
                                 target="_blank"
                                 rel="noreferrer"
                                 onClick={handleVisit}
-                                className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl bg-slate-950 px-5 text-sm font-black text-white shadow-xl shadow-slate-300 transition-all hover:-translate-y-0.5 hover:bg-emerald-600"
+                                className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-slate-950 px-5 py-3 text-sm font-black text-white shadow-xl shadow-slate-300 transition-all hover:-translate-y-0.5 hover:bg-emerald-600 sm:flex-1"
                             >
                                 Visit the Guide
                                 <ExternalLink size={16} strokeWidth={2.7} />
