@@ -17,6 +17,7 @@ import { trackEvent, GA_EVENTS } from "@/lib/gtag";
 import { useTranslations } from 'next-intl';
 import Image from "next/image";
 import Script from "next/script";
+import TaskbarHeroPromoModal from "@/components/TaskbarHeroPromoModal";
 const WORKER_URLS = [
     "https://dry-water-d2f3.franke-4b7.workers.dev",
     "https://throbbing-breeze-b608.franke-4b7.workers.dev",
@@ -291,6 +292,7 @@ export default function HeroSection() {
         <>
             <SubscriptionModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
             <SurveyModal isOpen={isSurveyOpen} onClose={() => setIsSurveyOpen(false)} />
+            <TaskbarHeroPromoModal isBlocked={isModalOpen || isSurveyOpen || isDrawerOpen} />
 
             <section className="relative py-12 md:py-24 text-center px-4">
                 <div className="glow-effect -z-10"></div>
