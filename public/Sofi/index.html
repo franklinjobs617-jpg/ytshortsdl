@@ -3,335 +3,525 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Loans Made Easy | SoFi Official Partner</title>
+    <title>Find Your Best Loan Rate | Exclusive Financial Partner</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Playfair Display', 'serif'],
+                        body: ['Source Sans 3', 'sans-serif'],
+                    },
+                    colors: {
+                        cream: '#fef9f3',
+                        terracotta: { DEFAULT: '#c4734f', dark: '#8b4a35', light: '#e8a78b' },
+                        sage: '#7d9780',
+                        espresso: '#2d2420',
+                        clay: '#b8a59a',
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) forwards',
+                        'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
+                        'slide-in': 'slideIn 0.5s ease-out forwards',
+                        'shimmer': 'shimmer 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeUp: { from: { opacity:'0', transform:'translateY(24px)' }, to: { opacity:'1', transform:'translateY(0)' } },
+                        pulseSoft: { '0%,100%': { boxShadow:'0 0 0 0 rgba(196,115,79,0.3)' }, '50%': { boxShadow:'0 0 0 18px rgba(196,115,79,0)' } },
+                        slideIn: { from: { opacity:'0', transform:'translateX(30px)' }, to: { opacity:'1', transform:'translateX(0)' } },
+                        shimmer: { '0%,100%': { opacity:'0.5' }, '50%': { opacity:'1' } },
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --sofi-navy: #1E1656; /* 精准提取自官网深蓝 */
-            --sofi-teal: #00A3C4; /* 精准提取自官网亮青色 */
-            --sofi-light: #F7F9FC;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: #242424;
-            -webkit-font-smoothing: antialiased;
+        body { background-color: #fef9f3; -webkit-font-smoothing: antialiased; }
+
+        .text-gradient-warm {
+            background: linear-gradient(135deg, #c4734f 0%, #8b4a35 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
 
-        /* 官方按钮样式复刻 */
-        .btn-official {
-            background-color: var(--sofi-teal);
-            color: #ffffff;
-            font-weight: 700;
-            border-radius: 9999px; /* 官方是全圆角 */
-            transition: all 0.2s ease;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
+        .card-editorial {
+            background: #ffffff; border: 1px solid rgba(184,165,154,0.15);
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
         }
-        .btn-official:hover {
-            background-color: #008ba6;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 163, 196, 0.3);
+        .card-editorial:hover {
+            box-shadow: 0 28px 56px rgba(45,36,32,0.08);
+            transform: translateY(-6px); border-color: rgba(196,115,79,0.2);
         }
 
-        /* 互动选项卡样式 */
-        .selector-btn {
-            border: 1px solid #D1D5DB;
-            background-color: #ffffff;
-            color: #4B5563;
-            transition: all 0.2s;
+        .btn-terracotta {
+            background: #c4734f; color: #ffffff; font-weight: 600;
+            transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+            position: relative; overflow: hidden;
         }
-        .selector-btn:hover { border-color: var(--sofi-teal); }
-        .selector-btn.active {
-            border-color: var(--sofi-teal);
-            background-color: #F0FAFC;
-            color: var(--sofi-navy);
-            font-weight: 700;
-            box-shadow: 0 0 0 1px var(--sofi-teal);
+        .btn-terracotta:hover {
+            background: #8b4a35; transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(196,115,79,0.3);
         }
 
-        /* 官方输入滑块样式 */
-        input[type=range] {
-            -webkit-appearance: none; width: 100%; background: transparent;
-        }
+        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
         input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none; height: 24px; width: 24px;
+            -webkit-appearance: none; height: 26px; width: 26px;
             border-radius: 50%; background: #ffffff;
-            border: 2px solid var(--sofi-teal);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-            cursor: pointer; margin-top: -10px;
+            border: 3px solid #c4734f; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            cursor: pointer; margin-top: -11px;
         }
         input[type=range]::-webkit-slider-runnable-track {
             width: 100%; height: 4px; cursor: pointer;
-            background: #E5E7EB; border-radius: 2px;
+            background: #e8d5cc; border-radius: 2px;
         }
 
-        /* 隐藏类 */
-        .hidden-ui { display: none !important; }
-        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .purpose-btn {
+            border: 1px solid rgba(184,165,154,0.3); background: #ffffff;
+            color: #5c4a3e; transition: all 0.25s ease;
+        }
+        .purpose-btn:hover { border-color:#c4734f; background:#fef9f3; }
+        .purpose-btn.active {
+            border-color:#c4734f; background:#fdf3ed; color:#8b4a35; font-weight:600;
+        }
 
-        .tp-green { color: #00B67A; }
+        .hidden-ui { display: none !important; }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+        .faq-answer { max-height:0; overflow:hidden; transition:max-height 0.4s cubic-bezier(0.4,0,0.2,1),padding 0.4s ease; }
+        .faq-answer.open { max-height:250px; padding-top:0.75rem; padding-bottom:0.75rem; }
+
+        .comparison-table td { padding: 12px 16px; }
+        .comparison-table td:first-child { font-weight: 600; }
+
+        .dot-pattern { background-image: radial-gradient(rgba(125,151,128,0.08) 1px, transparent 1px); background-size: 20px 20px; }
     </style>
 </head>
-<body class="pb-24 lg:pb-0">
+<body class="font-body text-espresso pb-24 lg:pb-0">
 
-    <!-- 1. 极简 Header -->
-    <header class="w-full bg-white border-b border-gray-200 sticky top-0 z-50">
+    <!-- 🔔 Top Bar with Countdown -->
+    <div class="bg-espresso text-cream py-2.5 text-[10px] tracking-[0.2em] uppercase text-center font-semibold flex items-center justify-center gap-3 flex-wrap">
+        <span>Exclusive Partner Portal</span>
+        <span class="hidden sm:inline text-cream/20">|</span>
+        <span class="text-terracotta-light">Rates as low as 6.99% APR</span>
+        <span class="hidden sm:inline text-cream/20">|</span>
+        <span>Offer ends in <span class="text-cream font-bold font-mono" id="countdown">03:47:22</span></span>
+    </div>
+
+    <!-- 📰 Header -->
+    <header class="w-full bg-cream/90 backdrop-blur-md sticky top-0 z-50 border-b border-clay/10">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-1">
-                <!-- SoFi Logo 字体模拟 -->
-                <span class="text-3xl font-black tracking-tighter" style="color: var(--sofi-navy);">SoFi</span>
-                <div class="w-2 h-2 rounded-full mt-2" style="background-color: var(--sofi-teal);"></div>
+            <div class="font-display text-2xl font-bold tracking-tight text-espresso">
+                <span class="text-gradient-warm">Aureus</span>
             </div>
-            <div class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-600">
-                <span class="hover:text-black cursor-pointer">Products</span>
-                <span class="hover:text-black cursor-pointer">Rates</span>
-                <span class="hover:text-black cursor-pointer">Resources</span>
+            <div class="hidden md:flex items-center gap-8 text-xs font-semibold text-espresso/50 uppercase tracking-[0.12em]">
+                <span class="hover:text-espresso cursor-pointer transition-colors">Solutions</span>
+                <span class="hover:text-espresso cursor-pointer transition-colors">Resources</span>
+                <span class="hover:text-espresso cursor-pointer transition-colors">About</span>
             </div>
-            <a href="YOUR_OFFER_LINK_HERE" class="btn-official px-6 py-2 text-sm shadow-sm">View Your Rate</a>
+            <a href="YOUR_OFFER_LINK_HERE" class="btn-terracotta px-5 py-2.5 text-xs font-semibold tracking-wide uppercase shadow-sm">View Your Rate</a>
         </div>
     </header>
 
-    <!-- 2. Hero Section: 完美复刻官方海军蓝背景 -->
-    <section class="w-full relative px-6 py-12 lg:py-20" style="background-color: var(--sofi-navy);">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-            
-            <!-- 左侧：文案与权威背书 -->
-            <div class="lg:col-span-7 flex flex-col text-white">
-                <p class="text-xs font-bold tracking-[0.15em] uppercase text-yellow-400 mb-4">Personal Loans</p>
-                
-                <!-- 复刻截图标题 -->
-                <h1 class="text-4xl md:text-5xl lg:text-[64px] font-extrabold leading-[1.05] tracking-tight mb-6">
-                    <span style="color: var(--sofi-teal);">Low rates. No fees required.</span> <br>
-                    Personal loans made easy online.
+    <!-- ✨ Hero Section -->
+    <section class="w-full relative px-6 py-14 lg:py-24 bg-cream overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-terracotta/3 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-sage/4 rounded-full blur-[80px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center relative z-10">
+
+            <!-- Left: Copy -->
+            <div class="lg:col-span-7 flex flex-col">
+                <p class="text-[10px] font-bold tracking-[0.25em] uppercase text-terracotta mb-4">Personal Lending · Simplified</p>
+                <h1 class="font-display text-4xl md:text-5xl lg:text-[58px] font-bold leading-[1.08] tracking-tight mb-6 text-espresso">
+                    Low rates. <br>
+                    <span class="text-gradient-warm italic">Zero hidden fees.</span>
                 </h1>
-                
-                <p class="text-lg md:text-xl font-normal leading-relaxed mb-8 max-w-lg opacity-90">
-                    Get funds as soon as the same day you sign‡ with our quick, easy application process.
+                <p class="text-base md:text-lg font-light leading-relaxed mb-8 max-w-lg text-espresso/55">
+                    Get funded as soon as the same day you're approved. Our streamlined process makes borrowing effortless and transparent.
                 </p>
 
-                <!-- NerdWallet 奖章 (极强的信任转化元素) -->
-                <div class="bg-white rounded-lg p-4 flex items-center gap-4 w-max shadow-lg mb-8 text-black">
-                    <div class="border-r border-gray-200 pr-4">
-                        <p class="text-[10px] font-bold text-green-700 uppercase leading-tight">Best-Of<br>Awards<br><span class="text-lg">2026</span></p>
+                <!-- Trust bullets -->
+                <div class="flex flex-wrap gap-3 mb-8 max-w-lg">
+                    <span class="flex items-center gap-2 text-xs font-semibold text-espresso/55 bg-white border border-clay/15 rounded-full px-4 py-2">
+                        <svg class="w-3.5 h-3.5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> No origination fees
+                    </span>
+                    <span class="flex items-center gap-2 text-xs font-semibold text-espresso/55 bg-white border border-clay/15 rounded-full px-4 py-2">
+                        <svg class="w-3.5 h-3.5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Same-day funding
+                    </span>
+                    <span class="flex items-center gap-2 text-xs font-semibold text-espresso/55 bg-white border border-clay/15 rounded-full px-4 py-2">
+                        <svg class="w-3.5 h-3.5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> No prepayment penalty
+                    </span>
+                </div>
+
+                <!-- Award badge -->
+                <div class="bg-white p-4 border border-clay/15 flex items-center gap-4 w-max shadow-sm mb-6">
+                    <div class="border-r border-clay/15 pr-4">
+                        <p class="text-[9px] font-bold text-sage uppercase leading-tight">Award<br>Winner<br><span class="text-base font-display">2026</span></p>
                     </div>
                     <div>
-                        <p class="font-bold text-lg leading-tight" style="color: #00824D;">Best Personal Loan</p>
-                        <p class="text-sm font-medium text-gray-600">Excellent Credit</p>
+                        <p class="font-display font-bold text-lg text-espresso leading-tight">Best Personal Loan</p>
+                        <p class="text-xs font-medium text-espresso/45">Excellent Credit Tier</p>
                     </div>
                 </div>
-                
-                <p class="text-sm font-semibold flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                    Checking your rate will not affect your credit score†.
+
+                <p class="text-xs font-semibold flex items-center gap-2 text-espresso/45">
+                    <svg class="w-4 h-4 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Checking your rate will never affect your credit score.
                 </p>
             </div>
 
-            <!-- 右侧：高转化互动预审卡片 (The Hook) -->
+            <!-- Right: Calculator -->
             <div class="lg:col-span-5 relative z-10 w-full max-w-md mx-auto">
-                <div class="bg-white rounded-2xl p-8 shadow-[0_20px_60px_rgba(0,0,0,0.3)]">
-                    
-                    <div id="calculator-step">
-                        <h3 class="text-2xl font-extrabold text-gray-900 mb-2">Check Eligibility</h3>
-                        <p class="text-sm text-gray-500 mb-8">See your options in 60 seconds.</p>
+                <div class="bg-white shadow-[0_24px_64px_rgba(45,36,32,0.08)] border border-clay/10">
 
-                        <!-- 交互 1：借款金额 -->
+                    <div id="calculator-step" class="p-8">
+                        <h3 class="font-display text-2xl font-bold text-espresso mb-1">Explore Your Options</h3>
+                        <p class="text-xs text-espresso/45 mb-8 font-light">Personalized preview in under a minute.</p>
+
+                        <!-- Amount slider -->
                         <div class="mb-8">
                             <div class="flex justify-between items-end mb-4">
-                                <label class="text-xs font-bold text-gray-500 uppercase tracking-widest">I want to borrow</label>
-                                <span class="text-3xl font-extrabold text-gray-900" id="amount-text">$25,000</span>
+                                <label class="text-[10px] font-bold text-espresso/35 uppercase tracking-[0.15em]">Desired Amount</label>
+                                <span class="font-display text-3xl font-bold text-espresso" id="amount-text">$25,000</span>
                             </div>
                             <div class="relative pt-1 pb-2">
-                                <!-- 自定义滑块填充色 -->
-                                <div class="absolute left-0 top-1 h-1 rounded-l-full pointer-events-none" style="background-color: var(--sofi-teal);" id="slider-fill"></div>
+                                <div class="absolute left-0 top-1 h-1 rounded-l-full pointer-events-none bg-terracotta" id="slider-fill"></div>
                                 <input type="range" min="5000" max="100000" step="1000" value="25000" id="loan-slider" class="relative z-10">
                             </div>
-                            <div class="flex justify-between text-xs font-medium text-gray-400">
-                                <span>$5k</span><span>$100k</span>
+                            <div class="flex justify-between text-[10px] font-medium text-espresso/25">
+                                <span>$5,000</span><span>$100,000</span>
                             </div>
                         </div>
 
-                        <!-- 交互 2：微承诺按钮 (复刻官网 Screenshot 2 的用途) -->
+                        <!-- Purpose -->
                         <div class="mb-8">
-                            <label class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3 block">Loan Purpose</label>
+                            <label class="text-[10px] font-bold text-espresso/35 uppercase tracking-[0.15em] mb-3 block">Purpose</label>
                             <div class="grid grid-cols-2 gap-2" id="purpose-btns">
-                                <button onclick="selectOption(this)" class="selector-btn w-full py-3 px-2 rounded-lg text-sm font-semibold active">Debt Consolidation</button>
-                                <button onclick="selectOption(this)" class="selector-btn w-full py-3 px-2 rounded-lg text-sm font-semibold">Home Improvement</button>
-                                <button onclick="selectOption(this)" class="selector-btn w-full py-3 px-2 rounded-lg text-sm font-semibold">Major Purchase</button>
-                                <button onclick="selectOption(this)" class="selector-btn w-full py-3 px-2 rounded-lg text-sm font-semibold">Other</button>
+                                <button onclick="selectOption(this)" class="purpose-btn w-full py-3 px-2 text-xs font-medium active">Debt Consolidation</button>
+                                <button onclick="selectOption(this)" class="purpose-btn w-full py-3 px-2 text-xs font-medium">Home Improvement</button>
+                                <button onclick="selectOption(this)" class="purpose-btn w-full py-3 px-2 text-xs font-medium">Major Purchase</button>
+                                <button onclick="selectOption(this)" class="purpose-btn w-full py-3 px-2 text-xs font-medium">Other</button>
                             </div>
                         </div>
 
-                        <button onclick="processData()" class="btn-official w-full py-4 text-lg shadow-md hover:shadow-lg w-full">
-                            Find My Rate
+                        <button onclick="processData()" class="btn-terracotta w-full py-4 text-sm font-semibold tracking-wide uppercase shadow-sm">
+                            Find My Best Rate
                         </button>
                     </div>
 
-                    <!-- 处理动画 -->
-                    <div id="loading-step" class="hidden-ui text-center py-10">
-                        <div class="inline-block w-12 h-12 border-4 border-gray-100 border-t-[#00A3C4] rounded-full animate-spin mb-4"></div>
-                        <h4 class="text-lg font-bold text-gray-900 mb-2">Analyzing your profile...</h4>
-                        <p class="text-sm text-gray-500">Checking current lender rates</p>
+                    <!-- Processing -->
+                    <div id="loading-step" class="hidden-ui text-center py-12 px-8">
+                        <div class="inline-block w-10 h-10 border-[3px] border-clay/15 border-t-terracotta rounded-full animate-spin mb-4"></div>
+                        <h4 class="font-display text-lg font-bold text-espresso mb-2">Curating your options...</h4>
+                        <p class="text-xs text-espresso/45 font-light">Scanning current market rates</p>
                     </div>
 
-                    <!-- 最终转化按钮 -->
-                    <div id="final-step" class="hidden-ui text-center fade-in">
-                        <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    <!-- Result -->
+                    <div id="final-step" class="hidden-ui text-center fade-in p-8">
+                        <div class="w-14 h-14 bg-sage/15 text-sage rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
                         </div>
-                        <h4 class="text-2xl font-extrabold text-gray-900 mb-2">Great News!</h4>
-                        <p class="text-sm text-gray-600 mb-6">Based on your selections, you may qualify for our lowest rates. No credit score impact to view offers.</p>
-                        
-                        <!-- 【替换此处为你真实的 Affiliate Link】 -->
-                        <a href="YOUR_OFFER_LINK_HERE" class="btn-official w-full py-4 text-lg shadow-xl uppercase tracking-wide">
-                            View Official Rates ➔
+                        <h4 class="font-display text-2xl font-bold text-espresso mb-2">Excellent — You're Pre-Qualified</h4>
+                        <p class="text-xs text-espresso/55 mb-6 font-light leading-relaxed">Based on your selections, you may qualify for our most competitive rates. No impact to your credit score.</p>
+                        <a href="YOUR_OFFER_LINK_HERE" class="btn-terracotta w-full py-4 text-sm font-semibold tracking-wide uppercase inline-block shadow-sm">
+                            View Official Rates →
                         </a>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 3. 官方图标特征带 (1:1 提取自官网 Screenshot 1) -->
-    <section class="w-full bg-[var(--sofi-navy)] py-12 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="text-white">
-                <div class="w-10 h-10 rounded-full bg-[#00A3C4] flex items-center justify-center mb-4">
-                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
-                </div>
-                <h4 class="font-bold text-base mb-2">Low monthly payments</h4>
-                <p class="text-sm text-white/70 leading-relaxed font-light">Save big by consolidating high-rate debt to one fixed payment.</p>
+    <!-- 📊 Live Stats Counter -->
+    <section class="py-12 px-4 bg-white border-y border-clay/10">
+        <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div>
+                <div class="font-display text-3xl md:text-4xl font-bold text-gradient-warm mb-1">1.2M+</div>
+                <p class="text-espresso/30 text-xs uppercase tracking-[0.15em] font-semibold">Customers Funded</p>
             </div>
-            <div class="text-white">
-                <div class="w-10 h-10 rounded-full bg-[#00A3C4] flex items-center justify-center mb-4">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-                <h4 class="font-bold text-base mb-2">Get $5K to $100K</h4>
-                <p class="text-sm text-white/70 leading-relaxed font-light">Get funds as soon as the same day you sign‡ or we can pay off your credit card directly.</p>
+            <div>
+                <div class="font-display text-3xl md:text-4xl font-bold text-gradient-warm mb-1">$45B+</div>
+                <p class="text-espresso/30 text-xs uppercase tracking-[0.15em] font-semibold">In Loans Originated</p>
             </div>
-            <div class="text-white">
-                <div class="w-10 h-10 rounded-full bg-[#00A3C4] flex items-center justify-center mb-4">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                </div>
-                <h4 class="font-bold text-base mb-2">Direct Pay^</h4>
-                <p class="text-sm text-white/70 leading-relaxed font-light">We'll pay your credit card lender so you don't have to.</p>
+            <div>
+                <div class="font-display text-3xl md:text-4xl font-bold text-gradient-warm mb-1">4.8/5</div>
+                <p class="text-espresso/30 text-xs uppercase tracking-[0.15em] font-semibold">Customer Rating</p>
             </div>
-            <div class="text-white">
-                <div class="w-10 h-10 rounded-full bg-[#00A3C4] flex items-center justify-center mb-4">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
-                </div>
-                <h4 class="font-bold text-base mb-2">See rates now</h4>
-                <p class="text-sm text-white/70 leading-relaxed font-light">No impact to your credit score.† No commitment.</p>
+            <div>
+                <div class="font-display text-3xl md:text-4xl font-bold text-gradient-warm mb-1">6.99%</div>
+                <p class="text-espresso/30 text-xs uppercase tracking-[0.15em] font-semibold">Lowest APR Available</p>
             </div>
         </div>
     </section>
 
-    <!-- 4. Trustpilot 官方评论区复刻 (Screenshot 2) -->
-    <section class="w-full bg-[#F9FAFB] py-20 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-6">
+    <!-- 📰 As Featured In -->
+    <section class="py-10 px-4 bg-white border-b border-clay/10">
+        <p class="text-center text-espresso/15 text-[10px] uppercase tracking-[0.3em] font-bold mb-6">As Featured In</p>
+        <div class="flex flex-wrap items-center justify-center gap-8 md:gap-14">
+            <span class="text-espresso/15 font-display text-xl md:text-2xl font-bold tracking-wider hover:text-espresso/25 transition-colors">Forbes</span>
+            <span class="text-espresso/15 font-body text-lg md:text-xl font-bold italic hover:text-espresso/25 transition-colors">Bloomberg</span>
+            <span class="text-espresso/15 font-display text-xl md:text-2xl font-bold hover:text-espresso/25 transition-colors">THE WALL STREET JOURNAL</span>
+            <span class="text-espresso/15 font-body text-lg md:text-xl font-bold tracking-tight hover:text-espresso/25 transition-colors">CNBC</span>
+            <span class="text-espresso/15 font-display text-xl md:text-2xl font-bold hover:text-espresso/25 transition-colors">NERDWALLET</span>
+        </div>
+    </section>
+
+    <!-- 🔍 Rate Comparison Table -->
+    <section class="py-16 md:py-24 px-4 bg-cream">
+        <div class="max-w-4xl mx-auto">
             <div class="text-center mb-12">
-                <div class="flex justify-center items-center gap-2 mb-2">
-                    <span class="text-2xl font-bold text-gray-900">Rated 4.8 / 5 based on 10,785 reviews</span>
+                <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-sage">Why Choose Us</span>
+                <h2 class="font-display text-2xl md:text-3xl font-bold text-espresso mt-3">Compare & Save Thousands</h2>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full bg-white border border-clay/15 text-sm">
+                    <thead>
+                        <tr class="border-b border-clay/15 bg-cream/50">
+                            <th class="text-left py-4 px-5 font-display font-bold text-espresso text-base"></th>
+                            <th class="text-center py-4 px-5 font-bold text-terracotta text-sm uppercase tracking-wider border-l border-clay/10">Our Partner</th>
+                            <th class="text-center py-4 px-5 text-espresso/25 text-sm font-semibold uppercase tracking-wider border-l border-clay/10">Credit Cards</th>
+                            <th class="text-center py-4 px-5 text-espresso/25 text-sm font-semibold uppercase tracking-wider border-l border-clay/10">Traditional Banks</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-espresso/55">
+                        <tr class="border-b border-clay/5">
+                            <td class="py-3.5 px-5 font-semibold text-espresso/70">Average APR</td>
+                            <td class="text-center py-3.5 px-5 font-bold text-sage border-l border-clay/5">6.99% – 25.99%</td>
+                            <td class="text-center py-3.5 px-5 border-l border-clay/5">16.99% – 29.99%</td>
+                            <td class="text-center py-3.5 px-5 border-l border-clay/5">8.99% – 35.99%</td>
+                        </tr>
+                        <tr class="border-b border-clay/5 bg-cream/30">
+                            <td class="py-3.5 px-5 font-semibold text-espresso/70">Origination Fee</td>
+                            <td class="text-center py-3.5 px-5 font-bold text-sage border-l border-clay/5">$0</td>
+                            <td class="text-center py-3.5 px-5 border-l border-clay/5">3% – 5%</td>
+                            <td class="text-center py-3.5 px-5 border-l border-clay/5">1% – 8%</td>
+                        </tr>
+                        <tr class="border-b border-clay/5">
+                            <td class="py-3.5 px-5 font-semibold text-espresso/70">Funding Speed</td>
+                            <td class="text-center py-3.5 px-5 font-bold text-sage border-l border-clay/5">Same Day</td>
+                            <td class="text-center py-3.5 px-5 border-l border-clay/5">3–7 Days</td>
+                            <td class="text-center py-3.5 px-5 border-l border-clay/5">5–14 Days</td>
+                        </tr>
+                        <tr class="border-b border-clay/5 bg-cream/30">
+                            <td class="py-3.5 px-5 font-semibold text-espresso/70">Prepayment Penalty</td>
+                            <td class="text-center py-3.5 px-5 font-bold text-sage border-l border-clay/5">None</td>
+                            <td class="text-center py-3.5 px-5 border-l border-clay/5">N/A</td>
+                            <td class="text-center py-3.5 px-5 border-l border-clay/5">Often 2% – 5%</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3.5 px-5 font-semibold text-espresso/70">Credit Check</td>
+                            <td class="text-center py-3.5 px-5 font-bold text-sage border-l border-clay/5">Soft Pull</td>
+                            <td class="text-center py-3.5 px-5 border-l border-clay/5">Hard Pull</td>
+                            <td class="text-center py-3.5 px-5 border-l border-clay/5">Hard Pull</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-center mt-8">
+                <a href="YOUR_OFFER_LINK_HERE" class="btn-terracotta inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold tracking-wide uppercase shadow-sm">
+                    Lock In Your Rate Now →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🏆 Feature Ribbon -->
+    <section class="w-full bg-espresso py-16 relative overflow-hidden">
+        <div class="absolute inset-0 dot-pattern opacity-50"></div>
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+            <div class="text-cream">
+                <div class="w-11 h-11 bg-terracotta/20 flex items-center justify-center mb-4">
+                    <svg class="w-5 h-5 text-terracotta-light" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
                 </div>
-                <div class="flex justify-center items-center gap-1 font-bold text-lg">
-                    <span class="tp-green">★ Trustpilot</span>
+                <h4 class="font-display font-bold text-lg mb-2">Predictable Payments</h4>
+                <p class="text-xs text-cream/50 leading-relaxed font-light">Fixed monthly payments that fit your budget. No surprises, ever.</p>
+            </div>
+            <div class="text-cream">
+                <div class="w-11 h-11 bg-terracotta/20 flex items-center justify-center mb-4">
+                    <svg class="w-5 h-5 text-terracotta-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
+                <h4 class="font-display font-bold text-lg mb-2">$5K to $100K</h4>
+                <p class="text-xs text-cream/50 leading-relaxed font-light">Same-day funding available. We can even pay your creditors directly.</p>
+            </div>
+            <div class="text-cream">
+                <div class="w-11 h-11 bg-terracotta/20 flex items-center justify-center mb-4">
+                    <svg class="w-5 h-5 text-terracotta-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h4 class="font-display font-bold text-lg mb-2">Direct Pay</h4>
+                <p class="text-xs text-cream/50 leading-relaxed font-light">We handle your credit card payoffs so you don't have to lift a finger.</p>
+            </div>
+            <div class="text-cream">
+                <div class="w-11 h-11 bg-terracotta/20 flex items-center justify-center mb-4">
+                    <svg class="w-5 h-5 text-terracotta-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
+                </div>
+                <h4 class="font-display font-bold text-lg mb-2">Instant Rate Check</h4>
+                <p class="text-xs text-cream/50 leading-relaxed font-light">No credit score impact. No commitment. Just transparency.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🛡️ Security & Trust Badges -->
+    <section class="py-12 px-4 bg-white border-b border-clay/10">
+        <div class="max-w-4xl mx-auto text-center">
+            <p class="text-espresso/20 text-[10px] uppercase tracking-[0.25em] font-bold mb-8">Bank-Level Security & Compliance</p>
+            <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+                <div class="flex items-center gap-2 text-espresso/35 text-xs font-semibold">
+                    <svg class="w-5 h-5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    256-bit SSL Encrypted
+                </div>
+                <div class="flex items-center gap-2 text-espresso/35 text-xs font-semibold">
+                    <svg class="w-5 h-5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    SOC 2 Type II Certified
+                </div>
+                <div class="flex items-center gap-2 text-espresso/35 text-xs font-semibold">
+                    <svg class="w-5 h-5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                    CCPA & GDPR Compliant
+                </div>
+                <div class="flex items-center gap-2 text-espresso/35 text-xs font-semibold">
+                    <svg class="w-5 h-5 text-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Accredited Business
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 💬 Reviews -->
+    <section class="w-full bg-cream py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-14">
+                <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-sage">Trusted by Thousands</span>
+                <div class="flex justify-center items-center gap-2 mt-3 mb-2">
+                    <span class="flex text-terracotta">★★★★★</span>
+                    <span class="font-display text-3xl font-bold text-espresso">4.8 / 5</span>
+                </div>
+                <p class="text-espresso/35 text-sm">Based on 10,000+ verified reviews</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Review Card 1 -->
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                    <div class="flex tp-green text-sm mb-3">★★★★★</div>
-                    <h4 class="font-bold text-gray-900 mb-2">I got paid 2 days early...</h4>
-                    <p class="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">The loan process was incredibly smooth. Checked my rate, signed the documents, and the funds were in my account almost immediately to consolidate my cards.</p>
-                    <p class="text-xs text-gray-400 font-medium">Ronald Renfro, 4 days ago</p>
+                <div class="card-editorial p-8">
+                    <div class="flex text-terracotta text-sm mb-5">★★★★★</div>
+                    <p class="font-display text-xl font-bold text-espresso mb-3">"Funded in 24 hours."</p>
+                    <p class="text-espresso/50 text-sm leading-relaxed mb-6 font-light">The application was remarkably smooth. I checked my rate, reviewed the terms, and the funds arrived the next morning. Exceptional experience.</p>
+                    <div class="flex items-center gap-3 border-t border-clay/10 pt-5">
+                        <div class="w-9 h-9 bg-sage/10 flex items-center justify-center font-display font-bold text-sage text-[10px]">RR</div>
+                        <div><p class="text-[10px] font-bold uppercase tracking-[0.1em] text-espresso">Ronald R.</p><p class="text-[8px] text-terracotta/60 font-semibold">Verified · 4 days ago</p></div>
+                    </div>
                 </div>
-                <!-- Review Card 2 -->
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                    <div class="flex tp-green text-sm mb-3">★★★★★</div>
-                    <h4 class="font-bold text-gray-900 mb-2">This company is helpful!</h4>
-                    <p class="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">The customer service representative guided me through my home improvement loan. Zero hidden fees and exact transparency on my monthly payments.</p>
-                    <p class="text-xs text-gray-400 font-medium">Adriyanna Odum, April 22</p>
+                <div class="card-editorial p-8">
+                    <div class="flex text-terracotta text-sm mb-5">★★★★★</div>
+                    <p class="font-display text-xl font-bold text-espresso mb-3">"Genuinely helpful."</p>
+                    <p class="text-espresso/50 text-sm leading-relaxed mb-6 font-light">The advisor walked me through my renovation loan step by step. Complete clarity on fees and monthly payments from day one.</p>
+                    <div class="flex items-center gap-3 border-t border-clay/10 pt-5">
+                        <div class="w-9 h-9 bg-sage/10 flex items-center justify-center font-display font-bold text-sage text-[10px]">AO</div>
+                        <div><p class="text-[10px] font-bold uppercase tracking-[0.1em] text-espresso">Adriyanna O.</p><p class="text-[8px] text-terracotta/60 font-semibold">Verified · April 22</p></div>
+                    </div>
                 </div>
-                <!-- Review Card 3 -->
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                    <div class="flex tp-green text-sm mb-3">★★★★★</div>
-                    <h4 class="font-bold text-gray-900 mb-2">My fav bank ✌️</h4>
-                    <p class="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">Soft pull to see my rates was a huge plus. It allowed me to shop around without hurting my credit, and SoFi had the best rate by far.</p>
-                    <p class="text-xs text-gray-400 font-medium">Mary A., April 20</p>
+                <div class="card-editorial p-8">
+                    <div class="flex text-terracotta text-sm mb-5">★★★★★</div>
+                    <p class="font-display text-xl font-bold text-espresso mb-3">"Soft pull was key."</p>
+                    <p class="text-espresso/50 text-sm leading-relaxed mb-6 font-light">Being able to browse rates without affecting my credit gave me total confidence. They offered the most competitive terms by far.</p>
+                    <div class="flex items-center gap-3 border-t border-clay/10 pt-5">
+                        <div class="w-9 h-9 bg-sage/10 flex items-center justify-center font-display font-bold text-sage text-[10px]">MA</div>
+                        <div><p class="text-[10px] font-bold uppercase tracking-[0.1em] text-espresso">Mary A.</p><p class="text-[8px] text-terracotta/60 font-semibold">Verified · April 20</p></div>
+                    </div>
                 </div>
             </div>
-            
-            <p class="text-center text-[10px] text-gray-400 mt-8 max-w-4xl mx-auto leading-relaxed">
-                The savings and experiences of members herein may not be representative of the experiences of all members. Savings are not guaranteed and will vary, based on your unique situation and other factors.
-            </p>
         </div>
     </section>
 
-    <!-- 5. 底部合规与提示 -->
-    <footer class="bg-white py-12 px-6 border-t border-gray-200 text-center">
-        <p class="text-[10px] text-gray-500 font-medium max-w-4xl mx-auto leading-relaxed mb-6">
-            †To check the rates and terms you qualify for, SoFi conducts a soft credit pull that will not affect your credit score. However, if you choose a product and continue your application, we will request your full credit report from one or more consumer reporting agencies, which is considered a hard credit pull and may affect your credit.
+    <!-- ❓ FAQ -->
+    <section class="py-20 px-4 bg-white">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-sage">Common Questions</span>
+                <h2 class="font-display text-2xl md:text-3xl font-bold text-espresso mt-3">Everything you need to know.</h2>
+            </div>
+            <div class="space-y-3">
+                <div class="card-editorial overflow-hidden">
+                    <button class="w-full px-6 py-5 flex items-center justify-between text-left" onclick="toggleFAQ(this)">
+                        <span class="font-semibold text-espresso/75 text-sm pr-4">Will checking my rate affect my credit score?</span>
+                        <svg class="w-5 h-5 text-terracotta shrink-0 transition-transform duration-300 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer px-6"><p class="text-espresso/50 text-sm leading-relaxed font-light">No — checking your rate triggers only a soft credit inquiry, which is visible to you alone and has zero impact on your credit score. A hard inquiry only occurs with your explicit consent if you choose to formally apply.</p></div>
+                </div>
+                <div class="card-editorial overflow-hidden">
+                    <button class="w-full px-6 py-5 flex items-center justify-between text-left" onclick="toggleFAQ(this)">
+                        <span class="font-semibold text-espresso/75 text-sm pr-4">How fast can I receive the funds?</span>
+                        <svg class="w-5 h-5 text-terracotta shrink-0 transition-transform duration-300 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer px-6"><p class="text-espresso/50 text-sm leading-relaxed font-light">Many customers receive funds as soon as the same business day after approval. The exact timing depends on your bank's processing schedule, but we prioritize speed at every step of the process.</p></div>
+                </div>
+                <div class="card-editorial overflow-hidden">
+                    <button class="w-full px-6 py-5 flex items-center justify-between text-left" onclick="toggleFAQ(this)">
+                        <span class="font-semibold text-espresso/75 text-sm pr-4">Are there any hidden fees?</span>
+                        <svg class="w-5 h-5 text-terracotta shrink-0 transition-transform duration-300 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer px-6"><p class="text-espresso/50 text-sm leading-relaxed font-light">Absolutely not. There are zero origination fees, zero prepayment penalties, and zero late fees. The rate you see is the rate you get — complete transparency from application to final payment.</p></div>
+                </div>
+                <div class="card-editorial overflow-hidden">
+                    <button class="w-full px-6 py-5 flex items-center justify-between text-left" onclick="toggleFAQ(this)">
+                        <span class="font-semibold text-espresso/75 text-sm pr-4">What can I use the loan for?</span>
+                        <svg class="w-5 h-5 text-terracotta shrink-0 transition-transform duration-300 faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div class="faq-answer px-6"><p class="text-espresso/50 text-sm leading-relaxed font-light">Our loans are versatile — popular uses include debt consolidation, home renovations, major purchases, medical expenses, and life events like weddings. The funds are yours to use as you see fit.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🎯 Final CTA -->
+    <section class="py-20 px-4 bg-cream relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-[350px] h-[350px] bg-terracotta/3 rounded-full blur-[120px]"></div>
+        <div class="max-w-2xl mx-auto text-center relative z-10">
+            <span class="text-terracotta text-[11px] font-bold uppercase tracking-[0.25em] inline-block px-4 py-1.5 border border-terracotta/20 rounded-full mb-8 animate-pulse-soft">Limited Time Rate</span>
+            <h2 class="font-display text-[2.2rem] md:text-[3rem] font-bold text-espresso mb-6 leading-tight">
+                Your best rate <br><span class="text-gradient-warm italic">is waiting.</span>
+            </h2>
+            <p class="text-espresso/45 text-base mb-10 max-w-md mx-auto font-light leading-relaxed">
+                Takes 60 seconds. No credit impact. Zero commitment.
+            </p>
+            <a href="YOUR_OFFER_LINK_HERE" class="btn-terracotta inline-flex items-center gap-3 px-12 py-5 text-lg font-bold tracking-wide uppercase shadow-md animate-pulse-soft">
+                View My Personalized Rate →
+            </a>
+        </div>
+    </section>
+
+    <!-- 📝 Footer -->
+    <footer class="bg-espresso py-14 px-6 text-center">
+        <p class="text-[9px] text-cream/20 font-light max-w-3xl mx-auto leading-relaxed mb-6">
+            Checking your rate triggers a soft credit inquiry, visible only to you. A hard inquiry may be performed with your consent upon formal application. All loans subject to credit approval. Terms and conditions apply.
         </p>
-        <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">
-            © 2024 Independent Promotional Partner Portal
-        </p>
+        <p class="text-[9px] text-cream/15 uppercase tracking-[0.2em] font-semibold">© 2024 Independent Promotional Partner Portal</p>
     </footer>
 
-    <!-- 6. 移动端“吸金”浮动按钮 -->
-    <div class="lg:hidden fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-md border-t border-gray-200 p-4 z-50 shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
-        <!-- 【替换此处为你真实的 Affiliate Link】 -->
-        <a href="YOUR_OFFER_LINK_HERE" class="btn-official w-full py-4 text-base shadow-lg tracking-wide">
-            View Your Rate ➔
+    <!-- 📱 Mobile Sticky -->
+    <div class="lg:hidden fixed bottom-0 left-0 w-full bg-white/97 backdrop-blur-xl border-t border-clay/10 p-4 z-50">
+        <a href="YOUR_OFFER_LINK_HERE" class="btn-terracotta w-full py-4 text-sm font-semibold tracking-wide uppercase shadow-md flex items-center justify-center gap-2">
+            View My Personalized Rate →
         </a>
-        <p class="text-[10px] text-center font-bold text-gray-500 mt-2">
-            No Impact to Credit Score†
-        </p>
+        <p class="text-[9px] text-center font-medium text-espresso/25 mt-2 uppercase tracking-[0.1em]">No Impact to Credit Score</p>
     </div>
 
-    <!-- 前端交互逻辑 -->
     <script>
-        // 1. 金额滑块逻辑 (原生滑动色彩填充)
-        const slider = document.getElementById('loan-slider');
-        const amountText = document.getElementById('amount-text');
-        const sliderFill = document.getElementById('slider-fill');
+        // Countdown
+        (function(){const e=document.getElementById('countdown');if(!e)return;let t=3*3600+47*60+22;function n(){const h=Math.floor(t/3600),m=Math.floor((t%3600)/60),s=t%60;e.textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;if(t>0){t--;setTimeout(n,1e3)}}n();})();
 
-        function updateSlider() {
-            const val = parseInt(slider.value);
-            amountText.innerText = '$' + val.toLocaleString();
-            // 计算百分比以填充青色背景
-            const min = parseInt(slider.min);
-            const max = parseInt(slider.max);
-            const percent = ((val - min) / (max - min)) * 100;
-            sliderFill.style.width = percent + '%';
-        }
-        
-        slider.addEventListener('input', updateSlider);
-        updateSlider(); // 初始化
+        // Slider
+        const slider=document.getElementById('loan-slider'),amountText=document.getElementById('amount-text'),sliderFill=document.getElementById('slider-fill');
+        function updateSlider(){const v=parseInt(slider.value);amountText.innerText='$'+v.toLocaleString();const p=((v-parseInt(slider.min))/(parseInt(slider.max)-parseInt(slider.min)))*100;sliderFill.style.width=p+'%';}
+        slider.addEventListener('input',updateSlider);updateSlider();
 
-        // 2. 目的按钮单选逻辑
-        function selectOption(btn) {
-            const buttons = document.querySelectorAll('#purpose-btns .selector-btn');
-            buttons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }
+        function selectOption(b){document.querySelectorAll('#purpose-btns .purpose-btn').forEach(e=>e.classList.remove('active'));b.classList.add('active');}
 
-        // 3. 模拟审核动画逻辑
-        function processData() {
-            document.getElementById('calculator-step').classList.add('hidden-ui');
-            document.getElementById('loading-step').classList.remove('hidden-ui');
-            document.getElementById('loading-step').classList.add('fade-in');
+        function processData(){document.getElementById('calculator-step').classList.add('hidden-ui');document.getElementById('loading-step').classList.remove('hidden-ui');document.getElementById('loading-step').classList.add('fade-in');setTimeout(()=>{document.getElementById('loading-step').classList.add('hidden-ui');document.getElementById('final-step').classList.remove('hidden-ui');},1800);}
 
-            // 1.5秒后显示通过，并展示最终官方链接
-            setTimeout(() => {
-                document.getElementById('loading-step').classList.add('hidden-ui');
-                document.getElementById('final-step').classList.remove('hidden-ui');
-            }, 1800);
-        }
+        // FAQ
+        function toggleFAQ(b){const a=b.nextElementSibling,i=b.querySelector('.faq-icon'),o=a.classList.contains('open');document.querySelectorAll('.faq-answer.open').forEach(e=>e.classList.remove('open'));document.querySelectorAll('.faq-icon').forEach(e=>e.style.transform='rotate(0deg)');if(!o){a.classList.add('open');i.style.transform='rotate(180deg)';}}
     </script>
 </body>
 </html>
