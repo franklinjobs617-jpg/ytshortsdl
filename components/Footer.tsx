@@ -67,6 +67,7 @@ const getFooterLinks = () => [
             { labelKey: "genPrintable", href: "https://genprintable.com/?utm_source=ytshortsdl&utm_medium=referral", target: "_blank", rel: "noopener" },
             { labelKey: "aiClothesChangers", href: "https://aiclotheschangers.app/?utm_source=ytshortsdl&utm_medium=referral", target: "_blank", rel: "noopener" },
             { labelKey: "gridMaker", href: "https://gridmakeronline.com/?utm_source=ytshortsdl&utm_medium=referral", target: "_blank", rel: "noopener" },
+            { labelKey: "bombananaOnline", href: "https://bombanana.online/", target: "_blank", rel: "noopener" },
         ],
     },
 ];
