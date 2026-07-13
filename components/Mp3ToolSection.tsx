@@ -11,6 +11,8 @@ import { saveAs as fileSaveAs } from "file-saver";
 import SubscriptionModal from "@/components/SubscriptionModal";
 import { useToast } from "@/components/ToastContext";
 import { trackEvent, GA_EVENTS } from '@/lib/gtag'; // 引入埋点
+import YtVidHubDownloadSuccessModal from '@/components/YtVidHubDownloadSuccessModal';
+import { shouldShowDownloadSuccessPromo } from '@/lib/ytvidhub-promo';
 
 // 匹配后端返回的简化数据结构
 interface VideoData {
@@ -33,6 +35,7 @@ export default function Mp3ToolSection() {
     const [downloadProgress, setDownloadProgress] = useState(0);
     const [videoData, setVideoData] = useState<VideoData | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [isYtVidHubSuccessOpen, setIsYtVidHubSuccessOpen] = useState(false);
 
     const { addToast } = useToast();
 
@@ -116,6 +119,9 @@ export default function Mp3ToolSection() {
                 // 埋点：下载成功
                 trackEvent(GA_EVENTS.F_DOWNLOAD_SUCCESS, { file_type: 'mp3' });
                 addToast("Downloaded successfully", "success");
+                if (shouldShowDownloadSuccessPromo()) {
+                    setTimeout(() => setIsYtVidHubSuccessOpen(true), 1200);
+                }
 
                 const contentLength = response.headers.get('content-length');
                 const totalSize = contentLength ? parseInt(contentLength, 10) : 0;
@@ -174,6 +180,7 @@ export default function Mp3ToolSection() {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
             />
+            <YtVidHubDownloadSuccessModal isOpen={isYtVidHubSuccessOpen} onClose={() => setIsYtVidHubSuccessOpen(false)} />
 
             <div className="glow-effect -z-10"></div>
 

@@ -82,7 +82,7 @@
     "termsOfService": "Términos de Servicio",
     "description": "El sitio #1 para bajar videos de youtube. Usa nuestro convertidor YouTube a MP4, permite descargar youtube shorts gratis y online. Rápido y seguro.",
     "allRightsReserved": "Todos los derechos reservados.",
-     "partners": "Socios",
+    "partners": "Socios",
     "removerMarca": "Eliminador de marcas de agua",
     "connectTheDots": "Unir los puntos",
     "ambigramGenerator": "Generador de ambigramas",
@@ -121,9 +121,9 @@
     "aiScriptGenerator": "Generador de Guiones IA"
   },
   "banner": {
-    "aiTool": "Guia de juegos",
-    "removeWatermark": "Antes de comprar o jugar, consulta primero la guia.",
-    "tryFree": "Ver guias"
+    "aiTool": "Herramienta IA gratis",
+    "removeWatermark": "¿Tambien necesitas subtitulos de YouTube? Descarga SRT/VTT/TXT + resumenes IA gratis.",
+    "tryFree": "Probar YTVidHub"
   },
   "toast": {
     "downloadedSuccessfully": "Video descargado con éxito",
@@ -257,7 +257,11 @@
       "ai_script_label": "Guion Viral Optimizado",
       "ai_script_content": "¡PARA de tirar tus botellas! 🛑 Truco genial de 5 segundos. 🍿 <br /><br /> 1️⃣ Corta la tapa.<br /> 2️⃣ Desliza.<br /> 3️⃣ Cierra.<br /><br /> ¡Boom! 🔒 ¡Sígueme para más! 🔥",
       "cta_button": "Prueba el Generador IA",
-      "badges": ["SEO Optimizado", "Viral", "Rápido"]
+      "badges": [
+        "SEO Optimizado",
+        "Viral",
+        "Rápido"
+      ]
     },
     "creator_suite": {
       "title": "Ve Más Allá de Descargar Videos YouTube",

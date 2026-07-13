@@ -59,6 +59,12 @@ export const GA_EVENTS = {
     UI_SURVEY_VIEW: 'ui_survey_modal_view',   // 问卷弹出
     UI_SURVEY_SUBMIT: 'ui_survey_submit',     // 提交问卷
     UI_SURVEY_SKIP: 'ui_survey_skip',         // 关闭/跳过问卷
+
+    // === YTVidHub 站外引流 (Cross-promo to ytvidhub.com) ===
+    // placement 参数取值: 'entry_modal' | 'download_success_modal' | 'header_banner'
+    YTVIDHUB_PROMO_VIEW: 'ytvidhub_promo_view',       // 弹窗/条幅展示曝光
+    YTVIDHUB_PROMO_CLICK: 'ytvidhub_promo_click',     // 点击跳转到 ytvidhub.com
+    YTVIDHUB_PROMO_DISMISS: 'ytvidhub_promo_dismiss', // 关闭/忽略
 } as const;
 
 /**

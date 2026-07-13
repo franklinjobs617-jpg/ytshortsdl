@@ -17,7 +17,9 @@ import { trackEvent, GA_EVENTS } from "@/lib/gtag";
 import { useTranslations } from 'next-intl';
 import Image from "next/image";
 import Script from "next/script";
-import TaskbarHeroPromoModal from "@/components/TaskbarHeroPromoModal";
+import YtVidHubPromoModal from "@/components/YtVidHubPromoModal";
+import YtVidHubDownloadSuccessModal from "@/components/YtVidHubDownloadSuccessModal";
+import { shouldShowDownloadSuccessPromo } from "@/lib/ytvidhub-promo";
 const WORKER_URLS = [
     "https://dry-water-d2f3.franke-4b7.workers.dev",
     "https://throbbing-breeze-b608.franke-4b7.workers.dev",
@@ -72,6 +74,7 @@ export default function HeroSection() {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [selectedVideo, setSelectedVideo] = useState<any>(null);
     const [isSurveyOpen, setIsSurveyOpen] = useState(false);
+    const [isYtVidHubSuccessOpen, setIsYtVidHubSuccessOpen] = useState(false);
 
     // 记录每张卡片选择的清晰度，默认为 SD
     const [selectedQualities, setSelectedQualities] = useState<Record<number, Quality>>({});
@@ -93,11 +96,20 @@ export default function HeroSection() {
 
     const handleSuccessfulDownloadTrigger = () => {
         const hasDoneSurvey = localStorage.getItem(`survey_done_${user?.id}`);
-        if (isLoggedIn && !hasDoneSurvey) {
+        const willShowSurvey = isLoggedIn && !hasDoneSurvey;
+
+        if (willShowSurvey) {
             setTimeout(() => {
                 setIsSurveyOpen(true);
                 trackEvent(GA_EVENTS.UI_SURVEY_VIEW);
             }, 2000);
+            return; // Don't stack the ytvidhub promo on top of the survey this round.
+        }
+
+        if (shouldShowDownloadSuccessPromo()) {
+            setTimeout(() => {
+                setIsYtVidHubSuccessOpen(true);
+            }, 1200);
         }
     };
 
@@ -292,7 +304,8 @@ export default function HeroSection() {
         <>
             <SubscriptionModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
             <SurveyModal isOpen={isSurveyOpen} onClose={() => setIsSurveyOpen(false)} />
-            <TaskbarHeroPromoModal isBlocked={isModalOpen || isSurveyOpen || isDrawerOpen} />
+            <YtVidHubPromoModal isBlocked={isModalOpen || isSurveyOpen || isDrawerOpen || isYtVidHubSuccessOpen} />
+            <YtVidHubDownloadSuccessModal isOpen={isYtVidHubSuccessOpen} onClose={() => setIsYtVidHubSuccessOpen(false)} />
 
             <section className="relative py-12 md:py-24 text-center px-4">
                 <div className="glow-effect -z-10"></div>

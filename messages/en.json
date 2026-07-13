@@ -121,9 +121,9 @@
     "aiScriptGenerator": "AI Script Generator"
   },
   "banner": {
-    "aiTool": "Game Guide",
-    "removeWatermark": "Before you buy or play, check the guide first.",
-    "tryFree": "Check Guides"
+    "aiTool": "Free AI Tool",
+    "removeWatermark": "Need YouTube subtitles too? Download SRT/VTT/TXT + AI summaries free.",
+    "tryFree": "Try YTVidHub"
   },
   "toast": {
     "downloadedSuccessfully": "Downloaded successfully",
@@ -132,7 +132,7 @@
     "zipFailed": "ZIP failed",
     "batchZipSuccess": "Batch ZIP success",
     "pleaseEnterAUrl": "Please enter a URL"
-  }, 
+  },
   "staticContent": {
     "guide": {
       "title": "Simple 3-Step Guide to Download YouTube Videos & Shorts",
@@ -257,7 +257,11 @@
       "ai_script_label": "AI-Optimized Viral Script",
       "ai_script_content": "STOP throwing away your plastic bottles! 🛑 Here is a genius 5-second hack to keep your snacks fresh forever. 🍿 <br /><br /> 1️⃣ Cut the cap section.<br /> 2️⃣ Slide it over your bag.<br /> 3️⃣ Twist the lid shut.<br /><br /> Boom! Perfectly sealed. 🔒 Follow for more life-changing creator tips! 🔥",
       "cta_button": "Try AI Script Generator Now",
-      "badges": ["SEO Optimized", "Re-hooked Intro", "High Readability"]
+      "badges": [
+        "SEO Optimized",
+        "Re-hooked Intro",
+        "High Readability"
+      ]
     },
     "creator_suite": {
       "title": "Go Beyond Downloading with AI",
@@ -309,15 +313,7 @@
       "pro_badge": "PRO FEATURE",
       "remix_button": "🚀 One-Click Script Remix"
     }
-  } ,
-
-
-
-
-
-
-
-
+  },
   "pricing": {
     "pricingPlans": "Pricing Plans",
     "selectBestPlan": "Select the best plan for\n your creativity",

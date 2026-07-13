@@ -121,9 +121,9 @@
     "aiScriptGenerator": "AI स्क्रिप्ट जनरेटर"
   },
   "banner": {
-    "aiTool": "Game Guide",
-    "removeWatermark": "Before you buy or play, check the guide first.",
-    "tryFree": "Check Guides"
+    "aiTool": "मुफ्त AI टूल",
+    "removeWatermark": "YouTube सबटाइटल भी चाहिए? SRT/VTT/TXT + AI सारांश मुफ्त डाउनलोड करें।",
+    "tryFree": "YTVidHub आज़माएं"
   },
   "toast": {
     "downloadedSuccessfully": "सफलतापूर्वक डाउनलोड हो गया",
@@ -257,7 +257,11 @@
       "ai_script_label": "AI-ऑप्टिमाइज़्ड वायरल स्क्रिप्ट",
       "ai_script_content": "बोतलों को फेंकना बंद करें! 🛑 यहाँ एक जीनियस 5-सेकंड का हैक है। 🍿 <br /><br /> 1️⃣ कैप काटें।<br /> 2️⃣ इसे बैग पर स्लाइड करें।<br /> 3️⃣ सील करें।<br /><br /> बूम! ताज़गी लॉक। 🔒 ऐसे और टिप्स के लिए फॉलो करें! 🔥",
       "cta_button": "अब AI स्क्रिप्ट जनरेटर आज़माएं",
-      "badges": ["SEO ऑप्टिमाइज़्ड", "Viral Hook", "High Readability"]
+      "badges": [
+        "SEO ऑप्टिमाइज़्ड",
+        "Viral Hook",
+        "High Readability"
+      ]
     },
     "creator_suite": {
       "title": "YouTube Shorts Downloader से कहीं अधिक",
