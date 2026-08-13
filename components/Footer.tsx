@@ -68,6 +68,7 @@ const getFooterLinks = () => [
             { labelKey: "aiClothesChangers", href: "https://aiclotheschangers.app/?utm_source=ytshortsdl&utm_medium=referral", target: "_blank", rel: "noopener" },
             { labelKey: "gridMaker", href: "https://gridmakeronline.com/?utm_source=ytshortsdl&utm_medium=referral", target: "_blank", rel: "noopener" },
             { labelKey: "bombananaOnline", href: "https://bombanana.online/", target: "_blank", rel: "noopener" },
+            { labelKey: "youtubeTranscriptGenerator", href: "https://yttotext.com/", target: "_blank", rel: "follow noopener" },
         ],
     },
 ];
@@ -109,6 +110,7 @@ const Footer = () => {
                                         <Link
                                             href={link.href}
                                             target={'target' in link ? link.target : "_self"}
+                                            rel={'rel' in link ? link.rel : undefined}
                                             className="hover:text-red-500 transition-colors text-sm"
                                         >
                                             {t(link.labelKey)}
